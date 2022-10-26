@@ -20,7 +20,6 @@
 import { IonContent, IonHeader, IonPage, IonToolbar } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import NavBar from '../components/NavBar.vue'
-import TopNav from '../components/TopNav.vue'
 
 export default defineComponent({
   name: 'HomePage',
@@ -29,8 +28,7 @@ export default defineComponent({
     IonHeader,
     IonPage,
     IonToolbar,
-    NavBar,
-    TopNav
+    NavBar
   }
 });
 </script>

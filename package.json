@@ -3,11 +3,13 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "client": "vue-cli-service serve",
+    "server": "node server.js",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "dev": "concurrently \"npm run client\" \"npm run server\""
   },
   "dependencies": {
     "@capacitor/app": "4.1.0",
@@ -18,10 +20,16 @@
     "@ionic/vue": "^6.0.0",
     "@ionic/vue-router": "^6.0.0",
     "@popperjs/core": "^2.11.6",
+    "body-parser": "^1.20.1",
     "bootstrap": "^5.2.2",
     "bootstrap-icons": "^1.9.1",
+    "concurrently": "^7.5.0",
     "core-js": "^3.6.5",
-    "ionicons": "^6.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.25.3",
     "vue": "^3.2.21",
     "vue-router": "^4.0.12"
   },
