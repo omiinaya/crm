@@ -1,6 +1,6 @@
 const config = {
   appId: 'io.ionic.starter',
-  appName: 'myApp',
+  appName: 'mmit',
   webDir: 'dist',
   bundledWebRuntime: false
 };

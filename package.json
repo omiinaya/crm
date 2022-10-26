@@ -1,5 +1,5 @@
 {
-  "name": "myApp",
+  "name": "mmit",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -42,5 +42,5 @@
     "jest": "^27.3.1",
     "ts-jest": "^27.0.7"
   },
-  "description": "An Ionic project"
+  "description": "An MMIT project"
 }
