@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row test">
     <div class="col-1-0 offset-1 topBar">
       <div>Mobile Me IT Inc.</div>
     </div>
@@ -9,7 +9,6 @@
   </div>
   <div class="row">
     <div class="col-1">
-
     </div>
     <div class="col-0-5 nav-item text-center" v-for="(link, index) in links" :key="link + index">
       <a class="nav-link active" aria-current="page" href="#!">
@@ -46,6 +45,7 @@ export default {
 </script>
 
 <style>
+
 .search {
   padding-left: 0 !important;
   padding-right: 0 !important;

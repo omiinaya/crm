@@ -1,10 +1,11 @@
 
 const MYSQL = require('mysql2')
-const CONFIG = { 
-    host: process.env.HOST, 
-    port: process.env.DB_PORT, 
-    user: process.env.USER, 
-    password: process.env.PASSWORD }
+const CONFIG = {
+    host: process.env.HOST,
+    port: process.env.DB_PORT,
+    user: process.env.USER,
+    password: process.env.PASSWORD
+}
 
 const connection = MYSQL.createConnection(CONFIG);
 connection.query(`CREATE DATABASE IF NOT EXISTS \`${process.env.DB}\`;`);
@@ -22,7 +23,22 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.User = require("./user.models.js")(sequelize, Sequelize);
-db.NavItem = require("./navItem.models.js")(sequelize, Sequelize);
+db.user = require("./user.model.js")(sequelize, Sequelize);
+db.role = require("./role.model.js")(sequelize, Sequelize);
+db.NavItem = require("./navItem.model.js")(sequelize, Sequelize);
+
+db.user.belongsToMany(db.role, {
+    through: "user_roles",
+    foreignKey: "userId",
+    otherKey: "roleId"
+});
+
+db.role.belongsToMany(db.user, {
+    through: "user_roles",
+    foreignKey: "roleId",
+    otherKey: "userId"
+});
+
+db.ROLES = ["user", "admin", "moderator"];
 
 module.exports = db;

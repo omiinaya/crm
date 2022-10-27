@@ -14,11 +14,31 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to bezkoder application." });
 });
 
-db.sequelize.sync(/*{ force: true }*/).then(() => {
+db.sequelize.sync({ force: true }).then(() => {
   console.log("Drop and re-sync db.");
+  initial()
 });
 
 require("./routes/navItem.routes")(app);
+
+const Role = db.role;
+
+function initial() {
+  Role.create({
+    id: 1,
+    name: "user"
+  });
+ 
+  Role.create({
+    id: 2,
+    name: "moderator"
+  });
+ 
+  Role.create({
+    id: 3,
+    name: "admin"
+  });
+}
 
 // set port, listen for requests
 const PORT = process.env.SERVER || 8080;
