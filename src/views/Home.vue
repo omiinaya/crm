@@ -2,7 +2,6 @@
   <ion-page>
     <ion-header :translucent="true">
       <ion-toolbar>
-        <TopNav />
         <NavBar />
       </ion-toolbar>
     </ion-header>
