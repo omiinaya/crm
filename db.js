@@ -14,7 +14,6 @@ const sequelize = new Sequelize(process.env.DB, process.env.USER, process.env.PA
     host: process.env.HOST,
     dialect: process.env.DIALECT,
     operatorsAliases: 0,
-
     pool: { max: 5, min: 0, acquire: 30000, idle: 10000 }
 });
 
@@ -24,5 +23,6 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.User = require("./models/user.models.js")(sequelize, Sequelize);
+db.NavItem = require("./models/navItem.models.js")(sequelize, Sequelize);
 
 module.exports = db;

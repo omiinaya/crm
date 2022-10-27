@@ -92,7 +92,15 @@ export default {
     ]
   }),
   created() { },
-  methods: {}
+  methods: {
+    async getNavItems() {
+      //const url = `${this.server}/api/autocomplete?value=${input}`;
+      //const req = await fetch(url);
+      //const json = await req.json();
+      //this.autoCompleteData = json;
+    },
+
+  }
 }
 </script>
 
