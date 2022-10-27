@@ -1,9 +1,8 @@
 const db = require("../models");
-const NavItem = db.navItem;
-const Op = db.Sequelize.Op;
+const NavItem = db.NavItem;
+//const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
-    // Validate request
     if (!req.body.title) {
         res.status(400).send({
             message: "Content can not be empty!"
@@ -11,14 +10,12 @@ exports.create = (req, res) => {
         return;
     }
 
-    // Create a Tutorial
     const navItem = {
         title: req.body.title,
         icon: req.body.description,
         url: req.body.published
     };
 
-    // Save Tutorial in the database
     NavItem.create(navItem)
         .then(data => {
             res.send(data);
@@ -32,10 +29,7 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    const title = req.query.title;
-    var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
-
-    NavItem.findAll({ where: condition })
+    NavItem.findAll()
         .then(data => {
             res.send(data);
         })
@@ -47,7 +41,6 @@ exports.findAll = (req, res) => {
         });
 };
 
-// Update a Tutorial by the id in the request
 exports.update = (req, res) => {
     const id = req.params.id;
 

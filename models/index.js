@@ -22,7 +22,7 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.User = require("./models/user.models.js")(sequelize, Sequelize);
-db.NavItem = require("./models/navItem.models.js")(sequelize, Sequelize);
+db.User = require("./user.models.js")(sequelize, Sequelize);
+db.NavItem = require("./navItem.models.js")(sequelize, Sequelize);
 
 module.exports = db;
