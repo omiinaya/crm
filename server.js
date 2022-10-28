@@ -20,6 +20,8 @@ db.sequelize.sync({ force: true }).then(() => {
 });
 
 require("./routes/navItem.routes")(app);
+require('./routes/auth.routes')(app);
+require('./routes/user.routes')(app);
 
 const Role = db.role;
 

@@ -46,10 +46,14 @@ export default {
 
 <style>
 
+.test {
+  background: #121212 !important;
+}
+
 .search {
   padding-left: 0 !important;
   padding-right: 0 !important;
-  padding-top: 1vh;
+  padding: 1vh;
 }
 
 .topBar {
@@ -69,6 +73,7 @@ export default {
   max-width: 6.15%;
   position: relative;
   width: 100%;
+  padding: 1vh;
 }
 
 .col-1-0 {
