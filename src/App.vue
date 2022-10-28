@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
-      <a href class="navbar-brand" @click.prevent>bezKoder</a>
+      <a href class="navbar-brand" @click.prevent>TEST</a>
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
-          <router-link to="/home" class="nav-link">
+          <router-link to="/" class="nav-link">
             <font-awesome-icon icon="home" />Home
           </router-link>
         </li>
@@ -28,6 +28,11 @@
         <li class="nav-item">
           <router-link to="/login" class="nav-link">
             <font-awesome-icon icon="sign-in-alt" />Login
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="#!" class="nav-link" @click="logOut()">
+            <font-awesome-icon icon="sign-in-alt" />Logout
           </router-link>
         </li>
       </div>

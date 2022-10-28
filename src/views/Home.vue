@@ -7,11 +7,17 @@
     </ion-header>
 
     <ion-content :fullscreen="true">
+      <!--
       <div class="container">
         <header class="jumbotron">
           <h3>{{ content }}</h3>
         </header>
       </div>
+    -->
+    <div class="row">
+      <div class="col-6">test1</div>
+      <div class="col-6">test2</div>
+    </div>
     </ion-content>
   </ion-page>
 </template>
@@ -20,7 +26,7 @@
 import { IonContent, IonHeader, IonPage, IonToolbar } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import NavBar from '../components/NavBar.vue'
-import UserService from "../services/user.service";
+//import UserService from "../services/user.service";
 
 export default defineComponent({
   name: 'HomePage',
@@ -30,6 +36,7 @@ export default defineComponent({
     };
   },
   mounted() {
+    /*
     UserService.getPublicContent().then(
       (response) => {
         this.content = response.data;
@@ -43,6 +50,7 @@ export default defineComponent({
           error.toString();
       }
     );
+    */
   },
   components: {
     IonContent,

@@ -3,8 +3,22 @@
     <div class="col-1-0 offset-1 topBar">
       <div>Mobile Me IT Inc.</div>
     </div>
-    <div class="col-8 search">
+    <div class="col-7 search">
       <input class="form-control me-2" type="search" placeholder="Search all the things" aria-label="Search" />
+    </div>
+    <div class="col-2 topBar">
+        <li class="nav-item rightBar">
+          <!--user dropdown-->
+          <router-link to="#!" class="nav-link">
+            <font-awesome-icon icon="circle-user" />
+            <!-- Testing User -->
+          </router-link>
+        </li>
+        <li class="nav-item rightBar">
+          <router-link to="#!" class="nav-link" @click="logOut()">
+            <font-awesome-icon icon="sign-in-alt" />
+          </router-link>
+        </li>
     </div>
   </div>
   <div class="row">
@@ -39,12 +53,19 @@ export default {
       const json = await req.json();
       this.links = json;
     },
-
+    logOut() {
+      this.$store.dispatch('auth/logout');
+      this.$router.push('/login');
+    }
   }
 }
 </script>
 
 <style>
+.rightBar {
+  font-size: 20px;
+  padding-bottom: 10px;
+}
 
 .test {
   background: #121212 !important;
@@ -81,5 +102,10 @@ export default {
   max-width: 6.15%;
   position: relative;
   width: 100%;
+}
+
+li {
+  display: inline-block;
+  margin-left: 10px;
 }
 </style>
