@@ -1,15 +1,4 @@
 function setup(Role, NavItem) {
-  const MYSQL = require("mysql2");
-  const CONFIG = {
-    host: process.env.HOST,
-    port: process.env.DB_PORT,
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-  };
-
-  const connection = MYSQL.createConnection(CONFIG);
-  connection.query(`CREATE DATABASE IF NOT EXISTS \`${process.env.DB}\`;`);
-
   Role.create({
     id: 1,
     name: "user",
