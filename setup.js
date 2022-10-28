@@ -75,8 +75,8 @@ function setup(db) {
   });
 
   User.create({
-    firstName: 'Test',
-    lastName: '123',
+    firstName: 'test',
+    lastName: 'ing',
     username: 'test',
     email: 'test@gmail.com',
     password: '$2a$08$7O/xmmuyMmc4PuCF2dcPxue3bHuGmQvvn1M2AidQnYzNE.QC7bTyy'
