@@ -1,11 +1,6 @@
 <template>
     <div class="col-md-12">
       <div class="card card-container">
-        <img
-          id="profile-img"
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          class="profile-img-card"
-        />
         <Form @submit="handleLogin" :validation-schema="schema">
           <div class="form-group">
             <label for="username">Username</label>
@@ -68,7 +63,7 @@
     },
     created() {
       if (this.loggedIn) {
-        this.$router.push("/profile");
+        this.$router.push("/");
       }
     },
     methods: {
@@ -77,7 +72,7 @@
   
         this.$store.dispatch("auth/login", user).then(
           () => {
-            this.$router.push("/profile");
+            this.$router.push("/");
           },
           (error) => {
             this.loading = false;
