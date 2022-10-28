@@ -5,8 +5,6 @@ const setup = require("./setup");
 const bodyParser = require("body-parser");
 const MYSQL = require("mysql2");
 const app = express();
-const Role = db.role;
-const NavItem = db.navItem;
 
 const CONFIG = {
   host: process.env.HOST,
@@ -27,6 +25,8 @@ app.get("/", (req, res) => {
 });
 
 const db = require("./models/index");
+const Role = db.role;
+const NavItem = db.navItem;
 
 db.sequelize.sync({ force: true }).then(() => {
   console.log("Drop and re-sync db.");
