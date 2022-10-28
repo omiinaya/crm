@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const NavItem = sequelize.define("navItem", {
+  const Nav = sequelize.define("nav", {
     id: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
@@ -18,5 +18,5 @@ module.exports = (sequelize, Sequelize) => {
     timestamps: false,
   });
 
-  return NavItem;
+  return Nav;
 };

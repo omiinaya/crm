@@ -1,5 +1,5 @@
 const db = require("../models");
-const NavItem = db.navItem;
+const Nav = db.nav;
 //const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
@@ -10,26 +10,26 @@ exports.create = (req, res) => {
         return;
     }
 
-    const navItem = {
+    const nav = {
         title: req.body.title,
         icon: req.body.description,
         url: req.body.published
     };
 
-    NavItem.create(navItem)
+    Nav.create(nav)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the NavItem."
+                    err.message || "Some error occurred while creating the Nav."
             });
         });
 };
 
 exports.findAll = (req, res) => {
-    NavItem.findAll()
+    Nav.findAll()
         .then(data => {
             res.send(data);
         })
@@ -44,7 +44,7 @@ exports.findAll = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    NavItem.update(req.body, {
+    Nav.update(req.body, {
         where: { id: id }
     })
         .then(num => {
@@ -68,7 +68,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    NavItem.destroy({
+    Nav.destroy({
         where: { id: id }
     })
         .then(num => {

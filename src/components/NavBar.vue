@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     async getNavItems() {
-      const url = `http://localhost:8090/api/navItems`;
+      const url = `http://localhost:8090/api/nav`;
       const req = await fetch(url);
       const json = await req.json();
       this.links = json;

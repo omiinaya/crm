@@ -2,7 +2,7 @@
 
 function setup(db) {
   const Role = db.role;
-  const NavItem = db.navItem;
+  const Nav = db.nav;
   const User = db.user;
 
   Role.create({
@@ -20,55 +20,55 @@ function setup(db) {
     name: "admin",
   });
 
-  NavItem.create({
+  Nav.create({
     title: "Customers",
     icon: "bi bi-person",
     url: "#!",
   });
 
-  NavItem.create({
+  Nav.create({
     title: "Assets",
     icon: "bi bi-laptop",
     url: "#!",
   });
 
-  NavItem.create({
+  Nav.create({
     title: "Invoices",
     icon: "bi bi-cart",
     url: "#!",
   });
 
-  NavItem.create({
+  Nav.create({
     title: "Estimates",
     icon: "bi bi-file-earmark-text",
     url: "#!",
   });
 
-  NavItem.create({
+  Nav.create({
     title: "Tickets",
     icon: "bi bi-tag",
     url: "#!",
   });
 
-  NavItem.create({
+  Nav.create({
     title: "Parts",
     icon: "bi bi-motherboard",
     url: "#!",
   });
 
-  NavItem.create({
+  Nav.create({
     title: "Inventory",
     icon: "bi bi-upc-scan",
     url: "#!",
   });
 
-  NavItem.create({
+  Nav.create({
     title: "POS",
     icon: "bi bi-cash",
     url: "#!",
   });
 
-  NavItem.create({
+  Nav.create({
     title: "Admin",
     icon: "bi bi-gear",
     url: "#!",

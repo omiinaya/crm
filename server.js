@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to your application." });
 });
 
-require("./routes/navItem.routes")(app);
+require("./routes/nav.routes")(app);
 require("./routes/auth.routes")(app);
 require("./routes/user.routes")(app);
 
