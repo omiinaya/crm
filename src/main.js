@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router';
 
 import { IonicVue } from '@ionic/vue';
-import VeeValidate from 'vee-validate';
+import * as VeeValidate from 'vee-validate';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';
