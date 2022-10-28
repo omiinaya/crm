@@ -1,5 +1,5 @@
 const db = require("../models");
-const NavItem = db.NavItem;
+const NavItem = db.navItem;
 //const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
