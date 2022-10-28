@@ -1,6 +1,6 @@
 <template>
   <div class="row test">
-    <div class="col-1-0 offset-1 topBar">
+    <div class="col-1-5 offset-1 topBar">
       <div>Mobile Me IT Inc.</div>
     </div>
     <div class="col-7 search">
@@ -98,8 +98,15 @@ export default {
 }
 
 .col-1-0 {
+  flex: 0 0 9.225%;
+  max-width: 9.225%;
+  position: relative;
+  width: 100%;
+}
+
+.col-1-5 {
   flex: 0 0 12.30%;
-  max-width: 6.15%;
+  max-width: 12.30%;
   position: relative;
   width: 100%;
 }

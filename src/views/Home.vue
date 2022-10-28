@@ -15,8 +15,11 @@
       </div>
     -->
     <div class="row">
-      <div class="col-6">test1</div>
-      <div class="col-6">test2</div>
+      <div class="col-12 welcome">Welcome!</div>
+    </div>
+    <div class="row">
+      <div class="col-5-0 section">test1</div>
+      <div class="col-5-0 section">test2</div>
     </div>
     </ion-content>
   </ion-page>
@@ -63,6 +66,23 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.welcome {
+  margin-left: 60px;
+  margin-top: 30px;
+}
+
+.section {
+  margin: 30px;
+  background: #1F1F1F;
+}
+
+.col-5-0 {
+  flex: 0 0 46.125%;
+  max-width: 46.125%;
+  position: relative;
+  width: 100%;
+}
+
 #container {
   text-align: center;
 
