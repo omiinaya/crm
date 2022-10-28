@@ -1,4 +1,10 @@
-function setup(Role, NavItem) {
+
+
+function setup(db) {
+  const Role = db.role;
+  const NavItem = db.navItem;
+  const User = db.user;
+
   Role.create({
     id: 1,
     name: "user",
@@ -67,6 +73,14 @@ function setup(Role, NavItem) {
     icon: "bi bi-gear",
     url: "#!",
   });
+
+  User.create({
+    firstName: 'Test',
+    lastName: '123',
+    username: 'test',
+    email: 'test@gmail.com',
+    password: '$2a$08$7O/xmmuyMmc4PuCF2dcPxue3bHuGmQvvn1M2AidQnYzNE.QC7bTyy'
+  })
 }
 
 module.exports = setup;
