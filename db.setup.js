@@ -1,10 +1,28 @@
+const mysql = require("mysql2");
+const db = require("./models/index");
+const util = require("util");
 
+const Role = db.role;
+const Nav = db.nav;
+const User = db.user;
 
-function setup(db) {
-  const Role = db.role;
-  const Nav = db.nav;
-  const User = db.user;
+const config = {
+  host: process.env.HOST,
+  port: process.env.DB_PORT,
+  user: process.env.USER,
+  password: process.env.PASSWORD,
+};
 
+const connection = mysql.createConnection(config);
+const query = util.promisify(connection.query).bind(connection);
+
+async function dbSetup() {
+  await query(`CREATE DATABASE IF NOT EXISTS \`${process.env.DB}\`;`);
+  //comment force:true to stop resetting the database on server restart
+  db.sequelize.sync({ force: true }).then(() => dummyData());
+}
+
+function dummyData() {
   Role.create({
     id: 1,
     name: "user",
@@ -75,12 +93,12 @@ function setup(db) {
   });
 
   User.create({
-    firstName: 'test',
-    lastName: 'ing',
-    username: 'test',
-    email: 'test@gmail.com',
-    password: '$2a$08$7O/xmmuyMmc4PuCF2dcPxue3bHuGmQvvn1M2AidQnYzNE.QC7bTyy'
-  })
+    firstName: "test",
+    lastName: "ing",
+    username: "test",
+    email: "test@gmail.com",
+    password: "$2a$08$7O/xmmuyMmc4PuCF2dcPxue3bHuGmQvvn1M2AidQnYzNE.QC7bTyy",
+  });
 }
 
-module.exports = setup;
+module.exports = dbSetup;
