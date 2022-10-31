@@ -13,6 +13,10 @@ module.exports = (sequelize, Sequelize) => {
     },
     url: {
       type: Sequelize.STRING
+    },
+    role_id: {
+      type: Sequelize.INTEGER,
+      defaultValue: 1
     }
   }, {
     timestamps: false,

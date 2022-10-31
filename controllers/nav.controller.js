@@ -1,6 +1,6 @@
 const db = require("../models");
 const Nav = db.nav;
-//const Op = db.Sequelize.Op;
+const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
     if (!req.body.title) {
@@ -30,6 +30,41 @@ exports.create = (req, res) => {
 
 exports.findAll = (req, res) => {
     Nav.findAll()
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving tutorials."
+            });
+        });
+};
+
+exports.findByRoleId = (req, res) => {
+    const id = req.params.id;
+
+    Nav.findAll({
+        where: { role_id: id }
+    })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving tutorials."
+            });
+        });
+};
+
+exports.findByRole = (req, res) => {
+    const id = req.params.id;
+    Nav.findAll({
+        where: { role_id: {
+            [Op.lte]: id
+        }}
+    })
         .then(data => {
             res.send(data);
         })

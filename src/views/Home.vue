@@ -14,13 +14,13 @@
         </header>
       </div>
     -->
-    <div class="row">
-      <div class="col-12 welcome">Welcome!</div>
-    </div>
-    <div class="row">
-      <div class="col-5-0 section">test1</div>
-      <div class="col-5-0 section">test2</div>
-    </div>
+      <div class="row">
+        <div class="col-12 welcome">Welcome!</div>
+      </div>
+      <div class="row">
+        <div class="col-5-0 section">test1</div>
+        <div class="col-5-0 section">test2</div>
+      </div>
     </ion-content>
   </ion-page>
 </template>
@@ -30,6 +30,7 @@ import { IonContent, IonHeader, IonPage, IonToolbar } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import NavBar from '../components/NavBar.vue'
 //import UserService from "../services/user.service";
+import NavService from "../services/nav.service";
 
 export default defineComponent({
   name: 'HomePage',
@@ -39,6 +40,10 @@ export default defineComponent({
     };
   },
   mounted() {
+    const highest = Math.max(...this.$store.state.auth.user.roles)
+    NavService.getRoleNav(highest).then((response => {
+      console.log(response)
+    }))
     /*
     UserService.getPublicContent().then(
       (response) => {

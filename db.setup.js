@@ -90,6 +90,7 @@ function dummyData() {
     title: "Admin",
     icon: "bi bi-gear",
     url: "#!",
+    role_id: 3
   });
 
   User.create({
