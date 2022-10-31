@@ -32,6 +32,18 @@ db.role.belongsToMany(db.user, {
   otherKey: "userId",
 });
 
+db.nav.belongsToMany(db.role, {
+  through: "nav_roles",
+  foreignKey: "navId",
+  otherKey: "roleId",
+});
+
+db.nav.belongsToMany(db.role, {
+  through: "nav_roles",
+  foreignKey: "roleId",
+  otherKey: "navId",
+});
+
 db.ROLES = ["user", "admin", "moderator"];
 
 module.exports = db;
