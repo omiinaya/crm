@@ -19,6 +19,7 @@ db.sequelize = sequelize;
 db.user = require("./user.model.js")(sequelize, Sequelize);
 db.role = require("./role.model.js")(sequelize, Sequelize);
 db.nav = require("./nav.model.js")(sequelize, Sequelize);
+db.home = require("./home.model")(sequelize, Sequelize);
 
 db.user.belongsToMany(db.role, {
   through: "user_roles",
@@ -38,7 +39,7 @@ db.nav.belongsToMany(db.role, {
   otherKey: "roleId",
 });
 
-db.nav.belongsToMany(db.role, {
+db.role.belongsToMany(db.nav, {
   through: "nav_roles",
   foreignKey: "roleId",
   otherKey: "navId",
