@@ -99,7 +99,9 @@ function dummyData() {
     username: "test",
     email: "test@gmail.com",
     password: "$2a$08$7O/xmmuyMmc4PuCF2dcPxue3bHuGmQvvn1M2AidQnYzNE.QC7bTyy",
-  });
+  }).then(user => {
+    user.setRoles([3])
+  })
 }
 
 module.exports = dbSetup;
