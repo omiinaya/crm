@@ -7,18 +7,18 @@
       <input class="form-control me-2" type="search" placeholder="Search all the things" aria-label="Search" />
     </div>
     <div class="col-2 topBar">
-        <li class="nav-item rightBar">
-          <!--user dropdown-->
-          <router-link to="#!" class="nav-link">
-            <font-awesome-icon icon="circle-user" />
-            <!-- Testing User -->
-          </router-link>
-        </li>
-        <li class="nav-item rightBar">
-          <router-link to="#!" class="nav-link" @click="logOut()">
-            <font-awesome-icon icon="sign-in-alt" />
-          </router-link>
-        </li>
+      <li class="nav-item rightBar">
+        <!--user dropdown-->
+        <router-link to="#!" class="nav-link">
+          <font-awesome-icon icon="circle-user" />
+          <!-- Testing User -->
+        </router-link>
+      </li>
+      <li class="nav-item rightBar">
+        <router-link to="#!" class="nav-link" @click="logOut()">
+          <font-awesome-icon icon="sign-in-alt" />
+        </router-link>
+      </li>
     </div>
   </div>
   <div class="row">
@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import NavService from "../services/nav.service";
 export default {
   name: 'NavBar',
   components: {},
@@ -48,10 +49,9 @@ export default {
   },
   methods: {
     async getNavItems() {
-      const url = `http://localhost:8090/api/nav`;
-      const req = await fetch(url);
-      const json = await req.json();
-      this.links = json;
+      const highest = Math.max(...this.$store.state.auth.user.roles);
+      const req = await NavService.getRoleNav(highest);
+      this.links = await req.data;
     },
     logOut() {
       this.$store.dispatch('auth/logout');
