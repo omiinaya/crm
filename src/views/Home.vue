@@ -11,14 +11,18 @@
         <div class="col-12 welcome">Welcome!</div>
       </div>
       <div class="row">
-        <div class="col-5-0 section">
+        <div class="col-2-5 section">
           <div class="row">
             <div class="col-12 action-menu">
               <center>Get Started</center>
               <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
                 <div v-for="(action, index) in actions" :key="action + index">
-                  <button type="button" class="btn btn-secondary btn-lg actions"><font-awesome-icon icon="circle-user" /></button>
-                  <button type="button" class="btn btn-success btn-lg actions custom">+ {{ action.title }}</button>
+                  <button type="button" class="btn btn-secondary btn-lg actions custom-left">
+                    <i :class=action.icon></i>
+                  </button>
+                  <button type="button" class="btn btn-success btn-lg actions custom-right">
+                    + {{ action.title }}
+                  </button>
                 </div>
               </div>
             </div>
@@ -69,14 +73,20 @@ export default defineComponent({
 .action-menu {
   padding: 10px;
 }
+
 .actions {
   margin: 5px;
 }
 
-.custom {
-  width: 200px !important;
-  text-align:left;
+.bi {
+font-size: 20px;
 }
+
+.custom-right {
+  width: 200px !important;
+  text-align: left;
+}
+
 .welcome {
   margin-left: 60px;
   margin-top: 30px;
@@ -90,6 +100,13 @@ export default defineComponent({
 .col-5-0 {
   flex: 0 0 46.125%;
   max-width: 46.125%;
+  position: relative;
+  width: 100%;
+}
+
+.col-2-5 {
+  flex: 0 0 23.0625%;
+  max-width: 23.0625%;
   position: relative;
   width: 100%;
 }
