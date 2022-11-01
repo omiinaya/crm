@@ -28,27 +28,27 @@ const roles = ["user", "moderator", "admin"]
 const actions = [{
   title: 'New Customer',
   icon: 'bi bi-person',
-  url: '#!'
+  url: 'newCustomerView'
 },
 {
   title: 'New Ticket',
   icon: 'bi bi-tag',
-  url: '#!'
+  url: 'newTicketView'
 },
 {
   title: 'New Check In',
   icon: 'bi bi-check-square',
-  url: '#!'
+  url: 'newCheckinView'
 },
 {
   title: 'New Invoice',
   icon: 'bi bi-cart',
-  url: '#!'
+  url: 'newInvoiceView'
 },
 {
   title: 'New Estimate',
   icon: 'bi bi-file-earmark-text',
-  url: '#!'
+  url: 'newEstimateView'
 }]
 
 const navs = [{

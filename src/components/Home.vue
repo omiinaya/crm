@@ -13,7 +13,8 @@
                                 <button type="button" class="btn btn-secondary btn-lg actions custom-left">
                                     <i :class=action.icon></i>
                                 </button>
-                                <button type="button" class="btn btn-success btn-lg actions custom-right">
+                                <button type="button" class="btn btn-success btn-lg actions custom-right"
+                                    v-on:click="storeX.view = action.url">
                                     + {{ action.title }}
                                 </button>
                             </div>
@@ -34,12 +35,14 @@
 <script>
 import { defineComponent } from 'vue';
 import HomeService from "../services/home.service";
+import { storeX } from "../store/index";
 
 export default defineComponent({
     name: 'HomePage',
     data() {
         return {
-            actions: null
+            actions: null,
+            storeX
         };
     },
     methods: {
@@ -47,7 +50,7 @@ export default defineComponent({
             const highest = Math.max(...this.$store.state.auth.user.roles);
             const req = await HomeService.getRoleNav(highest);
             this.actions = await req.data;
-        }
+        },
     },
     created() {
         this.getActionItems()
