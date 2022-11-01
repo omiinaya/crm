@@ -8,11 +8,8 @@
     </div>
     <div class="col-2 topBar">
       <li class="nav-item rightBar">
-        <!--user dropdown-->
-        <router-link to="#!" class="nav-link">
           <i class="bi bi-person-circle"></i>
-          <!-- Testing User -->
-        </router-link>
+          {{this.$store.state.auth.user.name}}
       </li>
       <li class="nav-item rightBar">
         <router-link to="#!" class="nav-link" @click="logOut()">
@@ -69,7 +66,7 @@ export default {
   background: 'transparent';
   color: white;
 }
-.rightBar .nav-link .bi {
+.rightBar .bi {
   font-size: 20px !important;
 }
 
