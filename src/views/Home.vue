@@ -13,10 +13,13 @@
       <div class="row">
         <div class="col-5-0 section">
           <div class="row">
-            <div class="col-12">
+            <div class="col-12 action-menu">
               <center>Get Started</center>
-              <div v-for="(action, index) in actions" :key="action + index">
-                {{action.title}}
+              <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                <div v-for="(action, index) in actions" :key="action + index">
+                  <button type="button" class="btn btn-secondary btn-lg actions"><font-awesome-icon icon="circle-user" /></button>
+                  <button type="button" class="btn btn-success btn-lg actions custom">+ {{ action.title }}</button>
+                </div>
               </div>
             </div>
           </div>
@@ -63,6 +66,17 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.action-menu {
+  padding: 10px;
+}
+.actions {
+  margin: 5px;
+}
+
+.custom {
+  width: 200px !important;
+  text-align:left;
+}
 .welcome {
   margin-left: 60px;
   margin-top: 30px;
@@ -82,7 +96,6 @@ export default defineComponent({
 
 #container {
   text-align: center;
-
   position: absolute;
   left: 0;
   right: 0;
