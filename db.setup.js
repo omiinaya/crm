@@ -58,40 +58,40 @@ const navs = [{
 }, {
   title: "Customers",
   icon: "bi bi-person",
-  url: "customerView",
+  url: "customersView",
 }, {
   title: "Assets",
   icon: "bi bi-laptop",
-  url: "#!",
+  url: "assetsView",
 }, {
   title: "Invoices",
   icon: "bi bi-cart",
-  url: "#!",
+  url: "invoicesView",
 }, {
   title: "Estimates",
   icon: "bi bi-file-earmark-text",
-  url: "#!",
+  url: "estimatesView",
 }, {
   title: "Tickets",
   icon: "bi bi-tag",
-  url: "#!",
+  url: "ticketsView",
 }, {
   title: "Parts",
   icon: "bi bi-motherboard",
-  url: "#!",
+  url: "partsView",
 }, {
   title: "Inventory",
   icon: "bi bi-upc-scan",
-  url: "#!",
+  url: "inventoryView",
 },
 {
   title: "POS",
   icon: "bi bi-cash",
-  url: "#!",
+  url: "posView",
 }, {
   title: "Admin",
   icon: "bi bi-gear",
-  url: "#!",
+  url: "adminView",
   role_id: 3
 }]
 

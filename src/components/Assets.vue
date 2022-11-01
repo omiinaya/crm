@@ -1,10 +1,10 @@
 <template>
-  <div>New customers</div>
+  <div>Assets</div>
 </template>
 
 <script>
 export default {
-  name: 'NewCustomerPage',
+  name: 'AssetsPage',
   components: {},
   data: () => ({}),
   created() {},
