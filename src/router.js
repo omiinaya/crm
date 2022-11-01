@@ -1,5 +1,5 @@
 import { createWebHistory, createRouter } from "vue-router";
-import Home from "./views/Home.vue";
+import Root from "./views/Root.vue";
 import Login from "./components/Login.vue";
 import Register from "./components/Register.vue";
 // lazy-loaded
@@ -9,12 +9,8 @@ const BoardUser = () => import("./components/BoardUser.vue")
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: Home,
-  },
-  {
-    path: "/home",
-    component: Home,
+    name: "root",
+    component: Root,
   },
   {
     path: "/login",

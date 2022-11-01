@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const Nav = sequelize.define("nav", {
+  const Nav = sequelize.define("nav_items", {
     id: {
       type: Sequelize.INTEGER,
       autoIncrement: true,

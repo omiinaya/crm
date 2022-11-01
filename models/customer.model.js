@@ -6,13 +6,13 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true
         },
         firstName: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING
         },
         lastName: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING
         },
         businessName: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING
         },
         email: {
             type: Sequelize.STRING
