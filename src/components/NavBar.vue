@@ -1,7 +1,7 @@
 <template>
   <div class="row test">
     <div class="col-1-5 offset-1 topBar">
-      <div>Mobile Me IT Inc.</div>
+      <button type="button" class="btn" v-on:click="storeX.view = null">Mobile Me IT Inc.</button>
     </div>
     <div class="col-7 search">
       <input class="form-control me-2" type="search" placeholder="Search all the things" aria-label="Search" />
@@ -64,6 +64,11 @@ export default {
 </script>
 
 <style>
+.topBar .btn {
+  background-color: 'transparent' !important;
+  background: 'transparent';
+  color: white;
+}
 .rightBar .nav-link .bi {
   font-size: 20px !important;
 }
@@ -84,7 +89,7 @@ export default {
 }
 
 .topBar {
-  padding-top: 2vh;
+  padding-top: 1vh;
 }
 
 .bi {
