@@ -8,12 +8,12 @@
 
     <ion-content :fullscreen="true">
       <div class="row">
-        <div class="col-12 welcome">Welcome!</div>
+        <div class="welcome">Welcome!</div>
       </div>
       <div class="row">
-        <div class="col-2-5 section">
+        <div class="get-started section">
           <div class="row">
-            <div class="col-12 action-menu">
+            <div class="menu">
               <center>Get Started</center>
               <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
                 <div v-for="(action, index) in actions" :key="action + index">
@@ -28,7 +28,12 @@
             </div>
           </div>
         </div>
-        <div class="col-5-0 section">test2</div>
+        <div class="col-6 menu section">
+          <center>Reminders</center>
+        </div>
+        <div class="col-2-5 menu section">
+          <center>Summary</center>
+        </div>
       </div>
     </ion-content>
   </ion-page>
@@ -70,7 +75,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.action-menu {
+.menu {
   padding: 10px;
 }
 
@@ -79,7 +84,7 @@ export default defineComponent({
 }
 
 .bi {
-font-size: 20px;
+  font-size: 20px;
 }
 
 .custom-right {
@@ -93,7 +98,8 @@ font-size: 20px;
 }
 
 .section {
-  margin: 30px;
+  margin-left: 30px;
+  margin-top: 30px;
   background: #1F1F1F;
 }
 
@@ -107,6 +113,13 @@ font-size: 20px;
 .col-2-5 {
   flex: 0 0 23.0625%;
   max-width: 23.0625%;
+  position: relative;
+  width: 100%;
+}
+
+.get-started {
+  flex: 0 0 19%;
+  max-width: 19%;
   position: relative;
   width: 100%;
 }
@@ -128,9 +141,7 @@ font-size: 20px;
 #container p {
   font-size: 16px;
   line-height: 22px;
-
   color: #8c8c8c;
-
   margin: 0;
 }
 
