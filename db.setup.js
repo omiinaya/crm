@@ -54,11 +54,11 @@ const actions = [{
 const navs = [{
   title: "Home",
   icon: "bi bi-house",
-  url: "#!",
+  url: "homeView",
 }, {
   title: "Customers",
   icon: "bi bi-person",
-  url: "#!",
+  url: "customerView",
 }, {
   title: "Assets",
   icon: "bi bi-laptop",

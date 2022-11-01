@@ -25,7 +25,7 @@
     <div class="col-1">
     </div>
     <div class="col-0-5 nav-item text-center" v-for="(link, index) in links" :key="link + index">
-      <a class="nav-link active" aria-current="page" href="#!">
+      <a class="nav-link active" aria-current="page" href="#!" v-on:click="navigate(link.url)">
         <div>
           <i :class=link.icon></i>
         </div>
@@ -38,11 +38,13 @@
 
 <script>
 import NavService from "../services/nav.service";
+import { storeX } from "../store/index";
 export default {
   name: 'NavBar',
   components: {},
   data: () => ({
-    links: null
+    links: null,
+    storeX
   }),
   created() {
     this.getNavItems()
@@ -52,6 +54,10 @@ export default {
       const highest = Math.max(...this.$store.state.auth.user.roles);
       const req = await NavService.getRoleNav(highest);
       this.links = await req.data;
+    },
+    navigate(newView) {
+      console.log('test')
+      storeX.view = newView
     },
     logOut() {
       this.$store.dispatch('auth/logout');
