@@ -10,13 +10,13 @@
       <li class="nav-item rightBar">
         <!--user dropdown-->
         <router-link to="#!" class="nav-link">
-          <font-awesome-icon icon="circle-user" />
+          <i class="bi bi-person-circle"></i>
           <!-- Testing User -->
         </router-link>
       </li>
       <li class="nav-item rightBar">
         <router-link to="#!" class="nav-link" @click="logOut()">
-          <font-awesome-icon icon="sign-in-alt" />
+          <i class="bi bi-box-arrow-in-right"></i>
         </router-link>
       </li>
     </div>
@@ -68,6 +68,10 @@ export default {
 </script>
 
 <style>
+.rightBar .nav-link .bi {
+  font-size: 20px !important;
+}
+
 .rightBar {
   font-size: 20px;
   padding-bottom: 10px;

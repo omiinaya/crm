@@ -4,7 +4,6 @@ import App from './App.vue'
 import router from "./router";
 import store from "./store";
 import * as VeeValidate from 'vee-validate';
-import { FontAwesomeIcon } from './plugins/font-awesome'
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';
@@ -34,7 +33,6 @@ const app = createApp(App)
   .use(router)
   .use(store)
   .use(VeeValidate)
-  .component("font-awesome-icon", FontAwesomeIcon);
   
 router.isReady().then(() => {
   app.mount('#app');
