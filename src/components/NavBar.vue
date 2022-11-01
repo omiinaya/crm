@@ -60,7 +60,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .topBar .btn {
   background-color: 'transparent' !important;
   background: 'transparent';
