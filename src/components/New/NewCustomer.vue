@@ -10,7 +10,7 @@
             <div class="form">
               <div
                 class="mb-3 row"
-                v-for="(field, index) in fields"
+                v-for="(field, index) in fieldsLeft"
                 :key="field + index"
               >
                 <label
@@ -32,16 +32,25 @@
           </div>
           <div class="col-6">
             <div class="form">
-              <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label"
-                  >Email address</label
-                >
-                <input
-                  type="email"
-                  class="form-control"
-                  id="exampleFormControlInput1"
-                  placeholder="name@example.com"
-                />
+              <div
+                class="mb-3 row"
+                v-for="(field, index) in fieldsRight"
+                :key="field + index"
+              >
+                <label
+                  :for="field.label + index"
+                  class="col-sm-3 col-form-label"
+                  ><i :class="field.icon"></i>
+                  {{ field.label }}
+                </label>
+                <div class="col-sm-9">
+                  <input
+                    :type="field.type"
+                    class="form-control"
+                    :id="field.label + index"
+                    :placeholder="field.placeholder"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -68,7 +77,17 @@ export default {
       this.fields = await req.data;
     },
   },
-  created() { this.getFieldItems() }
+  created() { this.getFieldItems() },
+  computed: {
+    fieldsLeft: function() {
+      if (!this.fields) return;
+       return this.fields.filter(field => field.side === 0);
+    },
+    fieldsRight: function() {
+      if (!this.fields) return;
+       return this.fields.filter(field => field.side === 1);
+    }
+  }
 }
 </script>
 

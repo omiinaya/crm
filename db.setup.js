@@ -178,7 +178,14 @@ const customerFields = [
     side: 0,
   },
   {
-    label: "Address",
+    label: "Address line 1",
+    type: "text",
+    placeholder: "Address (Street Address or P.O. Box)",
+    icon: "bi bi-house",
+    side: 1,
+  },
+  {
+    label: "Address line 2",
     type: "text",
     placeholder: "Address (Street Address or P.O. Box)",
     icon: "bi bi-house",
@@ -229,8 +236,9 @@ function dummyData() {
     });
   });
 
-  navs.forEach((role) => {
+  navs.forEach((role, index) => {
     Nav.create({
+      id: index + 1,
       title: role.title,
       icon: role.icon,
       url: role.url,
@@ -238,8 +246,9 @@ function dummyData() {
     });
   });
 
-  actions.forEach((action) => {
+  actions.forEach((action, index) => {
     Home.create({
+      id: index + 1,
       title: action.title,
       icon: action.icon,
       url: action.url,
@@ -247,8 +256,9 @@ function dummyData() {
     });
   });
 
-  customerFields.forEach((fields) => {
+  customerFields.forEach((fields, index) => {
     CustomerFields.create({
+      id: index + 1,
       label: fields.label,
       type: fields.type,
       placeholder: fields.placeholder,
