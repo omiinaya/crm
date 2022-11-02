@@ -1,8 +1,17 @@
 const db = require("../models");
 const Customer = db.customer;
 const Op = db.Sequelize.Op;
+const axios = require('axios')
+
+async function test() {
+  const x = await axios.get("http://localhost:8090/api/customer/fields")
+  console.log(x)
+  return x
+  //console.log(axios)
+}
 
 exports.create = (req, res) => {
+  console.log(test())
   if (!req.body['First Name']) {
     res.status(400).send({
       message: "Content can not be empty!",
