@@ -1,7 +1,7 @@
-import axios from 'axios';
-import authHeader from './auth-header';
+import axios from "axios";
+import authHeader from "./auth-header";
 
-const API_URL = 'http://localhost:8090/api/home/';
+const API_URL = "http://localhost:8090/api/home/";
 
 class NavService {
   getPublicContent() {
@@ -9,7 +9,7 @@ class NavService {
   }
 
   getRoleNav(role) {
-    return axios.get(API_URL + '/role/' + role, { headers: authHeader() });
+    return axios.get(API_URL + "role/" + role, { headers: authHeader() });
   }
 }
 

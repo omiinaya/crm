@@ -1,27 +1,81 @@
 <template>
   <div>
     <div>
-      <div class="cols-10 offset-1 title">
-        New Customer
-      </div>
+      <div class="cols-10 offset-1 title">New Customer</div>
     </div>
     <div>
-      <div class="section">test</div>
+      <div class="section">
+        <div class="row">
+          <div class="col-6">
+            <div class="form">
+              <div
+                class="mb-3 row"
+                v-for="(field, index) in fields"
+                :key="field + index"
+              >
+                <label
+                  :for="field.label + index"
+                  class="col-sm-3 col-form-label"
+                  ><i :class="field.icon"></i>
+                  {{ field.label }}
+                </label>
+                <div class="col-sm-9">
+                  <input
+                    :type="field.type"
+                    class="form-control"
+                    :id="field.label + index"
+                    :placeholder="field.placeholder"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form">
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label"
+                  >Email address</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="exampleFormControlInput1"
+                  placeholder="name@example.com"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import CustomerService from "../../services/customer.service";
+import { storeX } from "../../store/index";
+
 export default {
   name: 'NewCustomerPage',
   components: {},
-  data: () => ({}),
-  created() { },
-  methods: {}
+  data: () => ({
+    fields: null,
+    storeX
+  }),
+  methods: {
+    async getFieldItems() {
+      const req = await CustomerService.getCustomerFields();
+      this.fields = await req.data;
+    },
+  },
+  created() { this.getFieldItems() }
 }
 </script>
 
 <style scoped>
+.form {
+  margin: 30px;
+}
 .title {
   margin-top: 25px;
   margin-bottom: 25px;
@@ -31,6 +85,6 @@ export default {
 .section {
   margin-left: 125px;
   margin-right: 125px;
-  background: #1F1F1F;
+  background: #1f1f1f;
 }
 </style>

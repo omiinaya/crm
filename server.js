@@ -18,6 +18,7 @@ require("./routes/nav.routes")(app);
 require("./routes/auth.routes")(app);
 require("./routes/user.routes")(app);
 require("./routes/home.routes")(app);
+require("./routes/customer.routes")(app);
 
 (async () => {
   await dbSetup();
