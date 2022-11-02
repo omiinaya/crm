@@ -1,36 +1,23 @@
 const db = require("../models");
+const axios = require('axios');
 const Customer = db.customer;
 const Op = db.Sequelize.Op;
-const axios = require('axios')
 
-async function test() {
-  const x = await axios.get("http://localhost:8090/api/customer/fields")
-  console.log(x)
-  return x
-  //console.log(axios)
-}
-
-exports.create = (req, res) => {
-  console.log(test())
-  if (!req.body['First Name']) {
+exports.create = async (req, res) => {
+  //console.log(await test())
+  if (!req.body.firstName) {
     res.status(400).send({
       message: "Content can not be empty!",
     });
     return;
   }
 
-  const customer = {
-    firstName: req.body['First Name'],
-    lastName: req.body['Last Name'],
-    business: req.body['Business'],
-    email: req.body['Email'],
-    phone: req.body['Phone'],
-    address1: req.body['Address 1'],
-    address2: req.body['Address 2'],
-    city: req.body['City'],
-    state: req.body['State'],
-    zip: req.body['Zip Code']
-  };
+  const fields = await axios.get("http://localhost:8090/api/customer/fields")
+
+  const customer = {}
+  fields.forEach((field) => {
+    customer[field] = req.body[field]
+  })
 
   Customer.create(customer)
     .then((data) => {

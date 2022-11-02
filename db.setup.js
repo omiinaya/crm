@@ -143,6 +143,7 @@ const customers = [
 
 const customerFields = [
   {
+    name: "firstName",
     label: "First Name",
     type: "text",
     placeholder: "First Name",
@@ -150,6 +151,7 @@ const customerFields = [
     side: 0,
   },
   {
+    name: "lastName",
     label: "Last Name",
     type: "text",
     placeholder: "First Name",
@@ -157,6 +159,7 @@ const customerFields = [
     side: 0,
   },
   {
+    name: "business",
     label: "Business",
     type: "text",
     placeholder: "Business",
@@ -164,6 +167,7 @@ const customerFields = [
     side: 0,
   },
   {
+    name: "email",
     label: "Email",
     type: "email",
     placeholder: "Email",
@@ -171,6 +175,7 @@ const customerFields = [
     side: 0,
   },
   {
+    name: "phone",
     label: "Phone",
     type: "text",
     placeholder: "Number",
@@ -178,6 +183,7 @@ const customerFields = [
     side: 0,
   },
   {
+    name: "address1",
     label: "Address 1",
     type: "text",
     placeholder: "Address (Street Address or P.O. Box)",
@@ -185,6 +191,7 @@ const customerFields = [
     side: 1,
   },
   {
+    name: "address1",
     label: "Address 2",
     type: "text",
     placeholder: "Address (Street Address or P.O. Box)",
@@ -192,6 +199,7 @@ const customerFields = [
     side: 1,
   },
   {
+    name: "city",
     label: "City",
     type: "text",
     placeholder: "City",
@@ -199,6 +207,7 @@ const customerFields = [
     side: 1,
   },
   {
+    name: "state",
     label: "State",
     type: "text",
     placeholder: "State",
@@ -206,6 +215,7 @@ const customerFields = [
     side: 1,
   },
   {
+    name: "zip",
     label: "Zip Code",
     type: "text",
     placeholder: "Zip Code",
@@ -259,6 +269,7 @@ function dummyData() {
   customerFields.forEach((fields, index) => {
     CustomerFields.create({
       id: index + 1,
+      name: fields.name,
       label: fields.label,
       type: fields.type,
       placeholder: fields.placeholder,

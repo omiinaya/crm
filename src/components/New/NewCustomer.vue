@@ -42,7 +42,7 @@
                   </label>
                   <div class="col-sm-9">
                     <input :type="field.type" class="form-control" :id="field.label + index"
-                      :placeholder="field.placeholder" v-model="customerForm[field.label]"
+                      :placeholder="field.placeholder" v-model="customerForm[field.name]"
                       @input="print(customerForm)" />
                   </div>
                 </div>
@@ -57,7 +57,7 @@
                 </label>
                 <div class="col-sm-9">
                   <input :type="field.type" class="form-control" :id="field.label + index"
-                    :placeholder="field.placeholder" v-model="customerForm[field.label]" @input="print(customerForm)" />
+                    :placeholder="field.placeholder" v-model="customerForm[field.name]" @input="print(customerForm)" />
                 </div>
               </div>
             </div>
