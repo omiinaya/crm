@@ -89,6 +89,10 @@ export default defineComponent({
   text-align: left;
 }
 
+.custom-left {
+  pointer-events: none;
+}
+
 .welcome {
   margin-left: 60px;
   margin-top: 30px;

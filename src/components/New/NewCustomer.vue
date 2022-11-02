@@ -8,24 +8,75 @@
         <div class="row">
           <div class="col-6">
             <div class="form">
-              <div
-                class="mb-3 row"
-                v-for="(field, index) in fieldsLeft"
-                :key="field + index"
-              >
-                <label
-                  :for="field.label + index"
-                  class="col-sm-3 col-form-label"
-                  ><i :class="field.icon"></i>
-                  {{ field.label }}
-                </label>
-                <div class="col-sm-9">
-                  <input
-                    :type="field.type"
-                    class="form-control"
-                    :id="field.label + index"
-                    :placeholder="field.placeholder"
-                  />
+              <div v-for="(field, index) in fieldsLeft" :key="field + index">
+                <div v-if="field.label === 'Phone:'" class="mb-3 row">
+                  <label
+                    :for="field.label + index"
+                    class="col-sm-3 col-form-label"
+                    ><i :class="field.icon"></i>
+                    {{ field.label }}
+                  </label>
+                  <div class="col-sm-3 dropdown">
+                    <button
+                      class="btn btn-secondary dropdown-toggle"
+                      type="button"
+                      id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      style="width: 100%"
+                      placeholder="Dropdown"
+                    >
+                      {{ phoneSelected }}
+                    </button>
+                    <ul
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton1"
+                    >
+                      <li
+                        v-for="(type, index) in phoneTypes"
+                        :key="type + index"
+                      >
+                        <a
+                          class="dropdown-item"
+                          href="#!"
+                          v-on:click="phoneSelected = type"
+                          >{{ type }}</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-sm-3">
+                    <input
+                      :type="field.type"
+                      class="form-control"
+                      :id="field.label + index"
+                      :placeholder="field.placeholder"
+                    />
+                  </div>
+                  <div class="col-sm-3">
+                    <input
+                      :type="field.type"
+                      class="form-control"
+                      :id="field.label + index"
+                      placeholder="Ext"
+                    />
+                  </div>
+                </div>
+                <div v-else class="mb-3 row">
+                  <label
+                    :for="field.label + index"
+                    class="col-sm-3 col-form-label"
+                    ><i :class="field.icon"></i>
+                    {{ field.label }}
+                  </label>
+                  <div class="col-sm-9">
+                    <input
+                      :type="field.type"
+                      class="form-control"
+                      :id="field.label + index"
+                      :placeholder="field.placeholder"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -69,6 +120,8 @@ export default {
   components: {},
   data: () => ({
     fields: null,
+    phoneTypes: ['Mobile', 'Home', 'Office', 'Fax', 'Other'],
+    phoneSelected: 'Mobile',
     storeX
   }),
   methods: {
