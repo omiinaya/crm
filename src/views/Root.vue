@@ -7,18 +7,18 @@
     </ion-header>
 
     <ion-content :fullscreen="true">
-      <Home v-if="storeX.view === 'homeView' || !storeX.view"/>
-      <Customers v-else-if="storeX.view === 'customersView'"/>
-      <Assets v-else-if="storeX.view === 'assetsView'"/>
-      <Invoices v-else-if="storeX.view === 'invoicesView'"/>
-      <Tickets v-else-if="storeX.view === 'ticketsView'"/>
-      <Parts v-else-if="storeX.view === 'partsView'"/>
-      <Inventory v-else-if="storeX.view === 'inventoryView'"/>
-      <Estimates v-else-if="storeX.view === 'estimatesView'"/>
-      <POS v-else-if="storeX.view === 'posView'"/>
-      <Admin v-else-if="storeX.view === 'adminView'"/>
-      <NewCustomer v-else-if="storeX.view === 'newCustomerView'"/>
-      <NewTicket v-else-if="storeX.view === 'newTicketView'"/>
+      <Home v-if="storeX.view === 'homeView' || !storeX.view" />
+      <Customers v-else-if="storeX.view === 'customersView'" />
+      <Assets v-else-if="storeX.view === 'assetsView'" />
+      <Invoices v-else-if="storeX.view === 'invoicesView'" />
+      <Tickets v-else-if="storeX.view === 'ticketsView'" />
+      <Parts v-else-if="storeX.view === 'partsView'" />
+      <Inventory v-else-if="storeX.view === 'inventoryView'" />
+      <Estimates v-else-if="storeX.view === 'estimatesView'" />
+      <POS v-else-if="storeX.view === 'posView'" />
+      <Admin v-else-if="storeX.view === 'adminView'" />
+      <NewCustomer v-else-if="storeX.view === 'newCustomerView'" />
+      <NewTicket v-else-if="storeX.view === 'newTicketView'" />
     </ion-content>
   </ion-page>
 </template>
@@ -76,5 +76,8 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
+.btn {
+  box-shadow: none;
+  border-color: transparent;
+}
 </style>

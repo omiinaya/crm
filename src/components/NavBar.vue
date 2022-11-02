@@ -1,15 +1,22 @@
 <template>
   <div class="row test">
     <div class="col-1-5 offset-1 topBar">
-      <button type="button" class="btn" v-on:click="storeX.view = null">Mobile Me IT Inc.</button>
+      <button type="button" class="btn" v-on:click="storeX.view = null">
+        Mobile Me IT Inc.
+      </button>
     </div>
     <div class="col-7 search">
-      <input class="form-control me-2" type="search" placeholder="Search all the things" aria-label="Search" />
+      <input
+        class="form-control me-2"
+        type="search"
+        placeholder="Search all the things"
+        aria-label="Search"
+      />
     </div>
     <div class="col-2 topBar">
       <li class="nav-item rightBar">
-          <i class="bi bi-person-circle"></i>
-          {{this.$store.state.auth.user.name}}
+        <i class="bi bi-person-circle"></i>
+        {{ this.$store.state.auth.user.name }}
       </li>
       <li class="nav-item rightBar">
         <router-link to="#!" class="nav-link" @click="logOut()">
@@ -19,17 +26,24 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-1">
-    </div>
-    <div class="col-0-5 nav-item text-center" v-for="(link, index) in links" :key="link + index">
-      <a class="nav-link active" aria-current="page" href="#!" v-on:click="storeX.view = link.url">
+    <div class="col-1"></div>
+    <div
+      class="col-0-5 nav-item text-center"
+      v-for="(link, index) in links"
+      :key="link + index"
+    >
+      <a
+        class="nav-link active"
+        aria-current="page"
+        href="#!"
+        v-on:click="storeX.view = link.url"
+      >
         <div>
-          <i :class=link.icon></i>
+          <i :class="link.icon"></i>
         </div>
         {{ link.title }}
       </a>
     </div>
-
   </div>
 </template>
 
@@ -62,9 +76,14 @@ export default {
 
 <style scoped>
 .topBar .btn {
-  background-color: 'transparent' !important;
-  background: 'transparent';
+  background-color: "transparent" !important;
+  background: "transparent";
   color: white;
+}
+
+.topBar .btn:focus {
+  box-shadow: none;
+  border-color: transparent;
 }
 .rightBar .bi {
   font-size: 20px !important;
@@ -113,8 +132,8 @@ export default {
 }
 
 .col-1-5 {
-  flex: 0 0 12.30%;
-  max-width: 12.30%;
+  flex: 0 0 12.3%;
+  max-width: 12.3%;
   position: relative;
   width: 100%;
 }
