@@ -45,7 +45,7 @@
                       </li>
                     </ul>
                   </div>
-                  <div class="col-sm-3">
+                  <div class="col-sm-4">
                     <input
                       :type="field.type"
                       class="form-control"
@@ -53,7 +53,7 @@
                       :placeholder="field.placeholder"
                     />
                   </div>
-                  <div class="col-sm-3">
+                  <div class="col-sm-2">
                     <input
                       :type="field.type"
                       class="form-control"
