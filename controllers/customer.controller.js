@@ -16,7 +16,7 @@ exports.create = async (req, res) => {
 
   const customer = {}
   fields.forEach((field) => {
-    customer[field] = req.body[field]
+    customer[field] = req.body[field];
   })
 
   Customer.create(customer)

@@ -191,7 +191,7 @@ const customerFields = [
     side: 1,
   },
   {
-    name: "address1",
+    name: "address2",
     label: "Address 2",
     type: "text",
     placeholder: "Address (Street Address or P.O. Box)",
