@@ -1,16 +1,23 @@
 import { createWebHistory, createRouter } from "vue-router";
-import Root from "./views/Root.vue";
-import Login from "./components/Login.vue";
-import Register from "./components/Register.vue";
+
 // lazy-loaded
 const Profile = () => import("./components/Profile.vue")
 const BoardUser = () => import("./components/BoardUser.vue")
+const Root = () => import("./views/Root.vue")
+const Login = () => import("./components/Login.vue")
+const Register = () => import("./components/Register.vue")
+const Customers = () => import("./components/Customers.vue")
 
 const routes = [
   {
     path: "/",
     name: "root",
     component: Root,
+  },
+  {
+    path: "/customers",
+    name: "customers",
+    component: Customers,
   },
   {
     path: "/login",

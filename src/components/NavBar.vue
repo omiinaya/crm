@@ -35,7 +35,7 @@
       <a
         class="nav-link active"
         aria-current="page"
-        href="#!"
+        href="#"
         v-on:click="storeX.view = link.url"
       >
         <div>

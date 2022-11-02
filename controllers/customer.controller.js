@@ -3,7 +3,7 @@ const Customer = db.customer;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
-  if (!req.body.title) {
+  if (!req.body['First Name']) {
     res.status(400).send({
       message: "Content can not be empty!",
     });
@@ -11,9 +11,16 @@ exports.create = (req, res) => {
   }
 
   const customer = {
-    title: req.body.title,
-    icon: req.body.description,
-    url: req.body.published,
+    firstName: req.body['First Name'],
+    lastName: req.body['Last Name'],
+    business: req.body['Business'],
+    email: req.body['Email'],
+    phone: req.body['Phone'],
+    address1: req.body['Address 1'],
+    address2: req.body['Address 2'],
+    city: req.body['City'],
+    state: req.body['State'],
+    zip: req.body['Zip Code']
   };
 
   Customer.create(customer)

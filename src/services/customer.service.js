@@ -8,6 +8,10 @@ class CustomerService {
     return axios.get(API_URL);
   }
 
+  createCustomer(data) {
+    return axios.post(API_URL, data);
+  }
+
   getCustomerFields() {
     return axios.get(API_URL + "fields/", { headers: authHeader() });
   }

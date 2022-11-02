@@ -61,6 +61,9 @@
                 </div>
               </div>
             </div>
+            <div class="col-sm-1" v-on:click="createCustomer(customerForm)">
+                  <button>test</button>
+                </div>
           </div>
         </div>
       </div>
@@ -90,6 +93,11 @@ export default {
       const req = await CustomerService.getCustomerFields();
       this.fields = await req.data;
     },
+    async createCustomer(data) {
+       const req = await CustomerService.createCustomer(data);
+       const response = await req.data;
+       console.log(response);
+    }
   },
   created() { this.getFieldItems() },
   computed: {

@@ -51,7 +51,7 @@ export default defineComponent({
   },
   methods: {},
   created() {
-    console.log(storeX.view)
+    //console.log(storeX.view)
   },
   components: {
     IonContent,
