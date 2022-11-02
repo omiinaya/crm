@@ -40,8 +40,8 @@
                           class="dropdown-item"
                           href="#!"
                           v-on:click="phoneSelected = type"
-                          >{{ type }}</a
-                        >
+                          >{{ type }}
+                        </a>
                       </li>
                     </ul>
                   </div>
