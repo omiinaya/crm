@@ -4,8 +4,8 @@
   </div>
   <div class="row">
     <div class="get-started section">
-      <div class="menu">
-        <center>Get Started</center>
+      <div class="menu text-center">
+        Get Started
         <div
           class="btn-group-vertical"
           role="group"
@@ -35,12 +35,8 @@
         </div>
       </div>
     </div>
-    <div class="col-6 menu section">
-      <center>Reminders</center>
-    </div>
-    <div class="col-2-5 menu section">
-      <center>Summary</center>
-    </div>
+    <div class="col-6 menu section text-center">Reminders</div>
+    <div class="col-2-5 menu section text-center">Summary</div>
   </div>
 </template>
   
