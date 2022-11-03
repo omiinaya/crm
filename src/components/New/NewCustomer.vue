@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div>
-      <div class="cols-10 offset-1 title">New Customer</div>
-    </div>
+
+    <div class="cols-10 offset-1 title">New Customer</div>
 
     <div class="section">
       <div class="row">
+        <div class="cols-10 sub-title">BASIC INFO</div>
         <div class="col-6">
           <div class="form">
             <div v-for="(field, index) in fieldsLeft" :key="field + index">
@@ -66,9 +66,10 @@
         </div>
       </div>
     </div>
-    <br />
+    <br/>
     <div class="section">
       <div class="row">
+        <div class="cols-10 sub-title">CUSTOMER SETTINGS</div>
         <div class="col-6">
           <div class="form">
             test1
@@ -138,6 +139,10 @@ export default {
   font-size: 30px;
 }
 
+.sub-title {
+  margin: 30px;
+  margin-bottom: 0;
+}
 .section {
   margin-left: 125px;
   margin-right: 125px;
