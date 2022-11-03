@@ -35,7 +35,10 @@
                 </div>
               </div>
               <div v-else-if="field.name === 'customerType'" class="mb-3 row">
-                <div>
+                <label :for="field.label + index" class="col-sm-3 col-form-label"><i :class="field.icon"></i>
+                  {{ field.label }}:
+                </label>
+                <div class="col-sm-8">
                   <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
                       value="option1">
@@ -54,8 +57,6 @@
                 </div>
               </div>
               <div v-else class="mb-3 row">
-
-
                 <label :for="field.label + index" class="col-sm-3 col-form-label"><i :class="field.icon"></i>
                   {{ field.label }}:
                 </label>
