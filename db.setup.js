@@ -27,7 +27,7 @@ async function dbSetup() {
 
 const roles = ["user", "moderator", "admin"];
 const phoneTypes = ["Mobile", "Home", "Office", "Fax", "Other"]
-const customerTypes = ["Client", "Business", "School"]
+const customerTypes = ["Individual", "Business", "School"]
 const actions = [
   {
     title: "New Customer",

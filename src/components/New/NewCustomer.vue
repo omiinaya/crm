@@ -1,11 +1,16 @@
 <template>
   <div>
-
-    <div class="cols-10 offset-1 title">New Customer</div>
-
+    <div class="row align-items-center">
+      <div class="col-6 offset-1 title">New Customer</div>
+      <div class="col-5">
+        <button type="button" class="btn btn-primary" v-on:click="createCustomer(customerForm)">TEST BUTTON 1</button>
+        <button type="button" class="btn btn-secondary" v-on:click="createCustomer(customerForm)">TEST BUTTON 2</button>
+        <button type="button" class="btn btn-success" v-on:click="createCustomer(customerForm)">TEST BUTTON 3</button>
+      </div>
+    </div>
     <div class="section">
       <div class="row align-items-center">
-        <div class="cols-10 sub-title">BASIC INFO</div>
+        <div class="cols-12 sub-title">BASIC INFO</div>
         <div class="col-6">
           <div class="form">
             <div v-for="(field, index) in fieldsLeft" :key="field + index">
@@ -38,10 +43,11 @@
                   {{ field.label }}:
                 </label>
                 <div class="col-sm-9" style="height:25px">
-                  <div v-for="(customerType, index) in customerTypes" :key="customerType + index" class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                        value="option1">
-                      <label class="form-check-label" for="inlineRadio1">{{ customerType }}</label>  
+                  <div v-for="(customerType, index) in customerTypes" :key="customerType + index"
+                    class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                      value="option1">
+                    <label class="form-check-label" for="inlineRadio1">{{ customerType }}</label>
                   </div>
                 </div>
               </div>
@@ -68,9 +74,6 @@
                   :placeholder="field.placeholder" v-model="customerForm[field.name]" @input="print(customerForm)" />
               </div>
             </div>
-          </div>
-          <div class="col-sm-1" v-on:click="createCustomer(customerForm)">
-            <button>test</button>
           </div>
         </div>
       </div>
@@ -150,6 +153,10 @@ export default {
 </script>
 
 <style scoped>
+
+.btn {
+  margin-right: 10px !important;
+}
 .form {
   margin: 30px;
 }
