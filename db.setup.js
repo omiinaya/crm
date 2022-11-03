@@ -168,7 +168,7 @@ const customerFields = [
   },
   {
     name: "customerType",
-    label: "Client Type",
+    label: "Customer Type",
     type: "checkbox",
     icon: "bi bi-bar-chart-steps",
     side: 0,
@@ -176,7 +176,7 @@ const customerFields = [
   },
   {
     name: "businessName",
-    label: "Business",
+    label: "Business Name",
     type: "text",
     placeholder: "Business Name",
     icon: "bi bi-building",
