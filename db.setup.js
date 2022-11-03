@@ -26,6 +26,8 @@ async function dbSetup() {
 }
 
 const roles = ["user", "moderator", "admin"];
+const phoneTypes = ["Mobile", "Home", "Office", "Fax", "Other"]
+const customerTypes = ["Client", "Business", "School"]
 const actions = [
   {
     title: "New Customer",
@@ -159,12 +161,12 @@ const customerFields = [
     side: 0,
   },
   {
-    name: "businessName",
-    label: "Business",
-    type: "text",
-    placeholder: "Business",
+    name: "customerType",
+    label: "Customer Type",
+    type: "checkbox",
     icon: "bi bi-building",
     side: 0,
+    options: JSON.stringify(customerTypes)
   },
   {
     name: "email",
@@ -181,6 +183,7 @@ const customerFields = [
     placeholder: "Number",
     icon: "bi bi-telephone",
     side: 0,
+    options: JSON.stringify(phoneTypes)
   },
   {
     name: "address1",
@@ -275,6 +278,7 @@ function dummyData() {
       placeholder: fields.placeholder,
       icon: fields.icon,
       side: fields.side,
+      options: fields.options
     });
   });
 

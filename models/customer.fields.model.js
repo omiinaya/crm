@@ -23,6 +23,9 @@ module.exports = (sequelize, Sequelize) => {
     side: {
       type: Sequelize.INTEGER,
     },
+    options: {
+      type: Sequelize.STRING
+    }
   });
 
   return CustomerFields;

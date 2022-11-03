@@ -9,34 +9,53 @@
         <div class="col-6">
           <div class="form">
             <div v-for="(field, index) in fieldsLeft" :key="field + index">
-              <!--
-                <div v-if="field.label === 'Phone:'" class="mb-3 row">
-                  <label :for="field.label + index" class="col-sm-3 col-form-label"><i :class="field.icon"></i>
-                    {{ field.label }}
-                  </label>
-                  <div class="col-sm-3 dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                      data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%" placeholder="Dropdown">
-                      {{ phoneSelected }}
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                      <li v-for="(type, index) in phoneTypes" :key="type + index">
-                        <a class="dropdown-item" href="#!" v-on:click="phoneSelected = type">{{ type }}
-                        </a>
-                      </li>
-                    </ul>
+
+              <div v-if="field.name === 'phone'" class="mb-3 row">
+                <label :for="field.label + index" class="col-sm-3 col-form-label"><i :class="field.icon"></i>
+                  {{ field.label }}
+                </label>
+                <div class="col-sm-3 dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%" placeholder="Dropdown">
+                    {{ phoneType }}
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li v-for="(type, index) in phoneTypes" :key="type + index">
+                      <a class="dropdown-item" href="#!" v-on:click="phoneType = type">{{ type }}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-sm-4">
+                  <input :type="field.type" class="form-control" :id="field.label + index"
+                    :placeholder="field.placeholder" v-model="customerForm[field.label]" @input="print(customerForm)" />
+                </div>
+                <div class="col-sm-2">
+                  <input :type="field.type" class="form-control" :id="field.label + index" placeholder="Ext" />
+                </div>
+              </div>
+              <div v-else-if="field.name === 'customerType'" class="mb-3 row">
+                <div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                      value="option1">
+                    <label class="form-check-label" for="inlineRadio1">{{customerTypes[0]}}</label>
                   </div>
-                  <div class="col-sm-4">
-                    <input :type="field.type" class="form-control" :id="field.label + index"
-                      :placeholder="field.placeholder" v-model="customerForm[field.label]" @input="print(customerForm)"/>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                      value="option2">
+                    <label class="form-check-label" for="inlineRadio2">{{customerTypes[1]}}</label>
                   </div>
-                  <div class="col-sm-2">
-                    <input :type="field.type" class="form-control" :id="field.label + index" placeholder="Ext" />
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"
+                      value="option3">
+                    <label class="form-check-label" for="inlineRadio3">{{customerTypes[2]}}</label>
                   </div>
                 </div>
-                <div v-else class="mb-3 row">
-                  -->
-              <div class="mb-3 row">
+              </div>
+              <div v-else class="mb-3 row">
+
+
                 <label :for="field.label + index" class="col-sm-3 col-form-label"><i :class="field.icon"></i>
                   {{ field.label }}:
                 </label>
@@ -66,7 +85,7 @@
         </div>
       </div>
     </div>
-    <br/>
+    <br />
     <div class="section">
       <div class="row">
         <div class="cols-10 sub-title">CUSTOMER SETTINGS</div>
@@ -95,8 +114,10 @@ export default {
   components: {},
   data: () => ({
     fields: null,
-    phoneTypes: ['Mobile', 'Home', 'Office', 'Fax', 'Other'],
-    phoneSelected: 'Mobile',
+    customerTypes: ['Individual', 'Business'],
+    customerType: null,
+    phoneTypes: null,
+    phoneType: null,
     customerForm: {},
     storeX
   }),
@@ -107,6 +128,16 @@ export default {
     async getFieldItems() {
       const req = await CustomerService.getCustomerFields();
       this.fields = await req.data;
+      //phonesTypes
+      const phoneTypes = this.fields.filter(field => field.name === 'phone')[0].options
+      this.phoneTypes = JSON.parse(phoneTypes);
+      this.phoneType = this.phoneTypes[0];
+      //customerTypes
+      const customerTypes = this.fields.filter(field => field.name === 'customerType')[0].options
+      this.customerTypes = JSON.parse(customerTypes)
+      console.log(this.customerTypes)
+
+
     },
     async createCustomer(data) {
       const req = await CustomerService.createCustomer(data);
@@ -143,6 +174,7 @@ export default {
   margin: 30px;
   margin-bottom: 0;
 }
+
 .section {
   margin-left: 125px;
   margin-right: 125px;
