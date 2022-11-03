@@ -9,7 +9,6 @@
         <div class="col-6">
           <div class="form">
             <div v-for="(field, index) in fieldsLeft" :key="field + index">
-
               <div v-if="field.name === 'phone'" class="mb-3 row">
                 <label :for="field.label + index" class="col-sm-3 col-form-label"><i :class="field.icon"></i>
                   {{ field.label }}
@@ -39,20 +38,10 @@
                   {{ field.label }}:
                 </label>
                 <div class="col-sm-8">
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                      value="option1">
-                    <label class="form-check-label" for="inlineRadio1">{{customerTypes[0]}}</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                      value="option2">
-                    <label class="form-check-label" for="inlineRadio2">{{customerTypes[1]}}</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"
-                      value="option3">
-                    <label class="form-check-label" for="inlineRadio3">{{customerTypes[2]}}</label>
+                  <div v-for="(customerType, index) in customerTypes" :key="customerType + index" class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                        value="option1">
+                      <label class="form-check-label" for="inlineRadio1">{{ customerType }}</label>  
                   </div>
                 </div>
               </div>
