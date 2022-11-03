@@ -3,13 +3,13 @@
     <div>
       <div class="cols-10 offset-1 title">New Customer</div>
     </div>
-    <div>
-      <div class="section">
-        <div class="row">
-          <div class="col-6">
-            <div class="form">
-              <div v-for="(field, index) in fieldsLeft" :key="field + index">
-                <!--
+
+    <div class="section">
+      <div class="row">
+        <div class="col-6">
+          <div class="form">
+            <div v-for="(field, index) in fieldsLeft" :key="field + index">
+              <!--
                 <div v-if="field.label === 'Phone:'" class="mb-3 row">
                   <label :for="field.label + index" class="col-sm-3 col-form-label"><i :class="field.icon"></i>
                     {{ field.label }}
@@ -36,22 +36,7 @@
                 </div>
                 <div v-else class="mb-3 row">
                   -->
-                <div class="mb-3 row">
-                  <label :for="field.label + index" class="col-sm-3 col-form-label"><i :class="field.icon"></i>
-                    {{ field.label }}:
-                  </label>
-                  <div class="col-sm-9">
-                    <input :type="field.type" class="form-control" :id="field.label + index"
-                      :placeholder="field.placeholder" v-model="customerForm[field.name]"
-                      @input="print(customerForm)" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-6">
-            <div class="form">
-              <div class="mb-3 row" v-for="(field, index) in fieldsRight" :key="field + index">
+              <div class="mb-3 row">
                 <label :for="field.label + index" class="col-sm-3 col-form-label"><i :class="field.icon"></i>
                   {{ field.label }}:
                 </label>
@@ -61,13 +46,42 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-1" v-on:click="createCustomer(customerForm)">
-                  <button>test</button>
-                </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form">
+            <div class="mb-3 row" v-for="(field, index) in fieldsRight" :key="field + index">
+              <label :for="field.label + index" class="col-sm-3 col-form-label"><i :class="field.icon"></i>
+                {{ field.label }}:
+              </label>
+              <div class="col-sm-9">
+                <input :type="field.type" class="form-control" :id="field.label + index"
+                  :placeholder="field.placeholder" v-model="customerForm[field.name]" @input="print(customerForm)" />
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-1" v-on:click="createCustomer(customerForm)">
+            <button>test</button>
           </div>
         </div>
       </div>
     </div>
+    <br />
+    <div class="section">
+      <div class="row">
+        <div class="col-6">
+          <div class="form">
+            test1
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form">
+            test2
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -94,9 +108,9 @@ export default {
       this.fields = await req.data;
     },
     async createCustomer(data) {
-       const req = await CustomerService.createCustomer(data);
-       const response = await req.data;
-       console.log(response);
+      const req = await CustomerService.createCustomer(data);
+      const response = await req.data;
+      console.log(response);
     }
   },
   created() { this.getFieldItems() },
