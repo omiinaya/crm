@@ -1,6 +1,6 @@
 <template>
-  <div class="row test">
-    <div class="col-1-5 offset-1 topBar">
+  <div class="row test align-items-center">
+    <div class="col-1-5 offset-1" id="topBar">
       <button type="button" class="btn" v-on:click="storeX.view = null">
         Mobile Me IT Inc.
       </button>
@@ -75,13 +75,13 @@ export default {
 </script>
 
 <style scoped>
-.topBar .btn {
+#topBar .btn {
   background-color: "transparent" !important;
   background: "transparent";
   color: white;
 }
 
-.topBar .btn:focus {
+#topBar .btn:focus {
   box-shadow: none;
   border-color: transparent;
 }
@@ -102,10 +102,6 @@ export default {
   padding-left: 0 !important;
   padding-right: 0 !important;
   padding: 1vh;
-}
-
-.topBar {
-  padding-top: 1vh;
 }
 
 .bi {

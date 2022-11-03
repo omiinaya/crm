@@ -4,12 +4,12 @@
     <div class="cols-10 offset-1 title">New Customer</div>
 
     <div class="section">
-      <div class="row">
+      <div class="row align-items-center">
         <div class="cols-10 sub-title">BASIC INFO</div>
         <div class="col-6">
           <div class="form">
             <div v-for="(field, index) in fieldsLeft" :key="field + index">
-              <div v-if="field.name === 'phone'" class="mb-3 row">
+              <div v-if="field.name === 'phone'" class="mb-3 row align-items-center">
                 <label :for="field.label + index" class="col-sm-3 col-form-label"><i :class="field.icon"></i>
                   {{ field.label }}
                 </label>
@@ -33,11 +33,11 @@
                   <input :type="field.type" class="form-control" :id="field.label + index" placeholder="Ext" />
                 </div>
               </div>
-              <div v-else-if="field.name === 'customerType'" class="mb-3 row">
+              <div v-else-if="field.name === 'customerType'" class="mb-3 row align-items-center">
                 <label :for="field.label + index" class="col-sm-3 col-form-label"><i :class="field.icon"></i>
                   {{ field.label }}:
                 </label>
-                <div class="col-sm-8">
+                <div class="col-sm-9" style="height:25px">
                   <div v-for="(customerType, index) in customerTypes" :key="customerType + index" class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
                         value="option1">
@@ -45,7 +45,7 @@
                   </div>
                 </div>
               </div>
-              <div v-else class="mb-3 row">
+              <div v-else class="mb-3 row align-items-center">
                 <label :for="field.label + index" class="col-sm-3 col-form-label"><i :class="field.icon"></i>
                   {{ field.label }}:
                 </label>
@@ -59,7 +59,7 @@
         </div>
         <div class="col-6">
           <div class="form">
-            <div class="mb-3 row" v-for="(field, index) in fieldsRight" :key="field + index">
+            <div class="mb-3 row align-items-center" v-for="(field, index) in fieldsRight" :key="field + index">
               <label :for="field.label + index" class="col-sm-3 col-form-label"><i :class="field.icon"></i>
                 {{ field.label }}:
               </label>
@@ -77,7 +77,7 @@
     </div>
     <br />
     <div class="section">
-      <div class="row">
+      <div class="row align-items-center">
         <div class="cols-10 sub-title">CUSTOMER SETTINGS</div>
         <div class="col-6">
           <div class="form">
