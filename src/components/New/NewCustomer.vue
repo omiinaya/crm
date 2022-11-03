@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="section">
-      <div class="row align-items-center">
+      <div class="row align-items-top">
         <div class="cols-12 sub-title">BASIC INFO</div>
         <div class="col-6">
           <div class="form">
@@ -95,7 +95,7 @@
     </div>
     <br />
     <div class="section">
-      <div class="row align-items-center">
+      <div class="row align-items-top">
         <div class="cols-10 sub-title">CUSTOMER SETTINGS</div>
         <div class="col-6">
           <div class="form">

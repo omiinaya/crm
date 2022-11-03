@@ -186,7 +186,7 @@ const customerFields = [
     name: "email",
     label: "Email",
     type: "email",
-    placeholder: "Email",
+    placeholder: "Email Address",
     icon: "bi bi-envelope",
     side: 0,
   },
@@ -194,7 +194,7 @@ const customerFields = [
     name: "phone",
     label: "Phone",
     type: "text",
-    placeholder: "Number",
+    placeholder: "Phone Number",
     icon: "bi bi-telephone",
     side: 0,
     options: JSON.stringify(phoneTypes)
@@ -237,6 +237,14 @@ const customerFields = [
     type: "text",
     placeholder: "Zip Code",
     icon: "bi bi-geo-alt",
+    side: 1,
+  },
+  {
+    name: "referredBy",
+    label: "Referred By",
+    type: "text",
+    placeholder: "Referral",
+    icon: "bi bi-arrow-right-circle",
     side: 1,
   },
 ];
