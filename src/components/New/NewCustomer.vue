@@ -5,7 +5,7 @@
       <div class="col-5">
         <button type="button" class="btn btn-primary" v-on:click="createCustomer(customerForm)">TEST BUTTON 1</button>
         <button type="button" class="btn btn-secondary" v-on:click="createCustomer(customerForm)">TEST BUTTON 2</button>
-        <button type="button" class="btn btn-success" v-on:click="createCustomer(customerForm)">TEST BUTTON 3</button>
+        <button type="button" class="btn btn-success" v-on:click="testing()">TEST BUTTON 3</button>
       </div>
     </div>
     <div class="section">
@@ -43,11 +43,11 @@
                   {{ field.label }}:
                 </label>
                 <div class="col-sm-9" style="height:25px">
-                  <div v-for="(customerType, index) in customerTypes" :key="customerType + index"
+                  <div v-for="(type, index) in customerTypes" :key="type + index"
                     class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                      value="option1">
-                    <label class="form-check-label" for="inlineRadio1">{{ customerType }}</label>
+                      value="option1" v-on:click="customerType = type">
+                    <label class="form-check-label" for="inlineRadio1">{{ type }}</label>
                   </div>
                 </div>
               </div>
@@ -107,7 +107,7 @@ export default {
   components: {},
   data: () => ({
     fields: null,
-    customerTypes: ['Individual', 'Business'],
+    customerTypes: null,
     customerType: null,
     phoneTypes: null,
     phoneType: null,
@@ -128,6 +128,7 @@ export default {
       //customerTypes
       const customerTypes = this.fields.filter(field => field.name === 'customerType')[0].options
       this.customerTypes = JSON.parse(customerTypes)
+      this.customerType = this.customerTypes[0];
       console.log(this.customerTypes)
 
 
@@ -136,6 +137,10 @@ export default {
       const req = await CustomerService.createCustomer(data);
       const response = await req.data;
       console.log(response);
+    },
+    testing() {
+      console.log(this.phoneType)
+      console.log(this.customerType)
     }
   },
   created() { this.getFieldItems() },
@@ -148,6 +153,7 @@ export default {
       if (!this.fields) return;
       return this.fields.filter(field => field.side === 1);
     }
+    
   }
 }
 </script>
