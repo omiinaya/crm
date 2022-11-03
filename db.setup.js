@@ -170,14 +170,15 @@ const customerFields = [
     name: "customerType",
     label: "Client Type",
     type: "checkbox",
-    icon: "bi bi-building",
+    icon: "bi bi-bar-chart-steps",
     side: 0,
     options: JSON.stringify(customerTypes)
   },
   {
     name: "businessName",
-    label: "Business Name",
+    label: "Business",
     type: "text",
+    placeholder: "Business Name",
     icon: "bi bi-building",
     side: 0,
   },
