@@ -21,6 +21,7 @@ db.role = require("./role.model.js")(sequelize, Sequelize);
 db.nav = require("./nav.model.js")(sequelize, Sequelize);
 db.home = require("./home.model")(sequelize, Sequelize);
 db.customer = require("./customer.model")(sequelize, Sequelize);
+db.business = require("./business.model")(sequelize, Sequelize);
 db.customerFields = require("./customer.fields.model")(sequelize, Sequelize);
 
 db.user.belongsToMany(db.role, {

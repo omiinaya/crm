@@ -7,6 +7,7 @@ const Nav = db.nav;
 const User = db.user;
 const Home = db.home;
 const Customer = db.customer;
+const Business = db.business;
 const CustomerFields = db.customerFields;
 
 const config = {
@@ -28,6 +29,11 @@ async function dbSetup() {
 const roles = ["user", "moderator", "admin"];
 const phoneTypes = ["Mobile", "Home", "Office", "Fax", "Other"]
 const customerTypes = ["Individual", "Business", "School"]
+const businesses = [
+  {
+    name: 'MobileMe IT'
+  }
+]
 const actions = [
   {
     title: "New Customer",
@@ -169,6 +175,13 @@ const customerFields = [
     options: JSON.stringify(customerTypes)
   },
   {
+    name: "businessName",
+    label: "Business Name",
+    type: "text",
+    icon: "bi bi-building",
+    side: 0,
+  },
+  {
     name: "email",
     label: "Email",
     type: "email",
@@ -281,6 +294,12 @@ function dummyData() {
       options: fields.options
     });
   });
+
+  businesses.forEach((business, index) => {
+    Business.create({
+      name: business.name
+    })
+  })
 
   User.create({
     firstName: "test",
