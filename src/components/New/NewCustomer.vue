@@ -43,11 +43,17 @@
                   {{ field.label }}:
                 </label>
                 <div class="col-sm-9" style="height:25px">
-                  <div v-for="(type, index) in customerTypes" :key="type + index"
-                    class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                      value="option1" v-on:click="customerType = type">
-                    <label class="form-check-label" for="inlineRadio1">{{ type }}</label>
+                  <div v-for="(type, index) in customerTypes" :key="type + index" class="form-check form-check-inline">
+                    <div v-if="!index">
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                        value="option1" v-on:click="customerType = type" checked>
+                      <label class="form-check-label" for="inlineRadio1">{{ type }}</label>
+                    </div>
+                    <div v-else>
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                        value="option1" v-on:click="customerType = type">
+                      <label class="form-check-label" for="inlineRadio1">{{ type }}</label>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -129,9 +135,6 @@ export default {
       const customerTypes = this.fields.filter(field => field.name === 'customerType')[0].options
       this.customerTypes = JSON.parse(customerTypes)
       this.customerType = this.customerTypes[0];
-      console.log(this.customerTypes)
-
-
     },
     async createCustomer(data) {
       const req = await CustomerService.createCustomer(data);
@@ -153,16 +156,16 @@ export default {
       if (!this.fields) return;
       return this.fields.filter(field => field.side === 1);
     }
-    
+
   }
 }
 </script>
 
 <style scoped>
-
 .btn {
   margin-right: 10px !important;
 }
+
 .form {
   margin: 30px;
 }
