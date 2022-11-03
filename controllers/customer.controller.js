@@ -1,5 +1,5 @@
 const db = require("../models");
-const axios = require('axios');
+const axios = require("axios");
 const Customer = db.customer;
 const Op = db.Sequelize.Op;
 
@@ -12,12 +12,19 @@ exports.create = async (req, res) => {
     return;
   }
 
-  const fields = await axios.get("http://localhost:8090/api/customer/fields")
+  const fields = await axios.get("http://localhost:8090/api/customer/fields");
+  const response = await fields.data;
 
-  const customer = {}
-  fields.forEach((field) => {
-    customer[field] = req.body[field];
-  })
+  //console.log(response);
+
+  let customer = {};
+
+  for (let i = 0; i < response.length; i++) {
+    console.log(response[i].name);
+    customer[response[i].name] = req.body[response[i].name];
+  }
+
+  console.log(customer);
 
   Customer.create(customer)
     .then((data) => {
