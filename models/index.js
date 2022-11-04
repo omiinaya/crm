@@ -16,10 +16,11 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
+db.home = require("./home.model")(sequelize, Sequelize);
+db.nav = require("./nav.model.js")(sequelize, Sequelize);
 db.user = require("./user.model.js")(sequelize, Sequelize);
 db.role = require("./role.model.js")(sequelize, Sequelize);
-db.nav = require("./nav.model.js")(sequelize, Sequelize);
-db.home = require("./home.model")(sequelize, Sequelize);
+db.numbers = require("./numbers.model")(sequelize, Sequelize);
 db.customer = require("./customer.model")(sequelize, Sequelize);
 db.business = require("./business.model")(sequelize, Sequelize);
 db.customerFields = require("./customer.fields.model")(sequelize, Sequelize);

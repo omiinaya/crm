@@ -14,7 +14,7 @@ module.exports = (sequelize, Sequelize) => {
     url: {
       type: Sequelize.STRING
     },
-    role_id: {
+    roleId: {
       type: Sequelize.INTEGER,
       defaultValue: 1
     }

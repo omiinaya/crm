@@ -15,26 +15,19 @@ exports.create = async (req, res) => {
   const fields = await axios.get("http://localhost:8090/api/customer/fields");
   const response = await fields.data;
 
-  //console.log(response);
-
   let customer = {};
 
   for (let i = 0; i < response.length; i++) {
-    console.log(response[i].name);
     customer[response[i].name] = req.body[response[i].name];
   }
 
-  console.log(customer);
-
-  Customer.create(customer)
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "Some error occurred while creating the Nav.",
-      });
-    });
+  try {
+    const request = await Customer.create(customer)
+    const data = await request;
+    res.send(data)
+  } catch (err) {
+    console.log(err)
+  }
 };
 
 exports.findAll = (req, res) => {
@@ -54,7 +47,7 @@ exports.findByRoleId = (req, res) => {
   const id = req.params.id;
 
   Customer.findAll({
-    where: { role_id: id },
+    where: { roleId: id },
   })
     .then((data) => {
       res.send(data);
@@ -71,7 +64,7 @@ exports.findByRole = (req, res) => {
   const id = req.params.id;
   Customer.findAll({
     where: {
-      role_id: {
+      roleId: {
         [Op.lte]: id,
       },
     },

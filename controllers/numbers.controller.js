@@ -45,7 +45,7 @@ exports.findByRoleId = (req, res) => {
     const id = req.params.id;
 
     Nav.findAll({
-        where: { role_id: id }
+        where: { roleId: id }
     })
         .then(data => {
             res.send(data);
@@ -61,7 +61,7 @@ exports.findByRoleId = (req, res) => {
 exports.findByRole = (req, res) => {
     const id = req.params.id;
     Nav.findAll({
-        where: { role_id: {
+        where: { roleId: {
             [Op.lte]: id
         }}
     })

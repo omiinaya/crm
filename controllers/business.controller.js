@@ -45,7 +45,7 @@ exports.findByRoleId = (req, res) => {
     const id = req.params.id;
 
     Business.findAll({
-        where: { role_id: id }
+        where: { roleId: id }
     })
         .then(data => {
             res.send(data);
@@ -62,7 +62,7 @@ exports.findByRole = (req, res) => {
     const id = req.params.id;
     Business.findAll({
         where: {
-            role_id: {
+            roleIdd: {
                 [Op.lte]: id
             }
         }

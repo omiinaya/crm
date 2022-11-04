@@ -14,7 +14,7 @@ module.exports = (sequelize, Sequelize) => {
     extension: {
       type: Sequelize.STRING,
     },
-    customer_id: {
+    customerId: {
       type: Sequelize.STRING,
     },
   });

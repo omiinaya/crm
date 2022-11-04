@@ -121,7 +121,7 @@ const navs = [
     title: "Admin",
     icon: "bi bi-gear",
     url: "adminView",
-    role_id: 3,
+    roleId: 3,
   },
 ];
 const customers = [
@@ -277,7 +277,7 @@ function dummyData() {
       title: role.title,
       icon: role.icon,
       url: role.url,
-      role_id: role.role_id,
+      roleId: role.roleId,
     });
   });
 
@@ -287,7 +287,7 @@ function dummyData() {
       title: action.title,
       icon: action.icon,
       url: action.url,
-      role_id: action.role_id,
+      roleIdd: action.roleId,
     });
   });
 

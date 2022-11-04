@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-sm-4">
                   <input :type="field.type" class="form-control" :id="field.label + index"
-                    :placeholder="field.placeholder" v-model="customerForm[field.label]" @input="print(customerForm)" />
+                    :placeholder="field.placeholder" v-model="customerForm[field.name]" @input="print(customerForm)" />
                 </div>
                 <div class="col-sm-2">
                   <input :type="field.type" class="form-control" :id="field.label + index" placeholder="Ext" />
@@ -146,13 +146,16 @@ export default {
       this.customerType = this.customerTypes[0];
     },
     async createCustomer(data) {
-      const req = await CustomerService.createCustomer(data);
-      const response = await req.data;
-      console.log(response);
+      const request = await CustomerService.createCustomer(data);
+      const response = await request.data;
+      console.log(response)
+      //const newCustomerId = await response.id
+      //console.log(newCustomerId);
     },
     testing() {
       console.log(this.phoneType)
       console.log(this.customerType)
+      console.log(this.customerForm)
     }
   },
   created() { this.getFieldItems() },
