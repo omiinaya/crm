@@ -21,11 +21,11 @@
                 <div class="col-sm-2 dropdown">
                   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
                     data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%; padding: 5px;" placeholder="Dropdown">
-                    {{ phoneType }}
+                    {{ customerForm['phoneType'] }}
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li v-for="(type, index) in phoneTypes" :key="type + index">
-                      <a class="dropdown-item" href="#!" v-on:click="phoneType = type">{{ type }}
+                      <a class="dropdown-item" href="#!" v-on:click="customerForm['phoneType'] = type">{{ type }}
                       </a>
                     </li>
                   </ul>
@@ -35,7 +35,8 @@
                     :placeholder="field.placeholder" v-model="customerForm[field.name]" @input="print(customerForm)" />
                 </div>
                 <div class="col-sm-2">
-                  <input :type="field.type" class="form-control" :id="field.label + index" placeholder="Ext" />
+                  <input :type="field.type" class="form-control" :id="field.label + index" 
+                  placeholder="Ext" v-model="customerForm['phoneExt']" @input="print(customerForm)"/>
                 </div>
               </div>
               <div v-else-if="field.name === 'customerType'" class="mb-3 row align-items-center">
@@ -46,18 +47,18 @@
                   <div v-for="(type, index) in customerTypes" :key="type + index" class="form-check form-check-inline">
                     <div v-if="!index">
                       <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                        value="option1" v-on:click="customerType = type" checked>
+                        value="option1" v-on:click="customerForm[field.name] = type" checked>
                       <label class="form-check-label" for="inlineRadio1">{{ type }}</label>
                     </div>
                     <div v-else>
                       <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                        value="option1" v-on:click="customerType = type">
+                        value="option1" v-on:click="customerForm[field.name] = type">
                       <label class="form-check-label" for="inlineRadio1">{{ type }}</label>
                     </div>
                   </div>
                 </div>
               </div>
-              <div v-else-if="field.name === 'businessName'" class="mb-3 row align-items-center" v-show="customerType === customerTypes[1]">
+              <div v-else-if="field.name === 'businessName'" class="mb-3 row align-items-center" v-show="customerForm['customerType'] === customerTypes[1]">
                 <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i>
                   {{ field.label }}:
                 </label>
@@ -123,10 +124,10 @@ export default {
   data: () => ({
     fields: null,
     customerTypes: null,
-    customerType: null,
     phoneTypes: null,
-    phoneType: null,
-    customerForm: {},
+    customerForm: {
+      phoneType: 'Mobile'
+    },
     storeX
   }),
   methods: {
@@ -139,11 +140,11 @@ export default {
       //phonesTypes
       const phoneTypes = this.fields.filter(field => field.name === 'phone')[0].options
       this.phoneTypes = JSON.parse(phoneTypes);
-      this.phoneType = this.phoneTypes[0];
+      this.customerForm['phoneType'] = this.phoneTypes[0]
       //customerTypes
       const customerTypes = this.fields.filter(field => field.name === 'customerType')[0].options
       this.customerTypes = JSON.parse(customerTypes)
-      this.customerType = this.customerTypes[0];
+      this.customerForm['customerType'] = this.customerTypes[0]
     },
     async createCustomer(data) {
       const request = await CustomerService.createCustomer(data);
@@ -153,8 +154,6 @@ export default {
       //console.log(newCustomerId);
     },
     testing() {
-      console.log(this.phoneType)
-      console.log(this.customerType)
       console.log(this.customerForm)
     }
   },
