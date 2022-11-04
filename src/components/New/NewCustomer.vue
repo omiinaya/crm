@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-sm-2">
                   <input :type="field.type" class="form-control" :id="field.label + index" 
-                  placeholder="Ext" v-model="customerForm['phoneExt']" @input="print(customerForm)"/>
+                  placeholder="Ext" v-model="customerForm.extension" @input="print(customerForm)"/>
                 </div>
               </div>
               <div v-else-if="field.name === 'customerType'" class="mb-3 row align-items-center">
@@ -135,7 +135,8 @@ export default {
     customerTypes: null,
     phoneTypes: null,
     customerForm: {
-      phoneType: 'Mobile'
+      phoneType: 'Mobile',
+      extension: null
     },
     storeX
   }),
@@ -156,9 +157,10 @@ export default {
       this.customerForm['customerType'] = this.customerTypes[0]
     },
     async createCustomer(data) {
-      const request = await CustomerService.createCustomer(data);
-      const response = await request.data;
-      console.log(response)
+      console.log(data)
+      /*const request = await */CustomerService.createCustomer(data);
+      //const response = await request.data;
+      //console.log(response)
       //const newCustomerId = await response.id
       //console.log(newCustomerId);
     },

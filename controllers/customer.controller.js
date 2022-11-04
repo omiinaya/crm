@@ -25,10 +25,12 @@ exports.create = async (req, res) => {
   try {
     const request = await Customer.create(customer)
     console.log(customer.city)
+    console.log(customer)
 
     const phoneData = {
       type: 'Mobile',
       number: customer.phone,
+      extension: customer.extension,
       customerId: await request.id
     }
 

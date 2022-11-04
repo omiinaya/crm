@@ -193,7 +193,7 @@ const customerFields = [
     label: "School Name",
     type: "text",
     placeholder: "School Name",
-    icon: "bi bi-building",
+    icon: "bi bi-mortarboard",
     side: 0,
   },
   {
