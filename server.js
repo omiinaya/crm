@@ -21,6 +21,7 @@ require("./routes/home.routes")(app);
 require("./routes/number.routes")(app);
 require("./routes/business.routes")(app);
 require("./routes/customer.routes")(app);
+require("./routes/location.routes")(app);
 
 (async () => {
   await dbSetup();

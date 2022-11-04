@@ -2,10 +2,10 @@ const db = require("../models");
 const axios = require("axios");
 const Customer = db.customer;
 const Number = db.number;
+const Location = db.location;
 const Op = db.Sequelize.Op;
 
 exports.create = async (req, res) => {
-  //console.log(await test())
   if (!req.body.firstName) {
     res.status(400).send({
       message: "Content can not be empty!",
@@ -24,15 +24,27 @@ exports.create = async (req, res) => {
 
   try {
     const request = await Customer.create(customer)
+    console.log(customer.city)
 
     const phoneData = {
       type: 'Mobile',
       number: customer.phone,
       customerId: await request.id
     }
+
+    const locationData = {
+      address1: customer.address1,
+      address2: customer.address2,
+      //country: customer.country,
+      city: customer.city,
+      state: customer.state,
+      zip: customer.zip,
+      customerId: await request.id
+    }
     
-    Number.create(phoneData)
-    
+    Number.create(phoneData);
+    Location.create(locationData);
+
     res.send(await request)
   } catch (err) {
     console.log(err)

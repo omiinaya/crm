@@ -23,6 +23,7 @@ db.role = require("./role.model.js")(sequelize, Sequelize);
 db.number = require("./number.model")(sequelize, Sequelize);
 db.customer = require("./customer.model")(sequelize, Sequelize);
 db.business = require("./business.model")(sequelize, Sequelize);
+db.location = require("./location.model")(sequelize, Sequelize);
 db.customerFields = require("./customer.fields.model")(sequelize, Sequelize);
 
 db.user.belongsToMany(db.role, {

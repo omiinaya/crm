@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const Location = sequelize.define("locations", {
+  const Location = sequelize.define("location", {
     id: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
@@ -11,6 +11,9 @@ module.exports = (sequelize, Sequelize) => {
     address2: {
       type: Sequelize.STRING,
     },
+    country: {
+      type: Sequelize.STRING,
+    },
     city: {
       type: Sequelize.STRING,
     },
@@ -20,6 +23,9 @@ module.exports = (sequelize, Sequelize) => {
     zip: {
       type: Sequelize.STRING,
     },
+    customerId: {
+      type: Sequelize.STRING
+    }
   });
 
   return Location;
