@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const Numbers = sequelize.define("numbers", {
+  const Number = sequelize.define("number", {
     id: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
@@ -8,7 +8,7 @@ module.exports = (sequelize, Sequelize) => {
     type: {
       type: Sequelize.STRING,
     },
-    code: {
+    number: {
       type: Sequelize.STRING,
     },
     extension: {
@@ -19,5 +19,5 @@ module.exports = (sequelize, Sequelize) => {
     },
   });
 
-  return Numbers;
+  return Number;
 };

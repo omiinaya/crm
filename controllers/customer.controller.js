@@ -1,6 +1,7 @@
 const db = require("../models");
 const axios = require("axios");
 const Customer = db.customer;
+const Number = db.number;
 const Op = db.Sequelize.Op;
 
 exports.create = async (req, res) => {
@@ -23,10 +24,16 @@ exports.create = async (req, res) => {
 
   try {
     const request = await Customer.create(customer)
-    const data = await request;
-    const phone = customer.phone
-    console.log(phone)
-    res.send(data)
+
+    const phoneData = {
+      type: 'Mobile',
+      number: customer.phone,
+      customerId: await request.id
+    }
+    
+    Number.create(phoneData)
+    
+    res.send(await request)
   } catch (err) {
     console.log(err)
   }

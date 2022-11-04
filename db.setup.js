@@ -8,6 +8,7 @@ const User = db.user;
 const Home = db.home;
 const Customer = db.customer;
 const Business = db.business;
+const Number = db.number;
 const CustomerFields = db.customerFields;
 
 const config = {
@@ -34,6 +35,11 @@ const businesses = [
     name: 'MobileMe IT'
   }
 ]
+const numbers = [{
+  type: 'Mobile',
+  number: '555-555-5555',
+  customerId: 1
+}]
 const actions = [
   {
     title: "New Customer",
@@ -307,6 +313,14 @@ function dummyData() {
   businesses.forEach((business, index) => {
     Business.create({
       name: business.name
+    })
+  })
+
+  numbers.forEach(number => {
+    Number.create({
+      type: number.type,
+      number: number.number,
+      customerId: number.customerId
     })
   })
 
