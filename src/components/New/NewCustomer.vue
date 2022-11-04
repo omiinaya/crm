@@ -67,6 +67,15 @@
                     :placeholder="field.placeholder" v-model="customerForm[field.name]" @input="print(customerForm)" />
                 </div>
               </div>
+              <div v-else-if="field.name === 'schoolName'" class="mb-3 row align-items-center" v-show="customerForm['customerType'] === customerTypes[2]">
+                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i>
+                  {{ field.label }}:
+                </label>
+                <div class="col-sm-8">
+                  <input :type="field.type" class="form-control" :id="field.label + index"
+                    :placeholder="field.placeholder" v-model="customerForm[field.name]" @input="print(customerForm)" />
+                </div>
+              </div>
               <div v-else class="mb-3 row align-items-center">
                 <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i>
                   {{ field.label }}:

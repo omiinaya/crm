@@ -189,6 +189,14 @@ const customerFields = [
     side: 0,
   },
   {
+    name: "schoolName",
+    label: "School Name",
+    type: "text",
+    placeholder: "School Name",
+    icon: "bi bi-building",
+    side: 0,
+  },
+  {
     name: "email",
     label: "Email",
     type: "email",
