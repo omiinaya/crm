@@ -24,6 +24,8 @@ exports.create = async (req, res) => {
   try {
     const request = await Customer.create(customer)
     const data = await request;
+    const phone = customer.phone
+    console.log(phone)
     res.send(data)
   } catch (err) {
     console.log(err)

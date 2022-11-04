@@ -1,5 +1,5 @@
 const db = require("../models");
-const Nav = db.nav;
+const Number = db.number;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
@@ -10,13 +10,13 @@ exports.create = (req, res) => {
         return;
     }
 
-    const nav = {
+    const number = {
         title: req.body.title,
         icon: req.body.description,
         url: req.body.published
     };
 
-    Nav.create(nav)
+    Number.create(number)
         .then(data => {
             res.send(data);
         })
@@ -29,7 +29,7 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    Nav.findAll()
+    Number.findAll()
         .then(data => {
             res.send(data);
         })
@@ -44,7 +44,7 @@ exports.findAll = (req, res) => {
 exports.findByRoleId = (req, res) => {
     const id = req.params.id;
 
-    Nav.findAll({
+    Number.findAll({
         where: { roleId: id }
     })
         .then(data => {
@@ -60,7 +60,7 @@ exports.findByRoleId = (req, res) => {
 
 exports.findByRole = (req, res) => {
     const id = req.params.id;
-    Nav.findAll({
+    Number.findAll({
         where: { roleId: {
             [Op.lte]: id
         }}
@@ -79,7 +79,7 @@ exports.findByRole = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Nav.update(req.body, {
+    Number.update(req.body, {
         where: { id: id }
     })
         .then(num => {
@@ -103,7 +103,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Nav.destroy({
+    Number.destroy({
         where: { id: id }
     })
         .then(num => {
