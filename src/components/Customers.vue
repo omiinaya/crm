@@ -1,11 +1,11 @@
 <template>
-  <v-grid theme="darkCompact" :source="rows" :columns="columns" />
+  <v-grid theme="darkCompact" :source="rows" :columns="columns" resize="true" />
 </template>
 
 <script>
 import VGrid from "@revolist/vue3-datagrid";
 export default {
-  name: "App",
+  name: "CustomerList",
   data() {
     return {
       columns: [
@@ -49,7 +49,7 @@ export default {
 </script>
 
 <style>
-#app {
+#CustmerList {
   height: 700px;
   width: 500px;
 }

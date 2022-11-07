@@ -35,7 +35,7 @@
     "mysql2": "^2.3.3",
     "sequelize": "^6.25.3",
     "vee-validate": "^4.7.1",
-    "vue": "^3.2.21",
+    "vue": "3.2.38",
     "vue-materialize-datatable": "^1.0.4",
     "vue-route": "^1.5.1",
     "vue-router": "^4.0.12",
