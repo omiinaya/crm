@@ -11,22 +11,22 @@ module.exports = (sequelize, Sequelize) => {
     taxFree: {
       type: Sequelize.STRING,
     },
-    PortalUser: {
+    portalUser: {
       type: Sequelize.BOOLEAN,
     },
-    SMSEnabled: {
+    smsEnabled: {
       type: Sequelize.BOOLEAN,
     },
-    BillingEmails: {
+    billingEmails: {
       type: Sequelize.BOOLEAN,
     },
-    MarketingEmails: {
+    marketingEmails: {
       type: Sequelize.BOOLEAN,
     },
-    ReportEmails: {
+    reportEmails: {
       type: Sequelize.BOOLEAN,
     },
-    SilentMode: {
+    silentMode: {
       type: Sequelize.BOOLEAN,
     }
   });
