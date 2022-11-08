@@ -4,12 +4,12 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import * as VeeValidate from "vee-validate";
+import Vue3EasyDataTable from 'vue3-easy-data-table';
 
 
 
 import "@ionic/vue/css/core.css";
 
-/*
 import "@ionic/vue/css/normalize.css";
 import "@ionic/vue/css/structure.css";
 import "@ionic/vue/css/typography.css";
@@ -21,12 +21,13 @@ import "@ionic/vue/css/text-alignment.css";
 import "@ionic/vue/css/text-transformation.css";
 import "@ionic/vue/css/flex-utils.css";
 import "@ionic/vue/css/display.css";
-*/
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 import "bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
+
+import 'vue3-easy-data-table/dist/style.css';
 
 /* Theme variables */
 import "./theme/variables.css";
@@ -36,6 +37,8 @@ const app = createApp(App)
   .use(router)
   .use(store)
   .use(VeeValidate);
+
+app.component('EasyDataTable', Vue3EasyDataTable);
 
 router.isReady().then(() => {
   app.mount("#app");
