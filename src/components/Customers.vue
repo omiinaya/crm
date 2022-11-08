@@ -1,45 +1,50 @@
 <template>
-  <div class="container  mt-5 mb-5">
-    <h1 class="mt-5 fw-bolder"> Customers </h1>
-    <div class="table-responsive my-5">
-
-      <!-- The table component -->
-      <Table :fields='fields' :studentData="studentData"></Table>
-    </div>
-
+  <div id="app">
+    <v-grid theme="darkCompact" :source="rows" :columns="columns" resize></v-grid>
   </div>
 </template>
+
 <script>
-// Importing the table component
-import Table from './Tables/CustomerTable.vue'
-import { storeX } from "../store/index";
+import VGrid from "@revolist/vue3-datagrid";
 export default {
-  name: 'App',
+  name: "App",
   data() {
     return {
-      storeX
+      columns: [
+        {
+          prop: "name",
+          name: "First",
+          sortable: "true"
+        },
+        {
+          prop: "details",
+          name: "Second",
+        },
+      ],
+      rows: [
+        {
+          name: "1",
+          details: "Item 1",
+        },
+        {
+          name: "2",
+          details: "Item 2",
+        },
+      ],
     };
   },
   components: {
-    Table
+    VGrid,
   },
-  setup() {
-    //An array of values for the data
-    const studentData = [
-      { ID: "01", Name: "Abiola Esther", Course: "Computer Science", Gender: "Female", Age: "17" },
-      { ID: "02", Name: "Robert V. Kratz", Course: "Philosophy", Gender: "Male", Age: '19' },
-      { ID: "03", Name: "Kristen Anderson", Course: "Economics", Gender: "Female", Age: '20' },
-      { ID: "04", Name: "Adam Simon", Course: "Food science", Gender: "Male", Age: '21' },
-      { ID: "05", Name: "Daisy Katherine", Course: "Business studies", Gender: "Female", Age: '22' },
-    ]
-    const fields = [
-      'ID', 'Name', 'Course', 'Gender', 'Age'
-    ]
-    return { studentData, fields }
-  },
-}
+};
 </script>
 
-<style scoped>
-
+<style>
+#app {
+  height: 400px;
+  width: 500px;
+}
+revo-grid {
+  height: 50%;
+}
 </style>
