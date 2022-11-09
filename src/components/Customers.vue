@@ -1,12 +1,14 @@
 <template>
-  <EasyDataTable
-    :headers="headers"
-    :items="items"
-    theme-color="#1d90ff"
-    table-class-name="customize-table"
-    header-text-direction="center"
-    body-text-direction="center"
-  />
+  <div class="container">
+    <EasyDataTable
+      :headers="headers"
+      :items="items"
+      theme-color="#1d90ff"
+      table-class-name="customize-table"
+      header-text-direction="center"
+      body-text-direction="center"
+    />
+  </div>
 </template>
 
 <script>
@@ -25,7 +27,6 @@ export default defineComponent({
         { value: "lastName", text: "LAST NAME", sortable: true },
         { value: "email", text: "EMAIL", sortable: true },
         { value: "customerType", text: "TYPE", sortable: true },
-        { value: "businessId", text: "BUSINESS ID", sortable: true },
         { value: "createdAt", text: "CREATED", sortable: true }
       ],
       items: []
