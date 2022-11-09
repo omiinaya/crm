@@ -1,8 +1,12 @@
 <template>
-  <EasyDataTable :v-show="testing" :headers="headers" :items="items" />
-  <div>
-    {{ items }}
-  </div>
+  <EasyDataTable
+    :headers="headers"
+    :items="items"
+    theme-color="#1d90ff"
+    table-class-name="customize-table"
+    header-text-direction="center"
+    body-text-direction="center"
+  />
 </template>
 
 <script>
@@ -15,15 +19,14 @@ export default defineComponent({
   data() {
     return {
       storeX,
-      testing: null,
       headers: [
-        { value: "id", text: "ID" },
-        { value: "firstName", text: "FIRST NAME" },
-        { value: "lastName", text: "LAST NAME" },
-        { value: "email", text: "EMAIL" },
-        { value: "customerType", text: "TYPE" },
-        { value: "businessId", text: "BUSINESS ID" },
-        { value: "createdAt", text: "CREATED" }
+        { value: "id", text: "ID", sortable: true },
+        { value: "firstName", text: "FIRST NAME", sortable: true },
+        { value: "lastName", text: "LAST NAME", sortable: true },
+        { value: "email", text: "EMAIL", sortable: true },
+        { value: "customerType", text: "TYPE", sortable: true },
+        { value: "businessId", text: "BUSINESS ID", sortable: true },
+        { value: "createdAt", text: "CREATED", sortable: true }
       ],
       items: []
     };
@@ -41,3 +44,46 @@ export default defineComponent({
 });
 
 </script>
+
+<style scoped>
+.customize-table {
+  --easy-table-border: 1px solid #121212;
+  --easy-table-row-border: 1px solid #121212;
+
+  --easy-table-header-font-size: 14px;
+  --easy-table-header-height: 50px;
+  --easy-table-header-font-color: #c1cad4;
+  --easy-table-header-background-color: #121212;
+
+  --easy-table-header-item-padding: 10px 15px;
+
+  --easy-table-body-even-row-font-color: #fff;
+  --easy-table-body-even-row-background-color: #121212;
+
+  --easy-table-body-row-font-color: #c0c7d2;
+  --easy-table-body-row-background-color: #121212;
+  --easy-table-body-row-height: 50px;
+  --easy-table-body-row-font-size: 14px;
+
+  --easy-table-body-row-hover-font-color: #c0c7d2;
+  --easy-table-body-row-hover-background-color: #1f1f1f;
+
+  --easy-table-body-item-padding: 10px 15px;
+
+  --easy-table-footer-background-color: #121212;
+  --easy-table-footer-font-color: #c0c7d2;
+  --easy-table-footer-font-size: 14px;
+  --easy-table-footer-padding: 0px 10px;
+  --easy-table-footer-height: 50px;
+
+  --easy-table-rows-per-page-selector-width: 70px;
+  --easy-table-rows-per-page-selector-option-padding: 10px;
+
+  --easy-table-scrollbar-track-color: #121212;
+  --easy-table-scrollbar-color: #121212;
+  --easy-table-scrollbar-thumb-color: #121212;
+  --easy-table-scrollbar-corner-color: #121212;
+
+  --easy-table-loading-mask-background-color: #121212;
+}
+</style>
