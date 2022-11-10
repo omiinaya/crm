@@ -7,7 +7,12 @@
       table-class-name="customize-table"
       header-text-direction="center"
       body-text-direction="center"
-    />
+      v-on:click="testing123($event)"
+    >
+    <template #item-firstName="{ firstName/*, customerUrl*/ }">
+      <a target="_blank" href="#!">{{ firstName }}</a>
+    </template>
+  </EasyDataTable>
   </div>
 </template>
 
@@ -34,8 +39,11 @@ export default defineComponent({
     };
   },
   methods: {
+    testing123(a) {
+      console.log(a)
+    },
     async loadCustomerData() {
-      const request = await CustomerService.getCustomerData();
+      const request = await CustomerService.getCustomerData()
       const data = await request.data;
       this.items = await data;
       this.formatDate();
@@ -47,7 +55,7 @@ export default defineComponent({
     }
   },
   async created() {
-    this.loadCustomerData();
+    this.loadCustomerData()
   }
 });
 
