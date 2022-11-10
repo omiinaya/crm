@@ -1,58 +1,34 @@
 const db = require("../models");
-const axios = require("axios");
-const Customer = db.customer;
-const Number = db.number;
-const Location = db.location;
+const CustomerSettingsFields = db.customerSettingsFields;
 const Op = db.Sequelize.Op;
 
-exports.create = async (req, res) => {
-  if (!req.body.firstName) {
+exports.create = (req, res) => {
+  if (!req.body.title) {
     res.status(400).send({
       message: "Content can not be empty!",
     });
     return;
   }
 
-  const fields = await axios.get("http://localhost:8090/api/customer/fields");
-  const response = await fields.data;
+  const customerSettingsField = {
+    title: req.body.title,
+    icon: req.body.description,
+    url: req.body.published,
+  };
 
-  let customer = {};
-
-  for (let i = 0; i < response.length; i++) {
-    customer[response[i].name] = req.body[response[i].name];
-  }
-
-  try {
-    const request = await Customer.create(customer)
-
-    const phoneData = {
-      type: 'Mobile',
-      number: customer.phone,
-      extension: customer.extension,
-      customerId: await request.id
-    }
-
-    const locationData = {
-      address1: customer.address1,
-      address2: customer.address2,
-      //country: customer.country,
-      city: customer.city,
-      state: customer.state,
-      zip: customer.zip,
-      customerId: await request.id
-    }
-    
-    Number.create(phoneData);
-    Location.create(locationData);
-
-    res.send(await request)
-  } catch (err) {
-    console.log(err)
-  }
+  CustomerSettingsFields.create(customerSettingsField)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while creating the Nav.",
+      });
+    });
 };
 
 exports.findAll = (req, res) => {
-  Customer.findAll()
+  CustomerSettingsFields.findAll()
     .then((data) => {
       res.send(data);
     })
@@ -67,7 +43,7 @@ exports.findAll = (req, res) => {
 exports.findByRoleId = (req, res) => {
   const id = req.params.id;
 
-  Customer.findAll({
+  CustomerSettingsFields.findAll({
     where: { roleId: id },
   })
     .then((data) => {
@@ -83,7 +59,7 @@ exports.findByRoleId = (req, res) => {
 
 exports.findByRole = (req, res) => {
   const id = req.params.id;
-  Customer.findAll({
+  CustomerSettingsFields.findAll({
     where: {
       roleId: {
         [Op.lte]: id,
@@ -104,7 +80,7 @@ exports.findByRole = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Customer.update(req.body, {
+  CustomerSettingsFields.update(req.body, {
     where: { id: id },
   })
     .then((num) => {
@@ -128,7 +104,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Customer.destroy({
+  CustomerSettingsFields.destroy({
     where: { id: id },
   })
     .then((num) => {

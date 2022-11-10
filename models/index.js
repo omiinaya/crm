@@ -25,6 +25,7 @@ db.customer = require("./customer.model")(sequelize, Sequelize);
 db.business = require("./business.model")(sequelize, Sequelize);
 db.location = require("./location.model")(sequelize, Sequelize);
 db.customerFields = require("./customer.fields.model")(sequelize, Sequelize);
+db.customerSettingsFields = require("./customer.settings.fields.model")(sequelize, Sequelize);
 
 db.user.belongsToMany(db.role, {
   through: "user_roles",
