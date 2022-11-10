@@ -9,8 +9,8 @@
       body-text-direction="center"
       v-on:click="testing123($event)"
     >
-    <template #item-firstName="{ firstName/*, customerUrl*/ }">
-      <a target="_blank" href="#!">{{ firstName }}</a>
+    <template #item-name="{ firstName, lastName/*, customerUrl*/ }">
+      <a target="_blank" href="#!">{{firstName}} {{lastName}}</a>
     </template>
   </EasyDataTable>
   </div>
@@ -29,8 +29,7 @@ export default defineComponent({
       storeX,
       headers: [
         { value: "id", text: "ID", sortable: true },
-        { value: "firstName", text: "FIRST NAME", sortable: true },
-        { value: "lastName", text: "LAST NAME", sortable: true },
+        { value: "name", text: "NAME", sortable: true },
         { value: "email", text: "EMAIL", sortable: true },
         { value: "customerType", text: "TYPE", sortable: true },
         { value: "createdAt", text: "CREATED", sortable: true }

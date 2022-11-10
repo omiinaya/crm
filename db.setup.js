@@ -132,8 +132,8 @@ const navs = [
 ];
 const customers = [
   {
-    firstName: "Test",
-    lastName: "ing",
+    firstName: "Matias",
+    lastName: "Fuenzalida",
     businessName: "Testing",
     customerType: "Individual",
     email: "testing@gmail.com",
@@ -144,8 +144,8 @@ const customers = [
     zip: "33015",
   },
   {
-    firstName: "Test 2",
-    lastName: "ing 2",
+    firstName: "Jose",
+    lastName: "Carreno",
     businessName: "Testing 2",
     customerType: "Individual",
     email: "testing2@gmail.com",
@@ -336,8 +336,8 @@ function dummyData() {
   })
 
   User.create({
-    firstName: "test",
-    lastName: "ing",
+    firstName: "Omar",
+    lastName: "Minaya",
     username: "test",
     email: "test@gmail.com",
     password: "$2a$08$7O/xmmuyMmc4PuCF2dcPxue3bHuGmQvvn1M2AidQnYzNE.QC7bTyy",
