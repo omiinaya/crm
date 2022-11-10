@@ -35,10 +35,10 @@ export default defineComponent({
   },
   methods: {
     async loadCustomerData() {
-      const request = await CustomerService.getCustomerData()
-      const data = await request.data
-      this.items = await data
-      this.formatDate()
+      const request = await CustomerService.getCustomerData();
+      const data = await request.data;
+      this.items = await data;
+      this.formatDate();
     },
     async formatDate() {
       this.items.forEach(item => {
@@ -47,7 +47,7 @@ export default defineComponent({
     }
   },
   async created() {
-    this.loadCustomerData()
+    this.loadCustomerData();
   }
 });
 
