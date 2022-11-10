@@ -15,6 +15,7 @@
 import { defineComponent } from 'vue';
 import { storeX } from "../store/index";
 import CustomerService from "../services/customer.service"
+import moment from 'moment'
 
 export default defineComponent({
   name: 'CustomerPage',
@@ -37,6 +38,12 @@ export default defineComponent({
       const request = await CustomerService.getCustomerData()
       const data = await request.data
       this.items = await data
+      this.formatDate()
+    },
+    async formatDate() {
+      this.items.forEach(item => {
+        item.createdAt = moment(item.createdAt).format('MMMM DD YYYY');
+      })
     }
   },
   async created() {
