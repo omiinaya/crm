@@ -11,10 +11,10 @@ module.exports = (sequelize, Sequelize) => {
     taxFree: {
       type: Sequelize.BOOLEAN,
     },
-    enalbePortal: {
+    enablePortal: {
       type: Sequelize.BOOLEAN,
     },
-    smsEnabled: {
+    enableSMS: {
       type: Sequelize.BOOLEAN,
     },
     billingEmails: {
@@ -28,6 +28,9 @@ module.exports = (sequelize, Sequelize) => {
     },
     noEmails: {
       type: Sequelize.BOOLEAN,
+    },
+    customerId: {
+      type: Sequelize.STRING
     }
   });
 

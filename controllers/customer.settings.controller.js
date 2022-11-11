@@ -14,9 +14,14 @@ exports.create = (req, res) => {
   */
 
   const customerSettings = {
-    title: req.body.title,
-    icon: req.body.description,
-    url: req.body.published,
+    taxRate: req.body.taxRate,
+    taxFree: req.body.taxFree,
+    enablePortal: req.body.enablePortal,
+    enableSMS: req.body.enableSMS,
+    billingEmails: req.body.billingEmails,
+    marketingEmails: req.body.marketingEmails,
+    reportEmails: req.body.reportEmails,
+    noEmails: req.body.noEmails
   };
 
   CustomerSettings.create(customerSettings)
