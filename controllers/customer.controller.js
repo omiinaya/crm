@@ -16,6 +16,7 @@ exports.create = async (req, res) => {
 
   const customerFields = await axios.get("http://localhost:8090/api/customer/fields");
   const customerSettingsFields = await axios.get("http://localhost:8090/api/customer/settings/fields");
+  
   const customerResponse = await customerFields.data;
   const customerSettingsResponse = await customerSettingsFields.data;
 
