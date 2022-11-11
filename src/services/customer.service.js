@@ -15,6 +15,10 @@ class CustomerService {
   getCustomerFields() {
     return axios.get(API_URL + "fields/", { headers: authHeader() });
   }
+
+  getCustomerSettingsFields() {
+    return axios.get(API_URL + "settings/fields/", { headers: authHeader() });
+  }
 }
 
 export default new CustomerService();

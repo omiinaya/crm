@@ -40,7 +40,7 @@ exports.findAll = (req, res) => {
     });
 };
 
-exports.findByRoleId = (req, res) => {
+exports.findById = (req, res) => {
   const id = req.params.id;
 
   CustomerSettings.findAll({
