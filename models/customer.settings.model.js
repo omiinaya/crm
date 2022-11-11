@@ -9,9 +9,9 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
     },
     taxFree: {
-      type: Sequelize.STRING,
+      type: Sequelize.BOOLEAN,
     },
-    portalUser: {
+    enalbePortal: {
       type: Sequelize.BOOLEAN,
     },
     smsEnabled: {
@@ -26,7 +26,7 @@ module.exports = (sequelize, Sequelize) => {
     reportEmails: {
       type: Sequelize.BOOLEAN,
     },
-    silentMode: {
+    noEmails: {
       type: Sequelize.BOOLEAN,
     }
   });
