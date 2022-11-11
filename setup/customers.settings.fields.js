@@ -4,7 +4,7 @@ const customerSettingsFields = [
         label: "Tax Rate",
         type: "checkbox",
         placeholder: "Tax Rate",
-        icon: "bi bi-percent",
+        icon: "bi bi-clipboard-pulse",
         side: 0,
     },
     {
@@ -12,7 +12,7 @@ const customerSettingsFields = [
         label: "Tax Free",
         type: "checkbox",
         placeholder: "Tax Free",
-        icon: "bi bi-gift",
+        icon: "bi bi-clipboard-x",
         side: 0,
     },
     {
