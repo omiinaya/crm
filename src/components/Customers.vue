@@ -42,7 +42,7 @@ export default defineComponent({
       console.log(a)
     },
     async loadCustomerData() {
-      const request = await CustomerService.getCustomerData()
+      const request = await CustomerService.getCustomers()
       const data = await request.data;
       this.items = await data;
       this.formatDate();

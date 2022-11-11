@@ -182,6 +182,7 @@ export default {
     },
     async createCustomer(data) {
       CustomerService.createCustomer(data);
+      CustomerService.createCustomerSettings(data);
     },
     testing() {
       console.log(this.customerForm)

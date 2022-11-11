@@ -7,7 +7,7 @@ module.exports = (app) => {
 
   router.post("/", customer.create);
   router.get("/", customer.findAll);
-  router.get("/:id", customer.findByRoleId);
+  router.get("/id/:id", customer.findByRoleId);
   router.get("/role/:id", customer.findByRole);
   router.put("/:id", customer.update);
   router.delete("/:id", customer.delete);
@@ -20,7 +20,7 @@ module.exports = (app) => {
   router.get("/settings/fields", customerSettingsFields.findAll);
 
   //settings post
-  router.post("/settings/", customerSettings.create);
+  router.post("/settings", customerSettings.create);
   router.post("/settings/fields", customerSettingsFields.create);
 
   app.use("/api/customer", router);
