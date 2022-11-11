@@ -17,14 +17,14 @@ const customerSettingsFields = [
     },
     {
         name: "enablePortal",
-        label: "Enable Portal User",
+        label: "Enable Portal",
         type: "checkbox",
         placeholder: "Enable Portal",
         icon: "bi bi-sliders",
         side: 0,
     },
     {
-        name: "smsEnabled",
+        name: "enableSMS",
         label: "SMS Service Enabled",
         type: "checkbox",
         placeholder: "SMS Service Enabled",

@@ -6,7 +6,7 @@ module.exports = (sequelize, Sequelize) => {
       primaryKey: true,
     },
     taxRate: {
-      type: Sequelize.STRING,
+      type: Sequelize.BOOLEAN,
     },
     taxFree: {
       type: Sequelize.BOOLEAN,

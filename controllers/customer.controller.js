@@ -3,6 +3,7 @@ const axios = require("axios");
 const Customer = db.customer;
 const Number = db.number;
 const Location = db.location;
+const CustomerSettings = db.customerSettings;
 const Op = db.Sequelize.Op;
 
 exports.create = async (req, res) => {
@@ -13,13 +14,17 @@ exports.create = async (req, res) => {
     return;
   }
 
-  const fields = await axios.get("http://localhost:8090/api/customer/fields");
-  const response = await fields.data;
+  const customerFields = await axios.get("http://localhost:8090/api/customer/fields");
+  const customerSettingsFields = await axios.get("http://localhost:8090/api/customer/settings/fields");
+  const customerResponse = await customerFields.data;
+  const customerSettingsResponse = await customerSettingsFields.data;
+
+  const fields = [...customerResponse, ...customerSettingsResponse]
 
   let customer = {};
 
-  for (let i = 0; i < response.length; i++) {
-    customer[response[i].name] = req.body[response[i].name];
+  for (let i = 0; i < fields.length; i++) {
+    customer[fields[i].name] = req.body[fields[i].name];
   }
 
   try {
@@ -35,15 +40,28 @@ exports.create = async (req, res) => {
     const locationData = {
       address1: customer.address1,
       address2: customer.address2,
-      //country: customer.country,
       city: customer.city,
       state: customer.state,
       zip: customer.zip,
       customerId: await request.id
     }
-    
+
+    const settingData = {
+      taxRate: customer.taxRate,
+      taxFree: customer.taxFree,
+      enablePortal: customer.enablePortal,
+      enableSMS: customer.enableSMS,
+      billingEmails: customer.billingEmails,
+      marketingEmails: customer.marketingEmails,
+      reportEmails: customer.reportEmails,
+      noEmails: customer.noEmails
+    }
+    console.log(customer)
+    //console.log(settingData)
+
     Number.create(phoneData);
     Location.create(locationData);
+    CustomerSettings.create(settingData)
 
     res.send(await request)
   } catch (err) {
