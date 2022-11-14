@@ -120,7 +120,7 @@
               <div class="col-sm-7">
                 <input :type="field.type" class="form-check-input" :id="field.label + index"
                   :placeholder="field.placeholder" v-model="customerForm[field.name]" @input="print(customerForm)"
-                  :checked="JSON.parse(this.settingsFields.left[index].options).default" />
+                  :checked="getChecked(index, 'left')" />
               </div>
             </div>
           </div>
@@ -135,7 +135,7 @@
               <div class="col-sm-7">
                 <input :type="field.type" class="form-check-input" :id="field.label + index"
                   :placeholder="field.placeholder" v-model="customerForm[field.name]" @input="print(customerForm)"
-                  :checked="JSON.parse(this.settingsFields.right[index].options).default" />
+                  :checked="getChecked(index, 'right')" />
               </div>
             </div>
           </div>
@@ -195,6 +195,9 @@ export default {
     },
     async createCustomer(data) {
       CustomerService.createCustomer(data);
+    },
+    getChecked(index, side) {
+      return JSON.parse(this.settingsFields[side][index].options).default
     },
     testing() {
       console.log(this.customerForm)

@@ -7,6 +7,7 @@ module.exports = (sequelize, Sequelize) => {
     },
     taxRate: {
       type: Sequelize.BOOLEAN,
+      defaultValue: true
     },
     taxFree: {
       type: Sequelize.BOOLEAN,
