@@ -6,6 +6,11 @@ const customerSettingsFields = [
         placeholder: "Tax Rate",
         icon: "bi bi-clipboard-pulse",
         side: 0,
+        options: JSON.stringify(
+            {
+                default: true
+            }
+        )
     },
     {
         name: "taxFree",
@@ -14,6 +19,11 @@ const customerSettingsFields = [
         placeholder: "Tax Free",
         icon: "bi bi-clipboard-x",
         side: 0,
+        options: JSON.stringify(
+            {
+                default: false
+            }
+        )
     },
     {
         name: "enablePortal",
@@ -22,6 +32,11 @@ const customerSettingsFields = [
         placeholder: "Enable Portal",
         icon: "bi bi-sliders",
         side: 0,
+        options: JSON.stringify(
+            {
+                default: false
+            }
+        )
     },
     {
         name: "enableSMS",
@@ -30,6 +45,11 @@ const customerSettingsFields = [
         placeholder: "SMS Service Enabled",
         icon: "bi bi-phone",
         side: 1,
+        options: JSON.stringify(
+            {
+                default: true
+            }
+        )
     },
     {
         name: "billingEmails",
@@ -38,6 +58,11 @@ const customerSettingsFields = [
         placeholder: "Receive Billing Emails",
         icon: "bi bi-envelope-plus",
         side: 1,
+        options: JSON.stringify(
+            {
+                default: true
+            }
+        )
     },
     {
         name: "marketingEmails",
@@ -46,6 +71,11 @@ const customerSettingsFields = [
         placeholder: "Receive Marketing Emails",
         icon: "bi bi-envelope-plus",
         side: 1,
+        options: JSON.stringify(
+            {
+                default: true
+            }
+        )
     },
     {
         name: "reportEmails",
@@ -54,6 +84,11 @@ const customerSettingsFields = [
         placeholder: "Receive Report Emails",
         icon: "bi bi-envelope-exclamation",
         side: 1,
+        options: JSON.stringify(
+            {
+                default: true
+            }
+        )
     },
     {
         name: "noEmails",
@@ -62,6 +97,11 @@ const customerSettingsFields = [
         placeholder: "No Emails Of Any Kind",
         icon: "bi bi-envelope-slash",
         side: 1,
+        options: JSON.stringify(
+            {
+                default: false
+            }
+        )
     }
 ];
 

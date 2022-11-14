@@ -10,24 +10,31 @@ module.exports = (sequelize, Sequelize) => {
     },
     taxFree: {
       type: Sequelize.BOOLEAN,
+      defaultValue: false
     },
     enablePortal: {
       type: Sequelize.BOOLEAN,
+      defaultValue: false
     },
     enableSMS: {
       type: Sequelize.BOOLEAN,
+      defaultValue: true
     },
     billingEmails: {
       type: Sequelize.BOOLEAN,
+      defaultValue: true
     },
     marketingEmails: {
       type: Sequelize.BOOLEAN,
+      defaultValue: true
     },
     reportEmails: {
       type: Sequelize.BOOLEAN,
+      defaultValue: true
     },
     noEmails: {
       type: Sequelize.BOOLEAN,
+      defaultValue: false
     },
     customerId: {
       type: Sequelize.STRING

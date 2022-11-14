@@ -129,6 +129,7 @@ function dummyData() {
       placeholder: settings.placeholder,
       icon: settings.icon,
       side: settings.side,
+      options: settings.options
     })
   })
 

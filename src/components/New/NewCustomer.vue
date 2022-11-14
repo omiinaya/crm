@@ -13,7 +13,7 @@
         <div class="cols-12 sub-title">BASIC INFO</div>
         <div class="col-6">
           <div class="form">
-            <div v-for="(field, index) in customerFieldsLeft" :key="field + index">
+            <div v-for="(field, index) in customerFields.left" :key="field + index">
               <div v-if="field.name === 'phone'" class="mb-3 row align-items-center">
                 <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i>
                   {{ field.label }}:
@@ -60,7 +60,7 @@
                 </div>
               </div>
               <div v-else-if="field.name === 'businessName'" class="mb-3 row align-items-center"
-                v-show="customerForm['customerType'] === customerTypes[1]">
+                :v-show="customerForm['customerType'] === customerTypes[1]">
                 <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i>
                   {{ field.label }}:
                 </label>
@@ -93,7 +93,8 @@
         </div>
         <div class="col-6">
           <div class="form">
-            <div class="mb-3 row align-items-center" v-for="(field, index) in customerFieldsRight" :key="field + index">
+            <div class="mb-3 row align-items-center" v-for="(field, index) in customerFields.right"
+              :key="field + index">
               <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i>
                 {{ field.label }}:
               </label>
@@ -112,26 +113,29 @@
         <div class="cols-10 sub-title">CUSTOMER SETTINGS</div>
         <div class="col-6">
           <div class="form">
-            <div class="mb-3 row align-items-center" v-for="(field, index) in settingsFieldsLeft" :key="field + index">
+            <div class="mb-3 row align-items-center" v-for="(field, index) in settingsFields.left" :key="field + index">
               <label :for="field.label + index" class="col-sm-5 col-form-label"><i :class="field.icon"></i>
                 {{ field.label }}:
               </label>
               <div class="col-sm-7">
                 <input :type="field.type" class="form-check-input" :id="field.label + index"
-                  :placeholder="field.placeholder" v-model="customerForm[field.name]" @input="print(customerForm)" />
+                  :placeholder="field.placeholder" v-model="customerForm[field.name]" @input="print(customerForm)"
+                  :checked="JSON.parse(this.settingsFields.left[index].options).default" />
               </div>
             </div>
           </div>
         </div>
         <div class="col-6">
           <div class="form">
-            <div class="mb-3 row align-items-center" v-for="(field, index) in settingsFieldsRight" :key="field + index">
+            <div class="mb-3 row align-items-center" v-for="(field, index) in settingsFields.right"
+              :key="field + index">
               <label :for="field.label + index" class="col-sm-5 col-form-label"><i :class="field.icon"></i>
                 {{ field.label }}:
               </label>
               <div class="col-sm-7">
                 <input :type="field.type" class="form-check-input" :id="field.label + index"
-                  :placeholder="field.placeholder" v-model="customerForm[field.name]" @input="print(customerForm)" />
+                  :placeholder="field.placeholder" v-model="customerForm[field.name]" @input="print(customerForm)"
+                  :checked="JSON.parse(this.settingsFields.right[index].options).default" />
               </div>
             </div>
           </div>
@@ -149,9 +153,15 @@ export default {
   name: 'NewCustomerPage',
   components: {},
   data: () => ({
-    customerFields: null,
-    settingsFields: null,
-    customerTypes: null,
+    customerFields: {
+      left: null,
+      right: null
+    },
+    settingsFields: {
+      left: null,
+      right: null
+    },
+    customerTypes: ['Individual'],
     phoneTypes: null,
     customerForm: {
       phoneType: 'Mobile',
@@ -165,20 +175,23 @@ export default {
     },
     async getCustomerFieldItems() {
       const req = await CustomerService.getCustomerFields();
-      this.customerFields = await req.data;
+      this.customerFields.left = await req.data.filter(field => !field.side)
+      this.customerFields.right = await req.data.filter(field => field.side)
+
       //phonesTypes
-      const phoneTypes = this.customerFields.filter(field => field.name === 'phone')[0].options
+      const phoneTypes = this.customerFields.left.filter(field => field.name === 'phone')[0].options
       this.phoneTypes = JSON.parse(phoneTypes);
       this.customerForm['phoneType'] = this.phoneTypes[0]
+
       //customerTypes
-      const customerTypes = this.customerFields.filter(field => field.name === 'customerType')[0].options
+      const customerTypes = this.customerFields.left.filter(field => field.name === 'customerType')[0].options
       this.customerTypes = JSON.parse(customerTypes)
       this.customerForm['customerType'] = this.customerTypes[0]
     },
     async getSettingsFieldItems() {
       const req = await CustomerService.getCustomerSettingsFields();
-      this.settingsFields = await req.data;
-      console.log(this.settingsFields);
+      this.settingsFields.left = await req.data.filter(field => !field.side);
+      this.settingsFields.right = await req.data.filter(field => field.side);
     },
     async createCustomer(data) {
       CustomerService.createCustomer(data);
@@ -190,24 +203,6 @@ export default {
   created() {
     this.getCustomerFieldItems();
     this.getSettingsFieldItems();
-  },
-  computed: {
-    settingsFieldsLeft: function () {
-      if (!this.settingsFields) return;
-      return this.settingsFields.filter(field => !field.side); //0 = false = !field.side
-    },
-    settingsFieldsRight: function () {
-      if (!this.settingsFields) return;
-      return this.settingsFields.filter(field => field.side);
-    },
-    customerFieldsLeft: function () {
-      if (!this.customerFields) return;
-      return this.customerFields.filter(field => !field.side); //0 = false = !field.side
-    },
-    customerFieldsRight: function () {
-      if (!this.customerFields) return;
-      return this.customerFields.filter(field => field.side);
-    },
   }
 }
 </script>
