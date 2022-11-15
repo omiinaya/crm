@@ -19,6 +19,7 @@
       <Admin v-else-if="storeX.view === 'adminView'" />
       <NewCustomer v-else-if="storeX.view === 'newCustomerView'" />
       <NewTicket v-else-if="storeX.view === 'newTicketView'" />
+      <NewAsset v-else-if="storeX.view === 'newAssetView'" />
     </ion-content>
   </ion-page>
 </template>
@@ -40,6 +41,7 @@ import POS from '../components/POS.vue';
 import Admin from '../components/Admin.vue';
 import NewCustomer from '../components/New/NewCustomer.vue';
 import NewTicket from '../components/New/NewTicket.vue';
+import NewAsset from '../components/New/NewAsset.vue';
 
 export default defineComponent({
   name: 'RootPage',
@@ -70,7 +72,8 @@ export default defineComponent({
     POS,
     Admin,
     NewCustomer,
-    NewTicket
+    NewTicket,
+    NewAsset
   },
 });
 </script>

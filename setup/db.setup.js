@@ -11,6 +11,7 @@ const businesses = require('./businesses.data');
 const homeActions = require('./home.actions.data');
 const customerFields = require('./customer.fields.data');
 const customerSettingsFields = require('./customers.settings.fields');
+const assetFields = require("./asset.fields.data");
 
 const Role = db.role;
 const Nav = db.nav;
@@ -21,6 +22,7 @@ const Business = db.business;
 const Number = db.number;
 const CustomerFields = db.customerFields;
 const CustomerSettingsFields = db.customerSettingsFields;
+const AssetFields = db.assetFields;
 
 const config = {
   host: process.env.HOST,
@@ -117,6 +119,19 @@ function dummyData() {
       type: number.type,
       number: number.number,
       customerId: number.customerId
+    })
+  })
+
+  assetFields.forEach((fields, index) => {
+    AssetFields.create({
+      id: index + 1,
+      name: fields.name,
+      label: fields.label,
+      type: fields.type,
+      placeholder: fields.placeholder,
+      icon: fields.icon,
+      side: fields.side,
+      options: fields.options
     })
   })
 
