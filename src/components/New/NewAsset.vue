@@ -7,13 +7,14 @@
       <div class="col-11">Create A New Asset</div>
       <div v-for="(field, index) in assetFields" :key="field + index">
         <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i>
-                  {{ field.label }}:
-                </label>
-                <div class="col-sm-8">
-                  <input :type="field.type" class="form-control" :id="field.label + index"
-                    :placeholder="field.placeholder" v-model="assetForm[field.name]" @input="print(assetForm)" />
-                </div>
+          {{ field.label }}:
+        </label>
+        <div class="col-sm-8">
+          <input :type="field.type" class="form-control" :id="field.label + index" :placeholder="field.placeholder"
+            v-model="assetForm[field.name]" @input="print(assetForm)" />
+        </div>
       </div>
+      <button @click="testing">test</button>
     </div>
   </div>
 </template>
@@ -42,11 +43,12 @@ export default {
     },
     async testing() {
       console.log(this.assetFields)
+      AssetService.createAsset(this.assetFields);
     }
   },
   created() {
     this.loadAssetFields()
-    this.testing()
+    //this.testing()
   }
 }
 </script>

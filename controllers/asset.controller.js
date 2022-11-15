@@ -1,7 +1,8 @@
 const db = require("../models");
-const AssetFields = db.assetFields
+const Asset = db.asset
+//const AssetFields = db.assetFields;
 const Op = db.Sequelize.Op;
-const axios = require("axios")
+const axios = require('axios')
 
 exports.create = async (req, res) => {
   /*
@@ -12,45 +13,32 @@ exports.create = async (req, res) => {
     return;
   }
 */
-  const assetFields = await axios.get("http://localhost:8090/api/customer/fields");
+  const assetFields = await axios.get("http://localhost:8090/api/asset/fields");
   const assetResponse = await assetFields.data;
 
+  //console.log(assetResponse)
 
   const fields = [...assetResponse]
 
   let asset = {};
 
   for (let i = 0; i < fields.length; i++) {
+    //console.log(fields[i].name)
     asset[fields[i].name] = req.body[fields[i].name];
   }
 
+  console.log(asset)
+
   try {
-    const request = await AssetFields.create(assetFields)
+    const request = await Asset.create(asset)
     res.send(await request)
   } catch (err) {
     console.log(err)
   }
-  /*
-    const assetField = {
-      title: req.body.title,
-      icon: req.body.description,
-      url: req.body.published,
-    };
-  
-    AssetFields.create(assetField)
-      .then((data) => {
-        res.send(data);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message: err.message || "Some error occurred while creating the Nav.",
-        });
-      });
-      */
 };
 
 exports.findAll = (req, res) => {
-  AssetFields.findAll()
+  Asset.findAll()
     .then((data) => {
       res.send(data);
     })
@@ -65,7 +53,7 @@ exports.findAll = (req, res) => {
 exports.findByRoleId = (req, res) => {
   const id = req.params.id;
 
-  AssetFields.findAll({
+  Asset.findAll({
     where: { roleId: id },
   })
     .then((data) => {
@@ -81,7 +69,7 @@ exports.findByRoleId = (req, res) => {
 
 exports.findByRole = (req, res) => {
   const id = req.params.id;
-  AssetFields.findAll({
+  Asset.findAll({
     where: {
       roleId: {
         [Op.lte]: id,
@@ -102,7 +90,7 @@ exports.findByRole = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  AssetFields.update(req.body, {
+  Asset.update(req.body, {
     where: { id: id },
   })
     .then((num) => {
@@ -126,7 +114,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  AssetFields.destroy({
+  Asset.destroy({
     where: { id: id },
   })
     .then((num) => {
@@ -142,7 +130,7 @@ exports.delete = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not delete Tutorial with id=" + id,
+        message: "Could not delete Tutorial with id=" + id + err,
       });
     });
 };

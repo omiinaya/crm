@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Asset = sequelize.define("assets", {
+    const Asset = sequelize.define("asset", {
         id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
@@ -14,11 +14,17 @@ module.exports = (sequelize, Sequelize) => {
         serial: {
             type: Sequelize.STRING,
         },
-        brand: {
-            type: Sequelize.STRING
+        manufacturer: {
+            type: Sequelize.STRING,
+        },
+        customerId: {
+            type: Sequelize.STRING,
+        },
+        ticketId: {
+            type: Sequelize.STRING,
         },
         tag: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
         },
     });
 

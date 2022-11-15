@@ -19,6 +19,7 @@ db.sequelize = sequelize;
 db.nav = require("./nav.model.js")(sequelize, Sequelize);
 db.user = require("./user.model.js")(sequelize, Sequelize);
 db.role = require("./role.model.js")(sequelize, Sequelize);
+db.asset = require("./asset.model")(sequelize, Sequelize);
 db.number = require("./number.model")(sequelize, Sequelize);
 db.customer = require("./customer.model")(sequelize, Sequelize);
 db.business = require("./business.model")(sequelize, Sequelize);
