@@ -1,6 +1,6 @@
 module.exports = app => {
     const asset = require("../controllers/asset.controller");
-    const assetFields = require("../controllers/asset.fields.controller");
+    const assetFields = require("../controllers/fields/asset.fields.controller");
     const router = require("express").Router();
 
     router.post("/", asset.create);

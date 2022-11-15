@@ -25,10 +25,10 @@ db.customer = require("./customer.model")(sequelize, Sequelize);
 db.business = require("./business.model")(sequelize, Sequelize);
 db.location = require("./location.model")(sequelize, Sequelize);
 db.home = require("./home.actions.model")(sequelize, Sequelize);
-db.assetFields = require("./asset.fields.model")(sequelize, Sequelize);
-db.customerFields = require("./customer.fields.model")(sequelize, Sequelize);
+db.assetFields = require("./fields/asset.fields.model")(sequelize, Sequelize);
+db.customerFields = require("./fields/customer.fields.model")(sequelize, Sequelize);
 db.customerSettings = require("./customer.settings.model")(sequelize, Sequelize);
-db.customerSettingsFields = require("./customer.settings.fields.model")(sequelize, Sequelize);
+db.customerSettingsFields = require("./fields/customer.settings.fields.model")(sequelize, Sequelize);
 
 db.user.belongsToMany(db.role, {
   through: "user_roles",

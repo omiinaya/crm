@@ -1,5 +1,5 @@
-const db = require("../models");
-const CustomerSettingsFields = db.customerSettingsFields;
+const db = require("../../models");
+const CustomerFields = db.customerFields;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
@@ -10,13 +10,13 @@ exports.create = (req, res) => {
     return;
   }
 
-  const customerSettingsField = {
+  const customerField = {
     title: req.body.title,
     icon: req.body.description,
     url: req.body.published,
   };
 
-  CustomerSettingsFields.create(customerSettingsField)
+  CustomerFields.create(customerField)
     .then((data) => {
       res.send(data);
     })
@@ -28,7 +28,7 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-  CustomerSettingsFields.findAll()
+  CustomerFields.findAll()
     .then((data) => {
       res.send(data);
     })
@@ -43,7 +43,7 @@ exports.findAll = (req, res) => {
 exports.findByRoleId = (req, res) => {
   const id = req.params.id;
 
-  CustomerSettingsFields.findAll({
+  CustomerFields.findAll({
     where: { roleId: id },
   })
     .then((data) => {
@@ -59,7 +59,7 @@ exports.findByRoleId = (req, res) => {
 
 exports.findByRole = (req, res) => {
   const id = req.params.id;
-  CustomerSettingsFields.findAll({
+  CustomerFields.findAll({
     where: {
       roleId: {
         [Op.lte]: id,
@@ -80,7 +80,7 @@ exports.findByRole = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  CustomerSettingsFields.update(req.body, {
+  CustomerFields.update(req.body, {
     where: { id: id },
   })
     .then((num) => {
@@ -104,7 +104,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  CustomerSettingsFields.destroy({
+  CustomerFields.destroy({
     where: { id: id },
   })
     .then((num) => {
