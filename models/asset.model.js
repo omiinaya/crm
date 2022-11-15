@@ -17,13 +17,13 @@ module.exports = (sequelize, Sequelize) => {
         manufacturer: {
             type: Sequelize.STRING,
         },
+        tag: {
+            type: Sequelize.STRING,
+        },
         customerId: {
             type: Sequelize.STRING,
         },
         ticketId: {
-            type: Sequelize.STRING,
-        },
-        tag: {
             type: Sequelize.STRING,
         },
     });

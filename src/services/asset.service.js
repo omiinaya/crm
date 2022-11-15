@@ -15,6 +15,7 @@ class AssetService {
 
    //post
    createAsset(data) {
+    console.log(data)
     return axios.post(API_URL, data);
   }
 }

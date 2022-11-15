@@ -39,11 +39,9 @@ export default {
       const req = await AssetService.getAssetFields();
       const data = await req.data
       this.assetFields = await data
-      console.log(data)
     },
     async testing() {
-      console.log(this.assetFields)
-      AssetService.createAsset(this.assetFields);
+      AssetService.createAsset(this.assetForm);
     }
   },
   created() {
