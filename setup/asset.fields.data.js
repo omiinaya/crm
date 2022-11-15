@@ -1,9 +1,6 @@
-const phoneTypes = ["Mobile", "Home", "Office", "Fax", "Other"];
-const customerTypes = ["Individual", "Business", "School"];
-
 const assetFields = [
     {
-        name: "assetType",
+        name: "type",
         label: "Asset Type",
         type: "text",
         placeholder: "Asset Type",
@@ -19,7 +16,7 @@ const assetFields = [
         side: 0,
     },
     {
-        name: "assetName",
+        name: "name",
         label: "Asset Name",
         type: "text",
         placeholder: "Asset Name",
@@ -27,7 +24,7 @@ const assetFields = [
         side: 0,
     },
     {
-        name: "assetSerial",
+        name: "serial",
         label: "Asset Serial",
         type: "text",
         placeholder: "Asset Serial",
@@ -43,7 +40,7 @@ const assetFields = [
         side: 0,
     },
     {
-        name: "assetTag",
+        name: "tag",
         label: "Asset Tag",
         type: "text",
         placeholder: "Asset Tag",
