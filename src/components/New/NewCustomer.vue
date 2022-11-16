@@ -77,7 +77,6 @@
                     :id="field.label + index"
                     :placeholder="field.placeholder"
                     v-model="customerForm[field.name]"
-                    @input="print(customerForm)"
                   />
                 </div>
                 <div class="col-sm-2">
@@ -87,7 +86,6 @@
                     :id="field.label + index"
                     placeholder="Ext"
                     v-model="customerForm.extension"
-                    @input="print(customerForm)"
                   />
                 </div>
               </div>
@@ -153,7 +151,6 @@
                     :id="field.label + index"
                     :placeholder="field.placeholder"
                     v-model="customerForm[field.name]"
-                    @input="print(customerForm)"
                   />
                 </div>
               </div>
@@ -174,7 +171,6 @@
                     :id="field.label + index"
                     :placeholder="field.placeholder"
                     v-model="customerForm[field.name]"
-                    @input="print(customerForm)"
                   />
                 </div>
               </div>
@@ -191,7 +187,6 @@
                     :id="field.label + index"
                     :placeholder="field.placeholder"
                     v-model="customerForm[field.name]"
-                    @input="print(customerForm)"
                   />
                 </div>
               </div>
@@ -215,7 +210,6 @@
                   :id="field.label + index"
                   :placeholder="field.placeholder"
                   v-model="customerForm[field.name]"
-                  @input="print(customerForm)"
                 />
               </div>
             </div>
@@ -244,7 +238,6 @@
                   :id="field.label + index"
                   :placeholder="field.placeholder"
                   v-model="customerForm[field.name]"
-                  @input="print(customerForm)"
                   :checked="getChecked(index, 'left')"
                 />
               </div>
@@ -268,7 +261,6 @@
                   :id="field.label + index"
                   :placeholder="field.placeholder"
                   v-model="customerForm[field.name]"
-                  @input="print(customerForm)"
                   :checked="getChecked(index, 'right')"
                 />
               </div>
@@ -341,6 +333,14 @@ export default {
   created() {
     this.getCustomerFieldItems();
     this.getSettingsFieldItems();
+  },
+  watch: {
+    customerForm: {
+      handler(newData) {
+        console.log(newData)
+      },
+      deep: true
+    }
   }
 }
 </script>

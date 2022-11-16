@@ -1,3 +1,6 @@
+const assetTypes = ['Laptop', 'Desktop', 'Tablet', 'Phone']
+const manufacturers = ['Lenovo', 'Fujitsu', 'DELL', 'Apple', 'HP', 'MSI']
+
 const assetFields = [
   {
     name: "customerName",
@@ -27,10 +30,11 @@ const assetFields = [
   {
     name: "type",
     label: "Asset Type",
-    type: "text",
+    type: "dropdown",
     placeholder: "Asset Type",
     icon: "bi bi-list-check",
     side: 0,
+    options: JSON.stringify(assetTypes)
   },
   {
     name: "name",
@@ -51,10 +55,11 @@ const assetFields = [
   {
     name: "manufacturer",
     label: "Manufacturer",
-    type: "text",
+    type: "dropdown",
     placeholder: "Manufacturer",
     icon: "bi bi-nut",
     side: 0,
+    options: JSON.stringify(manufacturers)
   },
   {
     name: "tag",
