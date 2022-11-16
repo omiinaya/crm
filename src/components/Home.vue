@@ -6,28 +6,14 @@
     <div class="get-started section">
       <div class="menu text-center">
         Get Started
-        <div
-          class="btn-group-vertical"
-          role="group"
-          aria-label="Vertical button group"
-        >
+        <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
           <div v-for="(action, index) in actions" :key="action + index">
-            <div
-              class="btn-group"
-              role="group"
-              aria-label="Basic mixed styles example"
-            >
-              <button
-                type="button"
-                class="btn btn-secondary btn-lg actions custom-left"
-              >
+            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+              <button type="button" class="btn btn-secondary btn-lg actions custom-left">
                 <i :class="action.icon"></i>
               </button>
-              <button
-                type="button"
-                class="btn btn-success btn-lg actions custom-right"
-                v-on:click="storeX.view = action.url"
-              >
+              <button type="button" class="btn btn-success btn-lg actions custom-right"
+                v-on:click="storeX.view = action.url">
                 + {{ action.title }}
               </button>
             </div>
@@ -46,24 +32,24 @@ import HomeService from "../services/home.service";
 import { storeX } from "../store/index";
 
 export default defineComponent({
-    name: 'HomePage',
-    data() {
-        return {
-            actions: null,
-            storeX
-        };
+  name: 'HomePage',
+  data() {
+    return {
+      actions: null,
+      storeX
+    };
+  },
+  methods: {
+    async getActionItems() {
+      const highest = Math.max(...this.$store.state.auth.user.roles);
+      const req = await HomeService.getRoleNav(highest);
+      this.actions = await req.data;
+      //console.log(req.data)
     },
-    methods: {
-        async getActionItems() {
-            const highest = Math.max(...this.$store.state.auth.user.roles);
-            const req = await HomeService.getRoleNav(highest);
-            this.actions = await req.data;
-            //console.log(req.data)
-        },
-    },
-    created() {
-        this.getActionItems()
-    }
+  },
+  created() {
+    this.getActionItems()
+  }
 });
 </script>
   

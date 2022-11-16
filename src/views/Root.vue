@@ -7,19 +7,19 @@
     </ion-header>
 
     <ion-content :fullscreen="true">
-      <Home v-if="storeX.view === 'homeView' || !storeX.view" />
-      <Customers v-else-if="storeX.view === 'customersView'" />
-      <Assets v-else-if="storeX.view === 'assetsView'" />
-      <Invoices v-else-if="storeX.view === 'invoicesView'" />
-      <Tickets v-else-if="storeX.view === 'ticketsView'" />
-      <Parts v-else-if="storeX.view === 'partsView'" />
-      <Inventory v-else-if="storeX.view === 'inventoryView'" />
-      <Estimates v-else-if="storeX.view === 'estimatesView'" />
-      <POS v-else-if="storeX.view === 'posView'" />
-      <Admin v-else-if="storeX.view === 'adminView'" />
-      <NewCustomer v-else-if="storeX.view === 'newCustomerView'" />
-      <NewTicket v-else-if="storeX.view === 'newTicketView'" />
-      <NewAsset v-else-if="storeX.view === 'newAssetView'" />
+      <Home v-if="storeX.view === 'home' || !storeX.view" />
+      <Customers v-else-if="storeX.view === 'customers'" />
+      <Assets v-else-if="storeX.view === 'assets'" />
+      <Invoices v-else-if="storeX.view === 'invoices'" />
+      <Tickets v-else-if="storeX.view === 'tickets'" />
+      <Parts v-else-if="storeX.view === 'parts'" />
+      <Inventory v-else-if="storeX.view === 'inventory'" />
+      <Estimates v-else-if="storeX.view === 'estimates'" />
+      <POS v-else-if="storeX.view === 'pos'" />
+      <Admin v-else-if="storeX.view === 'admin'" />
+      <NewCustomer v-else-if="storeX.view === 'newCustomer'" />
+      <NewTicket v-else-if="storeX.view === 'newTicket'" />
+      <NewAsset v-else-if="storeX.view === 'newAsset'" />
     </ion-content>
   </ion-page>
 </template>
@@ -42,6 +42,7 @@ import Admin from '../components/Admin.vue';
 import NewCustomer from '../components/New/NewCustomer.vue';
 import NewTicket from '../components/New/NewTicket.vue';
 import NewAsset from '../components/New/NewAsset.vue';
+import { useRoute } from 'vue-router'
 
 export default defineComponent({
   name: 'RootPage',
@@ -53,7 +54,10 @@ export default defineComponent({
   },
   methods: {},
   created() {
-    //console.log(storeX.view)
+    const route = useRoute()
+    if (!Object.keys(route.query).length) return
+    if (!route.query.p) return
+    storeX.view = route.query.p
   },
   components: {
     IonContent,
