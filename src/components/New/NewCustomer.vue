@@ -3,9 +3,27 @@
     <div class="row align-items-center">
       <div class="col-6 offset-1 title">New Customer</div>
       <div class="col-5">
-        <button type="button" class="btn btn-primary" v-on:click="createCustomer(customerForm)">New Customer</button>
-        <button type="button" class="btn btn-secondary" v-on:click="createCustomer(customerForm)">TEST BUTTON 2</button>
-        <button type="button" class="btn btn-success" v-on:click="testing()">TEST BUTTON 3</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          v-on:click="createCustomer(customerForm)"
+        >
+          New Customer
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          v-on:click="print(customerForm)"
+        >
+          TEST BUTTON 2
+        </button>
+        <button
+          type="button"
+          class="btn btn-success"
+          v-on:click="print(customerForm)"
+        >
+          TEST BUTTON 3
+        </button>
       </div>
     </div>
     <div class="section">
@@ -13,79 +31,168 @@
         <div class="cols-12 sub-title">BASIC INFO</div>
         <div class="col-6">
           <div class="form">
-            <div v-for="(field, index) in customerFields.left" :key="field + index">
-              <div v-if="field.name === 'phone'" class="mb-3 row align-items-center">
-                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i>
-                  {{ field.label }}:
+            <div
+              v-for="(field, index) in customerFields.left"
+              :key="field + index"
+            >
+              <div
+                v-if="field.name === 'phone'"
+                class="mb-3 row align-items-center"
+              >
+                <label
+                  :for="field.label + index"
+                  class="col-sm-4 col-form-label"
+                  ><i :class="field.icon"></i> {{ field.label }}:
                 </label>
                 <div class="col-sm-2 dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%; padding: 5px;"
-                    placeholder="Dropdown">
-                    {{ customerForm['phoneType'] }}
+                  <button
+                    class="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    style="width: 100%; padding: 5px"
+                    placeholder="Dropdown"
+                  >
+                    {{ customerForm["phoneType"] }}
                   </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <ul
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton1"
+                  >
                     <li v-for="(type, index) in phoneTypes" :key="type + index">
-                      <a class="dropdown-item" href="#!" v-on:click="customerForm['phoneType'] = type">{{ type }}
+                      <a
+                        class="dropdown-item"
+                        href="#!"
+                        v-on:click="customerForm['phoneType'] = type"
+                        >{{ type }}
                       </a>
                     </li>
                   </ul>
                 </div>
                 <div class="col-sm-4">
-                  <input :type="field.type" class="form-control" :id="field.label + index"
-                    :placeholder="field.placeholder" v-model="customerForm[field.name]" @input="print(customerForm)" />
+                  <input
+                    :type="field.type"
+                    class="form-control"
+                    :id="field.label + index"
+                    :placeholder="field.placeholder"
+                    v-model="customerForm[field.name]"
+                    @input="print(customerForm)"
+                  />
                 </div>
                 <div class="col-sm-2">
-                  <input :type="field.type" class="form-control" :id="field.label + index" placeholder="Ext"
-                    v-model="customerForm.extension" @input="print(customerForm)" />
+                  <input
+                    :type="field.type"
+                    class="form-control"
+                    :id="field.label + index"
+                    placeholder="Ext"
+                    v-model="customerForm.extension"
+                    @input="print(customerForm)"
+                  />
                 </div>
               </div>
-              <div v-else-if="field.name === 'customerType'" class="mb-3 row align-items-center">
-                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i>
-                  {{ field.label }}:
+              <div
+                v-else-if="field.name === 'customerType'"
+                class="mb-3 row align-items-center"
+              >
+                <label
+                  :for="field.label + index"
+                  class="col-sm-4 col-form-label"
+                  ><i :class="field.icon"></i> {{ field.label }}:
                 </label>
-                <div class="col-sm-8" style="height:25px">
-                  <div v-for="(type, index) in customerTypes" :key="type + index" class="form-check form-check-inline">
+                <div class="col-sm-8" style="height: 25px">
+                  <div
+                    v-for="(type, index) in customerTypes"
+                    :key="type + index"
+                    class="form-check form-check-inline"
+                  >
                     <div v-if="!index">
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                        value="option1" v-on:click="customerForm[field.name] = type" checked>
-                      <label class="form-check-label" for="inlineRadio1">{{ type }}</label>
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                        id="inlineRadio1"
+                        value="option1"
+                        v-on:click="customerForm[field.name] = type"
+                        checked
+                      />
+                      <label class="form-check-label" for="inlineRadio1">{{
+                        type
+                      }}</label>
                     </div>
                     <div v-else>
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                        value="option1" v-on:click="customerForm[field.name] = type">
-                      <label class="form-check-label" for="inlineRadio1">{{ type }}</label>
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                        id="inlineRadio1"
+                        value="option1"
+                        v-on:click="customerForm[field.name] = type"
+                      />
+                      <label class="form-check-label" for="inlineRadio1">{{
+                        type
+                      }}</label>
                     </div>
                   </div>
                 </div>
               </div>
-              <div v-else-if="field.name === 'businessName'" class="mb-3 row align-items-center"
-                :v-show="customerForm['customerType'] === customerTypes[1]">
-                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i>
-                  {{ field.label }}:
+              <div
+                v-else-if="field.name === 'businessName'"
+                class="mb-3 row align-items-center"
+                :v-show="customerForm['customerType'] === customerTypes[1]"
+              >
+                <label
+                  :for="field.label + index"
+                  class="col-sm-4 col-form-label"
+                  ><i :class="field.icon"></i> {{ field.label }}:
                 </label>
                 <div class="col-sm-8">
-                  <input :type="field.type" class="form-control" :id="field.label + index"
-                    :placeholder="field.placeholder" v-model="customerForm[field.name]" @input="print(customerForm)" />
+                  <input
+                    :type="field.type"
+                    class="form-control"
+                    :id="field.label + index"
+                    :placeholder="field.placeholder"
+                    v-model="customerForm[field.name]"
+                    @input="print(customerForm)"
+                  />
                 </div>
               </div>
-              <div v-else-if="field.name === 'schoolName'" class="mb-3 row align-items-center"
-                v-show="customerForm['customerType'] === customerTypes[2]">
-                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i>
-                  {{ field.label }}:
+              <div
+                v-else-if="field.name === 'schoolName'"
+                class="mb-3 row align-items-center"
+                v-show="customerForm['customerType'] === customerTypes[2]"
+              >
+                <label
+                  :for="field.label + index"
+                  class="col-sm-4 col-form-label"
+                  ><i :class="field.icon"></i> {{ field.label }}:
                 </label>
                 <div class="col-sm-8">
-                  <input :type="field.type" class="form-control" :id="field.label + index"
-                    :placeholder="field.placeholder" v-model="customerForm[field.name]" @input="print(customerForm)" />
+                  <input
+                    :type="field.type"
+                    class="form-control"
+                    :id="field.label + index"
+                    :placeholder="field.placeholder"
+                    v-model="customerForm[field.name]"
+                    @input="print(customerForm)"
+                  />
                 </div>
               </div>
               <div v-else class="mb-3 row align-items-center">
-                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i>
-                  {{ field.label }}:
+                <label
+                  :for="field.label + index"
+                  class="col-sm-4 col-form-label"
+                  ><i :class="field.icon"></i> {{ field.label }}:
                 </label>
                 <div class="col-sm-8">
-                  <input :type="field.type" class="form-control" :id="field.label + index"
-                    :placeholder="field.placeholder" v-model="customerForm[field.name]" @input="print(customerForm)" />
+                  <input
+                    :type="field.type"
+                    class="form-control"
+                    :id="field.label + index"
+                    :placeholder="field.placeholder"
+                    v-model="customerForm[field.name]"
+                    @input="print(customerForm)"
+                  />
                 </div>
               </div>
             </div>
@@ -93,14 +200,23 @@
         </div>
         <div class="col-6">
           <div class="form">
-            <div class="mb-3 row align-items-center" v-for="(field, index) in customerFields.right"
-              :key="field + index">
-              <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i>
-                {{ field.label }}:
+            <div
+              class="mb-3 row align-items-center"
+              v-for="(field, index) in customerFields.right"
+              :key="field + index"
+            >
+              <label :for="field.label + index" class="col-sm-4 col-form-label"
+                ><i :class="field.icon"></i> {{ field.label }}:
               </label>
               <div class="col-sm-8">
-                <input :type="field.type" class="form-control" :id="field.label + index"
-                  :placeholder="field.placeholder" v-model="customerForm[field.name]" @input="print(customerForm)" />
+                <input
+                  :type="field.type"
+                  class="form-control"
+                  :id="field.label + index"
+                  :placeholder="field.placeholder"
+                  v-model="customerForm[field.name]"
+                  @input="print(customerForm)"
+                />
               </div>
             </div>
           </div>
@@ -113,29 +229,48 @@
         <div class="cols-10 sub-title">CUSTOMER SETTINGS</div>
         <div class="col-6">
           <div class="form">
-            <div class="mb-3 row align-items-center" v-for="(field, index) in settingsFields.left" :key="field + index">
-              <label :for="field.label + index" class="col-sm-5 col-form-label"><i :class="field.icon"></i>
-                {{ field.label }}:
+            <div
+              class="mb-3 row align-items-center"
+              v-for="(field, index) in settingsFields.left"
+              :key="field + index"
+            >
+              <label :for="field.label + index" class="col-sm-5 col-form-label"
+                ><i :class="field.icon"></i> {{ field.label }}:
               </label>
               <div class="col-sm-7">
-                <input :type="field.type" class="form-check-input" :id="field.label + index"
-                  :placeholder="field.placeholder" v-model="customerForm[field.name]" @input="print(customerForm)"
-                  :checked="getChecked(index, 'left')" />
+                <input
+                  :type="field.type"
+                  class="form-check-input"
+                  :id="field.label + index"
+                  :placeholder="field.placeholder"
+                  v-model="customerForm[field.name]"
+                  @input="print(customerForm)"
+                  :checked="getChecked(index, 'left')"
+                />
               </div>
             </div>
           </div>
         </div>
         <div class="col-6">
           <div class="form">
-            <div class="mb-3 row align-items-center" v-for="(field, index) in settingsFields.right"
-              :key="field + index">
-              <label :for="field.label + index" class="col-sm-5 col-form-label"><i :class="field.icon"></i>
-                {{ field.label }}:
+            <div
+              class="mb-3 row align-items-center"
+              v-for="(field, index) in settingsFields.right"
+              :key="field + index"
+            >
+              <label :for="field.label + index" class="col-sm-5 col-form-label"
+                ><i :class="field.icon"></i> {{ field.label }}:
               </label>
               <div class="col-sm-7">
-                <input :type="field.type" class="form-check-input" :id="field.label + index"
-                  :placeholder="field.placeholder" v-model="customerForm[field.name]" @input="print(customerForm)"
-                  :checked="getChecked(index, 'right')" />
+                <input
+                  :type="field.type"
+                  class="form-check-input"
+                  :id="field.label + index"
+                  :placeholder="field.placeholder"
+                  v-model="customerForm[field.name]"
+                  @input="print(customerForm)"
+                  :checked="getChecked(index, 'right')"
+                />
               </div>
             </div>
           </div>
