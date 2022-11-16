@@ -1,8 +1,8 @@
 module.exports = (app) => {
   const customer = require("../controllers/customer.controller.js");
-  const customerFields = require("../controllers/customer.fields.controller.js");
+  const customerFields = require("../controllers/fields/customer.fields.controller.js");
   const customerSettings = require("../controllers/customer.settings.controller");
-  const customerSettingsFields = require('../controllers/customer.settings.fields.controller');
+  const customerSettingsFields = require("../controllers/fields/customer.settings.fields.controller");
   const router = require("express").Router();
 
   router.post("/", customer.create);
@@ -11,12 +11,12 @@ module.exports = (app) => {
   router.get("/role/:id", customer.findByRole);
   router.put("/:id", customer.update);
   router.delete("/:id", customer.delete);
-  
+
   //fields get
   router.get("/fields", customerFields.findAll);
 
   //settings get
-  router.get("/settings/id/:id", customerSettings.findById)
+  router.get("/settings/id/:id", customerSettings.findById);
   router.get("/settings/fields", customerSettingsFields.findAll);
 
   //settings post

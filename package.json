@@ -34,6 +34,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "mysql2": "^2.3.3",
+    "resize-observer-polyfill": "^1.5.1",
     "sequelize": "^6.25.3",
     "vee-validate": "^4.7.1",
     "vue": "3.2.27",
@@ -41,6 +42,7 @@
     "vue-route": "^1.5.1",
     "vue-router": "^4.0.12",
     "vue3-easy-data-table": "^1.5.12",
+    "vue3-simple-typeahead": "^1.0.11",
     "vuejs-smart-table": "^0.0.8",
     "vuex": "^4.1.0",
     "yup": "^0.32.11"

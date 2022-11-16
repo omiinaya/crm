@@ -22,18 +22,35 @@
     <div class="col-6 offset-1 form">
       <div class="col-11">Create A New Asset</div>
       <div v-for="(field, index) in assetFields" :key="field + index">
-        <label :for="field.label + index" class="col-sm-4 col-form-label"
-          ><i :class="field.icon"></i> {{ field.label }}:
-        </label>
-        <div class="col-sm-8">
-          <input
-            :type="field.type"
-            class="form-control"
-            :id="field.label + index"
-            :placeholder="field.placeholder"
-            v-model="assetForm[field.name]"
-            @input="print(assetForm)"
-          />
+        <div
+          v-if="field.name === 'customerName'"
+          class="mb-3 row align-items-center"
+        >
+          <label :for="field.label + index" class="col-sm-4 col-form-label"
+            ><i :class="field.icon"></i> {{ field.label }}:
+          </label>
+          <div class="col-sm-6">
+            <SimpleTypeahead
+              :placeholder="field.placeholder"
+              :items="['One', 'Two', 'Three']"
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div v-else class="mb-3 row align-items-center">
+          <label :for="field.label + index" class="col-sm-4 col-form-label"
+            ><i :class="field.icon"></i> {{ field.label }}:
+          </label>
+          <div class="col-sm-6">
+            <input
+              :type="field.type"
+              class="form-control"
+              :id="field.label + index"
+              :placeholder="field.placeholder"
+              v-model="assetForm[field.name]"
+              @input="print(assetForm)"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -42,11 +59,12 @@
 
 <script>
 import AssetService from "../../services/asset.service";
+import SimpleTypeahead from 'vue3-simple-typeahead';
 import { storeX } from "../../store/index";
 
 export default {
   name: 'NewAssetPage',
-  components: {},
+  components: { SimpleTypeahead },
   data: () => ({
     assetFields: null,
     assetForm: {},
@@ -86,5 +104,11 @@ export default {
 
 .btn {
   margin-right: 10px !important;
+}
+</style>
+
+<style>
+.simple-typeahead-list-item-text {
+  color: black;
 }
 </style>
