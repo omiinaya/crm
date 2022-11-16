@@ -1,8 +1,8 @@
 <template>
   <div class="row">
-    <div class="col-6 offset-1 title">New Asset</div>
+    <div class="col-6 offset-1 title">New Ticket</div>
     <div class="col-5 title">
-      <button type="button" class="btn btn-primary" v-on:click="createAsset(assetForm)">
+      <button type="button" class="btn btn-primary" v-on:click="createAsset(ticketForm)">
         New Ticket
       </button>
       <button type="button" class="btn btn-success" v-on:click="loadCustomerData()">
@@ -12,31 +12,20 @@
   </div>
   <div class="row">
     <div class="col-6 offset-1 form">
-      <div class="col-11">Create A New Asset</div>
-      <div v-for="(field, index) in assetFields" :key="field + index">
-        <div v-if="field.show !== null">
-        </div>
-        <div v-else-if="field.name === 'customerName'" class="mb-3 row align-items-center">
-          <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{ field.label
-          }}:
-          </label>
-          <div class="col-sm-6">
-            <TypeAhead :placeholder="field.placeholder" :items="customerItems" class="form-control simple-typeahead"
-              @selectItem="(e) => this.assetForm['customerId'] = e.id" />
-          </div>
-        </div>
-        <div v-else-if="field.type === 'dropdown'" class="mb-3 row align-items-center">
+      <div class="col-11">Create A New Ticket</div>
+      <div v-for="(field, index) in ticketFields" :key="field + index">
+        <div v-if="field.type === 'dropdown'" class="mb-3 row align-items-center">
           <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{ field.label
           }}:
           </label>
           <div class="col-sm-6 dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
               data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%; padding: 5px" placeholder="Dropdown">
-              {{ assetForm[field.name] }}
+              {{ ticketForm[field.name] }}
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li v-for="(type, index) in JSON.parse(field.options)" :key="type + index">
-                <a class="dropdown-item" href="#!" v-on:click="assetForm[field.name] = type">{{ type }}
+                <a class="dropdown-item" href="#!" v-on:click="ticketForm[field.name] = type">{{ type }}
                 </a>
               </li>
             </ul>
@@ -48,7 +37,7 @@
           </label>
           <div class="col-sm-6">
             <input :type="field.type" class="form-control" :id="field.label + index" :placeholder="field.placeholder"
-              v-model="assetForm[field.name]" />
+              v-model="ticketForm[field.name]" />
           </div>
         </div>
       </div>
@@ -57,17 +46,17 @@
 </template>
 
 <script>
-import AssetService from "../../services/asset.service";
+import TicketService from "../../services/ticket.service";
 import CustomerService from "../../services/customer.service"
-import TypeAhead from "../TypeAhead.vue"
+//import TypeAhead from "../TypeAhead.vue"
 import { storeX } from "../../store/index";
 
 export default {
   name: 'NewAssetPage',
-  components: { TypeAhead },
+  components: { /*TypeAhead*/ },
   data: () => ({
-    assetFields: null,
-    assetForm: {
+    ticketFields: null,
+    ticketForm: {
       type: 'Laptop',
       manufacturer: 'Lenovo'
     },
@@ -77,8 +66,8 @@ export default {
   }),
   methods: {
     async loadAssetFields() {
-      const req = await AssetService.getAssetFields();
-      this.assetFields = await req.data
+      const req = await TicketService.getTicketFields();
+      this.ticketFields = await req.data
     },
     async loadCustomerData() {
       const request = await CustomerService.getCustomers()
@@ -89,11 +78,11 @@ export default {
       })
     },
     async createAsset() {
-      console.log(this.assetForm)
-      AssetService.createAsset(this.assetForm);
+      console.log(this.ticketForm)
+      TicketService.createTicket(this.ticketForm);
     },
     testing() {
-      console.log(this.assetForm)
+      console.log(this.ticketForm)
     }
   },
   created() {
@@ -101,7 +90,7 @@ export default {
     this.loadCustomerData()
   },
   watch: {
-    assetForm: {
+    ticketForm: {
       handler(newData) {
         console.log(newData)
       },
