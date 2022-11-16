@@ -131,7 +131,8 @@ function dummyData() {
       placeholder: fields.placeholder,
       icon: fields.icon,
       side: fields.side,
-      options: fields.options
+      options: fields.options,
+      show: fields.show
     })
   })
 

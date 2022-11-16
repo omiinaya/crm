@@ -22,8 +22,10 @@
     <div class="col-6 offset-1 form">
       <div class="col-11">Create A New Asset</div>
       <div v-for="(field, index) in assetFields" :key="field + index">
+        <div v-if="field.show !== null">
+        </div>
         <div
-          v-if="field.name === 'customerName'"
+          v-else-if="field.name === 'customerName'"
           class="mb-3 row align-items-center"
         >
           <label :for="field.label + index" class="col-sm-4 col-form-label"
@@ -34,7 +36,7 @@
               :placeholder="field.placeholder"
               :items="customerItems"
               class="form-control simple-typeahead"
-              @selectItem="(e) => onSelect(e)"
+              @selectItem="(e) => this.assetForm['customerId'] = e.id"
             />
           </div>
         </div>
@@ -92,11 +94,8 @@ export default {
       })
     },
     async createAsset() {
+      console.log(this.assetForm)
       AssetService.createAsset(this.assetForm);
-    },
-    onSelect(e) {
-      this.customerSelected = e.id
-      console.log(this.customerSelected)
     },
     testing() {
       console.log(this.assetForm)

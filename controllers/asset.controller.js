@@ -23,12 +23,11 @@ exports.create = async (req, res) => {
   let asset = {};
 
   for (let i = 0; i < fields.length; i++) {
-    //console.log(fields[i].name)
     asset[fields[i].name] = req.body[fields[i].name];
   }
 
   //console.log(asset)
-  console.log(req.body.type)
+  console.log(req.body)
 
   try {
     const request = await Asset.create(asset)

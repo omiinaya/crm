@@ -8,6 +8,15 @@ const assetFields = [
     side: 0,
   },
   {
+    name: "customerId",
+    label: "Customer Id",
+    type: "text",
+    placeholder: "Customer Id",
+    icon: "bi bi-person",
+    side: 0,
+    show: false
+  },
+  {
     name: "ticketNumber",
     label: "Ticket Number",
     type: "text",
