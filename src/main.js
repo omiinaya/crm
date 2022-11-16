@@ -5,7 +5,6 @@ import router from "./router";
 import store from "./store";
 import * as VeeValidate from "vee-validate";
 import Vue3EasyDataTable from "vue3-easy-data-table";
-import SimpleTypeahead from "vue3-simple-typeahead";
 
 import "@ionic/vue/css/core.css";
 
@@ -38,7 +37,6 @@ const app = createApp(App)
   .use(router)
   .use(store)
   .use(VeeValidate)
-  .use(SimpleTypeahead);
 
 app.component("EasyDataTable", Vue3EasyDataTable);
 

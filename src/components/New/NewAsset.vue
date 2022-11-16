@@ -30,7 +30,7 @@
             ><i :class="field.icon"></i> {{ field.label }}:
           </label>
           <div class="col-sm-6">
-            <SimpleTypeahead
+            <TypeAhead
               :placeholder="field.placeholder"
               :items="customerItems"
               class="form-control simple-typeahead"
@@ -61,12 +61,12 @@
 <script>
 import AssetService from "../../services/asset.service";
 import CustomerService from "../../services/customer.service"
-import SimpleTypeahead from 'vue3-simple-typeahead';
+import TypeAhead from "../TypeAhead.vue"
 import { storeX } from "../../store/index";
 
 export default {
   name: 'NewAssetPage',
-  components: { SimpleTypeahead },
+  components: { TypeAhead },
   data: () => ({
     assetFields: null,
     assetForm: {},
@@ -87,20 +87,15 @@ export default {
       const request = await CustomerService.getCustomers()
       const customerList = await request.data;
 
-      customerList.forEach((customer/*, index*/) => {
-        const id = customer.id;
-        const item = `${id}: ${customer.firstName} ${customer.lastName}`;
-        this.customerItems.push(item);
-        this.customerIds.push(id);
+      customerList.forEach((customer) => {
+        this.customerItems.push(customer);
       })
     },
     async createAsset() {
       AssetService.createAsset(this.assetForm);
     },
     onSelect(e) {
-      //TODO: reverse typeahead and use objects instead of this hacky method to get id of selected user
-      const index = this.customerItems.indexOf(e)
-      this.customerSelected = this.customerIds[index]
+      this.customerSelected = e.id
       console.log(this.customerSelected)
     },
     testing() {
