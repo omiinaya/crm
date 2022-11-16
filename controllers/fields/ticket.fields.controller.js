@@ -1,22 +1,14 @@
 const db = require("../../models");
-const AssetFields = db.assetFields
+const TicketFields = db.ticketFields
 const Op = db.Sequelize.Op;
 const axios = require("axios")
 
 exports.create = async (req, res) => {
-  /*
-  if (!req.body.title) {
-    res.status(400).send({
-      message: "Content can not be empty!",
-    });
-    return;
-  }
-*/
-  const assetFields = await axios.get("http://localhost:8090/api/customer/fields");
-  const assetResponse = await assetFields.data;
+  const ticketFields = await axios.get("http://localhost:8090/api/ticket/fields");
+  const ticketResponse = await assetFields.data;
 
 
-  const fields = [...assetResponse]
+  const fields = [...ticketResponse]
 
   let asset = {};
 
@@ -25,7 +17,7 @@ exports.create = async (req, res) => {
   }
 
   try {
-    const request = await AssetFields.create(assetFields)
+    const request = await TicketFields.create(ticketFields)
     res.send(await request)
   } catch (err) {
     console.log(err)
@@ -33,7 +25,7 @@ exports.create = async (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-  AssetFields.findAll()
+  TicketFields.findAll()
     .then((data) => {
       res.send(data);
     })
@@ -48,7 +40,7 @@ exports.findAll = (req, res) => {
 exports.findByRoleId = (req, res) => {
   const id = req.params.id;
 
-  AssetFields.findAll({
+  TicketFields.findAll({
     where: { roleId: id },
   })
     .then((data) => {
@@ -64,7 +56,7 @@ exports.findByRoleId = (req, res) => {
 
 exports.findByRole = (req, res) => {
   const id = req.params.id;
-  AssetFields.findAll({
+  TicketFields.findAll({
     where: {
       roleId: {
         [Op.lte]: id,
@@ -85,7 +77,7 @@ exports.findByRole = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  AssetFields.update(req.body, {
+  TicketFields.update(req.body, {
     where: { id: id },
   })
     .then((num) => {
@@ -109,7 +101,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  AssetFields.destroy({
+  TicketFields.destroy({
     where: { id: id },
   })
     .then((num) => {

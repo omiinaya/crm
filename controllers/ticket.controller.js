@@ -1,7 +1,7 @@
-const db = require("../../models");
-const AssetFields = db.assetFields
+const db = require("../models");
+const Ticket = db.ticket
 const Op = db.Sequelize.Op;
-const axios = require("axios")
+const axios = require('axios')
 
 exports.create = async (req, res) => {
   /*
@@ -12,20 +12,24 @@ exports.create = async (req, res) => {
     return;
   }
 */
-  const assetFields = await axios.get("http://localhost:8090/api/customer/fields");
-  const assetResponse = await assetFields.data;
+  const ticketFields = await axios.get("http://localhost:8090/api/ticket/fields");
+  const ticketResponse = await ticketFields.data;
 
+  //console.log(assetResponse)
 
-  const fields = [...assetResponse]
+  const fields = [...ticketResponse]
 
-  let asset = {};
+  let ticket = {};
 
   for (let i = 0; i < fields.length; i++) {
     asset[fields[i].name] = req.body[fields[i].name];
   }
 
+  //console.log(asset)
+  console.log(req.body)
+
   try {
-    const request = await AssetFields.create(assetFields)
+    const request = await Ticket.create(ticket)
     res.send(await request)
   } catch (err) {
     console.log(err)
@@ -33,7 +37,7 @@ exports.create = async (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-  AssetFields.findAll()
+  Ticket.findAll()
     .then((data) => {
       res.send(data);
     })
@@ -48,7 +52,7 @@ exports.findAll = (req, res) => {
 exports.findByRoleId = (req, res) => {
   const id = req.params.id;
 
-  AssetFields.findAll({
+  Ticket.findAll({
     where: { roleId: id },
   })
     .then((data) => {
@@ -64,7 +68,7 @@ exports.findByRoleId = (req, res) => {
 
 exports.findByRole = (req, res) => {
   const id = req.params.id;
-  AssetFields.findAll({
+  Ticket.findAll({
     where: {
       roleId: {
         [Op.lte]: id,
@@ -85,7 +89,7 @@ exports.findByRole = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  AssetFields.update(req.body, {
+  Ticket.update(req.body, {
     where: { id: id },
   })
     .then((num) => {
@@ -109,7 +113,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  AssetFields.destroy({
+  Ticket.destroy({
     where: { id: id },
   })
     .then((num) => {
@@ -125,7 +129,7 @@ exports.delete = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not delete Tutorial with id=" + id,
+        message: "Could not delete Tutorial with id=" + id + err,
       });
     });
 };

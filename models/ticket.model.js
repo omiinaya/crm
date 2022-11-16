@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Asset = sequelize.define("asset", {
+    const Ticket = sequelize.define("ticket", {
         id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
@@ -25,5 +25,5 @@ module.exports = (sequelize, Sequelize) => {
         }
     });
 
-    return Asset;
+    return Ticket;
 };
