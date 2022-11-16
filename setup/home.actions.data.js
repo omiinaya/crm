@@ -2,17 +2,17 @@ const actions = [
     {
       title: "New Customer",
       icon: "bi bi-person",
-      url: "newCustomerView",
+      url: "newCustomer",
     },
     {
       title: "New Ticket",
       icon: "bi bi-tag",
-      url: "newTicketView",
+      url: "newTicket",
     },
     {
       title: "New Asset",
       icon: "bi bi-laptop",
-      url: "newAssetView",
+      url: "newAsset",
     },
     /*
     {
@@ -24,13 +24,13 @@ const actions = [
     {
       title: "New Invoice",
       icon: "bi bi-cart",
-      url: "newInvoiceView",
+      url: "newInvoice",
     },
     
     {
       title: "New Estimate",
       icon: "bi bi-file-earmark-text",
-      url: "newEstimateView",
+      url: "newEstimate",
     },
     
   ];
