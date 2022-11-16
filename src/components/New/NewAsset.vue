@@ -12,7 +12,7 @@
       <button
         type="button"
         class="btn btn-success"
-        v-on:click="print(assetForm)"
+        v-on:click="loadCustomerData()"
       >
         TEST BUTTON 3
       </button>
@@ -32,8 +32,9 @@
           <div class="col-sm-6">
             <SimpleTypeahead
               :placeholder="field.placeholder"
-              :items="['One', 'Two', 'Three']"
-              class="form-control"
+              :items="customerItems"
+              class="form-control simple-typeahead"
+              @selectItem="(e) => onSelect(e)"
             />
           </div>
         </div>
@@ -59,6 +60,7 @@
 
 <script>
 import AssetService from "../../services/asset.service";
+import CustomerService from "../../services/customer.service"
 import SimpleTypeahead from 'vue3-simple-typeahead';
 import { storeX } from "../../store/index";
 
@@ -68,6 +70,9 @@ export default {
   data: () => ({
     assetFields: null,
     assetForm: {},
+    customerItems: [],
+    customerIds: [],
+    customerSelected: null,
     storeX
   }),
   methods: {
@@ -76,19 +81,34 @@ export default {
     },
     async loadAssetFields() {
       const req = await AssetService.getAssetFields();
-      const data = await req.data
-      this.assetFields = await data
+      this.assetFields = await req.data
+    },
+    async loadCustomerData() {
+      const request = await CustomerService.getCustomers()
+      const customerList = await request.data;
+
+      customerList.forEach((customer/*, index*/) => {
+        const id = customer.id;
+        const item = `${id}: ${customer.firstName} ${customer.lastName}`;
+        this.customerItems.push(item);
+        this.customerIds.push(id);
+      })
     },
     async createAsset() {
       AssetService.createAsset(this.assetForm);
     },
+    onSelect(e) {
+      const index = this.customerItems.indexOf(e)
+      this.customerSelected = this.customerIds[index]
+      console.log(this.customerSelected)
+    },
     testing() {
-      //console.log(this.assetForm)
+      console.log(this.assetForm)
     }
   },
   created() {
     this.loadAssetFields()
-    //this.testing()
+    this.loadCustomerData()
   }
 }
 </script>
@@ -110,5 +130,14 @@ export default {
 <style>
 .simple-typeahead-list-item-text {
   color: black;
+}
+.simple-typeahead-list-item-active {
+  background-color: white !important;
+}
+.simple-typeahead-list {
+  box-shadow: 4px 4px 0px #11294e, -4px 4px 0px #11294e;
+  border-radius: 7px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 </style>
