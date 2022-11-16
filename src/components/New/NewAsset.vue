@@ -98,6 +98,7 @@ export default {
       AssetService.createAsset(this.assetForm);
     },
     onSelect(e) {
+      //TODO: reverse typeahead and use objects instead of this hacky method to get id of selected user
       const index = this.customerItems.indexOf(e)
       this.customerSelected = this.customerIds[index]
       console.log(this.customerSelected)
