@@ -1,23 +1,23 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://localhost:8090/api/asset/';
+const API_URL = 'http://localhost:8090/api/ticket/';
 
-class AssetService {
+class TicketService {
   //GET
-  getAssets() {
+  getTickets() {
     return axios.get(API_URL);
   }
 
-  getAssetFields() {
+  getTicketFields() {
     return axios.get(API_URL + 'fields/', { headers: authHeader() });
   }
 
   //POST
-  createAsset(data) {
+  createTicket(data) {
     console.log(data)
     return axios.post(API_URL, data);
   }
 }
 
-export default new AssetService();
+export default new TicketService();
