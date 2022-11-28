@@ -9,6 +9,7 @@ const customerFields = [
         placeholder: "First Name",
         icon: "bi bi-person",
         side: 0,
+        data: 'STRING'
     },
     {
         name: "lastName",
@@ -17,6 +18,7 @@ const customerFields = [
         placeholder: "Last Name",
         icon: "bi bi-person",
         side: 0,
+        data: 'STRING'
     },
     {
         name: "customerType",
@@ -24,6 +26,7 @@ const customerFields = [
         type: "checkbox",
         icon: "bi bi-bar-chart-steps",
         side: 0,
+        data: 'STRING',
         options: JSON.stringify(customerTypes)
     },
     {
@@ -49,6 +52,7 @@ const customerFields = [
         placeholder: "Email Address",
         icon: "bi bi-envelope",
         side: 0,
+        data: 'STRING'
     },
     {
         name: "phone",
@@ -57,6 +61,7 @@ const customerFields = [
         placeholder: "Phone Number",
         icon: "bi bi-telephone",
         side: 0,
+        data: 'STRING',
         options: JSON.stringify(phoneTypes)
     },
     {
