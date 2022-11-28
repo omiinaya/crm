@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
 
-  const customerFields = require('../setup/customer.fields.data')
+  const customerFields = require('../setup/fields/customer.fields.data')
 
   let dynamicFields = {}
   for (let i = 0; i < customerFields.length; i++) {
@@ -18,23 +18,6 @@ module.exports = (sequelize, Sequelize) => {
       primaryKey: true,
     },
     ...dynamicFields
-    /*
-    firstName: {
-      type: Sequelize.STRING,
-    },
-    lastName: {
-      type: Sequelize.STRING,
-    },
-    customerType: {
-      type: Sequelize.STRING,
-    },
-    email: {
-      type: Sequelize.STRING,
-    },
-    businessId: {
-      type: Sequelize.STRING,
-    },
-  */
   });
 
   return Customer;

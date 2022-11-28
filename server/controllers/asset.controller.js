@@ -1,22 +1,11 @@
 const db = require("../models");
 const Asset = db.asset
-//const AssetFields = db.assetFields;
 const Op = db.Sequelize.Op;
 const axios = require('axios')
 
 exports.create = async (req, res) => {
-  /*
-  if (!req.body.title) {
-    res.status(400).send({
-      message: "Content can not be empty!",
-    });
-    return;
-  }
-*/
   const assetFields = await axios.get("http://localhost:8090/api/asset/fields");
   const assetResponse = await assetFields.data;
-
-  //console.log(assetResponse)
 
   const fields = [...assetResponse]
 
@@ -26,7 +15,6 @@ exports.create = async (req, res) => {
     asset[fields[i].name] = req.body[fields[i].name];
   }
 
-  //console.log(asset)
   console.log(req.body)
 
   try {

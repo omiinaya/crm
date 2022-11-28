@@ -8,10 +8,10 @@ const roles = require('./roles.data');
 const numbers = require('./numbers.data');
 const customers = require('./customers.data');
 const businesses = require('./businesses.data');
-const homeActions = require('./home.actions.data');
-const customerFields = require('./customer.fields.data');
+const homeActions = require('./actions/home.actions.data');
+const customerFields = require('./fields/customer.fields.data');
 const customerSettingsFields = require('./customers.settings.fields');
-const assetFields = require("./asset.fields.data");
+const assetFields = require("./fields/asset.fields.data");
 
 const Role = db.role;
 const Nav = db.nav;

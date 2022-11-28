@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     //dynamically creating model based on fields
-    const assetFields = require('../setup/asset.fields.data')
+    const assetFields = require('../setup/fields/asset.fields.data')
 
     let dynamicFields = {}
     for (let i = 0; i < assetFields.length; i++) {
