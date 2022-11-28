@@ -1,3 +1,4 @@
+//LOAD THESE FROM DB
 const assetTypes = ['Laptop', 'Desktop', 'Tablet', 'Phone']
 const manufacturers = ['Lenovo', 'Fujitsu', 'DELL', 'Apple', 'HP', 'MSI']
 
@@ -81,6 +82,7 @@ const assetFields = [
     placeholder: "Asset Tag",
     icon: "bi bi-tag",
     data: 'STRING',
+    show: true,
     side: 0,
   },
 ];
