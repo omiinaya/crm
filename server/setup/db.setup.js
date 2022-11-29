@@ -2,14 +2,20 @@ const mysql = require("mysql2");
 const db = require("../models/index");
 const util = require("util");
 
+//data
 const navs = require('./nav.data');
 const users = require('./users.data');
 const roles = require('./roles.data');
 const numbers = require('./numbers.data');
 const customers = require('./customers.data');
 const businesses = require('./businesses.data');
+
+//actions
 const homeActions = require('./actions/home.actions.data');
+
+//fields
 const customerFields = require('./fields/customer.fields.data');
+const locationFields = require('./fields/location.fields.data');
 const customerSettingsFields = require('./fields/customers.settings.fields');
 const assetFields = require("./fields/asset.fields.data");
 
@@ -21,6 +27,7 @@ const Customer = db.customer;
 const Business = db.business;
 const Number = db.number;
 const CustomerFields = db.customerFields;
+const LocationFields = db.locationFields;
 const CustomerSettingsFields = db.customerSettingsFields;
 const AssetFields = db.assetFields;
 
@@ -97,6 +104,19 @@ function dummyData() {
 
   customerFields.forEach((fields, index) => {
     CustomerFields.create({
+      id: index + 1,
+      name: fields.name,
+      label: fields.label,
+      type: fields.type,
+      placeholder: fields.placeholder,
+      icon: fields.icon,
+      side: fields.side,
+      options: fields.options
+    });
+  });
+
+  locationFields.forEach((fields, index) => {
+    LocationFields.create({
       id: index + 1,
       name: fields.name,
       label: fields.label,

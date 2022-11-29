@@ -15,12 +15,14 @@ exports.create = async (req, res) => {
   }
 
   const customerFields = await axios.get("http://localhost:8090/api/customer/fields");
+  const locationFields = await axios.get("http://localhost:8090/api/customer/locations/fields")
   const customerSettingsFields = await axios.get("http://localhost:8090/api/customer/settings/fields");
   
   const customerResponse = await customerFields.data;
+  const locationResponse = await locationFields.data;
   const customerSettingsResponse = await customerSettingsFields.data;
 
-  const fields = [...customerResponse, ...customerSettingsResponse]
+  const fields = [...customerResponse, ...locationResponse, ...customerSettingsResponse]
 
   let customer = {};
 

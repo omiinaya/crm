@@ -1,7 +1,7 @@
 module.exports = (app) => {
   const customer = require("../controllers/customer.controller.js");
   const customerFields = require("../controllers/fields/customer.fields.controller.js");
-  const customerSettings = require("../controllers/customer.settings.controller");
+  const customerSettings = require("../controllers/settings/customer.settings.controller");
   const customerSettingsFields = require("../controllers/fields/customer.settings.fields.controller");
   const router = require("express").Router();
 

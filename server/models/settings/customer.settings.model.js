@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const customerSettingsFields = require("../setup/fields/customers.settings.fields");
+  const customerSettingsFields = require("../../setup/fields/customers.settings.fields");
 
   let dynamicFields = {};
   for (let i = 0; i < customerSettingsFields.length; i++) {

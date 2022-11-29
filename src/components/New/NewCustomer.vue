@@ -284,6 +284,7 @@ export default {
       left: null,
       right: null
     },
+    locationFields: null,
     settingsFields: {
       left: null,
       right: null

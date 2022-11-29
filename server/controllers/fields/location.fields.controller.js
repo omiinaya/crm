@@ -1,23 +1,16 @@
 const db = require("../../models");
-const CustomerFields = db.customerFields;
-const Op = db.Sequelize.Op;
+const LocationFields = db.locationFields;
 
 exports.create = async (req, res) => {
-  if (!req.body.title) {
-    res.status(400).send({
-      message: "Content can not be empty!",
-    });
-    return;
-  }
 
-  const customerField = {
+  const locationField = {
     title: req.body.title,
     icon: req.body.description,
     url: req.body.published,
   };
 
   try {
-    const request = await CustomerFields.create(customerField)
+    const request = await LocationFields.create(locationField)
     res.send(await request)
     console.log(request)
   } catch (err) {
@@ -26,7 +19,7 @@ exports.create = async (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-  CustomerFields.findAll()
+  LocationFields.findAll()
     .then((data) => {
       res.send(data);
     })
@@ -38,47 +31,11 @@ exports.findAll = (req, res) => {
     });
 };
 
-exports.findByRoleId = (req, res) => {
-  const id = req.params.id;
-
-  CustomerFields.findAll({
-    where: { roleId: id },
-  })
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving tutorials.",
-      });
-    });
-};
-
-exports.findByRole = (req, res) => {
-  const id = req.params.id;
-  CustomerFields.findAll({
-    where: {
-      roleId: {
-        [Op.lte]: id,
-      },
-    },
-  })
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving tutorials.",
-      });
-    });
-};
 
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  CustomerFields.update(req.body, {
+  LocationFields.update(req.body, {
     where: { id: id },
   })
     .then((num) => {
@@ -102,7 +59,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  CustomerFields.destroy({
+  LocationFields.destroy({
     where: { id: id },
   })
     .then((num) => {

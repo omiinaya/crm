@@ -28,8 +28,9 @@ db.location = require("./location.model")(sequelize, Sequelize);
 db.home = require("./actions/home.actions.model")(sequelize, Sequelize);
 db.assetFields = require("./fields/asset.fields.model")(sequelize, Sequelize);
 db.ticketFields = require("./fields/ticket.fields.model")(sequelize, Sequelize);
-db.customerSettings = require("./customer.settings.model")(sequelize, Sequelize);
+db.customerSettings = require("./settings/customer.settings.model")(sequelize, Sequelize);
 db.customerFields = require("./fields/customer.fields.model")(sequelize, Sequelize);
+db.locationFields = require("./fields/location.fields.model")(sequelize, Sequelize);
 db.customerSettingsFields = require("./fields/customer.settings.fields.model")(sequelize, Sequelize);
 
 db.user.belongsToMany(db.role, {
