@@ -8,7 +8,6 @@ const customerFields = [
         type: "text",
         placeholder: "First Name",
         icon: "bi bi-person",
-        side: 0,
         data: 'STRING'
     },
     {
@@ -17,7 +16,6 @@ const customerFields = [
         type: "text",
         placeholder: "Last Name",
         icon: "bi bi-person",
-        side: 0,
         data: 'STRING'
     },
     {
@@ -25,7 +23,6 @@ const customerFields = [
         label: "Customer Type",
         type: "checkbox",
         icon: "bi bi-bar-chart-steps",
-        side: 0,
         data: 'STRING',
         options: JSON.stringify(customerTypes)
     },
@@ -35,7 +32,6 @@ const customerFields = [
         type: "text",
         placeholder: "Business Name",
         icon: "bi bi-building",
-        side: 0,
     },
     {
         name: "schoolName",
@@ -43,7 +39,6 @@ const customerFields = [
         type: "text",
         placeholder: "School Name",
         icon: "bi bi-mortarboard",
-        side: 0,
     },
     {
         name: "email",
@@ -51,7 +46,6 @@ const customerFields = [
         type: "email",
         placeholder: "Email Address",
         icon: "bi bi-envelope",
-        side: 0,
         data: 'STRING'
     },
     {
@@ -60,10 +54,10 @@ const customerFields = [
         type: "text",
         placeholder: "Phone Number",
         icon: "bi bi-telephone",
-        side: 0,
         data: 'STRING',
         options: JSON.stringify(phoneTypes)
     },
+    /*
     {
         name: "referredBy",
         label: "Referred By",
@@ -72,6 +66,7 @@ const customerFields = [
         icon: "bi bi-arrow-right-circle",
         side: 1,
     },
+    */
 ];
 
 module.exports = customerFields

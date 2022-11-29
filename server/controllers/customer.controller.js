@@ -14,9 +14,9 @@ exports.create = async (req, res) => {
     return;
   }
 
-  const customerFields = await axios.get("http://localhost:8090/api/customer/fields");
-  const locationFields = await axios.get("http://localhost:8090/api/customer/locations/fields")
-  const customerSettingsFields = await axios.get("http://localhost:8090/api/customer/settings/fields");
+  const customerFields = await axios.get("http://localhost:8090/api/customers/fields");
+  const locationFields = await axios.get("http://localhost:8090/api/locations/fields");
+  const customerSettingsFields = await axios.get("http://localhost:8090/api/customers/settings/fields");
   
   const customerResponse = await customerFields.data;
   const locationResponse = await locationFields.data;
@@ -27,6 +27,7 @@ exports.create = async (req, res) => {
   let customer = {};
 
   for (let i = 0; i < fields.length; i++) {
+    console.log(fields[i])
     customer[fields[i].name] = req.body[fields[i].name];
   }
 
@@ -34,9 +35,9 @@ exports.create = async (req, res) => {
     const request = await Customer.create(customer)
 
     const phoneData = {
-      type: 'Mobile',
+      type: req.body.phoneType,
       number: customer.phone,
-      extension: customer.extension,
+      extension: req.body.extension,
       customerId: await request.id
     }
 
@@ -59,7 +60,9 @@ exports.create = async (req, res) => {
       reportEmails: customer.reportEmails,
       noEmails: customer.noEmails
     }
-    console.log(customer)
+
+    console.log(req.body)
+    //console.log(customer)
     //console.log(settingData)
 
     Number.create(phoneData);

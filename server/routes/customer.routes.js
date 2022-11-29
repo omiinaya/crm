@@ -23,5 +23,5 @@ module.exports = (app) => {
   router.post("/settings", customerSettings.create);
   router.post("/settings/fields", customerSettingsFields.create);
 
-  app.use("/api/customer", router);
+  app.use("/api/customers", router);
 };

@@ -12,7 +12,7 @@ exports.create = async (req, res) => {
     return;
   }
 */
-  const assetFields = await axios.get("http://localhost:8090/api/customer/fields");
+  const assetFields = await axios.get("http://localhost:8090/api/customers/fields");
   const assetResponse = await assetFields.data;
 
 

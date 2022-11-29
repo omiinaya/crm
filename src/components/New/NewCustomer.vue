@@ -84,8 +84,8 @@
                     :type="field.type"
                     class="form-control"
                     :id="field.label + index"
-                    placeholder="Ext"
-                    v-model="customerForm.extension"
+                    placeholder="Ext."
+                    v-model="customerForm['extension']"
                   />
                 </div>
               </div>
@@ -274,6 +274,7 @@
 
 <script>
 import CustomerService from "../../services/customer.service";
+import LocationService from "../../services/location.service";
 import { storeX } from "../../store/index";
 
 export default {
@@ -303,8 +304,9 @@ export default {
     },
     async getCustomerFieldItems() {
       const req = await CustomerService.getCustomerFields();
-      this.customerFields.left = await req.data.filter(field => !field.side)
-      this.customerFields.right = await req.data.filter(field => field.side)
+      const loc = await LocationService.getLocationFields();
+      this.customerFields.left = await req.data
+      this.customerFields.right = await loc.data
 
       //phonesTypes
       const phoneTypes = this.customerFields.left.filter(field => field.name === 'phone')[0].options
@@ -325,7 +327,10 @@ export default {
       CustomerService.createCustomer(data);
     },
     getChecked(index, side) {
-      return JSON.parse(this.settingsFields[side][index].options).default
+      const checked = JSON.parse(this.settingsFields[side][index].options).default
+      const name = this.settingsFields[side][index].name
+      this.customerForm[name] = checked
+      return checked
     },
     testing() {
       console.log(this.customerForm)
