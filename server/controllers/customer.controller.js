@@ -44,6 +44,7 @@ exports.create = async (req, res) => {
     const locationData = {
       address1: customer.address1,
       address2: customer.address2,
+      country: customer.country,
       city: customer.city,
       state: customer.state,
       zip: customer.zip,

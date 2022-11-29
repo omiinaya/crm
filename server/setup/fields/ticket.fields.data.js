@@ -9,7 +9,7 @@ const ticketFields = [
         label: "Ticket Title",
         type: "text",
         placeholder: "Ticket Title",
-        icon: "bi bi-person",
+        icon: "bi bi-card-heading",
         data: 'STRING'
     },
     {
@@ -17,7 +17,7 @@ const ticketFields = [
         label: "Issue Type",
         type: "dropdown",
         //placeholder: "Issue Type",
-        icon: "bi bi-person",
+        icon: "bi bi-card-list",
         data: 'STRING',
         options: JSON.stringify(issueTypes)
     },
@@ -26,7 +26,7 @@ const ticketFields = [
         label: "Description",
         type: "text",
         placeholder: "Description",
-        icon: "bi bi-bar-chart-steps",
+        icon: "bi bi-card-text",
         data: 'STRING'
     },
     {
@@ -36,7 +36,7 @@ const ticketFields = [
         placeholder: moment(
 
         ).format('MMMM DD YYYY'),
-        icon: "bi bi-bar-chart-steps",
+        icon: "bi bi-calendar-event",
         data: 'STRING'
     },
     {

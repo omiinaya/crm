@@ -18,7 +18,7 @@ const assetFields = require("./fields/asset.fields.data");
 const ticketFields = require('./fields/ticket.fields.data');
 const customerFields = require('./fields/customer.fields.data');
 const locationFields = require('./fields/location.fields.data');
-const customerSettingsFields = require('./fields/customers.settings.fields');
+const customerSettingsFields = require('./fields/customer.settings.fields');
 
 const Role = db.role;
 const Nav = db.nav;

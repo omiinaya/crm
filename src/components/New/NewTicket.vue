@@ -21,7 +21,7 @@
     </div>
     <div class="section">
       <div class="row align-items-top">
-        <div class="cols-12 sub-title">Basic Info</div>
+        <div class="cols-12 sub-title">BASIC INFO</div>
         <div class="col-6">
           <div class="form">
             <div
@@ -187,14 +187,16 @@
           </div>
         </div>
         <div class="col-6">
-          test
+          <div class="form">
+            test
+          </div>
         </div>
       </div>
     </div>
     <br />
     <div class="section">
       <div class="row align-items-top">
-        <div class="cols-10 sub-title">Add Asset</div>
+        <div class="cols-10 sub-title">ADD ASSET</div>
         <div class="col-6">
           <div class="form">
             <div
@@ -220,25 +222,7 @@
         </div>
         <div class="col-6">
           <div class="form">
-            <div
-              class="mb-3 row align-items-center"
-              v-for="(field, index) in settingsFields.right"
-              :key="field + index"
-            >
-              <label :for="field.label + index" class="col-sm-5 col-form-label"
-                ><i :class="field.icon"></i> {{ field.label }}:
-              </label>
-              <div class="col-sm-7">
-                <input
-                  :type="field.type"
-                  class="form-check-input"
-                  :id="field.label + index"
-                  :placeholder="field.placeholder"
-                  v-model="customerForm[field.name]"
-                  :checked="getChecked(index, 'right')"
-                />
-              </div>
-            </div>
+            test
           </div>
         </div>
       </div>
