@@ -14,10 +14,11 @@ const businesses = require('./businesses.data');
 const homeActions = require('./actions/home.actions.data');
 
 //fields
+const assetFields = require("./fields/asset.fields.data");
+const ticketFields = require('./fields/ticket.fields.data');
 const customerFields = require('./fields/customer.fields.data');
 const locationFields = require('./fields/location.fields.data');
 const customerSettingsFields = require('./fields/customers.settings.fields');
-const assetFields = require("./fields/asset.fields.data");
 
 const Role = db.role;
 const Nav = db.nav;
@@ -30,6 +31,7 @@ const CustomerFields = db.customerFields;
 const LocationFields = db.locationFields;
 const CustomerSettingsFields = db.customerSettingsFields;
 const AssetFields = db.assetFields;
+const TicketFields = db.ticketFields;
 
 const config = {
   host: process.env.HOST,
@@ -117,6 +119,19 @@ function dummyData() {
 
   locationFields.forEach((fields, index) => {
     LocationFields.create({
+      id: index + 1,
+      name: fields.name,
+      label: fields.label,
+      type: fields.type,
+      placeholder: fields.placeholder,
+      icon: fields.icon,
+      side: fields.side,
+      options: fields.options
+    });
+  });
+
+  ticketFields.forEach((fields, index) => {
+    TicketFields.create({
       id: index + 1,
       name: fields.name,
       label: fields.label,

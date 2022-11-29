@@ -1,43 +1,244 @@
 <template>
-  <div class="row">
-    <div class="col-6 offset-1 title">New Ticket</div>
-    <div class="col-5 title">
-      <button type="button" class="btn btn-primary" v-on:click="createAsset(ticketForm)">
-        New Ticket
-      </button>
-      <button type="button" class="btn btn-success" v-on:click="loadCustomerData()">
-        TEST BUTTON 3
-      </button>
+  <div>
+    <div class="row align-items-center">
+      <div class="col-7 offset-1 title">New Ticket</div>
+      <div class="col-4">
+        <button
+          type="button"
+          class="btn btn-primary"
+          v-on:click="createCustomer(customerForm)"
+        >
+          New Ticket
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          v-on:click="print(customerForm)"
+        >
+          TEST BUTTON 2
+        </button>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-6 offset-1 form">
-      <div class="col-11">Create A New Ticket</div>
-      <div v-for="(field, index) in ticketFields" :key="field + index">
-        <div v-if="field.type === 'dropdown'" class="mb-3 row align-items-center">
-          <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{ field.label
-          }}:
-          </label>
-          <div class="col-sm-6 dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-              data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%; padding: 5px" placeholder="Dropdown">
-              {{ ticketForm[field.name] }}
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li v-for="(type, index) in JSON.parse(field.options)" :key="type + index">
-                <a class="dropdown-item" href="#!" v-on:click="ticketForm[field.name] = type">{{ type }}
-                </a>
-              </li>
-            </ul>
+    <div class="section">
+      <div class="row align-items-top">
+        <div class="cols-12 sub-title">Basic Info</div>
+        <div class="col-6">
+          <div class="form">
+            <div
+              v-for="(field, index) in ticketFields"
+              :key="field + index"
+            >
+              <div
+                v-if="field.name === 'phone'"
+                class="mb-3 row align-items-center"
+              >
+                <label
+                  :for="field.label + index"
+                  class="col-sm-4 col-form-label"
+                  ><i :class="field.icon"></i> {{ field.label }}:
+                </label>
+                <div class="col-sm-2 dropdown">
+                  <button
+                    class="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    style="width: 100%; padding: 5px"
+                    placeholder="Dropdown"
+                  >
+                    {{ customerForm["phoneType"] }}
+                  </button>
+                  <ul
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton1"
+                  >
+                    <li v-for="(type, index) in phoneTypes" :key="type + index">
+                      <a
+                        class="dropdown-item"
+                        href="#!"
+                        v-on:click="customerForm['phoneType'] = type"
+                        >{{ type }}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-sm-4">
+                  <input
+                    :type="field.type"
+                    class="form-control"
+                    :id="field.label + index"
+                    :placeholder="field.placeholder"
+                    v-model="customerForm[field.name]"
+                  />
+                </div>
+                <div class="col-sm-2">
+                  <input
+                    :type="field.type"
+                    class="form-control"
+                    :id="field.label + index"
+                    placeholder="Ext."
+                    v-model="customerForm['extension']"
+                  />
+                </div>
+              </div>
+              <div
+                v-else-if="field.name === 'customerType'"
+                class="mb-3 row align-items-center"
+              >
+                <label
+                  :for="field.label + index"
+                  class="col-sm-4 col-form-label"
+                  ><i :class="field.icon"></i> {{ field.label }}:
+                </label>
+                <div class="col-sm-8" style="height: 25px">
+                  <div
+                    v-for="(type, index) in customerTypes"
+                    :key="type + index"
+                    class="form-check form-check-inline"
+                  >
+                    <div v-if="!index">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                        id="inlineRadio1"
+                        value="option1"
+                        v-on:click="customerForm[field.name] = type"
+                        checked
+                      />
+                      <label class="form-check-label" for="inlineRadio1">{{
+                        type
+                      }}</label>
+                    </div>
+                    <div v-else>
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                        id="inlineRadio1"
+                        value="option1"
+                        v-on:click="customerForm[field.name] = type"
+                      />
+                      <label class="form-check-label" for="inlineRadio1">{{
+                        type
+                      }}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+              v-else-if="field.name === 'businessName'"
+                class="mb-3 row align-items-center"
+                v-show="customerForm['customerType'] === customerTypes[1]"
+              >
+                <label
+                  :for="field.label + index"
+                  class="col-sm-4 col-form-label"
+                  ><i :class="field.icon"></i> {{ field.label }}:
+                </label>
+                <div class="col-sm-8">
+                  <input
+                    :type="field.type"
+                    class="form-control"
+                    :id="field.label + index"
+                    :placeholder="field.placeholder"
+                    v-model="customerForm[field.name]"
+                  />
+                </div>
+              </div>
+              <div
+                v-else-if="field.name === 'schoolName'"
+                class="mb-3 row align-items-center"
+                v-show="customerForm['customerType'] === customerTypes[2]"
+              >
+                <label
+                  :for="field.label + index"
+                  class="col-sm-4 col-form-label"
+                  ><i :class="field.icon"></i> {{ field.label }}:
+                </label>
+                <div class="col-sm-8">
+                  <input
+                    :type="field.type"
+                    class="form-control"
+                    :id="field.label + index"
+                    :placeholder="field.placeholder"
+                    v-model="customerForm[field.name]"
+                  />
+                </div>
+              </div>
+              <div v-else class="mb-3 row align-items-center">
+                <label
+                  :for="field.label + index"
+                  class="col-sm-4 col-form-label"
+                  ><i :class="field.icon"></i> {{ field.label }}:
+                </label>
+                <div class="col-sm-8">
+                  <input
+                    :type="field.type"
+                    class="form-control"
+                    :id="field.label + index"
+                    :placeholder="field.placeholder"
+                    v-model="customerForm[field.name]"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div v-else class="mb-3 row align-items-center">
-          <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{ field.label
-          }}:
-          </label>
-          <div class="col-sm-6">
-            <input :type="field.type" class="form-control" :id="field.label + index" :placeholder="field.placeholder"
-              v-model="ticketForm[field.name]" />
+        <div class="col-6">
+          test
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="section">
+      <div class="row align-items-top">
+        <div class="cols-10 sub-title">Add Asset</div>
+        <div class="col-6">
+          <div class="form">
+            <div
+              class="mb-3 row align-items-center"
+              v-for="(field, index) in settingsFields.left"
+              :key="field + index"
+            >
+              <label :for="field.label + index" class="col-sm-5 col-form-label"
+                ><i :class="field.icon"></i> {{ field.label }}:
+              </label>
+              <div class="col-sm-7">
+                <input
+                  :type="field.type"
+                  class="form-check-input"
+                  :id="field.label + index"
+                  :placeholder="field.placeholder"
+                  v-model="customerForm[field.name]"
+                  :checked="getChecked(index, 'left')"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form">
+            <div
+              class="mb-3 row align-items-center"
+              v-for="(field, index) in settingsFields.right"
+              :key="field + index"
+            >
+              <label :for="field.label + index" class="col-sm-5 col-form-label"
+                ><i :class="field.icon"></i> {{ field.label }}:
+              </label>
+              <div class="col-sm-7">
+                <input
+                  :type="field.type"
+                  class="form-check-input"
+                  :id="field.label + index"
+                  :placeholder="field.placeholder"
+                  v-model="customerForm[field.name]"
+                  :checked="getChecked(index, 'right')"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -46,51 +247,82 @@
 </template>
 
 <script>
-import TicketService from "../../services/ticket.service";
-import CustomerService from "../../services/customer.service"
-//import TypeAhead from "../TypeAhead.vue"
+import CustomerService from "../../services/customer.service";
+import LocationService from "../../services/location.service";
+import ticketService from "../../services/ticket.service";
 import { storeX } from "../../store/index";
 
 export default {
-  name: 'NewAssetPage',
-  components: { /*TypeAhead*/ },
+  name: 'NewCustomerPage',
+  components: {},
   data: () => ({
-    ticketFields: null,
-    ticketForm: {
-      type: 'Laptop',
-      manufacturer: 'Lenovo'
+    customerFields: {
+      left: null,
+      right: null
     },
-    customerItems: [],
-    customerSelected: null,
+    locationFields: null,
+    settingsFields: {
+      left: null,
+      right: null
+    },
+    ticketFields: null,
+    customerTypes: ['Individual'],
+    phoneTypes: null,
+    customerForm: {
+      phoneType: 'Mobile',
+      extension: null
+    },
     storeX
   }),
   methods: {
-    async loadAssetFields() {
-      const req = await TicketService.getTicketFields();
-      this.ticketFields = await req.data
+    print(a) {
+      console.log(a)
     },
-    async loadCustomerData() {
-      const request = await CustomerService.getCustomers()
-      const customerList = await request.data;
+    async getCustomerFieldItems() {
+      const req = await CustomerService.getCustomerFields();
+      const loc = await LocationService.getLocationFields();
+      const test = await ticketService.getTicketFields();
 
-      customerList.forEach((customer) => {
-        this.customerItems.push(customer);
-      })
+      this.customerFields.left = await req.data
+      this.customerFields.right = await loc.data
+      this.ticketFields = await test.data
+
+      console.log(this.ticketFields)
+
+      //phonesTypes
+      const phoneTypes = this.customerFields.left.filter(field => field.name === 'phone')[0].options
+      this.phoneTypes = JSON.parse(phoneTypes);
+      this.customerForm['phoneType'] = this.phoneTypes[0]
+
+      //customerTypes
+      const customerTypes = this.customerFields.left.filter(field => field.name === 'customerType')[0].options
+      this.customerTypes = JSON.parse(customerTypes)
+      this.customerForm['customerType'] = this.customerTypes[0]
     },
-    async createAsset() {
-      console.log(this.ticketForm)
-      TicketService.createTicket(this.ticketForm);
+    async getSettingsFieldItems() {
+      const req = await CustomerService.getCustomerSettingsFields();
+      this.settingsFields.left = await req.data.filter(field => !field.side);
+      this.settingsFields.right = await req.data.filter(field => field.side);
+    },
+    async createCustomer(data) {
+      CustomerService.createCustomer(data);
+    },
+    getChecked(index, side) {
+      const checked = JSON.parse(this.settingsFields[side][index].options).default
+      const name = this.settingsFields[side][index].name
+      this.customerForm[name] = checked
+      return checked
     },
     testing() {
-      console.log(this.ticketForm)
+      console.log(this.customerForm)
     }
   },
   created() {
-    this.loadAssetFields()
-    this.loadCustomerData()
+    this.getCustomerFieldItems();
+    this.getSettingsFieldItems();
   },
   watch: {
-    ticketForm: {
+    customerForm: {
       handler(newData) {
         console.log(newData)
       },
@@ -101,32 +333,28 @@ export default {
 </script>
 
 <style scoped>
-.title {
-  margin-top: 2%;
-}
-
-.form {
-  margin-top: 2%;
-}
-
 .btn {
   margin-right: 10px !important;
 }
-</style>
 
-<style>
-.simple-typeahead-list-item-text {
-  color: black;
+.form {
+  margin: 30px;
 }
 
-.simple-typeahead-list-item-active {
-  background-color: white !important;
+.title {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  font-size: 30px;
 }
 
-.simple-typeahead-list {
-  box-shadow: 4px 4px 0px #11294e, -4px 4px 0px #11294e;
-  border-radius: 7px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+.sub-title {
+  margin: 30px;
+  margin-bottom: 0;
+}
+
+.section {
+  margin-left: 125px;
+  margin-right: 125px;
+  background: #1f1f1f;
 }
 </style>
