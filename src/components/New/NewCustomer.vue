@@ -135,9 +135,9 @@
                 </div>
               </div>
               <div
-                v-else-if="field.name === 'businessName'"
+              v-else-if="field.name === 'businessName'"
                 class="mb-3 row align-items-center"
-                :v-show="customerForm['customerType'] === customerTypes[1]"
+                v-show="customerForm['customerType'] === customerTypes[1]"
               >
                 <label
                   :for="field.label + index"
