@@ -10,7 +10,7 @@ const customers = require('./customers.data');
 const businesses = require('./businesses.data');
 const homeActions = require('./actions/home.actions.data');
 const customerFields = require('./fields/customer.fields.data');
-const customerSettingsFields = require('./customers.settings.fields');
+const customerSettingsFields = require('./fields/customers.settings.fields');
 const assetFields = require("./fields/asset.fields.data");
 
 const Role = db.role;
@@ -108,7 +108,7 @@ function dummyData() {
     });
   });
 
-  businesses.forEach((business, index) => {
+  businesses.forEach(business => {
     Business.create({
       name: business.name
     })

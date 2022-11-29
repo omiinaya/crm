@@ -4,7 +4,7 @@ module.exports = (sequelize, Sequelize) => {
 
     let dynamicFields = {}
     for (let i = 0; i < assetFields.length; i++) {
-        field = assetFields[i]
+        const field = assetFields[i]
         dynamicFields[field.name] = { type: Sequelize[field.data] }
     }
 

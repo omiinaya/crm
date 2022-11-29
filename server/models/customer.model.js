@@ -4,12 +4,10 @@ module.exports = (sequelize, Sequelize) => {
 
   let dynamicFields = {}
   for (let i = 0; i < customerFields.length; i++) {
-      field = customerFields[i]
+      const field = customerFields[i]
       if (!field.data) continue;
       dynamicFields[field.name] = { type: Sequelize[field.data] }
   }
-
-  console.log(dynamicFields)
 
   const Customer = sequelize.define("customers", {
     id: {

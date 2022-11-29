@@ -1,45 +1,23 @@
 module.exports = (sequelize, Sequelize) => {
+  const customerSettingsFields = require("../setup/fields/customers.settings.fields");
+
+  let dynamicFields = {};
+  for (let i = 0; i < customerSettingsFields.length; i++) {
+    const field = customerSettingsFields[i];
+    if (!field.data) continue;
+    dynamicFields[field.name] = { 
+      type: Sequelize[field.data.type], 
+      default: field.data.default
+    };
+  }
+
   const CustomerSettings = sequelize.define("customers_settings", {
     id: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    taxRate: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: true
-    },
-    taxFree: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false
-    },
-    enablePortal: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false
-    },
-    enableSMS: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: true
-    },
-    billingEmails: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: true
-    },
-    marketingEmails: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: true
-    },
-    reportEmails: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: true
-    },
-    noEmails: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false
-    },
-    customerId: {
-      type: Sequelize.STRING
-    }
+    ...dynamicFields
   });
 
   return CustomerSettings;
