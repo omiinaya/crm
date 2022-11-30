@@ -45,7 +45,7 @@
                 }}:
                 </label>
                 <div class="col-sm-8 dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" :id="'dropdownMenuButton'+index"
+                  <button class="btn btn-secondary dropdown-toggle" type="button" :id="'dropdownMenuButton' + index"
                     data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%; padding: 5px"
                     placeholder="Dropdown">
                     {{ ticketForm[field.name] }}
@@ -158,14 +158,35 @@
         <div class="col-6">
           <div class="form">
             <div v-for="(field, index) in assetFields" :key="field + index">
-              <div class="mb-3 row align-items-center">
+              <div v-if="field.type === 'dropdown'" class="mb-3 row align-items-center">
                 <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
                     field.label
                 }}:
                 </label>
-                <div class="col-sm-8">
-                  <input :type="field.type" class="form-control" :id="field.label + index"
-                    :placeholder="field.placeholder" v-model="ticketForm[field.name]" />
+                <div class="col-sm-8 dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" :id="'dropdownMenuButton' + index"
+                    data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%; padding: 5px"
+                    placeholder="Dropdown">
+                    {{ ticketForm[field.name] }}
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li v-for="(type, index) in JSON.parse(field.options)" :key="type + index">
+                      <a class="dropdown-item" href="#!" v-on:click="ticketForm[field.name] = type">{{ type }}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div v-else>
+                <div class="mb-3 row align-items-center">
+                  <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
+                      field.label
+                  }}:
+                  </label>
+                  <div class="col-sm-8">
+                    <input :type="field.type" class="form-control" :id="field.label + index"
+                      :placeholder="field.placeholder" v-model="ticketForm[field.name]" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -209,7 +230,7 @@ export default {
     async loadAssetFields() {
       const req = await AssetService.getAssetFields();
       const arr = req.data
-      await arr.splice(0,3) //removes customer name, customer id and ticket number
+      await arr.splice(0, 3) //removes customer name, customer id and ticket number
       this.assetFields = arr
     },
     async loadCustomerData() {
