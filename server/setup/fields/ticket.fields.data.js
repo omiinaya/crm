@@ -44,7 +44,7 @@ const ticketFields = [
     {
         name: "description",
         label: "Description",
-        type: "text",
+        type: "textarea",
         placeholder: "Description",
         icon: "bi bi-card-text",
         show: true,

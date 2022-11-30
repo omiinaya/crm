@@ -44,7 +44,7 @@
                   class="col-sm-4 col-form-label"
                   ><i :class="field.icon"></i> {{ field.label }}:
                 </label>
-                <div class="col-sm-2 dropdown">
+                <div class="col-sm-2-5 dropdown">
                   <button
                     class="btn btn-secondary dropdown-toggle"
                     type="button"
@@ -79,7 +79,7 @@
                     v-model="customerForm[field.name]"
                   />
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-2-3">
                   <input
                     :type="field.type"
                     class="form-control"
@@ -352,6 +352,20 @@ export default {
 </script>
 
 <style scoped>
+
+.col-sm-2-5 {
+  flex: 0 0 21.0625%;
+  max-width: 21.0625%;
+  position: relative;
+  width: 100%;
+}
+
+.col-sm-2-3 {
+  flex: 0 0 12.2%;
+  max-width: 12.2%;
+  position: relative;
+  width: 100%;
+}
 .btn {
   margin-right: 10px !important;
 }

@@ -29,7 +29,35 @@
                     class="form-control simple-typeahead" @selectItem="(e) => this.ticketForm['customerId'] = e.id" />
                 </div>
               </div>
-
+              <div v-else-if="field.type === 'textarea'" class="mb-3 row align-items-center">
+                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
+                    field.label
+                }}:
+                </label>
+                <div class="col-sm-8">
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                    v-model="ticketForm[field.name]"></textarea>
+                </div>
+              </div>
+              <div v-else-if="field.type === 'dropdown'" class="mb-3 row align-items-center">
+                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
+                    field.label
+                }}:
+                </label>
+                <div class="col-sm-8 dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" :id="'dropdownMenuButton'+index"
+                    data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%; padding: 5px"
+                    placeholder="Dropdown">
+                    {{ ticketForm[field.name] }}
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li v-for="(type, index) in JSON.parse(field.options)" :key="type + index">
+                      <a class="dropdown-item" href="#!" v-on:click="ticketForm[field.name] = type">{{ type }}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
               <div v-else-if="field.name === 'phone'" class="mb-3 row align-items-center">
                 <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
                     field.label
@@ -245,5 +273,10 @@ export default {
   border-radius: 7px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+}
+
+.dropdown-toggle::after {
+  margin: 11px;
+  float: right;
 }
 </style>
