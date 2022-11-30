@@ -5,7 +5,7 @@ const technicians = ["Omar", "Manny", "Matias"];
 
 const ticketFields = [
     {
-        name: "customerName",
+        name: "ticketCustomerName",
         label: "Customer Name",
         type: "typeahead",
         placeholder: "Customer Name",
@@ -14,7 +14,7 @@ const ticketFields = [
         data: 'STRING'
     },
     {
-        name: "customerId",
+        name: "ticketCustomerId",
         label: "Customer Id",
         type: "text",
         placeholder: "Customer Id",
@@ -62,7 +62,7 @@ const ticketFields = [
         data: 'STRING'
     },
     {
-        name: "assignedTech",
+        name: "ticketAssignedTech",
         label: "Technician",
         type: "dropdown",
         //placeholder: "Issue Type",

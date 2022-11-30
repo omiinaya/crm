@@ -16,7 +16,7 @@
       <div v-for="(field, index) in assetFields" :key="field + index">
         <div v-if="!field.show">
         </div>
-        <div v-else-if="field.name === 'customerName'" class="mb-3 row align-items-center">
+        <div v-else-if="field.type === 'typeahead'" class="mb-3 row align-items-center">
           <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{ field.label
           }}:
           </label>

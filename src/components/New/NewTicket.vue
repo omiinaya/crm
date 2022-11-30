@@ -19,7 +19,7 @@
             <div v-for="(field, index) in ticketFields" :key="field + index">
               <div v-if="!field.show">
               </div>
-              <div v-else-if="field.name === 'customerName'" class="mb-3 row align-items-center">
+              <div v-else-if="field.type === 'typeahead'" class="mb-3 row align-items-center">
                 <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
                     field.label
                 }}:
@@ -208,8 +208,9 @@ export default {
     },
     async loadAssetFields() {
       const req = await AssetService.getAssetFields();
-      this.assetFields = await req.data.filter(item => !(item.name === 'customerName' || item.name === 'customerId' || item.name === 'ticketNumber'))
-      console.log(this.assetFields)
+      const arr = req.data
+      await arr.splice(0,3) //removes customer name, customer id and ticket number
+      this.assetFields = arr
     },
     async loadCustomerData() {
       const request = await CustomerService.getCustomers()

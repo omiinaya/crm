@@ -4,16 +4,16 @@ const manufacturers = ['Lenovo', 'Fujitsu', 'DELL', 'Apple', 'HP', 'MSI']
 
 const assetFields = [
   {
-    name: "customerName",
+    name: "assetCustomerName",
     label: "Customer Name",
-    type: "text",
+    type: "typeahead",
     placeholder: "Customer Name",
     icon: "bi bi-person",
     data: 'STRING',
     show: true
   },
   {
-    name: "customerId",
+    name: "assetCustomerId",
     label: "Customer Id",
     type: "text",
     placeholder: "Customer Id",
@@ -22,7 +22,7 @@ const assetFields = [
     show: false
   },
   {
-    name: "ticketNumber",
+    name: "assetTicketNumber",
     label: "Ticket Number",
     type: "text",
     placeholder: "Ticket Number",
@@ -31,7 +31,7 @@ const assetFields = [
     show: true
   },
   {
-    name: "type",
+    name: "assetType",
     label: "Asset Type",
     type: "dropdown",
     placeholder: "Asset Type",
@@ -41,7 +41,7 @@ const assetFields = [
     options: JSON.stringify(assetTypes)
   },
   {
-    name: "name",
+    name: "assetName",
     label: "Asset Name",
     type: "text",
     placeholder: "Asset Name",
@@ -50,16 +50,16 @@ const assetFields = [
     show: true,
   },
   {
-    name: "serial",
-    label: "Asset Serial",
+    name: "assetSerial",
+    label: "Serial Number",
     type: "text",
-    placeholder: "Asset Serial",
+    placeholder: "Serial Number",
     icon: "bi bi-laptop",
     data: 'STRING',
     show: true,
   },
   {
-    name: "manufacturer",
+    name: "assetManufacturer",
     label: "Manufacturer",
     type: "dropdown",
     placeholder: "Manufacturer",
@@ -69,7 +69,7 @@ const assetFields = [
     options: JSON.stringify(manufacturers)
   },
   {
-    name: "tag",
+    name: "assetTag",
     label: "Asset Tag",
     type: "text",
     placeholder: "Asset Tag",
