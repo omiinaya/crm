@@ -240,10 +240,10 @@ export default {
       this.assetFields = arr
       //get list of options
       const assetTypes = this.assetFields.filter(field => field.name === 'assetType')[0].options
-      const assetManufacturers = this.assetFields.filter(field => field.name === 'assetManufacturer')[0].options
+      const assetBrands = this.assetFields.filter(field => field.name === 'assetBrand')[0].options
       //choose first option as default
       this.ticketForm['assetType'] = JSON.parse(assetTypes)[0];
-      this.ticketForm['assetManufacturer'] = JSON.parse(assetManufacturers)[0];
+      this.ticketForm['assetBrand'] = JSON.parse(assetBrands)[0];
     },
     async loadCustomerData() {
       const request = await CustomerService.getCustomers()

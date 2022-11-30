@@ -41,6 +41,16 @@ const assetFields = [
     options: JSON.stringify(assetTypes)
   },
   {
+    name: "assetBrand",
+    label: "Asset Brand",
+    type: "dropdown",
+    placeholder: "Asset Brand",
+    icon: "bi bi-nut",
+    data: 'STRING',
+    show: true,
+    options: JSON.stringify(manufacturers)
+  },
+  {
     name: "assetName",
     label: "Asset Name",
     type: "text",
@@ -51,22 +61,12 @@ const assetFields = [
   },
   {
     name: "assetSerial",
-    label: "Serial Number",
+    label: "Asset Serial",
     type: "text",
-    placeholder: "Serial Number",
+    placeholder: "Asset Serial",
     icon: "bi bi-laptop",
     data: 'STRING',
     show: true,
-  },
-  {
-    name: "assetManufacturer",
-    label: "Manufacturer",
-    type: "dropdown",
-    placeholder: "Manufacturer",
-    icon: "bi bi-nut",
-    data: 'STRING',
-    show: true,
-    options: JSON.stringify(manufacturers)
   },
   {
     name: "assetTag",
