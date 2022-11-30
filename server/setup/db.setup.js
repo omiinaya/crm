@@ -139,6 +139,7 @@ function dummyData() {
       placeholder: fields.placeholder,
       icon: fields.icon,
       side: fields.side,
+      show: fields.show,
       options: fields.options
     });
   });
