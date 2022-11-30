@@ -62,7 +62,7 @@ const ticketFields = [
         data: 'STRING'
     },
     {
-        name: "ticketAssignedTech",
+        name: "ticketTech",
         label: "Technician",
         type: "dropdown",
         //placeholder: "Issue Type",

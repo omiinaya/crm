@@ -226,12 +226,24 @@ export default {
     async getTicketFieldItems() {
       const req = await ticketService.getTicketFields();
       this.ticketFields = await req.data
+      //get list of options
+      const ticketTypes = this.ticketFields.filter(field => field.name === 'ticketType')[0].options
+      const ticketTechs = this.ticketFields.filter(field => field.name === 'ticketTech')[0].options
+      //choose first option as default
+      this.ticketForm['ticketType'] = JSON.parse(ticketTypes)[0];
+      this.ticketForm['ticketTech'] = JSON.parse(ticketTechs)[0];
     },
     async loadAssetFields() {
       const req = await AssetService.getAssetFields();
       const arr = req.data
       await arr.splice(0, 3) //removes customer name, customer id and ticket number
       this.assetFields = arr
+      //get list of options
+      const assetTypes = this.assetFields.filter(field => field.name === 'assetType')[0].options
+      const assetManufacturers = this.assetFields.filter(field => field.name === 'assetManufacturer')[0].options
+      //choose first option as default
+      this.ticketForm['assetType'] = JSON.parse(assetTypes)[0];
+      this.ticketForm['assetManufacturer'] = JSON.parse(assetManufacturers)[0];
     },
     async loadCustomerData() {
       const request = await CustomerService.getCustomers()
