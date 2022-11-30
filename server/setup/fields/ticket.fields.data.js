@@ -23,7 +23,7 @@ const ticketFields = [
         data: 'STRING'
     },
     {
-        name: "title",
+        name: "ticketTitle",
         label: "Ticket Title",
         type: "text",
         placeholder: "Ticket Title",
@@ -32,7 +32,7 @@ const ticketFields = [
         data: 'STRING'
     },
     {
-        name: "type",
+        name: "ticketType",
         label: "Issue Type",
         type: "dropdown",
         //placeholder: "Issue Type",
@@ -42,7 +42,7 @@ const ticketFields = [
         options: JSON.stringify(issueTypes)
     },
     {
-        name: "description",
+        name: "ticketDesc",
         label: "Description",
         type: "textarea",
         placeholder: "Description",
@@ -51,7 +51,7 @@ const ticketFields = [
         data: 'STRING'
     },
     {
-        name: "dueDate",
+        name: "ticketDue",
         label: "Due Date",
         type: "date",
         placeholder: moment(
@@ -62,7 +62,7 @@ const ticketFields = [
         data: 'STRING'
     },
     {
-        name: "technician",
+        name: "assignedTech",
         label: "Technician",
         type: "dropdown",
         //placeholder: "Issue Type",

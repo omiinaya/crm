@@ -16,26 +16,6 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true
         },
         ...dynamicFields
-        /*
-        title: {
-            type: Sequelize.STRING,
-        },
-        warranty: {
-            type: Sequelize.STRING,
-        },
-        description: {
-            type: Sequelize.STRING,
-        },
-        dueDate: {
-            type: Sequelize.STRING,
-        },
-        technician: {
-            type: Sequelize.STRING,
-        },
-        customerId: {
-            type: Sequelize.STRING,
-        }
-        */
     });
 
     return Ticket;
