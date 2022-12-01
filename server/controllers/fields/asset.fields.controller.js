@@ -4,14 +4,6 @@ const Op = db.Sequelize.Op;
 const axios = require("axios")
 
 exports.create = async (req, res) => {
-  /*
-  if (!req.body.title) {
-    res.status(400).send({
-      message: "Content can not be empty!",
-    });
-    return;
-  }
-*/
   const assetFields = await axios.get("http://localhost:8090/api/customers/fields");
   const assetResponse = await assetFields.data;
 

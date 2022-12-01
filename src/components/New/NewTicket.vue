@@ -26,7 +26,7 @@
                 </label>
                 <div class="col-sm-8">
                   <TypeAhead :placeholder="field.placeholder" :items="customerItems"
-                    class="form-control simple-typeahead" @selectItem="(e) => this.ticketForm['customerId'] = e.id" />
+                    class="form-control simple-typeahead" @selectItem="(e) => this.ticketForm['ticketCustomerId'] = e.id" />
                 </div>
               </div>
               <div v-else-if="field.type === 'textarea'" class="mb-3 row align-items-center">
@@ -246,26 +246,25 @@ export default {
   }),
   methods: {
     print(a) {
-      console.log(a)
+      console.log(a);
     },
     async getTicketFieldItems() {
       const req = await ticketService.getTicketFields();
-      this.ticketFields = await req.data
+      this.ticketFields = await req.data;
       //get list of options
       const ticketTypes = this.ticketFields.filter(field => field.name === 'ticketType')[0].options
-      //const ticketTechs = this.ticketFields.filter(field => field.name === 'ticketTech')[0].options
       //choose first option as default
       this.ticketForm['ticketType'] = JSON.parse(ticketTypes)[0];
       this.ticketForm['ticketTech'] = this.techItems[0].fullName;
     },
     async loadAssetFields() {
       const req = await AssetService.getAssetFields();
-      const arr = req.data
-      await arr.splice(0, 3) //removes customer name, customer id and ticket number
-      this.assetFields = arr
+      const arr = req.data;
+      await arr.splice(0, 3); //removes customer name, customer id and ticket number
+      this.assetFields = arr;
       //get list of options
-      const assetTypes = this.assetFields.filter(field => field.name === 'assetType')[0].options
-      const assetBrands = this.assetFields.filter(field => field.name === 'assetBrand')[0].options
+      const assetTypes = this.assetFields.filter(field => field.name === 'assetType')[0].options;
+      const assetBrands = this.assetFields.filter(field => field.name === 'assetBrand')[0].options;
       //choose first option as default
       this.ticketForm['assetType'] = JSON.parse(assetTypes)[0];
       this.ticketForm['assetBrand'] = JSON.parse(assetBrands)[0];
@@ -276,27 +275,26 @@ export default {
       customerList.forEach((customer) => {
         this.customerItems.push(customer);
       })
-      //console.log(this.customerItems)
     },
     async loadTechnicianData() {
-      const request = await UserService.getAllUsers()
+      const request = await UserService.getAllUsers();
       const technicianList = await request.data;
       technicianList.forEach((tech) => {
         this.techItems.push(tech);
       })
-      console.log(this.technicianItems)
     },
     async createTicket(data) {
+      console.log(data)
       ticketService.createTicket(data);
     },
     getChecked(index, side) {
-      const checked = JSON.parse(this.settingsFields[side][index].options).default
-      const name = this.settingsFields[side][index].name
-      this.ticketForm[name] = checked
-      return checked
+      const checked = JSON.parse(this.settingsFields[side][index].options).default;
+      const name = this.settingsFields[side][index].name;
+      this.ticketForm[name] = checked;
+      return checked;
     },
     testing() {
-      console.log(this.ticketForm)
+      console.log(this.ticketForm);
     }
   },
   created() {

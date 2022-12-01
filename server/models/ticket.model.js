@@ -5,7 +5,7 @@ module.exports = (sequelize, Sequelize) => {
     for (let i = 0; i < ticketFields.length; i++) {
         const field = ticketFields[i]
         if (!field.data) continue;
-        if (field.name === 'customerName') continue;
+        if (field.name === 'ticketCustomerName') continue;
         dynamicFields[field.name] = { type: Sequelize[field.data] }
     }
 

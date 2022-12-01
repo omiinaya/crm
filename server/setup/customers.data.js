@@ -1,7 +1,7 @@
 const customers = [
     {
-      firstName: "Matias",
-      lastName: "Fuenzalida",
+      firstName: "John",
+      lastName: "Abramson",
       businessName: "Testing",
       customerType: "Individual",
       email: "testing1@gmail.com",
@@ -12,8 +12,8 @@ const customers = [
       zip: "33015",
     },
     {
-      firstName: "Jose",
-      lastName: "Carreno",
+      firstName: "Emily",
+      lastName: "Adams",
       businessName: "Testing 2",
       customerType: "Individual",
       email: "testing2@gmail.com",
@@ -24,8 +24,8 @@ const customers = [
       zip: "33015",
     },
     {
-      firstName: "Enmanuel",
-      lastName: "Carbonell",
+      firstName: "Julie",
+      lastName: "Ash",
       businessName: "Testing 3",
       customerType: "Individual",
       email: "testing3@gmail.com",
@@ -36,8 +36,8 @@ const customers = [
       zip: "33015",
     },
     {
-      firstName: "Abel",
-      lastName: "Castillo",
+      firstName: "Avila",
+      lastName: "Fernando",
       businessName: "Testing 4",
       customerType: "Individual",
       email: "testing4@gmail.com",

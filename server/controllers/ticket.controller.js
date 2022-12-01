@@ -1,24 +1,36 @@
 const db = require("../models");
-const Ticket = db.ticket
+const Ticket = db.ticket;
+const Asset = db.asset;
 const Op = db.Sequelize.Op;
 const axios = require('axios')
 
 exports.create = async (req, res) => {
   const ticketFields = await axios.get("http://localhost:8090/api/ticket/fields");
+  const assetFields = await axios.get("http://localhost:8090/api/asset/fields");
   const ticketResponse = await ticketFields.data;
-
-  const fields = [...ticketResponse]
+  const assetResponse = await assetFields.data;
 
   let ticket = {};
+  let asset = {};
 
-  for (let i = 0; i < fields.length; i++) {
-    ticket[fields[i].name] = req.body[fields[i].name];
+  for (let i = 0; i < ticketResponse.length; i++) {
+    ticket[ticketResponse[i].name] = req.body[ticketResponse[i].name];
   }
 
-  console.log(req.body)
+  for (let i = 0; i < assetResponse.length; i++) {
+    if (assetResponse[i].name === 'assetCustomerName') continue; //ignore customerName field.
+    asset[assetResponse[i].name] = req.body[assetResponse[i].name];
+  }
 
   try {
     const request = await Ticket.create(ticket)
+    //both asset and ticket are assigned the same customer id.
+    asset['assetCustomerId'] = ticket['ticketCustomerId']
+    //add ticket number to asset number, after ticket has been created.
+    asset['assetTicketNumber'] = await request.id
+
+    Asset.create(asset);
+    
     res.send(await request)
   } catch (err) {
     console.log(err)
