@@ -39,6 +39,28 @@
                     v-model="ticketForm[field.name]"></textarea>
                 </div>
               </div>
+              <div v-else-if="(field.type === 'dropdown' && field.name === 'ticketTech')"
+                class="mb-3 row align-items-center">
+                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
+                    field.label
+                }}:
+                </label>
+                <div class="col-sm-8 dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" :id="'dropdownMenuButton' + index"
+                    data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%; padding: 5px"
+                    placeholder="Dropdown">
+                    {{ ticketForm[field.name] }}
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li v-for="(tech, index) in techItems" :key="tech + index">
+                      <a class="dropdown-item" href="#!" v-on:click="(ticketForm[field.name] = tech.fullName)">{{
+                          tech.fullName
+                      }}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
               <div v-else-if="field.type === 'dropdown'" class="mb-3 row align-items-center">
                 <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
                     field.label
@@ -58,6 +80,7 @@
                   </ul>
                 </div>
               </div>
+
               <div v-else-if="field.name === 'phone'" class="mb-3 row align-items-center">
                 <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
                     field.label
@@ -205,6 +228,7 @@
 <script>
 import ticketService from "../../services/ticket.service";
 import CustomerService from "../../services/customer.service"
+import UserService from "../../services/user.service";
 import AssetService from "../../services/asset.service";
 import { storeX } from "../../store/index";
 import TypeAhead from "../TypeAhead.vue"
@@ -214,6 +238,7 @@ export default {
   components: { TypeAhead },
   data: () => ({
     customerItems: [],
+    techItems: [],
     ticketFields: null,
     assetFields: null,
     ticketForm: {},
@@ -228,10 +253,10 @@ export default {
       this.ticketFields = await req.data
       //get list of options
       const ticketTypes = this.ticketFields.filter(field => field.name === 'ticketType')[0].options
-      const ticketTechs = this.ticketFields.filter(field => field.name === 'ticketTech')[0].options
+      //const ticketTechs = this.ticketFields.filter(field => field.name === 'ticketTech')[0].options
       //choose first option as default
       this.ticketForm['ticketType'] = JSON.parse(ticketTypes)[0];
-      this.ticketForm['ticketTech'] = JSON.parse(ticketTechs)[0];
+      this.ticketForm['ticketTech'] = this.techItems[0].fullName;
     },
     async loadAssetFields() {
       const req = await AssetService.getAssetFields();
@@ -251,7 +276,15 @@ export default {
       customerList.forEach((customer) => {
         this.customerItems.push(customer);
       })
-      console.log(this.customerItems)
+      //console.log(this.customerItems)
+    },
+    async loadTechnicianData() {
+      const request = await UserService.getAllUsers()
+      const technicianList = await request.data;
+      technicianList.forEach((tech) => {
+        this.techItems.push(tech);
+      })
+      console.log(this.technicianItems)
     },
     async createTicket(data) {
       ticketService.createTicket(data);
@@ -267,9 +300,10 @@ export default {
     }
   },
   created() {
-    this.getTicketFieldItems();
     this.loadCustomerData();
     this.loadAssetFields();
+    this.loadTechnicianData();
+    this.getTicketFieldItems();
   },
   watch: {
     ticketForm: {
