@@ -1,4 +1,5 @@
 const db = require("../models");
+const { fn, col } = db.sequelize
 const User = db.user;
 
 exports.allAccess = (req, res) => {
@@ -17,15 +18,28 @@ exports.moderatorBoard = (req, res) => {
     res.status(200).send("Moderator Content.");
 };
 
-exports.findAll = (req, res) => {
-    User.findAll()
-        .then(data => {
-            res.send(data);
+exports.findAll = async (req, res) => {
+    try { 
+        const users = await User.findAll({
+            attributes: {
+                exclude: [
+                    'password', 
+                    'email',
+                    'username',
+                    'createdAt',
+                    'updatedAt',
+                    'lastName',
+                    'firstName'
+                ],
+                include: [
+                    ["concat(firstName, ' ',  lastName)" , 'fullName']
+                  ]
+            },
         })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while retrieving tutorials."
-            });
-        });
+        res.send(users);
+    }
+    catch (err) { 
+        console.log(err) 
+    }
+    
 };

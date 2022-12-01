@@ -1,5 +1,5 @@
 const authJwt = require("../middleware/authJWT");
-const controller = require("../controllers/user.controller");
+const user = require("../controllers/user.controller");
 const router = require("express").Router();
 
 module.exports = function (app) {
@@ -11,27 +11,27 @@ module.exports = function (app) {
     next();
   });
 
-  app.get("/api/test/all", controller.allAccess);
+  //app.get("/api/users/all", user.allAccess);
 
   app.get(
-    "/api/test/user",
+    "/api/users/user",
     [authJwt.verifyToken],
-    controller.userBoard
+    user.userBoard
   );
 
   app.get(
-    "/api/test/mod",
+    "/api/users/mod",
     [authJwt.verifyToken, authJwt.isModerator],
-    controller.moderatorBoard
+    user.moderatorBoard
   );
 
   app.get(
-    "/api/test/admin",
+    "/api/users/admin",
     [authJwt.verifyToken, authJwt.isAdmin],
-    controller.adminBoard
+    user.adminBoard
   );
 
-  router.get("/all", controller.findAll);
+  router.get("/all", user.findAll);
 
   app.use('/api/users', router);
 };
