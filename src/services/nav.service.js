@@ -9,7 +9,7 @@ class NavService {
   }
 
   getRoleNav(role) {
-    return axios.get(API_URL + '/role/' + role, { headers: authHeader() });
+    return axios.get(API_URL + 'role/' + role, { headers: authHeader() });
   }
 }
 
