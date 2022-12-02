@@ -19,7 +19,7 @@
 <script>
 import { defineComponent } from 'vue';
 import { storeX } from "../store/index";
-import CustomerService from "../services/customer.service"
+import AssetService from "../services/asset.service"
 import moment from 'moment'
 
 export default defineComponent({
@@ -29,10 +29,11 @@ export default defineComponent({
       storeX,
       headers: [
         { value: "id", text: "ID", sortable: true },
-        { value: "name", text: "NAME", sortable: true },
-        { value: "email", text: "EMAIL", sortable: true },
-        { value: "customerType", text: "TYPE", sortable: true },
-        { value: "createdAt", text: "CREATED", sortable: true }
+        { value: "assetName", text: "NAME", sortable: true },
+        { value: "customerName", text: "CUSTMER", sortable: true },
+        { value: "assetSerial", text: "SERIAL", sortable: true },
+        { value: "assetType", text: "TYPE", sortable: true },
+        { value: "assetBrand", text: "MANUFACTURER", sortable: true }
       ],
       items: []
     };
@@ -42,8 +43,8 @@ export default defineComponent({
       console.log(a)
     },
     async loadCustomerData() {
-      const request = await CustomerService.getCustomers()
-      const data = await request.data;
+      const req = await AssetService.getAssets()
+      const data = await req.data;
       this.items = await data;
       this.formatDate();
     },
