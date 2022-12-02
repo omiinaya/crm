@@ -19,22 +19,23 @@ const navs = [
     },
     {
       id: 3,
+      title: "Tickets",
+      icon: "bi bi-tag",
+      url: "tickets",
+    },
+    {
+      id: 4,
       title: "Invoices",
       icon: "bi bi-cart",
       url: "invoices",
     },
     {
-      id: 4,
+      id: 5,
       title: "Estimates",
       icon: "bi bi-file-earmark-text",
       url: "estimates",
     },
-    {
-      id: 5,
-      title: "Tickets",
-      icon: "bi bi-tag",
-      url: "tickets",
-    },
+    
     {
       id: 6,
       title: "Parts",

@@ -9,13 +9,20 @@ class TicketService {
     return axios.get(API_URL);
   }
 
+  getTicketsByCustomer(customerId) {
+    return axios.get(API_URL, `customer/${customerId}`);
+  }
+
+  getTicketById(ticketId) {
+    return axios.get(API_URL, `id/${ticketId}`);
+  }
+
   getTicketFields() {
     return axios.get(API_URL + 'fields/', { headers: authHeader() });
   }
 
   //POST
   createTicket(data) {
-    console.log(data)
     return axios.post(API_URL, data);
   }
 }
