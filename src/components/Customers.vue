@@ -1,18 +1,13 @@
 <template>
   <div class="container">
-    <EasyDataTable
-      :headers="headers"
-      :items="items"
-      theme-color="#1d90ff"
-      table-class-name="customize-table"
-      header-text-direction="center"
-      body-text-direction="center"
-      v-on:click="testing123($event)"
-    >
-    <template #item-name="{ firstName, lastName/*, customerUrl*/ }">
-      <a target="_blank" href="#!">{{firstName}} {{lastName}}</a>
-    </template>
-  </EasyDataTable>
+    <EasyDataTable :headers="headers" :items="items" theme-color="#1d90ff" table-class-name="customize-table"
+      header-text-direction="center" body-text-direction="center" v-on:click="testing123($event)">
+     
+      <template #item-name="{ firstName, lastName/*, customerUrl*/ }">
+        <a target="_blank" href="#!">{{firstName}} {{lastName}}</a>
+      </template>
+     
+    </EasyDataTable>
   </div>
 </template>
 
@@ -49,7 +44,7 @@ export default defineComponent({
     },
     async formatDate() {
       this.items.forEach(item => {
-        item.createdAt = moment(item.createdAt).format('MMMM DD YYYY');
+        item.createdAt = moment(item.createdAt).format('MM-DD-YYYY HH:MM A');
       })
     }
   },

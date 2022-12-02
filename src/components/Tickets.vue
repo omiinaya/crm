@@ -20,6 +20,7 @@
 import { defineComponent } from 'vue';
 import { storeX } from "../store/index";
 import TicketService from "../services/ticket.service"
+import CustomerService from "../services/customer.service"
 import moment from 'moment'
 
 export default defineComponent({
@@ -29,6 +30,7 @@ export default defineComponent({
       storeX,
       headers: [
         { value: "id", text: "ID", sortable: true },
+        { value: "customerName", text: "CUSTOMER", sortable: true },
         { value: "ticketTitle", text: "TITLE", sortable: true },
         { value: "ticketDesc", text: "DESCRIPTION", sortable: true },
         { value: "ticketTech", text: "TECHNICIAN", sortable: true },
@@ -43,21 +45,36 @@ export default defineComponent({
     testing123(a) {
       console.log(a)
     },
-    async loadCustomerData() {
-      const req = await TicketService.getTickets()
-      console.log(req)
-      const data = await req.data;
-      this.items = await data;
+    async loadTicketData() {
+      const req = await TicketService.getTickets();
+      const tickets = await req.data;
+
+      this.items = await tickets;
       this.formatDate();
     },
     async formatDate() {
       this.items.forEach(item => {
         item.createdAt = moment(item.createdAt).format('MM-DD-YYYY HH:MM A');
-        item.updatedAt = moment(item.createdAt).format('MM-DD-YYYY HH:MM A');
+        item.updatedAt = moment(item.updatedAt).format('MM-DD-YYYY HH:MM A');
+      })
+    },
+    async loadCustomerData() {
+      const req = await CustomerService.getCustomers();
+      const customers = await req.data;
+      let fullName = '';
+      this.items.forEach(item => {
+        const customer = customers.filter(customer => {
+          const customerId = parseInt(customer.id)
+          const ticketCustomerId = parseInt(item.ticketCustomerId)
+          
+          return customerId === ticketCustomerId });
+        fullName = `${customer[0].firstName} ${customer[0].lastName}`
+        item['customerName'] = fullName;
       })
     }
   },
   async created() {
+    this.loadTicketData()
     this.loadCustomerData()
   }
 });

@@ -30,7 +30,7 @@ export default defineComponent({
       headers: [
         { value: "id", text: "ID", sortable: true },
         { value: "assetName", text: "NAME", sortable: true },
-        { value: "customerName", text: "CUSTMER", sortable: true },
+        { value: "customerName", text: "CUSTOMER", sortable: true },
         { value: "assetSerial", text: "SERIAL", sortable: true },
         { value: "assetType", text: "TYPE", sortable: true },
         { value: "assetBrand", text: "MANUFACTURER", sortable: true }
@@ -50,7 +50,7 @@ export default defineComponent({
     },
     async formatDate() {
       this.items.forEach(item => {
-        item.createdAt = moment(item.createdAt).format('MMMM DD YYYY');
+        item.createdAt = moment(item.createdAt).format('MM-DD-YYYY HH:MM A');
       })
     }
   },
