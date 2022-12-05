@@ -23,9 +23,19 @@
     </div>
     <div class="col-6 menu section text-center">Reminders</div>
     <div class="col-2-5 menu section text-center">
-      Summary
-      <div>
-        Total Tickets: {{ticketCount}}
+      <div class="title">
+        Summary
+      </div>
+      <br />
+      <div class="details">
+        <ul>
+          <li>
+            Total Tickets: {{ totalTicketCount }}
+          </li>
+          <li>
+            Open Tickets: {{ openTicketCount }}
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -33,16 +43,17 @@
   
 <script>
 import { defineComponent } from 'vue';
-import HomeService from "../services/home.service";
 import { storeX } from "../store/index";
-import TicketService from "../services/ticket.service"
+import HomeService from "../services/home.service";
+import TicketService from "../services/ticket.service";
 
 export default defineComponent({
   name: 'HomePage',
   data() {
     return {
       actions: null,
-      ticketCount: null,
+      totalTicketCount: null,
+      openTicketCount: null,
       storeX
     };
   },
@@ -56,7 +67,8 @@ export default defineComponent({
       const req = await TicketService.getTickets();
       const tickets = await req.data;
 
-      this.ticketCount = tickets.length;
+      this.totalTicketCount = tickets.length;
+      this.openTicketCount = tickets.length; //filter by status later
     },
   },
   created() {
@@ -143,6 +155,11 @@ export default defineComponent({
 
 #container a {
   text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
 }
 </style>
   
