@@ -89,11 +89,11 @@ exports.findAll = (req, res) => {
     });
 };
 
-exports.findByRoleId = (req, res) => {
+exports.findById = (req, res) => {
   const id = req.params.id;
 
   Customer.findAll({
-    where: { roleId: id },
+    where: { id: id },
   })
     .then((data) => {
       res.send(data);

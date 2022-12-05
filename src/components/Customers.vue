@@ -4,7 +4,7 @@
       header-text-direction="center" body-text-direction="center" v-on:click="testing123($event)">
      
       <template #item-name="{ firstName, lastName, id }">
-        <a target="_blank" :href="`?v=customer&?id=${id}`">{{firstName}} {{lastName}}</a>
+        <a target="_blank" :href="`?view=customer&id=${id}`">{{firstName}} {{lastName}}</a>
       </template>
      
     </EasyDataTable>

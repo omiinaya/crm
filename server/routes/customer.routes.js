@@ -7,10 +7,10 @@ module.exports = (app) => {
 
   router.post("/", customer.create);
   router.get("/", customer.findAll);
-  router.get("/id/:id", customer.findByRoleId);
+  router.get("/id/:id", customer.findById);
   router.get("/role/:id", customer.findByRole);
-  router.put("/:id", customer.update);
-  router.delete("/:id", customer.delete);
+  router.put("/id/:id", customer.update);
+  router.delete("/id/:id", customer.delete);
 
   //fields get
   router.get("/fields", customerFields.findAll);

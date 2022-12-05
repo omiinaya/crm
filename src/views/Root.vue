@@ -58,8 +58,8 @@ export default defineComponent({
   created() {
     const route = useRoute()
     if (!Object.keys(route.query).length) return
-    if (!route.query.v) return
-    storeX.view = route.query.v
+    if (!route.query.view) return
+    storeX.view = route.query.view
   },
   components: {
     IonContent,
