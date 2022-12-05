@@ -15,8 +15,6 @@ exports.create = async (req, res) => {
     asset[fields[i].name] = req.body[fields[i].name];
   }
 
-  console.log(req.body)
-
   try {
     const request = await Asset.create(asset)
     res.send(await request)

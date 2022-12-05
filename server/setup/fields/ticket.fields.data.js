@@ -32,6 +32,15 @@ const ticketFields = [
         data: 'STRING'
     },
     {
+        name: "ticketStatus",
+        label: "Ticket Status",
+        type: "text",
+        placeholder: "Ticket Status",
+        icon: "bi bi-card-heading",
+        show: false,
+        data: 'STRING'
+    },
+    {
         name: "ticketType",
         label: "Issue Type",
         type: "dropdown",

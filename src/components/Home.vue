@@ -22,7 +22,12 @@
       </div>
     </div>
     <div class="col-6 menu section text-center">Reminders</div>
-    <div class="col-2-5 menu section text-center">Summary</div>
+    <div class="col-2-5 menu section text-center">
+      Summary
+      <div>
+        Total Tickets: {{ticketCount}}
+      </div>
+    </div>
   </div>
 </template>
   
@@ -30,12 +35,14 @@
 import { defineComponent } from 'vue';
 import HomeService from "../services/home.service";
 import { storeX } from "../store/index";
+import TicketService from "../services/ticket.service"
 
 export default defineComponent({
   name: 'HomePage',
   data() {
     return {
       actions: null,
+      ticketCount: null,
       storeX
     };
   },
@@ -44,11 +51,17 @@ export default defineComponent({
       const highest = Math.max(...this.$store.state.auth.user.roles);
       const req = await HomeService.getRoleNav(highest);
       this.actions = await req.data;
-      //console.log(req.data)
+    },
+    async loadTicketData() {
+      const req = await TicketService.getTickets();
+      const tickets = await req.data;
+
+      this.ticketCount = tickets.length;
     },
   },
   created() {
     this.getActionItems()
+    this.loadTicketData()
   }
 });
 </script>

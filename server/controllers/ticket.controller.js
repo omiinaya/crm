@@ -21,6 +21,8 @@ exports.create = async (req, res) => {
     if (assetResponse[i].name === 'assetCustomerName') continue; //ignore customerName field.
     asset[assetResponse[i].name] = req.body[assetResponse[i].name];
   }
+  //default status is new
+  ticket['ticketStatus'] = 'New';
 
   try {
     const request = await Ticket.create(ticket)
