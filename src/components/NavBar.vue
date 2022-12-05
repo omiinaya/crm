@@ -6,12 +6,7 @@
       </button>
     </div>
     <div class="col-7 search">
-      <input
-        class="form-control me-2"
-        type="search"
-        placeholder="Search all the things"
-        aria-label="Search"
-      />
+      <input class="form-control me-2" type="search" placeholder="Search all the things" aria-label="Search" />
     </div>
     <div class="col-2 topBar">
       <li class="nav-item rightBar">
@@ -26,24 +21,19 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-1"></div>
-    <div
-      class="col-0-5 nav-item text-center"
-      v-for="(link, index) in links"
-      :key="link + index"
-    >
-      <a
-        class="nav-link active"
-        aria-current="page"
-        href="#"
-        v-on:click="storeX.view = link.url"
-      >
-        <div>
-          <i :class="link.icon"></i>
+    <div class="col-12 offset-1 navBar">
+      <div class="row">
+        <div class="col-0-5 text-center" v-for="(link, index) in links" :key="link + index">
+          <button type="button" class="btn btn-lg" v-on:click="storeX.view = link.url">
+            <div>
+              <i :class="link.icon"></i>
+            </div>
+            {{ link.title }}
+          </button>
         </div>
-        {{ link.title }}
-      </a>
+      </div>
     </div>
+
   </div>
 </template>
 
@@ -75,16 +65,22 @@ export default {
 </script>
 
 <style scoped>
-#topBar .btn {
-  background-color: "transparent" !important;
-  background: "transparent";
-  color: white;
+.navBar {
+  padding: 10px;
 }
 
-#topBar .btn:focus {
+.btn {
+  width: 100%;
+  font-size: 16px;
+  color: white;
+  padding: 0;
+}
+
+.btn:focus {
   box-shadow: none;
   border-color: transparent;
 }
+
 .rightBar .bi {
   font-size: 20px !important;
 }
@@ -113,11 +109,11 @@ export default {
 }
 
 .col-0-5 {
-  flex: 0 0 6.15%;
-  max-width: 6.15%;
+  flex: 0 0 7%;
+  max-width: 7%;
   position: relative;
   width: 100%;
-  padding: 1vh;
+  padding: 0;
 }
 
 .col-1-0 {
