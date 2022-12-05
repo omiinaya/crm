@@ -79,6 +79,12 @@ export default {
     async loadAssetFields() {
       const req = await AssetService.getAssetFields();
       this.assetFields = await req.data
+
+      const assetTypes = this.assetFields.filter(field => field.name === 'assetType')[0].options
+      const assetBrands = this.assetFields.filter(field => field.name === 'assetBrand')[0].options
+
+      this.assetForm['assetType'] = JSON.parse(assetTypes)[0];
+      this.assetForm['assetBrand'] = JSON.parse(assetBrands)[0];
     },
     async loadCustomerData() {
       const request = await CustomerService.getCustomers()
