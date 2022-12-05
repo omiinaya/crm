@@ -20,6 +20,7 @@
 import { defineComponent } from 'vue';
 import { storeX } from "../store/index";
 import AssetService from "../services/asset.service"
+import CustomerService from "../services/customer.service"
 import moment from 'moment'
 
 export default defineComponent({
@@ -42,12 +43,32 @@ export default defineComponent({
     testing123(a) {
       console.log(a)
     },
-    async loadCustomerData() {
+    async loadAssetData() {
       const req = await AssetService.getAssets()
-      const data = await req.data;
-      this.items = await data;
+      const assets = await req.data;
+      this.items = await assets;
+      
       this.formatDate();
     },
+
+    async loadCustomerData() {
+      const req = await CustomerService.getCustomers();
+      const customers = await req.data;
+
+      let fullName = '';
+      this.items.forEach(item => {
+        const customer = customers.filter(customer => {
+          const customerId = parseInt(customer.id)
+          const assetCustomerId = parseInt(item.assetCustomerId)
+          
+          return customerId === assetCustomerId });
+        fullName = `${customer[0].firstName} ${customer[0].lastName}`
+        item['customerName'] = fullName;
+      })
+
+      console.log(fullName)
+    },
+
     async formatDate() {
       this.items.forEach(item => {
         item.createdAt = moment(item.createdAt).format('MM-DD-YYYY HH:MM A');
@@ -55,6 +76,7 @@ export default defineComponent({
     }
   },
   async created() {
+    this.loadAssetData()
     this.loadCustomerData()
   }
 });
