@@ -21,7 +21,22 @@
         </div>
       </div>
     </div>
-    <div class="col-6 menu section text-center">Reminders</div>
+    <div class="col-6 menu section text-center">
+      <div class="title">
+        Reminders
+      </div>
+      <br />
+      <div class="details">
+        <ul>
+          <li>
+            [IMPORTANT]: Placeholder text
+          </li>
+          <li>
+            [URGENT]: Placeholder text
+          </li>
+        </ul>
+      </div>
+    </div>
     <div class="col-2-5 menu section text-center">
       <div class="title">
         Summary
