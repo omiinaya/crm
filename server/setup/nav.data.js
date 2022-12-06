@@ -31,18 +31,17 @@ const navs = [
   },
   {
     id: 5,
-    title: "Parts",
-    icon: "bi bi-motherboard",
-    url: "parts",
-  },
-  {
-    id: 6,
     title: "Projects",
     icon: "bi bi-box",
     url: "projects",
     roleId: 3
   },
-  
+  {
+    id: 6,
+    title: "Parts",
+    icon: "bi bi-motherboard",
+    url: "parts",
+  },
   {
     id: 7,
     title: "Estimates",

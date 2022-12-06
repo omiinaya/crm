@@ -43,7 +43,6 @@ export default defineComponent({
         { value: "ticketDesc", text: "DESCRIPTION", sortable: true },
         { value: "ticketTech", text: "TECHNICIAN", sortable: true },
         { value: "createdAt", text: "CREATED", sortable: true },
-        //replace with asset serial
         //{ value: "ticketType", text: "ISSUE", sortable: true },
         { value: "assetSerial", text: "SERIAL", sortable: true },
         { value: "ticketStatus", text: "STATUS", sortable: true },
@@ -54,15 +53,15 @@ export default defineComponent({
   },
   methods: {
     testing123(a) {
-      console.log(a)
+      console.log(a);
     },
     async openTicket(id) {
-      storeX.view = 'ticket'
-      storeX.ticketId = id
+      storeX.view = 'ticket';
+      storeX.ticketId = id;
     },
     async openCustomer(id) {
-      storeX.view = 'customer'
-      storeX.customerId = id
+      storeX.view = 'customer';
+      storeX.customerId = id;
     },
     async loadTicketData() {
       const req = await TicketService.getTickets();
@@ -71,19 +70,18 @@ export default defineComponent({
       this.items = await tickets;
       
       this.items.forEach(async item => {
-        const data = await this.loadAssetData(item.id)
-        const serial = data[0].assetSerial
-        item.assetSerial = serial
+        const data = await this.loadAssetData(item.id);
+        const serial = data[0].assetSerial;
+        item.assetSerial = serial;
       })
 
-      console.log(this.items)
+      this.formatDate();
       
     },
     async loadAssetData(id) {
       const req = await AssetService.getAssetByTicketId(id);
-      const tickets = await req.data;
-      return tickets
-      //this.items = await tickets;
+      const asset = await req.data;
+      return asset;
     },
     async formatDate() {
       this.items.forEach(item => {
