@@ -35,7 +35,6 @@
               />
             </div>
           </div>
-
           <div class="section">
             <div class="title">Assets</div>
             <div class="content">
@@ -49,7 +48,6 @@
               />
             </div>
           </div>
-
           <div class="section">
             <div class="title">Invoices</div>
             <div class="content">PLACEHOLDER</div>

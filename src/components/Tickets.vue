@@ -34,9 +34,9 @@ export default defineComponent({
         { value: "ticketTitle", text: "TITLE", sortable: true },
         { value: "ticketDesc", text: "DESCRIPTION", sortable: true },
         { value: "ticketTech", text: "TECHNICIAN", sortable: true },
-        { value: "updatedAt", text: "LAST UPDATED", sortable: true },
         { value: "createdAt", text: "CREATED", sortable: true },
         { value: "ticketType", text: "ISSUE", sortable: true },
+        { value: "ticketStatus", text: "STATUS", sortable: true },
       ],
       items: []
     };

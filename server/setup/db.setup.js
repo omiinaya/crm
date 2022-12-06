@@ -7,6 +7,7 @@ const navs = require('./nav.data');
 const users = require('./users.data');
 const roles = require('./roles.data');
 const assets = require('./assets.data');
+const tickets = require('./tickets.data');
 const numbers = require('./numbers.data');
 const customers = require('./customers.data');
 const businesses = require('./businesses.data');
@@ -26,6 +27,7 @@ const Nav = db.nav;
 const User = db.user;
 const Home = db.home;
 const Asset = db.asset;
+const Ticket = db.ticket;
 const Customer = db.customer;
 const Business = db.business;
 const Number = db.number;
@@ -197,6 +199,17 @@ function dummyData() {
       assetName: asset.assetName,
       assetSerial: asset.assetSerial,
       assetTag: asset.assetTag
+    })
+  })
+
+  tickets.forEach(ticket => {
+    Ticket.create({
+      ticketCustomerId: ticket.ticketCustomerId,
+      ticketTitle: ticket.ticketTitle,
+      ticketStatus: ticket.ticketStatus,
+      ticketType: ticket.ticketType,
+      ticketDesc: ticket.ticketDesc,
+      ticketTech: ticket.ticketTech
     })
   })
 
