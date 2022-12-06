@@ -58,8 +58,8 @@
             <div class="content">
               <EasyDataTable :headers="ticketHeaders" :items="ticketItems" theme-color="#1d90ff"
                 table-class-name="customize-table" header-text-direction="center" body-text-direction="center">
-                <template #item-ticketTitle="{ ticketTitle, id }">
-                  <button type="button" class="btn btn-lg" v-on:click="openTicket(id)">
+                <template #item-ticketTitle="{ ticketTitle, id, ticketCustomerId }">
+                  <button type="button" class="btn btn-lg" v-on:click="openTicket(id, ticketCustomerId)">
                     {{ ticketTitle }}
                   </button>
                 </template>
@@ -131,9 +131,10 @@ export default {
     unpaidInvoices: 0
   }),
   methods: {
-    async openTicket(id) {
+    async openTicket(id, ticketCustomerId) {
       storeX.view = 'ticket'
       storeX.ticketId = id
+      storeX.customerId = ticketCustomerId;
     },
     async loadCustomerData(id) {
       const request = await CustomerService.getCustomerById(id)

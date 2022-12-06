@@ -1,7 +1,7 @@
 const assets = [
     {
       ticketCustomerId: 1,
-      ticketTitle: 'Broken screen.',
+      ticketTitle: 'Broken screen',
       ticketStatus: "New",
       ticketType: 'Flat-Rate Labor',
       ticketDesc: 'Screen is broken and separating from vessel.',
@@ -9,7 +9,7 @@ const assets = [
     },
     {
       ticketCustomerId: 1,
-      ticketTitle: 'Broken speakers.',
+      ticketTitle: 'Broken speakers',
       ticketStatus: "New",
       ticketType: 'Flat-Rate Labor',
       ticketDesc: 'Speakers go brrrrr when playing audio.',
@@ -17,7 +17,7 @@ const assets = [
     },
     {
       ticketCustomerId: 2,
-      ticketTitle: 'Bad battery.',
+      ticketTitle: 'Bad battery',
       ticketStatus: "New",
       ticketType: 'Flat-Rate Labor',
       ticketDesc: 'System will not hold charge.',

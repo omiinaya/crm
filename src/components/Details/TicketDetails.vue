@@ -22,7 +22,16 @@
               Ticket Information
             </div>
             <div class="content">
-              test
+              <ul>
+                <li>Status: {{ ticketStatus }}</li>
+                <li>Assignee: {{ ticketTech }}</li>
+                <li>Type: {{ ticketType }}</li>
+                <li>Due Date: {{ ticketUpdated }}</li>
+                <li>Created: {{ ticketCreated }}</li>
+                <!-- TODO: Parts page, parts creation, etc-->
+                <li>Part Orders: </li>
+                
+              </ul>
             </div>
           </div>
           <div class="section">
@@ -31,7 +40,14 @@
               Customer Information
             </div>
             <div class="content">
-              test
+              <ul>
+                <li>Name: {{customerName}}</li>
+                <li>Email: {{customerEmail}}</li>
+                <li>Phone: {{customerPhone}}</li>
+                <!-- TODO: get address and sms service from api response -->
+                <li>Primary Address: </li>
+                <li>SMS Service: </li>
+              </ul>
             </div>
           </div>
           <div class="section">
@@ -72,7 +88,8 @@
 <script>
 import { storeX } from "../../store/index";
 import TicketService from "../../services/ticket.service";
-//import moment from 'moment'
+import CustomerService from "../../services/customer.service";
+import moment from 'moment'
 
 export default {
   name: 'CustomerDetailsPage',
@@ -80,24 +97,47 @@ export default {
   data: () => ({
     storeX,
     ticketTitle: null,
+    ticketCreated: null,
+    ticketUpdated: null,
+    ticketType: null,
+    ticketTech: null,
+    ticketStatus: null,
+    customerName: null,
+    customerEmail: null,
+    customerPhone: null,
+    customerCreated: null
   }),
   methods: {
     async loadTicketdata(id) {
       const request = await TicketService.getTicketById(id)
       const data = await request.data[0];
       this.ticketTitle = data.ticketTitle;
-      console.log(data)
-    }
+      this.ticketType = data.ticketType;
+      this.ticketTech = data.ticketTech;
+      this.ticketStatus = data.ticketStatus;
+      this.ticketCreated = moment(data.createdAt).format('MMM DD YYYY HH:MM A');
+      this.ticketUpdated = moment(data.updateAt).format('MMM DD YYYY HH:MM A');
+    },
+    async loadCustomerData(id) {
+      const request = await CustomerService.getCustomerById(id)
+      const data = await request.data[0];
+
+      this.customerName = `${data.firstName} ${data.lastName}`;
+      this.customerEmail = data.email;
+      this.customerPhone = data.phone;
+      //this.customerAddress =  //TODO: get primary address
+      this.customerCreated = moment(data.createdAt).format('MM-DD-YYYY');
+    },
   },
   created() {
     this.ticketNumber = this.storeX.ticketId.toString().padStart(5, '0');
     this.loadTicketdata(this.storeX.ticketId)
+    this.loadCustomerData(this.storeX.customerId)
   },
 }
 </script>
   
 <style scoped>
-
 .btn {
   width: 100%;
   font-size: 14px;
@@ -109,6 +149,7 @@ export default {
   box-shadow: none !important;
   border-color: transparent !important;
 }
+
 .btn:hover {
   text-decoration: underline;
 }
@@ -120,6 +161,7 @@ li {
 .title {
   font-size: 22px;
 }
+
 .header {
   font-size: 18px;
 }

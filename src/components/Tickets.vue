@@ -11,8 +11,8 @@
                 {{ customerName }}
               </button>
             </template>
-            <template #item-ticketTitle="{ ticketTitle, id }">
-              <button type="button" class="btn btn-lg" v-on:click="openTicket(id)">
+            <template #item-ticketTitle="{ ticketTitle, id, ticketCustomerId }">
+              <button type="button" class="btn btn-lg" v-on:click="openTicket(id, ticketCustomerId)">
                 {{ ticketTitle }}
               </button>
             </template>
@@ -55,9 +55,10 @@ export default defineComponent({
     testing123(a) {
       console.log(a);
     },
-    async openTicket(id) {
+    async openTicket(id, ticketCustomerId) {
       storeX.view = 'ticket';
       storeX.ticketId = id;
+      storeX.customerId = ticketCustomerId;
     },
     async openCustomer(id) {
       storeX.view = 'customer';
