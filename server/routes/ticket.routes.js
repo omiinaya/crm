@@ -5,6 +5,8 @@ module.exports = app => {
 
     router.post("/", ticket.create);
     router.get("/", ticket.findAll);
+    router.get("/id/:id", ticket.findByTicketId);
+    router.get("/customer/:id", ticket.findByCustomerId);
     router.get("/fields", ticketFields.findAll);
     //router.get("/:id", assetField.findByRoleId)
     //router.get("/role/:id", assetField.findByRole)

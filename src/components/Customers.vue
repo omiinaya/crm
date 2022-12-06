@@ -50,6 +50,9 @@ export default defineComponent({
       this.items.forEach(item => {
         item.createdAt = moment(item.createdAt).format('MM-DD-YYYY HH:MM A');
       })
+    },
+    async testing123(a) {
+      console.log(a)
     }
   },
   async created() {

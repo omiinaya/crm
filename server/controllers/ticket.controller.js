@@ -1,11 +1,12 @@
 const db = require("../models");
 const Ticket = db.ticket;
 const Asset = db.asset;
-const Op = db.Sequelize.Op;
-const axios = require('axios')
+const axios = require("axios");
 
 exports.create = async (req, res) => {
-  const ticketFields = await axios.get("http://localhost:8090/api/ticket/fields");
+  const ticketFields = await axios.get(
+    "http://localhost:8090/api/ticket/fields"
+  );
   const assetFields = await axios.get("http://localhost:8090/api/asset/fields");
   const ticketResponse = await ticketFields.data;
   const assetResponse = await assetFields.data;
@@ -18,24 +19,24 @@ exports.create = async (req, res) => {
   }
 
   for (let i = 0; i < assetResponse.length; i++) {
-    if (assetResponse[i].name === 'assetCustomerName') continue; //ignore customerName field.
+    if (assetResponse[i].name === "assetCustomerName") continue; //ignore customerName field.
     asset[assetResponse[i].name] = req.body[assetResponse[i].name];
   }
   //default status is new
-  ticket['ticketStatus'] = 'New';
+  ticket["ticketStatus"] = "New";
 
   try {
-    const request = await Ticket.create(ticket)
+    const request = await Ticket.create(ticket);
     //both asset and ticket are assigned the same customer id.
-    asset['assetCustomerId'] = ticket['ticketCustomerId']
+    asset["assetCustomerId"] = ticket["ticketCustomerId"];
     //add ticket number to asset number, after ticket has been created.
-    asset['assetTicketNumber'] = await request.id
+    asset["assetTicketNumber"] = await request.id;
 
     Asset.create(asset);
-    
-    res.send(await request)
+
+    res.send(await request);
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 };
 
@@ -52,11 +53,11 @@ exports.findAll = (req, res) => {
     });
 };
 
-exports.findByRoleId = (req, res) => {
+exports.findByTicketId = (req, res) => {
   const id = req.params.id;
 
   Ticket.findAll({
-    where: { roleId: id },
+    where: { id: id },
   })
     .then((data) => {
       res.send(data);
@@ -69,14 +70,11 @@ exports.findByRoleId = (req, res) => {
     });
 };
 
-exports.findByRole = (req, res) => {
+exports.findByCustomerId = (req, res) => {
   const id = req.params.id;
+
   Ticket.findAll({
-    where: {
-      roleId: {
-        [Op.lte]: id,
-      },
-    },
+    where: { ticketCustomerId: id },
   })
     .then((data) => {
       res.send(data);
@@ -108,7 +106,7 @@ exports.update = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating Tutorial with id=" + id,
+        message: "Error updating Tutorial with id=" + id + err,
       });
     });
 };
