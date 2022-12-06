@@ -13,6 +13,10 @@ class AssetService {
     return axios.get(API_URL + `customer/${customerId}`, { headers: authHeader() });
   }
 
+  getAssetByTicketId(ticketId) {
+    return axios.get(API_URL + `ticket/${ticketId}`, { headers: authHeader() });
+  }
+
   getAssetFields() {
     return axios.get(API_URL + 'fields/', { headers: authHeader() });
   }

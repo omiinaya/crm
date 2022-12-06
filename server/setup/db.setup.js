@@ -193,7 +193,7 @@ function dummyData() {
   assets.forEach(asset => {
     Asset.create({
       assetCustomerId: asset.assetCustomerId,
-      assetTicketNumber: asset.assetTicketNumber,
+      assetTicketId: asset.assetTicketId,
       assetType: asset.assetType,
       assetBrand: asset.assetBrand,
       assetName: asset.assetName,

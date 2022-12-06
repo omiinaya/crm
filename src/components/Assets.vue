@@ -71,8 +71,6 @@ export default defineComponent({
         fullName = `${customer[0].firstName} ${customer[0].lastName}`
         item['customerName'] = fullName;
       })
-
-      console.log(this.items)
     },
 
     async formatDate() {

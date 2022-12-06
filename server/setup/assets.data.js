@@ -1,7 +1,7 @@
 const assets = [
     {
       assetCustomerId: 1,
-      assetTicketNumber: 2,
+      assetTicketId: 1,
       assetType: "Laptop",
       assetBrand: "Lenovo",
       assetName: "Yoga 13",
@@ -10,7 +10,7 @@ const assets = [
     },
     {
       assetCustomerId: 1,
-      assetTicketNumber: 2,
+      assetTicketId: 2,
       assetType: "Laptop",
       assetBrand: "Lenovo",
       assetName: "Yoga X13",
@@ -19,7 +19,7 @@ const assets = [
     },
     {
       assetCustomerId: 2,
-      assetTicketNumber: 3,
+      assetTicketId: 3,
       assetType: "Laptop",
       assetBrand: "Lenovo",
       assetName: "Yoga X14",

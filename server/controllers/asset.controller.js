@@ -52,6 +52,23 @@ exports.findByCustomerId = (req, res) => {
     });
 };
 
+exports.findByTicketId = (req, res) => {
+  const id = req.params.id;
+
+  Asset.findAll({
+    where: { assetTicketId: id },
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials.",
+      });
+    });
+};
+
 exports.findById = (req, res) => {
   const id = req.params.id;
 

@@ -22,7 +22,7 @@ const assetFields = [
     show: false
   },
   {
-    name: "assetTicketNumber",
+    name: "assetTicketId",
     label: "Ticket Number",
     type: "text",
     placeholder: "Ticket Number",

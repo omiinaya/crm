@@ -11,6 +11,7 @@ module.exports = app => {
     router.get("/", asset.findAll);
     router.get("/id/:id", asset.findById)
     router.get("/customer/:id", asset.findByCustomerId);
+    router.get("/ticket/:id", asset.findByTicketId);
     router.get("/fields", assetFields.findAll);
 
     //put

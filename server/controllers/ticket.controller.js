@@ -30,7 +30,7 @@ exports.create = async (req, res) => {
     //both asset and ticket are assigned the same customer id.
     asset["assetCustomerId"] = ticket["ticketCustomerId"];
     //add ticket number to asset number, after ticket has been created.
-    asset["assetTicketNumber"] = await request.id;
+    asset["assetTicketId"] = await request.id;
 
     Asset.create(asset);
 
