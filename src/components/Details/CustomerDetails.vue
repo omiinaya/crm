@@ -135,9 +135,9 @@ export default {
     },
   },
   created() {
-    this.loadCustomerData(this.storeX.id)
-    this.loadTicketData(this.storeX.id)
-    this.loadAssetData(this.storeX.id)
+    this.loadCustomerData(this.storeX.customerId)
+    this.loadTicketData(this.storeX.customerId)
+    this.loadAssetData(this.storeX.customerId)
   },
 }
 </script>

@@ -4,16 +4,13 @@
       Customers
       <div class="row">
         <div class="col-12 section">
-          <EasyDataTable :headers="headers" :items="items" theme-color="#1d90ff" table-class-name="customize-table"
-            header-text-direction="center" body-text-direction="center">
-
+          <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="items" theme-color="#1d90ff"
+            table-class-name="customize-table" header-text-direction="center" body-text-direction="center">
             <template #item-name="{ firstName, lastName, id }">
-              <!--<a  @click="openCustomer(id)">{{firstName}} {{lastName}}</a>-->
               <button type="button" class="btn btn-lg" v-on:click="openCustomer(id)">
                 {{ firstName }} {{ lastName }}
               </button>
             </template>
-
           </EasyDataTable>
         </div>
       </div>
@@ -40,13 +37,14 @@ export default defineComponent({
         { value: "customerType", text: "TYPE", sortable: true },
         { value: "createdAt", text: "CREATED", sortable: true }
       ],
-      items: []
+      items: [],
+      itemsSelected: []
     };
   },
   methods: {
     async openCustomer(id) {
       storeX.view = 'customer'
-      storeX.id = id
+      storeX.customerId = id
     },
     async loadCustomerData() {
       const request = await CustomerService.getCustomers()
@@ -68,12 +66,12 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
 .top {
   padding: 20px;
   padding-bottom: 0;
   font-size: 24px;
 }
+
 .section {
   margin-top: 25px;
   background: #1f1f1f;
