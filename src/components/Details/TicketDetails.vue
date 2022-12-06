@@ -97,6 +97,22 @@ export default {
 </script>
   
 <style scoped>
+
+.btn {
+  width: 100%;
+  font-size: 14px;
+  color: #c1cad4;
+  padding: 0;
+}
+
+.btn:focus {
+  box-shadow: none !important;
+  border-color: transparent !important;
+}
+.btn:hover {
+  text-decoration: underline;
+}
+
 li {
   color: #c0c7d2;
 }

@@ -189,6 +189,10 @@ export default {
   border-color: transparent !important;
 }
 
+.btn:hover {
+  text-decoration: underline;
+}
+
 li {
   color: #c0c7d2;
 }
