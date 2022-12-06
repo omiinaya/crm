@@ -2,12 +2,21 @@
   <div class="row">
     <div class="col-11 offset-1">
       <div clas="row">
-        <div class="col-12 top">{{ customerName }}</div>
+        <div class="col-12 top">
+          <div class="row">
+            <div class="col-9">{{ customerName }}</div>
+            <div class="col-3">test</div>
+          </div>
+        </div>
       </div>
       <div class="row">
         <div class="col-3">
           <div class="section">
-            <div class="title">Customer Information</div>
+
+            <div class="title">
+              <i class="bi bi-person-circle"></i>
+              Customer Information
+            </div>
             <div class="content">
               <ul>
                 <li>Email: {{ customerEmail }}</li>
@@ -17,39 +26,39 @@
             </div>
           </div>
           <div class="section">
-            <div class="title">Overview</div>
+            <div class="title">
+              <i class="bi bi-info-circle"></i>
+              Overview
+            </div>
             <div class="content">PLACEHOLDER</div>
           </div>
         </div>
         <div class="col-8">
           <div class="section">
-            <div class="title">Tickets</div>
+            <div class="title">
+              <i class="bi bi-tag"></i>
+              Tickets
+            </div>
             <div class="content">
-              <EasyDataTable
-                :headers="ticketHeaders"
-                :items="ticketItems"
-                theme-color="#1d90ff"
-                table-class-name="customize-table"
-                header-text-direction="center"
-                body-text-direction="center"
-              />
+              <EasyDataTable :headers="ticketHeaders" :items="ticketItems" theme-color="#1d90ff"
+                table-class-name="customize-table" header-text-direction="center" body-text-direction="center" />
             </div>
           </div>
           <div class="section">
-            <div class="title">Assets</div>
+            <div class="title">
+              <i class="bi bi-laptop"></i>
+              Assets
+            </div>
             <div class="content">
-              <EasyDataTable
-                :headers="assetHeaders"
-                :items="assetItems"
-                theme-color="#1d90ff"
-                table-class-name="customize-table"
-                header-text-direction="center"
-                body-text-direction="center"
-              />
+              <EasyDataTable :headers="assetHeaders" :items="assetItems" theme-color="#1d90ff"
+                table-class-name="customize-table" header-text-direction="center" body-text-direction="center" />
             </div>
           </div>
           <div class="section">
-            <div class="title">Invoices</div>
+            <div class="title">
+              <i class="bi bi-person-circle"></i>
+              Invoices
+            </div>
             <div class="content">PLACEHOLDER</div>
           </div>
         </div>
@@ -77,19 +86,19 @@ export default {
     customerAddress: null,
     customerCreated: null,
     ticketHeaders: [
-        { value: "id", text: "ID", sortable: true },
-        { value: "ticketTitle", text: "TITLE", sortable: true },
-        { value: "ticketDesc", text: "DESCRIPTION", sortable: true },
-        { value: "createdAt", text: "CREATED", sortable: true },
-        { value: "ticketStatus", text: "STATUS", sortable: true },
-      ],
+      { value: "id", text: "ID", sortable: true },
+      { value: "ticketTitle", text: "TITLE", sortable: true },
+      { value: "ticketDesc", text: "DESCRIPTION", sortable: true },
+      { value: "createdAt", text: "CREATED", sortable: true },
+      { value: "ticketStatus", text: "STATUS", sortable: true },
+    ],
     ticketItems: [],
     assetHeaders: [
-        { value: "id", text: "ID", sortable: true },
-        { value: "assetName", text: "NAME", sortable: true },
-        { value: "assetSerial", text: "SERIAL", sortable: true },
-        { value: "assetType", text: "TYPE", sortable: true },
-        { value: "assetBrand", text: "MANUFACTURER", sortable: true }
+      { value: "id", text: "ID", sortable: true },
+      { value: "assetName", text: "NAME", sortable: true },
+      { value: "assetSerial", text: "SERIAL", sortable: true },
+      { value: "assetType", text: "TYPE", sortable: true },
+      { value: "assetBrand", text: "MANUFACTURER", sortable: true }
     ],
     assetItems: [],
     storeX
@@ -135,6 +144,10 @@ export default {
 </script>
   
 <style>
+.title {
+  font-size: 18px;
+}
+
 ul {
   list-style: none;
   padding: 0;
@@ -155,6 +168,7 @@ ul {
 
 .content {
   padding-top: 15px;
+  font-size: 14px;
 }
 
 .customize-table {
