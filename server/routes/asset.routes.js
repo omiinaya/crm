@@ -3,13 +3,21 @@ module.exports = app => {
     const assetFields = require("../controllers/fields/asset.fields.controller");
     const router = require("express").Router();
 
+
+    //post
     router.post("/", asset.create);
+
+    //get
     router.get("/", asset.findAll);
+    router.get("/id/:id", asset.findById)
+    router.get("/customer/:id", asset.findByCustomerId);
     router.get("/fields", assetFields.findAll);
-    //router.get("/:id", assetField.findByRoleId)
-    //router.get("/role/:id", assetField.findByRole)
-    //router.put("/:id", assetField.update);
-    //router.delete("/:id", assetField.delete);
-  
+
+    //put
+    router.put("/id/:id", asset.update);
+
+    //delete
+    router.delete("/id/:id", asset.delete);
+    
     app.use('/api/asset', router);
   };

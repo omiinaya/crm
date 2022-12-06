@@ -10,11 +10,11 @@ class TicketService {
   }
 
   getTicketsByCustomer(customerId) {
-    return axios.get(API_URL, `customer/${customerId}`);
+    return axios.get(API_URL + `customer/${customerId}`, { headers: authHeader() });
   }
 
   getTicketById(ticketId) {
-    return axios.get(API_URL, `id/${ticketId}`);
+    return axios.get(API_URL + `id/${ticketId}`, { headers: authHeader() });
   }
 
   getTicketFields() {

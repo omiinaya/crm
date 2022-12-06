@@ -38,7 +38,16 @@
 
           <div class="section">
             <div class="title">Assets</div>
-            <div class="content">PLACEHOLDER</div>
+            <div class="content">
+              <EasyDataTable
+                :headers="assetHeaders"
+                :items="assetItems"
+                theme-color="#1d90ff"
+                table-class-name="customize-table"
+                header-text-direction="center"
+                body-text-direction="center"
+              />
+            </div>
           </div>
 
           <div class="section">
@@ -55,6 +64,7 @@
 import { storeX } from "../../store/index";
 import CustomerService from "../../services/customer.service";
 import TicketService from "../../services/ticket.service";
+import AssetService from "../../services/asset.service";
 import moment from 'moment'
 
 export default {
@@ -71,10 +81,19 @@ export default {
     ticketHeaders: [
         { value: "id", text: "ID", sortable: true },
         { value: "ticketTitle", text: "TITLE", sortable: true },
+        { value: "ticketDesc", text: "DESCRIPTION", sortable: true },
         { value: "createdAt", text: "CREATED", sortable: true },
         { value: "ticketStatus", text: "STATUS", sortable: true },
       ],
     ticketItems: [],
+    assetHeaders: [
+        { value: "id", text: "ID", sortable: true },
+        { value: "assetName", text: "NAME", sortable: true },
+        { value: "assetSerial", text: "SERIAL", sortable: true },
+        { value: "assetType", text: "TYPE", sortable: true },
+        { value: "assetBrand", text: "MANUFACTURER", sortable: true }
+    ],
+    assetItems: [],
     storeX
   }),
   methods: {
@@ -96,6 +115,12 @@ export default {
       this.ticketItems = await data;
       this.formatDate();
     },
+    async loadAssetData(id) {
+      const request = await AssetService.getAssetsByCustomer(id)
+      const data = await request.data;
+
+      this.assetItems = await data;
+    },
     async formatDate() {
       this.ticketItems.forEach(item => {
         item.createdAt = moment(item.createdAt).format('MM-DD-YYYY HH:MM A');
@@ -106,6 +131,7 @@ export default {
   created() {
     this.loadCustomerData(this.storeX.id)
     this.loadTicketData(this.storeX.id)
+    this.loadAssetData(this.storeX.id)
   },
 }
 </script>
@@ -130,7 +156,7 @@ ul {
 }
 
 .content {
-  padding-top: 20px;
+  padding-top: 15px;
 }
 
 .customize-table {

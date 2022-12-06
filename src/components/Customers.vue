@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <EasyDataTable :headers="headers" :items="items" theme-color="#1d90ff" table-class-name="customize-table"
-      header-text-direction="center" body-text-direction="center" v-on:click="testing123($event)">
+      header-text-direction="center" body-text-direction="center">
      
       <template #item-name="{ firstName, lastName, id }">
         <!--<a  @click="openCustomer(id)">{{firstName}} {{lastName}}</a>-->
@@ -51,9 +51,6 @@ export default defineComponent({
         item.createdAt = moment(item.createdAt).format('MM-DD-YYYY HH:MM A');
       })
     },
-    async testing123(a) {
-      console.log(a)
-    }
   },
   async created() {
     this.loadCustomerData()

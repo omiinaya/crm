@@ -1,6 +1,5 @@
 const db = require("../models");
 const Asset = db.asset
-const Op = db.Sequelize.Op;
 const axios = require('axios')
 
 exports.create = async (req, res) => {
@@ -36,11 +35,11 @@ exports.findAll = (req, res) => {
     });
 };
 
-exports.findByRoleId = (req, res) => {
+exports.findByCustomerId = (req, res) => {
   const id = req.params.id;
 
   Asset.findAll({
-    where: { roleId: id },
+    where: { assetCustomerId: id },
   })
     .then((data) => {
       res.send(data);
@@ -53,14 +52,11 @@ exports.findByRoleId = (req, res) => {
     });
 };
 
-exports.findByRole = (req, res) => {
+exports.findById = (req, res) => {
   const id = req.params.id;
+
   Asset.findAll({
-    where: {
-      roleId: {
-        [Op.lte]: id,
-      },
-    },
+    where: { id: id },
   })
     .then((data) => {
       res.send(data);
@@ -92,7 +88,7 @@ exports.update = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating Tutorial with id=" + id,
+        message: "Error updating Tutorial with id=" + id + err,
       });
     });
 };

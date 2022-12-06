@@ -72,7 +72,8 @@ exports.findByTicketId = (req, res) => {
 
 exports.findByCustomerId = (req, res) => {
   const id = req.params.id;
-
+  console.log(id)
+  
   Ticket.findAll({
     where: { ticketCustomerId: id },
   })
