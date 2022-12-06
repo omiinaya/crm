@@ -2,17 +2,22 @@
   <div class="row">
     <div class="col-11 offset-1">
       <div clas="row">
-        <div class="col-12 top">
+        <div class="col-12">
           <div class="row">
-            <div class="col-9">#{{ ticketNumber }}</div>
-            <div class="col-3">test</div>
+            <div class="col-9 top">#{{ ticketNumber }}</div>
+            <div class="col-3 top">test</div>
+          </div>
+          <div class="row">
+            <div class="col-12 title">
+              {{ ticketTitle }}
+            </div>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-3">
           <div class="section">
-            <div class="title">
+            <div class="header">
               <i class="bi bi-tag"></i>
               Ticket Information
             </div>
@@ -21,7 +26,7 @@
             </div>
           </div>
           <div class="section">
-            <div class="title">
+            <div class="header">
               <i class="bi bi-person-circle"></i>
               Customer Information
             </div>
@@ -30,7 +35,7 @@
             </div>
           </div>
           <div class="section">
-            <div class="title">
+            <div class="header">
               <i class="bi bi-paperclip"></i>
               Attachments
             </div>
@@ -41,7 +46,7 @@
         </div>
         <div class="col-8">
           <div class="section">
-            <div class="title">
+            <div class="header">
               <i class="bi bi-laptop"></i>
               Relevant Assets
             </div>
@@ -50,7 +55,7 @@
             </div>
           </div>
           <div class="section">
-            <div class="title">
+            <div class="header">
               <i class="bi bi-chat-dots"></i>
               Communications
             </div>
@@ -66,7 +71,7 @@
   
 <script>
 import { storeX } from "../../store/index";
-//import TicketService from "../../services/ticket.service";
+import TicketService from "../../services/ticket.service";
 //import moment from 'moment'
 
 export default {
@@ -74,13 +79,19 @@ export default {
   components: {},
   data: () => ({
     storeX,
-
+    ticketTitle: null,
   }),
   methods: {
+    async loadTicketdata(id) {
+      const request = await TicketService.getTicketById(id)
+      const data = await request.data[0];
+      this.ticketTitle = data.ticketTitle;
+      console.log(data)
+    }
   },
   created() {
     this.ticketNumber = this.storeX.ticketId.toString().padStart(5, '0');
-
+    this.loadTicketdata(this.storeX.ticketId)
   },
 }
 </script>
@@ -91,6 +102,9 @@ li {
 }
 
 .title {
+  font-size: 22px;
+}
+.header {
   font-size: 18px;
 }
 

@@ -70,8 +70,6 @@ export default defineComponent({
         fullName = `${customer[0].firstName} ${customer[0].lastName}`
         item['customerName'] = fullName;
       })
-
-      console.log(fullName)
     },
 
     async formatDate() {
@@ -93,6 +91,12 @@ export default defineComponent({
   padding: 20px;
   padding-bottom: 0;
   font-size: 24px;
+}
+
+.section {
+  margin-top: 25px;
+  background: #1f1f1f;
+  padding: 25px;
 }
 
 .customize-table {

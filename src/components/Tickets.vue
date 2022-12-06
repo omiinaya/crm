@@ -6,8 +6,8 @@
         <div class="col-12 section">
           <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="items" theme-color="#1d90ff"
             table-class-name="customize-table" header-text-direction="center" body-text-direction="center">
-            <template #item-customerName="{ customerName, id }">
-              <button type="button" class="btn btn-lg" v-on:click="openCustomer(id)">
+            <template #item-customerName="{ customerName, ticketCustomerId }">
+              <button type="button" class="btn btn-lg" v-on:click="openCustomer(ticketCustomerId)">
                 {{ customerName }}
               </button>
             </template>
@@ -111,6 +111,12 @@ export default defineComponent({
 .btn:focus {
   box-shadow: none !important;
   border-color: transparent !important;
+}
+
+.section {
+  margin-top: 25px;
+  background: #1f1f1f;
+  padding: 25px;
 }
 
 .top {

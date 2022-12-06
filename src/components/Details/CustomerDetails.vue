@@ -12,7 +12,7 @@
       <div class="row">
         <div class="col-3">
           <div class="section">
-            <div class="title">
+            <div class="header">
               <i class="bi bi-person-circle"></i>
               Customer Information
             </div>
@@ -25,21 +25,21 @@
             </div>
           </div>
           <div class="section">
-            <div class="title">
+            <div class="header">
               <i class="bi bi-info-circle"></i>
               Overview
             </div>
             <div class="content">
               <div class="row">
                 <div class="col-6">
-                  <div class="title">Tickets: </div>
+                  <div class="header">Tickets: </div>
                   <ul>
                     <li>Open: {{openTickets}}</li>
                     <li>Closed: {{closedTickets}}</li>
                   </ul>
                 </div>
                 <div class="col-6">
-                  <div class="title">Invoices: </div>
+                  <div class="header">Invoices: </div>
                   <ul>
                     <li>Unpaid: 0</li>
                     <li>Total: 0</li>
@@ -51,7 +51,7 @@
         </div>
         <div class="col-8">
           <div class="section">
-            <div class="title">
+            <div class="header">
               <i class="bi bi-tag"></i>
               Tickets
             </div>
@@ -67,7 +67,7 @@
             </div>
           </div>
           <div class="section">
-            <div class="title">
+            <div class="header">
               <i class="bi bi-laptop"></i>
               Assets
             </div>
@@ -77,7 +77,7 @@
             </div>
           </div>
           <div class="section">
-            <div class="title">
+            <div class="header">
               <i class="bi bi-person-circle"></i>
               Invoices
             </div>
@@ -192,7 +192,7 @@ export default {
 li {
   color: #c0c7d2;
 }
-.title {
+.header {
   font-size: 18px;
 }
 
