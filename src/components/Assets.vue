@@ -6,10 +6,9 @@
         <div class="col-12 section">
           <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="items" theme-color="#1d90ff" table-class-name="customize-table"
             header-text-direction="center" body-text-direction="center">
-            <template #item-name="{ firstName, lastName, /*id*/ }">
-              <!--v-on:click="openCustomer(id)"-->
-              <button type="button" class="btn btn-lg">
-                {{ firstName }} {{ lastName }}
+            <template #item-customerName="{ customerName, assetCustomerId }">
+              <button type="button" class="btn btn-lg" v-on:click="openCustomer(assetCustomerId)">
+                {{ customerName }}
               </button>
             </template>
           </EasyDataTable>
@@ -33,8 +32,8 @@ export default defineComponent({
       storeX,
       headers: [
         { value: "id", text: "ID", sortable: true },
-        { value: "assetName", text: "NAME", sortable: true },
         { value: "customerName", text: "CUSTOMER", sortable: true },
+        { value: "assetName", text: "NAME", sortable: true },
         { value: "assetSerial", text: "SERIAL", sortable: true },
         { value: "assetType", text: "TYPE", sortable: true },
         { value: "assetBrand", text: "MANUFACTURER", sortable: true }
@@ -44,9 +43,11 @@ export default defineComponent({
     };
   },
   methods: {
-    testing123(a) {
-      console.log(a)
+    async openCustomer(id) {
+      storeX.view = 'customer'
+      storeX.customerId = id
     },
+
     async loadAssetData() {
       const req = await AssetService.getAssets()
       const assets = await req.data;
@@ -70,13 +71,19 @@ export default defineComponent({
         fullName = `${customer[0].firstName} ${customer[0].lastName}`
         item['customerName'] = fullName;
       })
+
+      console.log(this.items)
     },
 
     async formatDate() {
       this.items.forEach(item => {
         item.createdAt = moment(item.createdAt).format('MM-DD-YYYY HH:MM A');
       })
-    }
+    },
+
+    testing123(a) {
+      console.log(a)
+    },
   },
   async created() {
     this.loadAssetData()
@@ -87,6 +94,22 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
+.btn {
+  width: 100%;
+  font-size: 14px;
+  color: #c1cad4;
+  padding: 0;
+}
+
+.btn:focus {
+  box-shadow: none !important;
+  border-color: transparent !important;
+}
+
+.btn:hover {
+  text-decoration: underline;
+}
 .top {
   padding: 20px;
   padding-bottom: 0;

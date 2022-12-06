@@ -113,6 +113,10 @@ export default defineComponent({
   border-color: transparent !important;
 }
 
+.btn:hover {
+  text-decoration: underline;
+}
+
 .section {
   margin-top: 25px;
   background: #1f1f1f;

@@ -90,6 +90,10 @@ export default defineComponent({
   border-color: transparent;
 }
 
+.btn:hover {
+  text-decoration: underline;
+}
+
 .customize-table {
   --easy-table-border: 1px solid #1f1f1f;
   --easy-table-row-border: 1px solid #1f1f1f;
