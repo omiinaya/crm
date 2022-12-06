@@ -12,7 +12,6 @@
       <div class="row">
         <div class="col-3">
           <div class="section">
-
             <div class="title">
               <i class="bi bi-person-circle"></i>
               Customer Information
