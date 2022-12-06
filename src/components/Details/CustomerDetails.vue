@@ -1,19 +1,41 @@
 <template>
   <div class="row">
-    <div class="col-12 offset-1">
+    <div class="col-11 offset-1">
+      <div clas="row">
+        <div class="col-12 top">{{ customerName }}</div>
+      </div>
       <div class="row">
-        <div class="col-5">
-          <div>
+        <div class="col-3">
+          <div class="section">
             <div class="title">Customer Information</div>
-            <ul>
-              <li>Name: {{ customerName }}</li>
-              <li>Email: {{ customerEmail }}</li>
-              <li>Created: {{ customerCreated }}</li>
-            </ul>
+            <div class="content">
+              <ul>
+                <li>Email: {{ customerEmail }}</li>
+                <li>Created: {{ customerCreated }}</li>
+              </ul>
+            </div>
           </div>
-          <div>Overview</div>
+          <div class="section">
+            <div class="title">Overview</div>
+            <div class="content">PLACEHOLDER</div>
+          </div>
         </div>
-        <div class="col-6">Tickets</div>
+        <div class="col-8">
+          <div class="section">
+            <div class="title">Tickets</div>
+            <div class="content">PLACEHOLDER</div>
+          </div>
+
+          <div class="section">
+            <div class="title">Assets</div>
+            <div class="content">PLACEHOLDER</div>
+          </div>
+
+          <div class="section">
+            <div class="title">Invoices</div>
+            <div class="content">PLACEHOLDER</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -57,5 +79,24 @@ export default {
 </script>
   
 <style>
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
+.top {
+  padding: 25px;
+  padding-bottom: 0;
+}
+
+.section {
+  margin-top: 25px;
+  background: #1f1f1f;
+  padding: 25px;
+}
+
+.content {
+  padding-top: 20px;
+}
 </style>
