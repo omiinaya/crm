@@ -20,7 +20,8 @@
       <NewCustomer v-else-if="storeX.view === 'newCustomer'" />
       <NewTicket v-else-if="storeX.view === 'newTicket'" />
       <NewAsset v-else-if="storeX.view === 'newAsset'" />
-      <CustomerDetail v-else-if="storeX.view === 'customer'" /> 
+      <CustomerDetail v-else-if="storeX.view === 'customer'" />
+      <TicketDetail v-else-if="storeX.view === 'ticket'" />
     </ion-content>
   </ion-page>
 </template>
@@ -44,6 +45,7 @@ import NewCustomer from '../components/New/NewCustomer.vue';
 import NewTicket from '../components/New/NewTicket.vue';
 import NewAsset from '../components/New/NewAsset.vue';
 import CustomerDetail from '../components/Details/CustomerDetails.vue';
+import TicketDetail from '../components/Details/TicketDetails.vue';
 import { useRoute } from 'vue-router'
 
 export default defineComponent({
@@ -82,6 +84,7 @@ export default defineComponent({
     NewTicket,
     NewAsset,
     CustomerDetail,
+    TicketDetail,
   },
 });
 </script>

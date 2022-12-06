@@ -29,7 +29,24 @@
               <i class="bi bi-info-circle"></i>
               Overview
             </div>
-            <div class="content">PLACEHOLDER</div>
+            <div class="content">
+              <div class="row">
+                <div class="col-6">
+                  <div class="title">Tickets: </div>
+                  <ul>
+                    <li>Open: {{openTickets}}</li>
+                    <li>Closed: {{closedTickets}}</li>
+                  </ul>
+                </div>
+                <div class="col-6">
+                  <div class="title">Invoices: </div>
+                  <ul>
+                    <li>Unpaid: 0</li>
+                    <li>Total: 0</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-8">
@@ -40,7 +57,13 @@
             </div>
             <div class="content">
               <EasyDataTable :headers="ticketHeaders" :items="ticketItems" theme-color="#1d90ff"
-                table-class-name="customize-table" header-text-direction="center" body-text-direction="center" />
+                table-class-name="customize-table" header-text-direction="center" body-text-direction="center">
+                <template #item-ticketTitle="{ ticketTitle, id }">
+                  <button type="button" class="btn btn-lg" v-on:click="openTicket(id)">
+                    {{ ticketTitle }}
+                  </button>
+                </template>
+              </EasyDataTable>
             </div>
           </div>
           <div class="section">
@@ -77,6 +100,7 @@ export default {
   name: 'CustomerDetailsPage',
   components: {},
   data: () => ({
+    storeX,
     customerData: null,
     customerName: null,
     customerPhone: null,
@@ -100,9 +124,17 @@ export default {
       { value: "assetBrand", text: "MANUFACTURER", sortable: true }
     ],
     assetItems: [],
-    storeX
+    openTickets: null,
+    closedTickets: null,
+    //TODO: calc this instead of hard coding
+    paidInvoices: 0,
+    unpaidInvoices: 0
   }),
   methods: {
+    async openTicket(id) {
+      storeX.view = 'ticket'
+      storeX.ticketId = id
+    },
     async loadCustomerData(id) {
       const request = await CustomerService.getCustomerById(id)
       const data = await request.data[0];
@@ -119,6 +151,8 @@ export default {
       const data = await request.data;
 
       this.ticketItems = await data;
+      this.openTickets = this.ticketItems.filter(ticket => ticket.ticketStatus != 'Closed').length
+      this.closedTickets = this.ticketItems.filter(ticket => ticket.ticketStatus === 'Closed').length
       this.formatDate();
     },
     async loadAssetData(id) {
@@ -142,7 +176,22 @@ export default {
 }
 </script>
   
-<style>
+<style scoped>
+.btn {
+  width: 100%;
+  font-size: 14px;
+  color: #c1cad4;
+  padding: 0;
+}
+
+.btn:focus {
+  box-shadow: none !important;
+  border-color: transparent !important;
+}
+
+li {
+  color: #c0c7d2;
+}
 .title {
   font-size: 18px;
 }

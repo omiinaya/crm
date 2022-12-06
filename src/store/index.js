@@ -10,7 +10,8 @@ const store = createStore({
 
 export const storeX = reactive({
   view: null,
-  customerId: null
+  customerId: null,
+  ticketId: null
 })
 
 export default store;

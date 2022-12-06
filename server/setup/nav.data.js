@@ -56,6 +56,13 @@ const navs = [
     },
     {
       id: 9,
+      title: "Projects",
+      icon: "bi bi-box",
+      url: "projects",
+      roleId: 3
+    },
+    {
+      id: 9,
       title: "Admin",
       icon: "bi bi-gear",
       url: "admin",
