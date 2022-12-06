@@ -74,13 +74,6 @@ export default {
   components: {},
   data: () => ({
     storeX,
-    customerData: null,
-    customerName: null,
-    customerPhone: null,
-    customerEmail: null,
-    customerNumber: null,
-    customerAddress: null,
-    customerCreated: null,
 
   }),
   methods: {

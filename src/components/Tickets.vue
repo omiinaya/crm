@@ -6,10 +6,14 @@
         <div class="col-12 section">
           <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="items" theme-color="#1d90ff"
             table-class-name="customize-table" header-text-direction="center" body-text-direction="center">
-            <template #item-name="{ firstName, lastName, /*id*/ }">
-              <!--v-on:click="openCustomer(id)"-->
-              <button type="button" class="btn btn-lg">
-                {{ firstName }} {{ lastName }}
+            <template #item-customerName="{ customerName, id }">
+              <button type="button" class="btn btn-lg" v-on:click="openCustomer(id)">
+                {{ customerName }}
+              </button>
+            </template>
+            <template #item-ticketTitle="{ ticketTitle, id }">
+              <button type="button" class="btn btn-lg" v-on:click="openTicket(id)">
+                {{ ticketTitle }}
               </button>
             </template>
           </EasyDataTable>
@@ -33,8 +37,8 @@ export default defineComponent({
       storeX,
       headers: [
         { value: "id", text: "ID", sortable: true },
-        { value: "customerName", text: "CUSTOMER", sortable: true },
         { value: "ticketTitle", text: "TITLE", sortable: true },
+        { value: "customerName", text: "CUSTOMER", sortable: true },
         { value: "ticketDesc", text: "DESCRIPTION", sortable: true },
         { value: "ticketTech", text: "TECHNICIAN", sortable: true },
         { value: "createdAt", text: "CREATED", sortable: true },
@@ -48,6 +52,14 @@ export default defineComponent({
   methods: {
     testing123(a) {
       console.log(a)
+    },
+    async openTicket(id) {
+      storeX.view = 'ticket'
+      storeX.ticketId = id
+    },
+    async openCustomer(id) {
+      storeX.view = 'customer'
+      storeX.customerId = id
     },
     async loadTicketData() {
       const req = await TicketService.getTickets();
@@ -65,8 +77,10 @@ export default defineComponent({
     async loadCustomerData() {
       const req = await CustomerService.getCustomers();
       const customers = await req.data;
+
       let fullName = '';
-      this.items.forEach(item => {
+      for (let i = 0; i < this.items.length; i++) {
+        const item = this.items[i]
         const customer = customers.filter(customer => {
           const customerId = parseInt(customer.id)
           const ticketCustomerId = parseInt(item.ticketCustomerId)
@@ -75,7 +89,7 @@ export default defineComponent({
         });
         fullName = `${customer[0].firstName} ${customer[0].lastName}`
         item['customerName'] = fullName;
-      })
+      }
     }
   },
   async created() {
@@ -87,6 +101,18 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.btn {
+  width: 100%;
+  font-size: 14px;
+  color: #c1cad4;
+  padding: 0;
+}
+
+.btn:focus {
+  box-shadow: none !important;
+  border-color: transparent !important;
+}
+
 .top {
   padding: 20px;
   padding-bottom: 0;
