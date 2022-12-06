@@ -21,7 +21,6 @@
   
 <script>
 import { storeX } from "../../store/index";
-import { useRoute } from 'vue-router'
 import CustomerService from "../../services/customer.service"
 import moment from 'moment'
 
@@ -52,8 +51,7 @@ export default {
     },
   },
   created() {
-    const route = useRoute()
-    this.loadCustomerData(route.query.id)
+    this.loadCustomerData(this.storeX.id)
   },
 }
 </script>

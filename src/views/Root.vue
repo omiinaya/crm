@@ -60,6 +60,7 @@ export default defineComponent({
     if (!Object.keys(route.query).length) return
     if (!route.query.view) return
     storeX.view = route.query.view
+    storeX.id = route.query.id
   },
   components: {
     IonContent,

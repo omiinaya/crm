@@ -4,7 +4,10 @@
       header-text-direction="center" body-text-direction="center" v-on:click="testing123($event)">
      
       <template #item-name="{ firstName, lastName, id }">
-        <a target="_blank" :href="`?view=customer&id=${id}`">{{firstName}} {{lastName}}</a>
+        <!--<a  @click="openCustomer(id)">{{firstName}} {{lastName}}</a>-->
+        <button type="button" class="btn btn-lg" v-on:click="openCustomer(id)">
+          {{firstName}} {{lastName}}
+          </button>
       </template>
      
     </EasyDataTable>
@@ -33,8 +36,9 @@ export default defineComponent({
     };
   },
   methods: {
-    testing123(a) {
-      console.log(a)
+    async openCustomer(id) {
+      storeX.view = 'customer'
+      storeX.id = id
     },
     async loadCustomerData() {
       const request = await CustomerService.getCustomers()
@@ -56,6 +60,18 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
+.btn {
+  width: 100%;
+  font-size: 14px;
+  color: #c1cad4;
+  padding: 0;
+}
+
+.btn:focus {
+  box-shadow: none;
+  border-color: transparent;
+}
 .customize-table {
   --easy-table-border: 1px solid #121212;
   --easy-table-row-border: 1px solid #121212;
