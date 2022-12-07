@@ -8,7 +8,8 @@ const customerFields = [
         type: "text",
         placeholder: "First Name",
         icon: "bi bi-person",
-        data: 'STRING'
+        data: 'STRING',
+        show: true,
     },
     {
         name: "lastName",
@@ -16,7 +17,8 @@ const customerFields = [
         type: "text",
         placeholder: "Last Name",
         icon: "bi bi-person",
-        data: 'STRING'
+        data: 'STRING',
+        show: true,
     },
     {
         name: "customerType",
@@ -24,6 +26,7 @@ const customerFields = [
         type: "checkbox",
         icon: "bi bi-bar-chart-steps",
         data: 'STRING',
+        show: true,
         options: JSON.stringify(customerTypes)
     },
     {
@@ -32,6 +35,7 @@ const customerFields = [
         type: "text",
         placeholder: "Business Name",
         icon: "bi bi-building",
+        show: true,
     },
     {
         name: "schoolName",
@@ -39,6 +43,7 @@ const customerFields = [
         type: "text",
         placeholder: "School Name",
         icon: "bi bi-mortarboard",
+        show: true,
     },
     {
         name: "email",
@@ -46,7 +51,8 @@ const customerFields = [
         type: "email",
         placeholder: "Email Address",
         icon: "bi bi-envelope",
-        data: 'STRING'
+        data: 'STRING',
+        show: true,
     },
     {
         name: "phone",
@@ -55,18 +61,27 @@ const customerFields = [
         placeholder: "Phone Number",
         icon: "bi bi-telephone",
         data: 'STRING',
+        show: true,
         options: JSON.stringify(phoneTypes)
     },
-    /*
     {
-        name: "referredBy",
-        label: "Referred By",
+        name: "primaryPhone",
+        label: "Primary Phone",
         type: "text",
-        placeholder: "Referral",
-        icon: "bi bi-arrow-right-circle",
-        side: 1,
+        placeholder: "Primary Phone",
+        icon: "bi bi-telephone",
+        data: 'STRING',
+        show: false,
     },
-    */
+    {
+        name: "primaryAddress",
+        label: "Primary Address",
+        type: "text",
+        placeholder: "Primary Address",
+        icon: "bi bi-telephone",
+        data: 'STRING',
+        show: false,
+    }
 ];
 
 module.exports = customerFields

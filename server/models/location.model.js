@@ -1,31 +1,21 @@
 module.exports = (sequelize, Sequelize) => {
+
+  const locationFields = require('../setup/fields/location.fields.data')
+
+  let dynamicFields = {}
+  for (let i = 0; i < locationFields.length; i++) {
+      const field = locationFields[i]
+      if (!field.data) continue;
+      dynamicFields[field.name] = { type: Sequelize[field.data] }
+  }
+
   const Location = sequelize.define("location", {
     id: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
       primaryKey: true
     },
-    address1: {
-      type: Sequelize.STRING,
-    },
-    address2: {
-      type: Sequelize.STRING,
-    },
-    country: {
-      type: Sequelize.STRING,
-    },
-    city: {
-      type: Sequelize.STRING,
-    },
-    state: {
-      type: Sequelize.STRING,
-    },
-    zip: {
-      type: Sequelize.STRING,
-    },
-    customerId: {
-      type: Sequelize.STRING
-    }
+    ...dynamicFields
   });
 
   return Location;

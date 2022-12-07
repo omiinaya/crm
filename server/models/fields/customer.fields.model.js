@@ -20,6 +20,9 @@ module.exports = (sequelize, Sequelize) => {
     icon: {
       type: Sequelize.STRING,
     },
+    show: {
+      type: Sequelize.BOOLEAN,
+    },
     side: {
       type: Sequelize.INTEGER,
     },

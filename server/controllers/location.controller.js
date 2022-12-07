@@ -95,7 +95,7 @@ exports.update = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Tutorial with id=" + id
+                message: "Error updating Tutorial with id=" + id + err
             });
         });
 };
@@ -119,7 +119,7 @@ exports.delete = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete Tutorial with id=" + id
+                message: "Could not delete Tutorial with id=" + id + err
             });
         });
 };

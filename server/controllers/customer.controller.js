@@ -14,32 +14,43 @@ exports.create = async (req, res) => {
     return;
   }
 
-  const customerFields = await axios.get("http://localhost:8090/api/customers/fields");
-  const locationFields = await axios.get("http://localhost:8090/api/locations/fields");
-  const customerSettingsFields = await axios.get("http://localhost:8090/api/customers/settings/fields");
-  
+  const customerFields = await axios.get(
+    "http://localhost:8090/api/customers/fields"
+  );
+  const locationFields = await axios.get(
+    "http://localhost:8090/api/locations/fields"
+  );
+  const customerSettingsFields = await axios.get(
+    "http://localhost:8090/api/customers/settings/fields"
+  );
+
   const customerResponse = await customerFields.data;
   const locationResponse = await locationFields.data;
   const customerSettingsResponse = await customerSettingsFields.data;
 
-  const fields = [...customerResponse, ...locationResponse, ...customerSettingsResponse]
+  const fields = [
+    ...customerResponse,
+    ...locationResponse,
+    ...customerSettingsResponse,
+  ];
 
   let customer = {};
 
   for (let i = 0; i < fields.length; i++) {
-    console.log(fields[i])
+    //console.log(fields[i]);
     customer[fields[i].name] = req.body[fields[i].name];
   }
 
   try {
-    const request = await Customer.create(customer)
+    const request = await Customer.create(customer);
+    const customerId = await request.id;
 
     const phoneData = {
       type: req.body.phoneType,
       number: customer.phone,
       extension: req.body.extension,
-      customerId: await request.id
-    }
+      customerId: customerId,
+    };
 
     const locationData = {
       address1: customer.address1,
@@ -48,8 +59,8 @@ exports.create = async (req, res) => {
       city: customer.city,
       state: customer.state,
       zip: customer.zip,
-      customerId: await request.id
-    }
+      customerId: customerId,
+    };
 
     const settingData = {
       taxRate: customer.taxRate,
@@ -59,20 +70,29 @@ exports.create = async (req, res) => {
       billingEmails: customer.billingEmails,
       marketingEmails: customer.marketingEmails,
       reportEmails: customer.reportEmails,
-      noEmails: customer.noEmails
-    }
+      noEmails: customer.noEmails,
+    };
 
-    console.log(req.body)
-    //console.log(customer)
-    //console.log(settingData)
+    CustomerSettings.create(settingData);
 
-    Number.create(phoneData);
-    Location.create(locationData);
-    CustomerSettings.create(settingData)
+    const newPhone = await Number.create(phoneData);
+    const newAddress = await Location.create(locationData);
 
-    res.send(await request)
+    const newPhoneId = await newPhone.id;
+    const newAddressId = await newAddress.id;
+
+    const toUpdate1 = { primaryPhone: newPhoneId };
+    const options1 = { where: { id: customerId } };
+
+    const toUpdate2 = { primaryAddress: newAddressId };
+    const options2 = { where: { id: customerId } };
+
+    Customer.update(toUpdate1, options1);
+    Customer.update(toUpdate2, options2);
+
+    res.send(await request);
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 };
 
@@ -145,7 +165,7 @@ exports.update = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating Tutorial with id=" + id,
+        message: "Error updating Tutorial with id=" + id + err,
       });
     });
 };
@@ -169,7 +189,7 @@ exports.delete = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not delete Tutorial with id=" + id,
+        message: "Could not delete Tutorial with id=" + id + err,
       });
     });
 };

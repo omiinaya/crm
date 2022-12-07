@@ -9,6 +9,7 @@ const roles = require('./roles.data');
 const assets = require('./assets.data');
 const tickets = require('./tickets.data');
 const numbers = require('./numbers.data');
+const locations = require('./locations.data');
 const customers = require('./customers.data');
 const businesses = require('./businesses.data');
 
@@ -28,14 +29,15 @@ const User = db.user;
 const Home = db.home;
 const Asset = db.asset;
 const Ticket = db.ticket;
+const Number = db.number;
 const Customer = db.customer;
 const Business = db.business;
-const Number = db.number;
+const Location = db.location;
+const AssetFields = db.assetFields;
+const TicketFields = db.ticketFields;
 const CustomerFields = db.customerFields;
 const LocationFields = db.locationFields;
 const CustomerSettingsFields = db.customerSettingsFields;
-const AssetFields = db.assetFields;
-const TicketFields = db.ticketFields;
 
 const config = {
   host: process.env.HOST,
@@ -54,15 +56,16 @@ async function dbSetup() {
 }
 
 function dummyData() {
-  customers.forEach((customer) => {
+  customers.forEach((customer, index) => {
     Customer.create({
+      id: index + 1,
       firstName: customer.firstName,
       lastName: customer.lastName,
       businessName: customer.businessName,
       customerType: customer.customerType,
       email: customer.email,
-      phone: customer.phone,
-      address: customer.address,
+      primaryPhone: customer.primaryPhone,
+      primaryAddress: customer.primaryAddress,
       city: customer.city,
       state: customer.state,
       zip: customer.zip,
@@ -117,6 +120,7 @@ function dummyData() {
       placeholder: fields.placeholder,
       icon: fields.icon,
       side: fields.side,
+      show: fields.show,
       options: fields.options
     });
   });
@@ -151,16 +155,17 @@ function dummyData() {
   businesses.forEach(business => {
     Business.create({
       name: business.name
-    })
-  })
+    });
+  });
 
-  numbers.forEach(number => {
+  numbers.forEach((number, index) => {
     Number.create({
+      id: index + 1,
       type: number.type,
       number: number.number,
       customerId: number.customerId
-    })
-  })
+    });
+  });
 
   assetFields.forEach((fields, index) => {
     AssetFields.create({
@@ -174,8 +179,8 @@ function dummyData() {
       options: fields.options,
       data: fields.data,
       show: fields.show
-    })
-  })
+    });
+  });
 
   customerSettingsFields.forEach((settings, index) => {
     CustomerSettingsFields.create({
@@ -187,8 +192,8 @@ function dummyData() {
       icon: settings.icon,
       side: settings.side,
       options: settings.options
-    })
-  })
+    });
+  });
 
   assets.forEach(asset => {
     Asset.create({
@@ -199,8 +204,8 @@ function dummyData() {
       assetName: asset.assetName,
       assetSerial: asset.assetSerial,
       assetTag: asset.assetTag
-    })
-  })
+    });
+  });
 
   tickets.forEach(ticket => {
     Ticket.create({
@@ -210,8 +215,20 @@ function dummyData() {
       ticketType: ticket.ticketType,
       ticketDesc: ticket.ticketDesc,
       ticketTech: ticket.ticketTech
-    })
-  })
+    });
+  });
+
+  locations.forEach((location, index) => {
+    Location.create({
+      id: index + 1,
+      address1: location.address1,
+      address2: location.address2,
+      country: location.country,
+      state: location.state,
+      city: location.city,
+      zip: location.zip
+    });
+  });
 
   User.create({
     firstName: "Omar",

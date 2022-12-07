@@ -5,6 +5,7 @@ const locationFields = [
         type: "text",
         placeholder: "Address 1 (Street Address or P.O. Box)",
         icon: "bi bi-geo-alt",
+        data: 'STRING'
     },
     {
         name: "address2",
@@ -12,6 +13,7 @@ const locationFields = [
         type: "text",
         placeholder: "Address 2 (Apt, Suite, Unit, Building)",
         icon: "bi bi-geo-alt",
+        data: 'STRING'
     },
     {
         name: "country",
@@ -19,6 +21,7 @@ const locationFields = [
         type: "text",
         placeholder: "Country",
         icon: "bi bi-geo-alt",
+        data: 'STRING'
     },
     {
         name: "state",
@@ -26,6 +29,7 @@ const locationFields = [
         type: "text",
         placeholder: "State",
         icon: "bi bi-geo-alt",
+        data: 'STRING'
     },
     {
         name: "city",
@@ -33,6 +37,7 @@ const locationFields = [
         type: "text",
         placeholder: "City",
         icon: "bi bi-geo-alt",
+        data: 'STRING'
     },
     {
         name: "zip",
@@ -40,6 +45,7 @@ const locationFields = [
         type: "text",
         placeholder: "Zip Code",
         icon: "bi bi-geo-alt",
+        data: 'STRING'
     },
 ];
 

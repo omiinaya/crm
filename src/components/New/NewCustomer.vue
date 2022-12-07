@@ -35,8 +35,9 @@
               v-for="(field, index) in customerFields.left"
               :key="field + index"
             >
+              <div v-if="!field.show"></div>
               <div
-                v-if="field.name === 'phone'"
+                v-else-if="field.name === 'phone'"
                 class="mb-3 row align-items-center"
               >
                 <label
@@ -135,7 +136,7 @@
                 </div>
               </div>
               <div
-              v-else-if="field.name === 'businessName'"
+                v-else-if="field.name === 'businessName'"
                 class="mb-3 row align-items-center"
                 v-show="customerForm['customerType'] === customerTypes[1]"
               >
@@ -352,7 +353,6 @@ export default {
 </script>
 
 <style scoped>
-
 .col-sm-2-5 {
   flex: 0 0 21.0625%;
   max-width: 21.0625%;
