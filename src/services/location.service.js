@@ -10,6 +10,10 @@ class LocationService {
     return axios.get(API_URL);
   }
 
+  getLocationById(locationId) {
+    return axios.get(API_URL + `id/${locationId}`, { headers: authHeader() });
+  }
+
   getLocationFields() {
     return axios.get(API_URL + "fields/", { headers: authHeader() });
   }

@@ -1,6 +1,5 @@
 const db = require("../models");
 const Location = db.location;
-const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
     if (!req.body.title) {
@@ -41,29 +40,11 @@ exports.findAll = (req, res) => {
         });
 };
 
-exports.findByRoleId = (req, res) => {
+exports.findByLocationId = (req, res) => {
     const id = req.params.id;
 
     Location.findAll({
-        where: { roleId: id }
-    })
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while retrieving tutorials."
-            });
-        });
-};
-
-exports.findByRole = (req, res) => {
-    const id = req.params.id;
-    Location.findAll({
-        where: { roleId: {
-            [Op.lte]: id
-        }}
+        where: { id: id }
     })
         .then(data => {
             res.send(data);

@@ -5,8 +5,7 @@ module.exports = app => {
 
     router.post("/", location.create);
     router.get("/", location.findAll);
-    router.get("/id/:id", location.findByRoleId)
-    router.get("/role/:id", location.findByRole)
+    router.get("/id/:id", location.findByLocationId)
     router.put("/id/:id", location.update);
     router.delete("/id/:id", location.delete);
 

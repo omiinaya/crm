@@ -17,11 +17,30 @@
               Customer Information
             </div>
             <div class="content">
-              <ul>
-                <li>Email: {{ customerEmail }}</li>
-                <li>Phone: {{ customerPhone }}</li>
-                <li>Created: {{ customerCreated }}</li>
-              </ul>
+              <div class="row align-items-center mb-2">
+                <label class="col-sm-6">
+                  <i class="bi bi-clipboard2-pulse"></i> Email:
+                </label>
+                <div class="col-sm-6"> {{ customerEmail }} </div>
+              </div>
+              <div class="row align-items-center mb-2">
+                <label class="col-sm-6">
+                  <i class="bi bi-clipboard2-pulse"></i> Phone:
+                </label>
+                <div class="col-sm-6"> {{ customerPhone }} </div>
+              </div>
+              <div class="row align-items-top mb-2">
+                <label class="col-sm-6">
+                  <i class="bi bi-clipboard2-pulse"></i> Address:
+                </label>
+                <div class="col-sm-6"> {{ customerAddress }} </div>
+              </div>
+              <div class="row align-items-center mb-2">
+                <label class="col-sm-6">
+                  <i class="bi bi-clipboard2-pulse"></i> Created:
+                </label>
+                <div class="col-sm-6"> {{ customerCreated }} </div>
+              </div>
             </div>
           </div>
           <div class="section">
@@ -113,6 +132,7 @@ import CustomerService from "../../services/customer.service";
 import TicketService from "../../services/ticket.service";
 import AssetService from "../../services/asset.service";
 import NumberService from "../../services/number.service";
+import LocationService from "../../services/location.service";
 import moment from 'moment'
 
 export default {
@@ -161,16 +181,24 @@ export default {
       const primaryPhone = await this.loadPhoneData(data.primaryPhone);
       const phoneNumber = primaryPhone[0].number;
 
+      const primaryAddress = await this.loadLocationData(data.primaryAddress);
+      const customerAddress = Object.values(primaryAddress[0]).slice(1, 7).join(', '); //gets address
+
       this.customerName = `${data.firstName} ${data.lastName}`;
       this.customerEmail = data.email;
       this.customerPhone = data.phone;
       this.customerType = data.customerType;
       this.customerCreated = moment(data.createdAt).format('MM-DD-YYYY');
       this.customerPhone = phoneNumber;
-    
+      this.customerAddress = customerAddress;
     },
     async loadPhoneData(id) {
       const request = await NumberService.getNumberById(id)
+      const data = await request.data;
+      return data
+    },
+    async loadLocationData(id) {
+      const request = await LocationService.getLocationById(id)
       const data = await request.data;
       return data
     },
@@ -186,7 +214,6 @@ export default {
     async loadAssetData(id) {
       const request = await AssetService.getAssetsByCustomer(id)
       const data = await request.data;
-
       this.assetItems = await data;
     },
     async formatDate() {
@@ -249,8 +276,8 @@ ul {
 .content {
   padding-top: 15px;
   font-size: 14px;
+  color: #c0c7d2;
 }
-
 .customize-table {
   --easy-table-border: 1px solid #1f1f1f;
   --easy-table-row-border: 1px solid #1f1f1f;

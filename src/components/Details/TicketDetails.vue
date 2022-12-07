@@ -16,55 +16,37 @@
       </div>
       <div class="row">
         <div class="col-3">
-          <!--
-          <div class="section">
-            <div class="header">
-              <i class="bi bi-tag"></i>
-              Ticket Information
-            </div>
-            <div class="content">
-              <ul>
-                <li>Status: {{ ticketStatus }}</li>
-                <li>Assignee: {{ ticketTech }}</li>
-                <li>Type: {{ ticketType }}</li>
-                <li>Due Date: {{ ticketUpdated }}</li>
-                <li>Created: {{ ticketCreated }}</li>
-                <li>Part Orders:</li>
-              </ul>
-            </div>
-          </div>
-          -->
           <div class="section">
             <div class="header">
               <i class="bi bi-person-circle"></i>
               Ticket Information
             </div>
             <div class="content">
-              <div class="row align-items-center">
+              <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-clipboard2-pulse"></i> Status:
                 </label>
                 <div class="col-sm-6"> {{ ticketStatus }} </div>
               </div>
-              <div class="row align-items-center">
+              <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-person-circle"></i> Assignee:
                 </label>
                 <div class="col-sm-6">{{ ticketTech }}</div>
               </div>
-              <div class="row align-items-center">
+              <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-list-check"></i> Type:
                 </label>
                 <div class="col-sm-6">{{ ticketType }}</div>
               </div>
-              <div class="row align-items-center">
+              <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-calendar-date"></i> Date Due:
                 </label>
                 <div class="col-sm-6"> {{ ticketUpdated }} </div>
               </div>
-              <div class="row align-items-center">
+              <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-calendar-date"></i> Date Created:
                 </label>
@@ -78,31 +60,31 @@
               Customer Information
             </div>
             <div class="content">
-              <div class="row align-items-center">
+              <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-person-circle"></i> Name:
                 </label>
                 <div class="col-sm-6">{{ customerName }}</div>
               </div>
-              <div class="row align-items-center">
+              <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-envelope"></i> Email:
                 </label>
                 <div class="col-sm-6">{{ customerEmail }}</div>
               </div>
-              <div class="row align-items-center">
+              <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-telephone"></i> Phone:
                 </label>
                 <div class="col-sm-6">{{ customerPhone }}</div>
               </div>
-              <div class="row align-items-center">
+              <div class="row align-items-top mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-geo-alt"></i> Primary Address:
                 </label>
-                <div class="col-sm-6"> PLACEHOLDER </div>
+                <div class="col-sm-6"> {{ customerAddress }} </div>
               </div>
-              <div class="row align-items-center">
+              <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-phone"></i> SMS Service:
                 </label>
@@ -143,6 +125,8 @@
 import { storeX } from "../../store/index";
 import TicketService from "../../services/ticket.service";
 import CustomerService from "../../services/customer.service";
+import NumberService from "../../services/number.service";
+import LocationService from "../../services/location.service";
 import moment from 'moment'
 
 export default {
@@ -176,11 +160,29 @@ export default {
       const request = await CustomerService.getCustomerById(id)
       const data = await request.data[0];
 
+      const primaryPhone = await this.loadPhoneData(data.primaryPhone);
+      const phoneNumber = primaryPhone[0].number;
+
+      const primaryAddress = await this.loadLocationData(data.primaryAddress);
+      const customerAddress = Object.values(primaryAddress[0]).slice(1, 7).join(', '); //gets address
+
       this.customerName = `${data.firstName} ${data.lastName}`;
       this.customerEmail = data.email;
-      this.customerPhone = data.phone;
-      //this.customerAddress =  //TODO: get primary address
+      this.customerPhone = phoneNumber;
+      this.customerAddress = customerAddress;
+
+      
       this.customerCreated = moment(data.createdAt).format('MM-DD-YYYY');
+    },
+    async loadPhoneData(id) {
+      const request = await NumberService.getNumberById(id)
+      const data = await request.data;
+      return data
+    },
+    async loadLocationData(id) {
+      const request = await LocationService.getLocationById(id)
+      const data = await request.data;
+      return data
     },
   },
   created() {
