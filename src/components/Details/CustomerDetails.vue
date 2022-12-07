@@ -32,14 +32,14 @@
             <div class="content">
               <div class="row">
                 <div class="col-6">
-                  <div class="header">Tickets: </div>
+                  <div class="header">Tickets:</div>
                   <ul>
-                    <li>Open: {{openTickets}}</li>
-                    <li>Closed: {{closedTickets}}</li>
+                    <li>Open: {{ openTickets }}</li>
+                    <li>Closed: {{ closedTickets }}</li>
                   </ul>
                 </div>
                 <div class="col-6">
-                  <div class="header">Invoices: </div>
+                  <div class="header">Invoices:</div>
                   <ul>
                     <li>Unpaid: 0</li>
                     <li>Total: 0</li>
@@ -56,10 +56,22 @@
               Tickets
             </div>
             <div class="content">
-              <EasyDataTable :headers="ticketHeaders" :items="ticketItems" theme-color="#1d90ff"
-                table-class-name="customize-table" header-text-direction="center" body-text-direction="center">
-                <template #item-ticketTitle="{ ticketTitle, id, ticketCustomerId }">
-                  <button type="button" class="btn btn-lg" v-on:click="openTicket(id, ticketCustomerId)">
+              <EasyDataTable
+                :headers="ticketHeaders"
+                :items="ticketItems"
+                theme-color="#1d90ff"
+                table-class-name="customize-table"
+                header-text-direction="center"
+                body-text-direction="center"
+              >
+                <template
+                  #item-ticketTitle="{ ticketTitle, id, ticketCustomerId }"
+                >
+                  <button
+                    type="button"
+                    class="btn btn-lg"
+                    v-on:click="openTicket(id, ticketCustomerId)"
+                  >
                     {{ ticketTitle }}
                   </button>
                 </template>
@@ -72,8 +84,14 @@
               Assets
             </div>
             <div class="content">
-              <EasyDataTable :headers="assetHeaders" :items="assetItems" theme-color="#1d90ff"
-                table-class-name="customize-table" header-text-direction="center" body-text-direction="center" />
+              <EasyDataTable
+                :headers="assetHeaders"
+                :items="assetItems"
+                theme-color="#1d90ff"
+                table-class-name="customize-table"
+                header-text-direction="center"
+                body-text-direction="center"
+              />
             </div>
           </div>
           <div class="section">
@@ -94,6 +112,7 @@ import { storeX } from "../../store/index";
 import CustomerService from "../../services/customer.service";
 import TicketService from "../../services/ticket.service";
 import AssetService from "../../services/asset.service";
+import NumberService from "../../services/number.service";
 import moment from 'moment'
 
 export default {
@@ -101,7 +120,6 @@ export default {
   components: {},
   data: () => ({
     storeX,
-    customerData: null,
     customerName: null,
     customerPhone: null,
     customerEmail: null,
@@ -139,13 +157,22 @@ export default {
     async loadCustomerData(id) {
       const request = await CustomerService.getCustomerById(id)
       const data = await request.data[0];
+      
+      const primaryPhone = await this.loadPhoneData(data.primaryPhone);
+      const phoneNumber = primaryPhone[0].number;
 
-      this.customerData = await data;
       this.customerName = `${data.firstName} ${data.lastName}`;
       this.customerEmail = data.email;
       this.customerPhone = data.phone;
       this.customerType = data.customerType;
       this.customerCreated = moment(data.createdAt).format('MM-DD-YYYY');
+      this.customerPhone = phoneNumber;
+    
+    },
+    async loadPhoneData(id) {
+      const request = await NumberService.getNumberById(id)
+      const data = await request.data;
+      return data
     },
     async loadTicketData(id) {
       const request = await TicketService.getTicketsByCustomer(id)
