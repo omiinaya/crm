@@ -21,7 +21,8 @@
 <script>
 import { defineComponent } from 'vue';
 import { storeX } from "../store/index";
-import CustomerService from "../services/customer.service"
+import CustomerService from "../services/customer.service";
+import NumberService from "../services/number.service";
 import moment from 'moment'
 
 export default defineComponent({
@@ -50,7 +51,18 @@ export default defineComponent({
       const request = await CustomerService.getCustomers()
       const data = await request.data;
       this.items = await data;
+      this.items.forEach(async item => {
+        const id = item.primaryPhone;
+        const res = await this.loadPhoneData(id);
+        const number = res[0].number;
+        item.phone = number;
+      })
       this.formatDate();
+    },
+    async loadPhoneData(id) {
+      const request = await NumberService.getNumberById(id)
+      const data = await request.data;
+      return data
     },
     async formatDate() {
       this.items.forEach(item => {

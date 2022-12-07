@@ -1,6 +1,5 @@
 const db = require("../models");
 const Number = db.number;
-const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
     if (!req.body.title) {
@@ -41,29 +40,11 @@ exports.findAll = (req, res) => {
         });
 };
 
-exports.findByRoleId = (req, res) => {
+exports.findByNumberId = (req, res) => {
     const id = req.params.id;
 
     Number.findAll({
-        where: { roleId: id }
-    })
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while retrieving tutorials."
-            });
-        });
-};
-
-exports.findByRole = (req, res) => {
-    const id = req.params.id;
-    Number.findAll({
-        where: { roleId: {
-            [Op.lte]: id
-        }}
+        where: { id: id }
     })
         .then(data => {
             res.send(data);
@@ -95,7 +76,7 @@ exports.update = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Tutorial with id=" + id
+                message: "Error updating Tutorial with id=" + id + err
             });
         });
 };
@@ -119,7 +100,7 @@ exports.delete = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete Tutorial with id=" + id
+                message: "Could not delete Tutorial with id=" + id + err
             });
         });
 };

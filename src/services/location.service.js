@@ -13,7 +13,6 @@ class LocationService {
   getLocationFields() {
     return axios.get(API_URL + "fields/", { headers: authHeader() });
   }
-  
 }
 
 export default new LocationService();

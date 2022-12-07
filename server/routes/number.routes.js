@@ -4,9 +4,8 @@ module.exports = app => {
 
     router.post("/", number.create);
     router.get("/", number.findAll);
-    router.get("/:id", number.findByRoleId)
-    router.get("/role/:id", number.findByRole)
-    router.put("/:id", number.update);
+    router.get("/id/:id", number.findByNumberId);
+    router.put("/id/:id", number.update);
     router.delete("/:id", number.delete);
   
     app.use('/api/number', router);

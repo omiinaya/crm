@@ -3,25 +3,25 @@ const db = require("../models/index");
 const util = require("util");
 
 //data
-const navs = require('./nav.data');
-const users = require('./users.data');
-const roles = require('./roles.data');
-const assets = require('./assets.data');
-const tickets = require('./tickets.data');
-const numbers = require('./numbers.data');
-const locations = require('./locations.data');
-const customers = require('./customers.data');
-const businesses = require('./businesses.data');
+const navs = require("./nav.data");
+const users = require("./users.data");
+const roles = require("./roles.data");
+const assets = require("./assets.data");
+const tickets = require("./tickets.data");
+const numbers = require("./numbers.data");
+const locations = require("./locations.data");
+const customers = require("./customers.data");
+const businesses = require("./businesses.data");
 
 //actions
-const homeActions = require('./actions/home.actions.data');
+const homeActions = require("./actions/home.actions.data");
 
 //fields
 const assetFields = require("./fields/asset.fields.data");
-const ticketFields = require('./fields/ticket.fields.data');
-const customerFields = require('./fields/customer.fields.data');
-const locationFields = require('./fields/location.fields.data');
-const customerSettingsFields = require('./fields/customer.settings.fields');
+const ticketFields = require("./fields/ticket.fields.data");
+const customerFields = require("./fields/customer.fields.data");
+const locationFields = require("./fields/location.fields.data");
+const customerSettingsFields = require("./fields/customer.settings.fields");
 
 const Role = db.role;
 const Nav = db.nav;
@@ -82,7 +82,7 @@ function dummyData() {
     }).then((user) => {
       user.setRoles([1]);
     });
-  })
+  });
 
   roles.forEach((role, index) => {
     Role.create({
@@ -121,7 +121,7 @@ function dummyData() {
       icon: fields.icon,
       side: fields.side,
       show: fields.show,
-      options: fields.options
+      options: fields.options,
     });
   });
 
@@ -134,7 +134,7 @@ function dummyData() {
       placeholder: fields.placeholder,
       icon: fields.icon,
       side: fields.side,
-      options: fields.options
+      options: fields.options,
     });
   });
 
@@ -148,13 +148,13 @@ function dummyData() {
       icon: fields.icon,
       side: fields.side,
       show: fields.show,
-      options: fields.options
+      options: fields.options,
     });
   });
 
-  businesses.forEach(business => {
+  businesses.forEach((business) => {
     Business.create({
-      name: business.name
+      name: business.name,
     });
   });
 
@@ -163,7 +163,7 @@ function dummyData() {
       id: index + 1,
       type: number.type,
       number: number.number,
-      customerId: number.customerId
+      customerId: number.customerId,
     });
   });
 
@@ -178,7 +178,7 @@ function dummyData() {
       side: fields.side,
       options: fields.options,
       data: fields.data,
-      show: fields.show
+      show: fields.show,
     });
   });
 
@@ -191,11 +191,11 @@ function dummyData() {
       placeholder: settings.placeholder,
       icon: settings.icon,
       side: settings.side,
-      options: settings.options
+      options: settings.options,
     });
   });
 
-  assets.forEach(asset => {
+  assets.forEach((asset) => {
     Asset.create({
       assetCustomerId: asset.assetCustomerId,
       assetTicketId: asset.assetTicketId,
@@ -203,18 +203,18 @@ function dummyData() {
       assetBrand: asset.assetBrand,
       assetName: asset.assetName,
       assetSerial: asset.assetSerial,
-      assetTag: asset.assetTag
+      assetTag: asset.assetTag,
     });
   });
 
-  tickets.forEach(ticket => {
+  tickets.forEach((ticket) => {
     Ticket.create({
       ticketCustomerId: ticket.ticketCustomerId,
       ticketTitle: ticket.ticketTitle,
       ticketStatus: ticket.ticketStatus,
       ticketType: ticket.ticketType,
       ticketDesc: ticket.ticketDesc,
-      ticketTech: ticket.ticketTech
+      ticketTech: ticket.ticketTech,
     });
   });
 
@@ -226,7 +226,7 @@ function dummyData() {
       country: location.country,
       state: location.state,
       city: location.city,
-      zip: location.zip
+      zip: location.zip,
     });
   });
 
