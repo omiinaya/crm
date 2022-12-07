@@ -16,6 +16,7 @@
       </div>
       <div class="row">
         <div class="col-3">
+          <!--
           <div class="section">
             <div class="header">
               <i class="bi bi-tag"></i>
@@ -28,10 +29,47 @@
                 <li>Type: {{ ticketType }}</li>
                 <li>Due Date: {{ ticketUpdated }}</li>
                 <li>Created: {{ ticketCreated }}</li>
-                <!-- TODO: Parts page, parts creation, etc-->
-                <li>Part Orders: </li>
-                
+                <li>Part Orders:</li>
               </ul>
+            </div>
+          </div>
+          -->
+          <div class="section">
+            <div class="header">
+              <i class="bi bi-person-circle"></i>
+              Ticket Information
+            </div>
+            <div class="content">
+              <div class="row align-items-center">
+                <label class="col-sm-6">
+                  <i class="bi bi-clipboard2-pulse"></i> Status:
+                </label>
+                <div class="col-sm-6"> {{ ticketStatus }} </div>
+              </div>
+              <div class="row align-items-center">
+                <label class="col-sm-6">
+                  <i class="bi bi-person-circle"></i> Assignee:
+                </label>
+                <div class="col-sm-6">{{ ticketTech }}</div>
+              </div>
+              <div class="row align-items-center">
+                <label class="col-sm-6">
+                  <i class="bi bi-list-check"></i> Type:
+                </label>
+                <div class="col-sm-6">{{ ticketType }}</div>
+              </div>
+              <div class="row align-items-center">
+                <label class="col-sm-6">
+                  <i class="bi bi-calendar-date"></i> Date Due:
+                </label>
+                <div class="col-sm-6"> {{ ticketUpdated }} </div>
+              </div>
+              <div class="row align-items-center">
+                <label class="col-sm-6">
+                  <i class="bi bi-calendar-date"></i> Date Created:
+                </label>
+                <div class="col-sm-6"> {{ ticketCreated }} </div>
+              </div>
             </div>
           </div>
           <div class="section">
@@ -40,14 +78,36 @@
               Customer Information
             </div>
             <div class="content">
-              <ul>
-                <li>Name: {{customerName}}</li>
-                <li>Email: {{customerEmail}}</li>
-                <li>Phone: {{customerPhone}}</li>
-                <!-- TODO: get address and sms service from api response -->
-                <li>Primary Address: </li>
-                <li>SMS Service: </li>
-              </ul>
+              <div class="row align-items-center">
+                <label class="col-sm-6">
+                  <i class="bi bi-person-circle"></i> Name:
+                </label>
+                <div class="col-sm-6">{{ customerName }}</div>
+              </div>
+              <div class="row align-items-center">
+                <label class="col-sm-6">
+                  <i class="bi bi-envelope"></i> Email:
+                </label>
+                <div class="col-sm-6">{{ customerEmail }}</div>
+              </div>
+              <div class="row align-items-center">
+                <label class="col-sm-6">
+                  <i class="bi bi-telephone"></i> Phone:
+                </label>
+                <div class="col-sm-6">{{ customerPhone }}</div>
+              </div>
+              <div class="row align-items-center">
+                <label class="col-sm-6">
+                  <i class="bi bi-geo-alt"></i> Primary Address:
+                </label>
+                <div class="col-sm-6"> PLACEHOLDER </div>
+              </div>
+              <div class="row align-items-center">
+                <label class="col-sm-6">
+                  <i class="bi bi-phone"></i> SMS Service:
+                </label>
+                <div class="col-sm-6"> PLACEHOLDER </div>
+              </div>
             </div>
           </div>
           <div class="section">
@@ -55,9 +115,7 @@
               <i class="bi bi-paperclip"></i>
               Attachments
             </div>
-            <div class="content">
-              test
-            </div>
+            <div class="content">test</div>
           </div>
         </div>
         <div class="col-8">
@@ -66,18 +124,14 @@
               <i class="bi bi-laptop"></i>
               Relevant Assets
             </div>
-            <div class="content">
-              test
-            </div>
+            <div class="content">test</div>
           </div>
           <div class="section">
             <div class="header">
               <i class="bi bi-chat-dots"></i>
               Communications
             </div>
-            <div class="content">
-              test
-            </div>
+            <div class="content">test</div>
           </div>
         </div>
       </div>
@@ -187,6 +241,7 @@ ul {
 .content {
   padding-top: 15px;
   font-size: 14px;
+  color: #c0c7d2;
 }
 
 .customize-table {
