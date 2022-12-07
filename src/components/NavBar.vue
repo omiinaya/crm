@@ -82,11 +82,11 @@ export default {
 
 .rightBar .bi {
   font-size: 20px !important;
+  padding-right: 10px;
 }
 
 .rightBar {
-  font-size: 20px;
-  padding-bottom: 10px;
+  font-size: 18px;
 }
 
 .test {

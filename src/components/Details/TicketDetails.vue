@@ -194,6 +194,10 @@ export default {
 </script>
   
 <style scoped>
+
+.bi {
+  padding-right: 5px !important;
+}
 .btn {
   width: 100%;
   font-size: 14px;
