@@ -23,7 +23,7 @@ const assets = [
       assetType: "Laptop",
       assetBrand: "Lenovo",
       assetName: "Yoga X14",
-      assetSerial: "R91JXFC4",
+      assetSerial: "PF2LBHNF",
       assetTag: "13"
     }
   ];

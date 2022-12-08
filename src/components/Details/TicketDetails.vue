@@ -129,6 +129,7 @@ import CustomerService from "../../services/customer.service";
 import NumberService from "../../services/number.service";
 import LocationService from "../../services/location.service";
 import AssetService from "../../services/asset.service";
+import WarrantyService from "../../services/warranty.service"
 import moment from 'moment'
 
 export default {
@@ -147,12 +148,14 @@ export default {
     customerPhone: null,
     customerAddress: null,
     customerCreated: null,
+    warranty: null,
     headers: [
         { value: "assetName", text: "NAME", sortable: true },
         { value: "assetBrand", text: "BRAND", sortable: true },
         { value: "assetType", text: "TYPE", sortable: true },
         { value: "assetSerial", text: "SERIAL", sortable: true },
         { value: "assetTag", text: "TAG", sortable: true },
+        { value: "warranty", text: "WARRANTY", sortable: true },
       ],
     items: [],
   }),
@@ -204,8 +207,16 @@ export default {
       this.assetTag = data[0].assetTag;
       this.assetName = data[0].assetName;
       this.assetType = data[0].assetType;
+      const warranty = await this.loadWarrantyData(data[0].assetSerial)
+      this.items[0]['warranty'] = warranty;
       return data
     },
+    async loadWarrantyData(serial) {
+      const request = await WarrantyService.getLenovoWarranty(serial)
+      const data = await request.data
+      console.log(data)
+      return data
+    }
   },
   created() {
     this.ticketNumber = this.storeX.ticketId.toString().padStart(5, '0');
