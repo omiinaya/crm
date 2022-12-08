@@ -6,9 +6,21 @@
           <div class="row">
             <div class="col-8 top">#{{ ticketNumber }}</div>
             <div class="col-1 top">
-              <button type="button" class="btn btn-success" v-on:click="print(customerForm)">
-                TEST BUTTON 1
-              </button>
+
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%;"
+                  placeholder="Dropdown">
+                  New
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li v-for="(opt, index) in newOptions" :key="opt + index">
+                    <a class="dropdown-item" href="#!" v-on:click="(newSelected = opt)">{{ opt }}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
             </div>
             <div class="col-1 top">
               <button type="button" class="btn btn-success" v-on:click="print(customerForm)">
@@ -177,7 +189,9 @@ export default {
       { value: "assetTag", text: "TAG", sortable: true },
       { value: "warranty", text: "WARRANTY", sortable: true },
     ],
-    items: []
+    items: [],
+    newOptions: ['Part Order', 'Estimate', 'Appointment', 'Intake Form', 'Outtake Form'],
+    newSelected: 'New',
   }),
   methods: {
     async loadTicketdata(id) {
@@ -247,10 +261,10 @@ export default {
 </script>
   
 <style scoped>
-
 .bi {
   padding-right: 5px !important;
 }
+
 .btn {
   width: 100%;
   font-size: 14px;
