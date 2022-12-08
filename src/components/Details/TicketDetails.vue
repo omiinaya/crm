@@ -4,8 +4,22 @@
       <div clas="row">
         <div class="col-12">
           <div class="row">
-            <div class="col-9 top">#{{ ticketNumber }}</div>
-            <div class="col-3 top">test</div>
+            <div class="col-8 top">#{{ ticketNumber }}</div>
+            <div class="col-1 top">
+              <button type="button" class="btn btn-success" v-on:click="print(customerForm)">
+                TEST BUTTON 1
+              </button>
+            </div>
+            <div class="col-1 top">
+              <button type="button" class="btn btn-success" v-on:click="print(customerForm)">
+                TEST BUTTON 2
+              </button>
+            </div>
+            <div class="col-1 top">
+              <button type="button" class="btn btn-success" v-on:click="print(customerForm)">
+                TEST BUTTON 3
+              </button>
+            </div>
           </div>
           <div class="row">
             <div class="col-12 title">
@@ -106,15 +120,21 @@
               <i class="bi bi-laptop"></i>
               Relevant Asset
             </div>
-            <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="items" theme-color="#1d90ff"
-            table-class-name="customize-table-details" header-text-direction="center" body-text-direction="center" hide-footer/>
+            <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="items"
+              theme-color="#1d90ff" table-class-name="customize-table-details" header-text-direction="center"
+              body-text-direction="center" hide-footer />
           </div>
           <div class="section">
             <div class="header">
               <i class="bi bi-chat-dots"></i>
               Communications
             </div>
-            <div class="content">test</div>
+            <div class="content">
+              <div class="row">
+                <div class="col-10">test</div>
+                <div class="col-2">test</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -150,14 +170,14 @@ export default {
     customerCreated: null,
     warranty: null,
     headers: [
-        { value: "assetName", text: "NAME", sortable: true },
-        { value: "assetBrand", text: "BRAND", sortable: true },
-        { value: "assetType", text: "TYPE", sortable: true },
-        { value: "assetSerial", text: "SERIAL", sortable: true },
-        { value: "assetTag", text: "TAG", sortable: true },
-        { value: "warranty", text: "WARRANTY", sortable: true },
-      ],
-    items: [],
+      { value: "assetName", text: "NAME", sortable: true },
+      { value: "assetBrand", text: "BRAND", sortable: true },
+      { value: "assetType", text: "TYPE", sortable: true },
+      { value: "assetSerial", text: "SERIAL", sortable: true },
+      { value: "assetTag", text: "TAG", sortable: true },
+      { value: "warranty", text: "WARRANTY", sortable: true },
+    ],
+    items: []
   }),
   methods: {
     async loadTicketdata(id) {
@@ -185,7 +205,6 @@ export default {
       this.customerPhone = phoneNumber;
       this.customerAddress = customerAddress;
 
-      
       this.customerCreated = moment(data.createdAt).format('MM-DD-YYYY');
     },
     async loadPhoneData(id) {
@@ -267,7 +286,7 @@ ul {
 }
 
 .top {
-  padding: 25px;
+  padding-top: 25px;
   padding-bottom: 0;
   font-size: 32px;
 }
@@ -288,7 +307,6 @@ ul {
 .customize-table-details {
   --easy-table-border: 1px solid #1f1f1f;
   --easy-table-row-border: 1px solid #1f1f1f;
-  
   --easy-table-header-font-size: 14px;
   --easy-table-header-height: 50px;
   --easy-table-header-font-color: #c1cad4;
@@ -325,13 +343,10 @@ ul {
 
   --easy-table-loading-mask-background-color: #1f1f1f;
 }
-
 </style>
 
 <style>
-
 .customize-table-details .vue3-easy-data-table__main {
   min-height: 0px !important;
 }
-
 </style>

@@ -26,6 +26,8 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 
 import "vue3-easy-data-table/dist/style.css";
 
+import 'vue-step-progress/dist/main.css';
+
 /* Theme variables */
 import "./theme/variables.css";
 
