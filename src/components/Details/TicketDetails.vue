@@ -104,9 +104,10 @@
           <div class="section">
             <div class="header">
               <i class="bi bi-laptop"></i>
-              Relevant Assets
+              Relevant Asset
             </div>
-            <div class="content">test</div>
+            <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="items" theme-color="#1d90ff"
+            table-class-name="customize-table-details" header-text-direction="center" body-text-direction="center" hide-footer/>
           </div>
           <div class="section">
             <div class="header">
@@ -127,6 +128,7 @@ import TicketService from "../../services/ticket.service";
 import CustomerService from "../../services/customer.service";
 import NumberService from "../../services/number.service";
 import LocationService from "../../services/location.service";
+import AssetService from "../../services/asset.service";
 import moment from 'moment'
 
 export default {
@@ -143,7 +145,16 @@ export default {
     customerName: null,
     customerEmail: null,
     customerPhone: null,
-    customerCreated: null
+    customerAddress: null,
+    customerCreated: null,
+    headers: [
+        { value: "assetName", text: "NAME", sortable: true },
+        { value: "assetBrand", text: "BRAND", sortable: true },
+        { value: "assetType", text: "TYPE", sortable: true },
+        { value: "assetSerial", text: "SERIAL", sortable: true },
+        { value: "assetTag", text: "TAG", sortable: true },
+      ],
+    items: [],
   }),
   methods: {
     async loadTicketdata(id) {
@@ -184,11 +195,23 @@ export default {
       const data = await request.data;
       return data
     },
+    async loadAssetData(id) {
+      const request = await AssetService.getAssetByTicketId(id)
+      const data = await request.data;
+      this.items = await data;
+      this.assetBrand = data[0].assetBrand;
+      this.assetSerial = data[0].assetSerial;
+      this.assetTag = data[0].assetTag;
+      this.assetName = data[0].assetName;
+      this.assetType = data[0].assetType;
+      return data
+    },
   },
   created() {
     this.ticketNumber = this.storeX.ticketId.toString().padStart(5, '0');
     this.loadTicketdata(this.storeX.ticketId)
     this.loadCustomerData(this.storeX.customerId)
+    this.loadAssetData(this.storeX.ticketId)
   },
 }
 </script>
@@ -250,10 +273,11 @@ ul {
   color: #c0c7d2;
 }
 
-.customize-table {
+
+.customize-table-details {
   --easy-table-border: 1px solid #1f1f1f;
   --easy-table-row-border: 1px solid #1f1f1f;
-
+  
   --easy-table-header-font-size: 14px;
   --easy-table-header-height: 50px;
   --easy-table-header-font-color: #c1cad4;
@@ -290,4 +314,13 @@ ul {
 
   --easy-table-loading-mask-background-color: #1f1f1f;
 }
+
+</style>
+
+<style>
+
+.customize-table-details .vue3-easy-data-table__main {
+  min-height: 0px !important;
+}
+
 </style>
