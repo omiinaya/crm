@@ -4,7 +4,7 @@ const assets = [
       assetTicketId: 1,
       assetType: "Laptop",
       assetBrand: "Lenovo",
-      assetName: "Yoga 13",
+      assetName: "Yoga 11e 5th Gen (Type 20LN, 20LM) Laptop (ThinkPad) - Type 20LM",
       assetSerial: "R90XEKJM",
       assetTag: "12"
     },

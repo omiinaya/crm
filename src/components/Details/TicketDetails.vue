@@ -4,7 +4,7 @@
       <div clas="row">
         <div class="col-12">
           <div class="row">
-            <div class="col-8 top">#{{ ticketNumber }}</div>
+            <div class="col-8 top">#{{ ticket.number }}</div>
             <div class="col-1 top">
               <div class="dropdown">
                 <button
@@ -46,7 +46,7 @@
           </div>
           <div class="row">
             <div class="col-12 title">
-              {{ ticketTitle }}
+              {{ ticket.techitle }}
             </div>
           </div>
         </div>
@@ -63,31 +63,31 @@
                 <label class="col-sm-6">
                   <i class="bi bi-clipboard2-pulse"></i> Status:
                 </label>
-                <div class="col-sm-6">{{ ticketStatus }}</div>
+                <div class="col-sm-6">{{ ticket.status }}</div>
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-person-circle"></i> Assignee:
                 </label>
-                <div class="col-sm-6">{{ ticketTech }}</div>
+                <div class="col-sm-6">{{ ticket.tech }}</div>
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-list-check"></i> Type:
                 </label>
-                <div class="col-sm-6">{{ ticketType }}</div>
+                <div class="col-sm-6">{{ ticket.type }}</div>
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-calendar-date"></i> Date Due:
                 </label>
-                <div class="col-sm-6">{{ ticketUpdated }}</div>
+                <div class="col-sm-6">{{ ticket.updated }}</div>
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-calendar-date"></i> Date Created:
                 </label>
-                <div class="col-sm-6">{{ ticketCreated }}</div>
+                <div class="col-sm-6">{{ ticket.created }}</div>
               </div>
             </div>
           </div>
@@ -101,25 +101,25 @@
                 <label class="col-sm-6">
                   <i class="bi bi-person-circle"></i> Name:
                 </label>
-                <div class="col-sm-6">{{ customerName }}</div>
+                <div class="col-sm-6">{{ customer.name }}</div>
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-envelope"></i> Email:
                 </label>
-                <div class="col-sm-6">{{ customerEmail }}</div>
+                <div class="col-sm-6">{{ customer.email }}</div>
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-telephone"></i> Primary Phone:
                 </label>
-                <div class="col-sm-6">{{ customerPhone }}</div>
+                <div class="col-sm-6">{{ customer.phone }}</div>
               </div>
               <div class="row align-items-top mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-geo-alt"></i> Primary Address:
                 </label>
-                <div class="col-sm-6">{{ customerAddress }}</div>
+                <div class="col-sm-6">{{ customer.address }}</div>
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
@@ -158,6 +158,11 @@
                   {{ warranty[0] }}
                 </a>
               </template>
+              <template #item-assetName="{ assetName }">
+                <a class="warranty" href="#">
+                  {{ assetName }}
+                </a>
+              </template>
             </EasyDataTable>
           </div>
           <div class="section">
@@ -193,7 +198,7 @@
                       class="btn btn-secondary dropdown-toggle"
                       data-bs-toggle="dropdown"
                     >
-                    {{ comTypeSelected || comTypes[0] }}
+                      {{ comTypeSelected || comTypes[0] }}
                     </button>
                     <ul class="dropdown-menu">
                       <li v-for="(opt, index) in comTypes" :key="opt + index">
@@ -207,7 +212,25 @@
                     </ul>
                   </div>
                 </div>
-                <div class="col-2">test</div>
+                <div class="col-2 offset-6">test</div>
+              </div>
+            </div>
+            <div class="content">
+              <div class="col-sm-12">
+                <textarea
+                  class="form-control text-area"
+                  rows="6"
+                  v-model="comValue"
+                  @input="testing123(comValue)"
+                ></textarea>
+              </div>
+              <div class="col-2 offset-10">
+                <button
+                  class="btn messages"
+                  v-on:click="createTicket(ticketForm)"
+                >
+                  Submit
+                </button>
               </div>
             </div>
           </div>
@@ -233,17 +256,22 @@ export default {
   components: { Loading },
   data: () => ({
     storeX,
-    ticketTitle: null,
-    ticketCreated: null,
-    ticketUpdated: null,
-    ticketType: null,
-    ticketTech: null,
-    ticketStatus: null,
-    customerName: null,
-    customerEmail: null,
-    customerPhone: null,
-    customerAddress: null,
-    customerCreated: null,
+    ticket: {
+      number: null,
+      title: null,
+      created: null,
+      updated: null,
+      type: null,
+      tech: null,
+      status: null
+    },
+    customer: {
+      name: null,
+      email: null,
+      phone: null,
+      address: null,
+      created: null
+    },
     warranty: null,
     headers: [
       { value: "assetName", text: "NAME", sortable: true },
@@ -258,18 +286,19 @@ export default {
     comOptions: ['Private Note', 'Publc Note', 'Email', 'SMS', 'Email + SMS'],
     comTypes: ['Update','Issue', 'Diagnosis', 'Parts Ordered', 'Parts Arrival', 'Complete'],
     comOptSelected: null,
-    comTypeSelected: null
+    comTypeSelected: null,
+    comValue: null
   }),
   methods: {
     async loadTicketdata(id) {
       const request = await TicketService.getTicketById(id)
       const data = await request.data[0];
-      this.ticketTitle = data.ticketTitle;
-      this.ticketType = data.ticketType;
-      this.ticketTech = data.ticketTech;
-      this.ticketStatus = data.ticketStatus;
-      this.ticketCreated = moment(data.createdAt).format('MMM DD YYYY HH:MM A');
-      this.ticketUpdated = moment(data.updateAt).format('MMM DD YYYY HH:MM A');
+      this.ticket.title = data.ticketTitle;
+      this.ticket.type = data.ticketType;
+      this.ticket.tech = data.ticketTech;
+      this.ticket.status = data.ticketStatus;
+      this.ticket.created = moment(data.createdAt).format('MMM DD YYYY HH:MM A');
+      this.ticket.updated = moment(data.updateAt).format('MMM DD YYYY HH:MM A');
     },
     async loadCustomerData(id) {
       const request = await CustomerService.getCustomerById(id)
@@ -281,12 +310,11 @@ export default {
       const primaryAddress = await this.loadLocationData(data.primaryAddress);
       const customerAddress = Object.values(primaryAddress[0]).slice(1, 7).join(', '); //gets address
 
-      this.customerName = `${data.firstName} ${data.lastName}`;
-      this.customerEmail = data.email;
-      this.customerPhone = phoneNumber;
-      this.customerAddress = customerAddress;
-
-      this.customerCreated = moment(data.createdAt).format('MM-DD-YYYY');
+      this.customer.name = `${data.firstName} ${data.lastName}`;
+      this.customer.email = data.email;
+      this.customer.phone = phoneNumber;
+      this.customer.address = customerAddress;
+      this.customer.created = moment(data.createdAt).format('MM-DD-YYYY');
     },
     async loadPhoneData(id) {
       const request = await NumberService.getNumberById(id)
@@ -301,13 +329,9 @@ export default {
     async loadAssetData(id) {
       const request = await AssetService.getAssetByTicketId(id)
       const data = await request.data;
+      data[0].assetName = data[0].assetName.split('(')[0];
       this.items = await data;
-      this.assetBrand = data[0].assetBrand;
-      this.assetSerial = data[0].assetSerial;
-      this.assetTag = data[0].assetTag;
-      this.assetName = data[0].assetName;
-      this.assetType = data[0].assetType;
-      const warranty = await this.loadWarrantyData(data[0].assetSerial)
+      const warranty = await this.loadWarrantyData(data[0].assetSerial);
       this.items[0]['warranty'] = warranty;
       return data
     },
@@ -315,10 +339,13 @@ export default {
       const request = await WarrantyService.getLenovoWarranty(serial)
       const data = await request.data
       return data
+    },
+    async testing123(a) {
+      console.log(a)
     }
   },
   created() {
-    this.ticketNumber = this.storeX.ticketId.toString().padStart(5, '0');
+    this.ticket.number = this.storeX.ticketId.toString().padStart(5, '0');
     this.loadTicketdata(this.storeX.ticketId)
     this.loadCustomerData(this.storeX.customerId)
     this.loadAssetData(this.storeX.ticketId)
@@ -328,7 +355,19 @@ export default {
   
 <style scoped>
 
+.messages {
+  background-color: #c16701
+}
+.text-area {
+  background-color: #363636;
+  border: 1px yellow solid;
+  color: white;
+  margin-bottom: 15px;
+}
 
+.text-area:focus {
+  box-shadow: none !important;
+}
 .warranty {
   color: #c1cad4;
   text-decoration: none;
@@ -345,13 +384,12 @@ export default {
   width: 100%;
   font-size: 14px;
   color: white;
-  padding-bottom: 0;
+  padding-bottom: 5px;
 }
 
 .btn::after {
   margin-right: 0px;
   margin-top: 8px;
-
 }
 
 .btn:focus {

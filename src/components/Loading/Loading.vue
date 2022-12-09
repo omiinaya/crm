@@ -5,13 +5,7 @@
 </template>
   
   <script>
-  export default {
-    name: 'LoadingComponent',
-    components: {},
-    data: () => ({}),
-    created() {},
-    methods: {}
-  }
+  export default { name: 'LoadingComponent' }
   </script>
   
   <style scoped>
