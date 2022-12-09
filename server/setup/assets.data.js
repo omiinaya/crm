@@ -5,7 +5,7 @@ const assets = [
       assetType: "Laptop",
       assetBrand: "Lenovo",
       assetName: "Yoga 13",
-      assetSerial: "R90JXFV1",
+      assetSerial: "R90XEKJM",
       assetTag: "12"
     },
     {

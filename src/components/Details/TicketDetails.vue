@@ -6,29 +6,45 @@
           <div class="row">
             <div class="col-8 top">#{{ ticketNumber }}</div>
             <div class="col-1 top">
-
               <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                  data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%;"
-                  placeholder="Dropdown">
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  style="width: 100%"
+                  placeholder="Dropdown"
+                >
                   New
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                   <li v-for="(opt, index) in newOptions" :key="opt + index">
-                    <a class="dropdown-item" href="#!" v-on:click="(newSelected = opt)">{{ opt }}
+                    <a
+                      class="dropdown-item"
+                      href="#!"
+                      v-on:click="newSelected = opt"
+                      >{{ opt }}
                     </a>
                   </li>
                 </ul>
               </div>
-
             </div>
             <div class="col-1 top">
-              <button type="button" class="btn btn-success" v-on:click="print(customerForm)">
+              <button
+                type="button"
+                class="btn btn-success"
+                v-on:click="print(customerForm)"
+              >
                 TEST BUTTON 2
               </button>
             </div>
             <div class="col-1 top">
-              <button type="button" class="btn btn-success" v-on:click="print(customerForm)">
+              <button
+                type="button"
+                class="btn btn-success"
+                v-on:click="print(customerForm)"
+              >
                 TEST BUTTON 3
               </button>
             </div>
@@ -52,7 +68,7 @@
                 <label class="col-sm-6">
                   <i class="bi bi-clipboard2-pulse"></i> Status:
                 </label>
-                <div class="col-sm-6"> {{ ticketStatus }} </div>
+                <div class="col-sm-6">{{ ticketStatus }}</div>
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
@@ -70,13 +86,13 @@
                 <label class="col-sm-6">
                   <i class="bi bi-calendar-date"></i> Date Due:
                 </label>
-                <div class="col-sm-6"> {{ ticketUpdated }} </div>
+                <div class="col-sm-6">{{ ticketUpdated }}</div>
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-calendar-date"></i> Date Created:
                 </label>
-                <div class="col-sm-6"> {{ ticketCreated }} </div>
+                <div class="col-sm-6">{{ ticketCreated }}</div>
               </div>
             </div>
           </div>
@@ -100,7 +116,7 @@
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
-                  <i class="bi bi-telephone"></i> Phone:
+                  <i class="bi bi-telephone"></i> Primary Phone:
                 </label>
                 <div class="col-sm-6">{{ customerPhone }}</div>
               </div>
@@ -108,13 +124,13 @@
                 <label class="col-sm-6">
                   <i class="bi bi-geo-alt"></i> Primary Address:
                 </label>
-                <div class="col-sm-6"> {{ customerAddress }} </div>
+                <div class="col-sm-6">{{ customerAddress }}</div>
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-phone"></i> SMS Service:
                 </label>
-                <div class="col-sm-6"> PLACEHOLDER </div>
+                <div class="col-sm-6">PLACEHOLDER</div>
               </div>
             </div>
           </div>
@@ -132,9 +148,23 @@
               <i class="bi bi-laptop"></i>
               Relevant Asset
             </div>
-            <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="items"
-              theme-color="#1d90ff" table-class-name="customize-table-details" header-text-direction="center"
-              body-text-direction="center" hide-footer />
+            <EasyDataTable
+              v-model:items-selected="itemsSelected"
+              :headers="headers"
+              :items="items"
+              theme-color="#1d90ff"
+              table-class-name="customize-table-details"
+              header-text-direction="center"
+              body-text-direction="center"
+              hide-footer
+            >
+              <template #item-warranty="{ warranty }">
+                <Loading v-if="!warranty" />
+                <a v-else :href="warranty[1]" target="_blank">
+                  {{ warranty[0] }}
+                </a>
+              </template>
+            </EasyDataTable>
           </div>
           <div class="section">
             <div class="header">
@@ -161,12 +191,13 @@ import CustomerService from "../../services/customer.service";
 import NumberService from "../../services/number.service";
 import LocationService from "../../services/location.service";
 import AssetService from "../../services/asset.service";
-import WarrantyService from "../../services/warranty.service"
+import WarrantyService from "../../services/warranty.service";
+import Loading from "../Loading/Loading.vue";
 import moment from 'moment'
 
 export default {
   name: 'CustomerDetailsPage',
-  components: {},
+  components: { Loading },
   data: () => ({
     storeX,
     ticketTitle: null,
@@ -190,6 +221,7 @@ export default {
       { value: "warranty", text: "WARRANTY", sortable: true },
     ],
     items: [],
+    itemsSelected: [],
     newOptions: ['Part Order', 'Estimate', 'Appointment', 'Intake Form', 'Outtake Form'],
     newSelected: 'New',
   }),
@@ -247,7 +279,6 @@ export default {
     async loadWarrantyData(serial) {
       const request = await WarrantyService.getLenovoWarranty(serial)
       const data = await request.data
-      console.log(data)
       return data
     }
   },
@@ -261,6 +292,15 @@ export default {
 </script>
   
 <style scoped>
+
+a {
+  color: #c1cad4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
 .bi {
   padding-right: 5px !important;
 }
@@ -316,7 +356,6 @@ ul {
   font-size: 14px;
   color: #c0c7d2;
 }
-
 
 .customize-table-details {
   --easy-table-border: 1px solid #1f1f1f;
