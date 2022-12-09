@@ -1,5 +1,5 @@
 const db = require("../models");
-const Home = db.home;
+const Home = db.homeActions;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {

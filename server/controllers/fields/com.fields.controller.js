@@ -1,23 +1,23 @@
 const db = require("../../models");
-const TicketFields = db.ticketFields
+const ComFields = db.comFields
 const Op = db.Sequelize.Op;
 const axios = require("axios")
 
 exports.create = async (req, res) => {
-  const ticketFields = await axios.get("http://localhost:8090/api/ticket/fields");
-  const ticketResponse = await assetFields.data;
+  const comFields = await axios.get("http://localhost:8090/api/com/fields");
+  const comResponse = await comFields.data;
 
 
-  const fields = [...ticketResponse]
+  const fields = [...comResponse]
 
-  let asset = {};
+  let com = {};
 
   for (let i = 0; i < fields.length; i++) {
     asset[fields[i].name] = req.body[fields[i].name];
   }
 
   try {
-    const request = await TicketFields.create(ticketFields)
+    const request = await ComFields.create(comFields)
     res.send(await request)
   } catch (err) {
     console.log(err)
@@ -25,7 +25,7 @@ exports.create = async (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-  TicketFields.findAll()
+  ComFields.findAll()
     .then((data) => {
       res.send(data);
     })
@@ -40,7 +40,7 @@ exports.findAll = (req, res) => {
 exports.findByRoleId = (req, res) => {
   const id = req.params.id;
 
-  TicketFields.findAll({
+  ComFields.findAll({
     where: { roleId: id },
   })
     .then((data) => {
@@ -56,7 +56,7 @@ exports.findByRoleId = (req, res) => {
 
 exports.findByRole = (req, res) => {
   const id = req.params.id;
-  TicketFields.findAll({
+  ComFields.findAll({
     where: {
       roleId: {
         [Op.lte]: id,
@@ -77,7 +77,7 @@ exports.findByRole = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  TicketFields.update(req.body, {
+  ComFields.update(req.body, {
     where: { id: id },
   })
     .then((num) => {
@@ -101,7 +101,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  TicketFields.destroy({
+  ComFields.destroy({
     where: { id: id },
   })
     .then((num) => {

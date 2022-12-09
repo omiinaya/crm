@@ -17,6 +17,7 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.nav = require("./nav.model.js")(sequelize, Sequelize);
+db.com = require("./com.model.js")(sequelize, Sequelize);
 db.user = require("./user.model.js")(sequelize, Sequelize);
 db.role = require("./role.model.js")(sequelize, Sequelize);
 db.asset = require("./asset.model")(sequelize, Sequelize);
@@ -25,12 +26,13 @@ db.ticket = require("./ticket.model")(sequelize, Sequelize);
 db.customer = require("./customer.model")(sequelize, Sequelize);
 db.business = require("./business.model")(sequelize, Sequelize);
 db.location = require("./location.model")(sequelize, Sequelize);
-db.home = require("./actions/home.actions.model")(sequelize, Sequelize);
+db.comFields = require('./fields/com.fields.model')(sequelize, Sequelize);
 db.assetFields = require("./fields/asset.fields.model")(sequelize, Sequelize);
+db.homeActions = require("./actions/home.actions.model")(sequelize, Sequelize);
 db.ticketFields = require("./fields/ticket.fields.model")(sequelize, Sequelize);
-db.customerSettings = require("./settings/customer.settings.model")(sequelize, Sequelize);
 db.customerFields = require("./fields/customer.fields.model")(sequelize, Sequelize);
 db.locationFields = require("./fields/location.fields.model")(sequelize, Sequelize);
+db.customerSettings = require("./settings/customer.settings.model")(sequelize, Sequelize);
 db.customerSettingsFields = require("./fields/customer.settings.fields.model")(sequelize, Sequelize);
 
 db.user.belongsToMany(db.role, {

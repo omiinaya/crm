@@ -4,6 +4,7 @@ const util = require("util");
 
 //data
 const navs = require("./nav.data");
+const coms = require("./coms.data");
 const users = require("./users.data");
 const roles = require("./roles.data");
 const assets = require("./assets.data");
@@ -17,22 +18,26 @@ const businesses = require("./businesses.data");
 const homeActions = require("./actions/home.actions.data");
 
 //fields
+const comFields = require("./fields/com.fields.data");
 const assetFields = require("./fields/asset.fields.data");
 const ticketFields = require("./fields/ticket.fields.data");
 const customerFields = require("./fields/customer.fields.data");
 const locationFields = require("./fields/location.fields.data");
 const customerSettingsFields = require("./fields/customer.settings.fields");
 
-const Role = db.role;
+
 const Nav = db.nav;
+const Com = db.com;
+const Role = db.role;
 const User = db.user;
-const Home = db.home;
 const Asset = db.asset;
 const Ticket = db.ticket;
 const Number = db.number;
+const HomeActions = db.homeActions;
 const Customer = db.customer;
 const Business = db.business;
 const Location = db.location;
+const ComFields = db.comFields;
 const AssetFields = db.assetFields;
 const TicketFields = db.ticketFields;
 const CustomerFields = db.customerFields;
@@ -102,7 +107,7 @@ function dummyData() {
   });
 
   homeActions.forEach((action, index) => {
-    Home.create({
+    HomeActions.create({
       id: index + 1,
       title: action.title,
       icon: action.icon,
@@ -211,6 +216,29 @@ function dummyData() {
       ticketType: ticket.ticketType,
       ticketDesc: ticket.ticketDesc,
       ticketTech: ticket.ticketTech,
+    });
+  });
+
+  coms.forEach((com) => {
+    Com.create({
+      comVis: com.comVis,
+      comType: com.comType,
+      comMsg: com.comMsg,
+      comAuthorId: com.comAuthorId,
+      comTicketId: com.comTicketId,
+      comAuthorName: com.comAuthorName
+    });
+  });
+
+  comFields.forEach((fields, index) => {
+    ComFields.create({
+      id: index + 1,
+      name: fields.name,
+      label: fields.label,
+      type: fields.type,
+      placeholder: fields.placeholder,
+      icon: fields.icon,
+      options: fields.options,
     });
   });
 

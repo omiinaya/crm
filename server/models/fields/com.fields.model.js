@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const ticketFields = sequelize.define("ticket_field", {
+  const comFields = sequelize.define("com_field", {
     id: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
@@ -28,5 +28,5 @@ module.exports = (sequelize, Sequelize) => {
     },
   });
 
-  return ticketFields;
+  return comFields;
 };

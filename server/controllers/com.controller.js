@@ -1,31 +1,29 @@
-const db = require("../../models");
-const TicketFields = db.ticketFields
-const Op = db.Sequelize.Op;
-const axios = require("axios")
+const db = require("../models");
+const axios = require("axios");
+const Com = db.com;
 
 exports.create = async (req, res) => {
-  const ticketFields = await axios.get("http://localhost:8090/api/ticket/fields");
-  const ticketResponse = await assetFields.data;
+  const comFields = await axios.get(
+    "http://localhost:8090/api/com/fields"
+  );
+  const comResponse = await comFields.data;
 
+  let com = {};
 
-  const fields = [...ticketResponse]
-
-  let asset = {};
-
-  for (let i = 0; i < fields.length; i++) {
-    asset[fields[i].name] = req.body[fields[i].name];
+  for (let i = 0; i < comResponse.length; i++) {
+    com[comResponse[i].name] = req.body[comResponse[i].name];
   }
 
   try {
-    const request = await TicketFields.create(ticketFields)
-    res.send(await request)
+    const request = await Com.create(com);
+    res.send(await request);
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 };
 
 exports.findAll = (req, res) => {
-  TicketFields.findAll()
+  Com.findAll()
     .then((data) => {
       res.send(data);
     })
@@ -37,11 +35,11 @@ exports.findAll = (req, res) => {
     });
 };
 
-exports.findByRoleId = (req, res) => {
+exports.findByTicketId = (req, res) => {
   const id = req.params.id;
 
-  TicketFields.findAll({
-    where: { roleId: id },
+  Com.findAll({
+    where: { comTicketId: id },
   })
     .then((data) => {
       res.send(data);
@@ -54,14 +52,11 @@ exports.findByRoleId = (req, res) => {
     });
 };
 
-exports.findByRole = (req, res) => {
+exports.findByAuthorId = (req, res) => {
   const id = req.params.id;
-  TicketFields.findAll({
-    where: {
-      roleId: {
-        [Op.lte]: id,
-      },
-    },
+  
+  Com.findAll({
+    where: { comAuthorId: id },
   })
     .then((data) => {
       res.send(data);
@@ -77,7 +72,7 @@ exports.findByRole = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  TicketFields.update(req.body, {
+  Com.update(req.body, {
     where: { id: id },
   })
     .then((num) => {
@@ -101,7 +96,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  TicketFields.destroy({
+  Ticket.destroy({
     where: { id: id },
   })
     .then((num) => {

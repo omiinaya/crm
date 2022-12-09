@@ -7,39 +7,24 @@
             <div class="col-8 top">#{{ ticket.number }}</div>
             <div class="col-1 top">
               <div class="dropdown">
-                <button
-                  class="btn btn-secondary dropdown-toggle"
-                  data-bs-toggle="dropdown"
-                >
+                <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
                   New
                 </button>
                 <ul class="dropdown-menu">
                   <li v-for="(opt, index) in newOptions" :key="opt + index">
-                    <a
-                      class="dropdown-item"
-                      href="#!"
-                      v-on:click="newSelected = opt"
-                      >{{ opt }}
+                    <a class="dropdown-item" href="#!" v-on:click="newSelected = opt">{{ opt }}
                     </a>
                   </li>
                 </ul>
               </div>
             </div>
             <div class="col-1 top">
-              <button
-                type="button"
-                class="btn btn-success"
-                v-on:click="print(customerForm)"
-              >
+              <button type="button" class="btn btn-success" v-on:click="print(customerForm)">
                 test 2
               </button>
             </div>
             <div class="col-1 top">
-              <button
-                type="button"
-                class="btn btn-success"
-                v-on:click="print(customerForm)"
-              >
+              <button type="button" class="btn btn-success" v-on:click="print(customerForm)">
                 test 3
               </button>
             </div>
@@ -143,15 +128,9 @@
               <i class="bi bi-laptop"></i>
               Relevant Asset
             </div>
-            <EasyDataTable
-              :headers="headers"
-              :items="items"
-              theme-color="#1d90ff"
-              table-class-name="customize-table-details"
-              header-text-direction="center"
-              body-text-direction="center"
-              hide-footer
-            >
+            <EasyDataTable :headers="headers" :items="items" theme-color="#1d90ff"
+              table-class-name="customize-table-details" header-text-direction="center" body-text-direction="center"
+              hide-footer>
               <template #item-warranty="{ warranty }">
                 <Loading v-if="!warranty" />
                 <a class="warranty" v-else :href="warranty[1]" target="_blank">
@@ -174,19 +153,12 @@
               <div class="row">
                 <div class="col-2">
                   <div class="dropdown">
-                    <button
-                      class="btn btn-secondary dropdown-toggle"
-                      data-bs-toggle="dropdown"
-                    >
-                      {{ comVisSelected || comVis[0] }}
+                    <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                      {{ com.visibility || comVis[0] }}
                     </button>
                     <ul class="dropdown-menu">
                       <li v-for="(opt, index) in comVis" :key="opt + index">
-                        <a
-                          class="dropdown-item"
-                          href="#!"
-                          v-on:click="comVisHandler(opt)"
-                          >{{ opt }}
+                        <a class="dropdown-item" href="#!" v-on:click="comVisHandler(opt)">{{ opt }}
                         </a>
                       </li>
                     </ul>
@@ -194,19 +166,12 @@
                 </div>
                 <div class="col-2">
                   <div class="dropdown">
-                    <button
-                      class="btn btn-secondary dropdown-toggle"
-                      data-bs-toggle="dropdown"
-                    >
-                      {{ comTypeSelected || comTypes[0] }}
+                    <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                      {{ com.type || comTypes[0] }}
                     </button>
                     <ul class="dropdown-menu">
                       <li v-for="(opt, index) in comTypes" :key="opt + index">
-                        <a
-                          class="dropdown-item"
-                          href="#!"
-                          v-on:click="comTypeHandler(opt)"
-                          >{{ opt }}
+                        <a class="dropdown-item" href="#!" v-on:click="comTypeHandler(opt)">{{ opt }}
                         </a>
                       </li>
                     </ul>
@@ -217,20 +182,40 @@
             </div>
             <div class="content">
               <div class="col-sm-12">
-                <textarea
-                  class="form-control text-area"
-                  rows="6"
-                  v-model="comValue"
-                  @input="testing123(comValue)"
-                ></textarea>
+                <textarea class="form-control text-area" rows="6" v-model="com.comMsg"
+                  @input="testing123(com.comMsg)"></textarea>
               </div>
               <div class="col-2 offset-10">
-                <button
-                  class="btn messages"
-                  v-on:click="createTicket(ticketForm)"
-                >
-                  {{comVisSelected}}
+                <button class="btn messages" v-on:click="createCom(com)">
+                  {{ com.comVis }}
                 </button>
+              </div>
+            </div>
+          </div>
+          <div class="test">
+            <div v-for="(com, index) in coms" class="col-12 form-control com mt-3" :key="com + index">
+              <div class="mb-3">
+                <div class="row">
+                  <div class="col-3">
+                    {{ com.comAuthorName }}
+                  </div>
+                  <div class="col-1 offset-2">
+                    {{ com.comType }}
+                  </div>
+                  <div class="col-1 offset-3">
+                    {{ com.comType }}
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    {{ com.comVis }}
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    {{ com.comMsg }}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -248,6 +233,7 @@ import NumberService from "../../services/number.service";
 import LocationService from "../../services/location.service";
 import AssetService from "../../services/asset.service";
 import WarrantyService from "../../services/warranty.service";
+import ComService from "../../services/com.service";
 import Loading from "../Loading/Loading.vue";
 import moment from 'moment'
 
@@ -284,12 +270,22 @@ export default {
     items: [],
     newOptions: ['Part Order', 'Estimate', 'Appointment', 'Intake Form', 'Outtake Form'],
     comVis: ['Private Note', 'Publc Note', 'Email', 'SMS', 'Email + SMS'],
-    comTypes: ['Update','Issue', 'Diagnosis', 'Parts Ordered', 'Parts Arrival', 'Complete'],
-    comVisSelected: null,
-    comTypeSelected: null,
-    comValue: null
+    comTypes: ['Update', 'Issue', 'Diagnosis', 'Parts Ordered', 'Parts Arrival', 'Complete'],
+    com: {
+      comVis: null,
+      comType: null,
+      comMsg: null,
+      comAuthorId: null,
+      comTicketId: null,
+      comAuthorName: null
+    },
+    coms: [],
   }),
   methods: {
+    async createCom() {
+      console.log(this.com)
+      ComService.createCom(this.com);
+    },
     async loadTicketdata(id) {
       const request = await TicketService.getTicketById(id)
       const data = await request.data[0];
@@ -340,13 +336,19 @@ export default {
       const data = await request.data
       return data
     },
+    async loadComData(id) {
+      const request = await ComService.getComsByTicketId(id)
+      const data = await request.data;
+      this.coms = data;
+      console.log(this.coms)
+    },
     async comTypeHandler(opt) {
-      this.comTypeSelected = opt
-      console.log(this.comTypeSelected)
+      this.com.comType = opt
+      console.log(this.com.comType)
     },
     async comVisHandler(opt) {
-      this.comVisSelected = opt
-      console.log(this.comVisSelected)
+      this.com.comVis = opt
+      console.log(this.com.comVis)
     },
     async init() {
       this.comTypeHandler(this.comTypes[0]);
@@ -359,18 +361,34 @@ export default {
   created() {
     this.init();
     this.ticket.number = this.storeX.ticketId.toString().padStart(5, '0');
-    this.loadTicketdata(this.storeX.ticketId)
-    this.loadCustomerData(this.storeX.customerId)
-    this.loadAssetData(this.storeX.ticketId)
+    this.com.comAuthorId = JSON.parse(localStorage.getItem('user')).id;
+    this.com.comAuthorName = JSON.parse(localStorage.getItem('user')).name;
+    this.com.comTicketId = this.storeX.ticketId;
+    this.loadTicketdata(this.storeX.ticketId);
+    this.loadCustomerData(this.storeX.customerId);
+    this.loadAssetData(this.storeX.ticketId);
+    this.loadComData(this.storeX.ticketId);
   },
 }
 </script>
   
 <style scoped>
+.test {
+  background: #1f1f1f;
+  padding: 25px;
+}
+
+.com {
+  padding: 20px;
+  border: 1px yellow solid;
+  background-color: #1F1F1F;
+  color: white;
+}
 
 .messages {
   background-color: #c16701
 }
+
 .text-area {
   background-color: #363636;
   border: 1px yellow solid;
@@ -381,6 +399,7 @@ export default {
 .text-area:focus {
   box-shadow: none !important;
 }
+
 .warranty {
   color: #c1cad4;
   text-decoration: none;
@@ -389,6 +408,7 @@ export default {
 .warranty:hover {
   text-decoration: underline;
 }
+
 .bi {
   padding: 5px !important;
 }
@@ -409,6 +429,7 @@ export default {
   box-shadow: none !important;
   border-color: transparent !important;
 }
+
 .title {
   font-size: 22px;
 }
