@@ -25,7 +25,10 @@ module.exports = (sequelize, Sequelize) => {
     },
     options: {
       type: Sequelize.STRING
-    }
+    },
+    show: {
+      type: Sequelize.BOOLEAN,
+    },
   });
 
   return CustomerSettingsFields;

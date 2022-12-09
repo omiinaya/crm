@@ -119,7 +119,6 @@ function dummyData() {
       type: fields.type,
       placeholder: fields.placeholder,
       icon: fields.icon,
-      side: fields.side,
       show: fields.show,
       options: fields.options,
     });
@@ -133,7 +132,6 @@ function dummyData() {
       type: fields.type,
       placeholder: fields.placeholder,
       icon: fields.icon,
-      side: fields.side,
       options: fields.options,
     });
   });
@@ -146,7 +144,6 @@ function dummyData() {
       type: fields.type,
       placeholder: fields.placeholder,
       icon: fields.icon,
-      side: fields.side,
       show: fields.show,
       options: fields.options,
     });
@@ -175,7 +172,6 @@ function dummyData() {
       type: fields.type,
       placeholder: fields.placeholder,
       icon: fields.icon,
-      side: fields.side,
       options: fields.options,
       data: fields.data,
       show: fields.show,

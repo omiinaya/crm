@@ -23,12 +23,12 @@ module.exports = (sequelize, Sequelize) => {
     show: {
       type: Sequelize.BOOLEAN,
     },
-    side: {
-      type: Sequelize.INTEGER,
-    },
     options: {
       type: Sequelize.STRING
-    }
+    },
+    show: {
+      type: Sequelize.BOOLEAN,
+    },
   });
 
   return CustomerFields;

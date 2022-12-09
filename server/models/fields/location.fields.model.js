@@ -20,12 +20,12 @@ module.exports = (sequelize, Sequelize) => {
     icon: {
       type: Sequelize.STRING,
     },
-    side: {
-      type: Sequelize.INTEGER,
-    },
     options: {
       type: Sequelize.STRING
-    }
+    },
+    show: {
+      type: Sequelize.BOOLEAN,
+    },
   });
 
   return LocationFields;

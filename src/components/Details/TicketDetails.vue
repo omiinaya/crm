@@ -178,14 +178,14 @@
                       class="btn btn-secondary dropdown-toggle"
                       data-bs-toggle="dropdown"
                     >
-                      {{ comOptSelected || comOptions[0] }}
+                      {{ comVisSelected || comVis[0] }}
                     </button>
                     <ul class="dropdown-menu">
-                      <li v-for="(opt, index) in comOptions" :key="opt + index">
+                      <li v-for="(opt, index) in comVis" :key="opt + index">
                         <a
                           class="dropdown-item"
                           href="#!"
-                          v-on:click="comOptSelected = opt"
+                          v-on:click="comVisHandler(opt)"
                           >{{ opt }}
                         </a>
                       </li>
@@ -205,7 +205,7 @@
                         <a
                           class="dropdown-item"
                           href="#!"
-                          v-on:click="comTypeSelected = opt"
+                          v-on:click="comTypeHandler(opt)"
                           >{{ opt }}
                         </a>
                       </li>
@@ -229,7 +229,7 @@
                   class="btn messages"
                   v-on:click="createTicket(ticketForm)"
                 >
-                  Submit
+                  {{comVisSelected}}
                 </button>
               </div>
             </div>
@@ -283,9 +283,9 @@ export default {
     ],
     items: [],
     newOptions: ['Part Order', 'Estimate', 'Appointment', 'Intake Form', 'Outtake Form'],
-    comOptions: ['Private Note', 'Publc Note', 'Email', 'SMS', 'Email + SMS'],
+    comVis: ['Private Note', 'Publc Note', 'Email', 'SMS', 'Email + SMS'],
     comTypes: ['Update','Issue', 'Diagnosis', 'Parts Ordered', 'Parts Arrival', 'Complete'],
-    comOptSelected: null,
+    comVisSelected: null,
     comTypeSelected: null,
     comValue: null
   }),
@@ -340,11 +340,24 @@ export default {
       const data = await request.data
       return data
     },
+    async comTypeHandler(opt) {
+      this.comTypeSelected = opt
+      console.log(this.comTypeSelected)
+    },
+    async comVisHandler(opt) {
+      this.comVisSelected = opt
+      console.log(this.comVisSelected)
+    },
+    async init() {
+      this.comTypeHandler(this.comTypes[0]);
+      this.comVisHandler(this.comVis[0]);
+    },
     async testing123(a) {
       console.log(a)
     }
   },
   created() {
+    this.init();
     this.ticket.number = this.storeX.ticketId.toString().padStart(5, '0');
     this.loadTicketdata(this.storeX.ticketId)
     this.loadCustomerData(this.storeX.customerId)
