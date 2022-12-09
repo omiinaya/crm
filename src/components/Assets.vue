@@ -51,6 +51,7 @@ export default defineComponent({
     async loadAssetData() {
       const req = await AssetService.getAssets()
       const assets = await req.data;
+      assets[0].assetName = assets[0].assetName.split('(')[0];
       this.items = await assets;
 
       this.formatDate();

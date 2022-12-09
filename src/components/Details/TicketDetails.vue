@@ -31,7 +31,7 @@
                 class="btn btn-success"
                 v-on:click="print(customerForm)"
               >
-                TEST BUTTON 2
+                test 2
               </button>
             </div>
             <div class="col-1 top">
@@ -40,13 +40,13 @@
                 class="btn btn-success"
                 v-on:click="print(customerForm)"
               >
-                TEST BUTTON 3
+                test 3
               </button>
             </div>
           </div>
           <div class="row">
             <div class="col-12 title">
-              {{ ticket.techitle }}
+              {{ ticket.title }}
             </div>
           </div>
         </div>
