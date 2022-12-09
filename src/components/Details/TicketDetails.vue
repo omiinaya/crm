@@ -9,16 +9,11 @@
               <div class="dropdown">
                 <button
                   class="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton1"
                   data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                  style="width: 100%"
-                  placeholder="Dropdown"
                 >
                   New
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <ul class="dropdown-menu">
                   <li v-for="(opt, index) in newOptions" :key="opt + index">
                     <a
                       class="dropdown-item"
@@ -149,7 +144,6 @@
               Relevant Asset
             </div>
             <EasyDataTable
-              v-model:items-selected="itemsSelected"
               :headers="headers"
               :items="items"
               theme-color="#1d90ff"
@@ -160,7 +154,7 @@
             >
               <template #item-warranty="{ warranty }">
                 <Loading v-if="!warranty" />
-                <a v-else :href="warranty[1]" target="_blank">
+                <a class="warranty" v-else :href="warranty[1]" target="_blank">
                   {{ warranty[0] }}
                 </a>
               </template>
@@ -173,7 +167,46 @@
             </div>
             <div class="content">
               <div class="row">
-                <div class="col-10">test</div>
+                <div class="col-2">
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-secondary dropdown-toggle"
+                      data-bs-toggle="dropdown"
+                    >
+                      {{ comOptSelected || comOptions[0] }}
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li v-for="(opt, index) in comOptions" :key="opt + index">
+                        <a
+                          class="dropdown-item"
+                          href="#!"
+                          v-on:click="comOptSelected = opt"
+                          >{{ opt }}
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-secondary dropdown-toggle"
+                      data-bs-toggle="dropdown"
+                    >
+                    {{ comTypeSelected || comTypes[0] }}
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li v-for="(opt, index) in comTypes" :key="opt + index">
+                        <a
+                          class="dropdown-item"
+                          href="#!"
+                          v-on:click="comTypeSelected = opt"
+                          >{{ opt }}
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
                 <div class="col-2">test</div>
               </div>
             </div>
@@ -221,9 +254,11 @@ export default {
       { value: "warranty", text: "WARRANTY", sortable: true },
     ],
     items: [],
-    itemsSelected: [],
     newOptions: ['Part Order', 'Estimate', 'Appointment', 'Intake Form', 'Outtake Form'],
-    newSelected: 'New',
+    comOptions: ['Private Note', 'Publc Note', 'Email', 'SMS', 'Email + SMS'],
+    comTypes: ['Update','Issue', 'Diagnosis', 'Parts Ordered', 'Parts Arrival', 'Complete'],
+    comOptSelected: null,
+    comTypeSelected: null
   }),
   methods: {
     async loadTicketdata(id) {
@@ -293,38 +328,36 @@ export default {
   
 <style scoped>
 
-a {
+
+.warranty {
   color: #c1cad4;
   text-decoration: none;
 }
 
-a:hover {
+.warranty:hover {
   text-decoration: underline;
 }
 .bi {
-  padding-right: 5px !important;
+  padding: 5px !important;
 }
 
 .btn {
   width: 100%;
   font-size: 14px;
-  color: #c1cad4;
-  padding: 0;
+  color: white;
+  padding-bottom: 0;
+}
+
+.btn::after {
+  margin-right: 0px;
+  margin-top: 8px;
+
 }
 
 .btn:focus {
   box-shadow: none !important;
   border-color: transparent !important;
 }
-
-.btn:hover {
-  text-decoration: underline;
-}
-
-li {
-  color: #c0c7d2;
-}
-
 .title {
   font-size: 22px;
 }
