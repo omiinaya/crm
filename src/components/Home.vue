@@ -27,14 +27,7 @@
       </div>
       <br />
       <div class="details">
-        <ul>
-          <li>
-            [IMPORTANT]: Placeholder text
-          </li>
-          <li>
-            [URGENT]: Placeholder text
-          </li>
-        </ul>
+        <!--TODO:-->
       </div>
     </div>
     <div class="col-2-5 menu section text-center">

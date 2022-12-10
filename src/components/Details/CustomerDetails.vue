@@ -214,6 +214,7 @@ export default {
     async loadAssetData(id) {
       const request = await AssetService.getAssetsByCustomer(id)
       const data = await request.data;
+      data[0].assetName = data[0].assetName.split('(')[0];
       this.assetItems = await data;
     },
     async formatDate() {
