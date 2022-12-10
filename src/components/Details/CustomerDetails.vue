@@ -4,7 +4,7 @@
       <div clas="row">
         <div class="col-12 top">
           <div class="row">
-            <div class="col-9">{{ customerName }}</div>
+            <div class="col-9">{{ customer.name }}</div>
             <div class="col-3">test</div>
           </div>
         </div>
@@ -19,27 +19,34 @@
             <div class="content">
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
-                  <i class="bi bi-clipboard2-pulse"></i> Email:
+                  <i class="bi bi-envelope"></i> Email:
                 </label>
-                <div class="col-sm-6"> {{ customerEmail }} </div>
+                <div class="col-sm-6">{{ customer.email }}</div>
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
-                  <i class="bi bi-clipboard2-pulse"></i> Phone:
+                  <i class="bi bi-telephone"></i> Phone:
                 </label>
-                <div class="col-sm-6"> {{ customerPhone }} </div>
+                <div class="col-sm-6">{{ customer.phone }}</div>
               </div>
               <div class="row align-items-top mb-2">
                 <label class="col-sm-6">
-                  <i class="bi bi-clipboard2-pulse"></i> Address:
+                  <i class="bi bi-geo-alt"></i> Address:
                 </label>
-                <div class="col-sm-6"> {{ customerAddress }} </div>
+                <div class="col-sm-6">
+                  <a
+                    :href="`https://maps.google.com/?q=${customerAddress}`"
+                    target="_blank"
+                  >
+                    {{ customer.address }}
+                  </a>
+                </div>
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
-                  <i class="bi bi-clipboard2-pulse"></i> Created:
+                  <i class="bi bi-calendar-event"></i> Created:
                 </label>
-                <div class="col-sm-6"> {{ customerCreated }} </div>
+                <div class="col-sm-6">{{ customer.created }}</div>
               </div>
             </div>
           </div>
@@ -140,12 +147,14 @@ export default {
   components: {},
   data: () => ({
     storeX,
-    customerName: null,
-    customerPhone: null,
-    customerEmail: null,
-    customerNumber: null,
-    customerAddress: null,
-    customerCreated: null,
+    customer: {
+      name: null,
+      phone: null,
+      email: null,
+      address: null,
+      created: null
+    },
+    
     ticketHeaders: [
       { value: "id", text: "ID", sortable: true },
       { value: "ticketTitle", text: "TITLE", sortable: true },
@@ -184,13 +193,13 @@ export default {
       const primaryAddress = await this.loadLocationData(data.primaryAddress);
       const customerAddress = Object.values(primaryAddress[0]).slice(1, 7).join(', '); //gets address
 
-      this.customerName = `${data.firstName} ${data.lastName}`;
-      this.customerEmail = data.email;
-      this.customerPhone = data.phone;
-      this.customerType = data.customerType;
-      this.customerCreated = moment(data.createdAt).format('MM-DD-YYYY');
-      this.customerPhone = phoneNumber;
-      this.customerAddress = customerAddress;
+      this.customer.name = `${data.firstName} ${data.lastName}`;
+      this.customer.email = data.email;
+      this.customer.phone = data.phone;
+      this.customer.type = data.customerType;
+      this.customer.created = moment(data.createdAt).format('MM-DD-YYYY');
+      this.customer.phone = phoneNumber;
+      this.customer.address = customerAddress;
     },
     async loadPhoneData(id) {
       const request = await NumberService.getNumberById(id)
@@ -233,7 +242,6 @@ export default {
 </script>
   
 <style scoped>
-
 .bi {
   padding-right: 5px !important;
 }

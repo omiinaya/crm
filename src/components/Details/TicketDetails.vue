@@ -7,24 +7,39 @@
             <div class="col-8 top">#{{ ticket.number }}</div>
             <div class="col-1 top">
               <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                >
                   New
                 </button>
                 <ul class="dropdown-menu">
                   <li v-for="(opt, index) in newOptions" :key="opt + index">
-                    <a class="dropdown-item" href="#!" v-on:click="newSelected = opt">{{ opt }}
+                    <a
+                      class="dropdown-item"
+                      href="#!"
+                      v-on:click="newSelected = opt"
+                      >{{ opt }}
                     </a>
                   </li>
                 </ul>
               </div>
             </div>
             <div class="col-1 top">
-              <button type="button" class="btn btn-success" v-on:click="print(customerForm)">
+              <button
+                type="button"
+                class="btn btn-success"
+                v-on:click="print(customerForm)"
+              >
                 test 2
               </button>
             </div>
             <div class="col-1 top">
-              <button type="button" class="btn btn-success" v-on:click="print(customerForm)">
+              <button
+                type="button"
+                class="btn btn-success"
+                v-on:click="print(customerForm)"
+              >
                 test 3
               </button>
             </div>
@@ -104,7 +119,14 @@
                 <label class="col-sm-6">
                   <i class="bi bi-geo-alt"></i> Primary Address:
                 </label>
-                <div class="col-sm-6">{{ customer.address }}</div>
+                <div class="col-sm-6">
+                  <a
+                    :href="`https://maps.google.com/?q=${customer.address}`"
+                    target="_blank"
+                  >
+                    {{ customer.address }}
+                  </a>
+                </div>
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
@@ -128,9 +150,15 @@
               <i class="bi bi-laptop"></i>
               Relevant Asset
             </div>
-            <EasyDataTable :headers="headers" :items="items" theme-color="#1d90ff"
-              table-class-name="customize-table-details" header-text-direction="center" body-text-direction="center"
-              hide-footer>
+            <EasyDataTable
+              :headers="headers"
+              :items="items"
+              theme-color="#1d90ff"
+              table-class-name="customize-table-details"
+              header-text-direction="center"
+              body-text-direction="center"
+              hide-footer
+            >
               <template #item-warranty="{ warranty }">
                 <Loading v-if="!warranty" />
                 <a class="warranty" v-else :href="warranty[1]" target="_blank">
@@ -153,12 +181,19 @@
               <div class="row">
                 <div class="col-2">
                   <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                    <button
+                      class="btn btn-secondary dropdown-toggle"
+                      data-bs-toggle="dropdown"
+                    >
                       {{ com.visibility || comVis[0] }}
                     </button>
                     <ul class="dropdown-menu">
                       <li v-for="(opt, index) in comVis" :key="opt + index">
-                        <a class="dropdown-item" href="#!" v-on:click="comVisHandler(opt)">{{ opt }}
+                        <a
+                          class="dropdown-item"
+                          href="#!"
+                          v-on:click="comVisHandler(opt)"
+                          >{{ opt }}
                         </a>
                       </li>
                     </ul>
@@ -166,12 +201,19 @@
                 </div>
                 <div class="col-2">
                   <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                    <button
+                      class="btn btn-secondary dropdown-toggle"
+                      data-bs-toggle="dropdown"
+                    >
                       {{ com.type || comTypes[0] }}
                     </button>
                     <ul class="dropdown-menu">
                       <li v-for="(opt, index) in comTypes" :key="opt + index">
-                        <a class="dropdown-item" href="#!" v-on:click="comTypeHandler(opt)">{{ opt }}
+                        <a
+                          class="dropdown-item"
+                          href="#!"
+                          v-on:click="comTypeHandler(opt)"
+                          >{{ opt }}
                         </a>
                       </li>
                     </ul>
@@ -182,8 +224,12 @@
             </div>
             <div class="content">
               <div class="col-sm-12">
-                <textarea class="form-control text-area" rows="6" v-model="com.comMsg"
-                  @input="testing123(com.comMsg)"></textarea>
+                <textarea
+                  class="form-control text-area"
+                  rows="6"
+                  v-model="com.comMsg"
+                  @input="testing123(com.comMsg)"
+                ></textarea>
               </div>
               <div class="col-2 offset-10">
                 <button class="btn messages" v-on:click="createCom(com)">
@@ -193,7 +239,11 @@
             </div>
           </div>
           <div class="test">
-            <div v-for="(com, index) in coms" class="col-12 form-control com mt-3" :key="com + index">
+            <div
+              v-for="(com, index) in coms"
+              class="col-12 form-control com mt-3"
+              :key="com + index"
+            >
               <div class="mb-3">
                 <div class="row">
                   <div class="col-3">
@@ -381,12 +431,12 @@ export default {
 .com {
   padding: 20px;
   border: 1px yellow solid;
-  background-color: #1F1F1F;
+  background-color: #1f1f1f;
   color: white;
 }
 
 .messages {
-  background-color: #c16701
+  background-color: #c16701;
 }
 
 .text-area {
