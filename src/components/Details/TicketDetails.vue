@@ -107,7 +107,11 @@
                 <label class="col-sm-6">
                   <i class="bi bi-envelope"></i> Email:
                 </label>
-                <div class="col-sm-6">{{ customer.email }}</div>
+                <div class="col-sm-6">
+                  <a :href="`mailto:${customer.email}`" target="_blank">
+                    {{ customer.email }}
+                  </a>
+                </div>
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">

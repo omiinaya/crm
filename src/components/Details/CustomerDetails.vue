@@ -21,7 +21,14 @@
                 <label class="col-sm-6">
                   <i class="bi bi-envelope"></i> Email:
                 </label>
-                <div class="col-sm-6">{{ customer.email }}</div>
+                <div class="col-sm-6">
+                  <a
+                    :href="`mailto:${customer.email}`"
+                    target="_blank"
+                  >
+                    {{ customer.email }}
+                  </a>
+                </div>
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
@@ -35,7 +42,7 @@
                 </label>
                 <div class="col-sm-6">
                   <a
-                    :href="`https://maps.google.com/?q=${customerAddress}`"
+                    :href="`https://maps.google.com/?q=${customer.address}`"
                     target="_blank"
                   >
                     {{ customer.address }}
@@ -60,8 +67,8 @@
                 <div class="col-6">
                   <div class="header">Tickets:</div>
                   <ul>
-                    <li>Open: {{ openTickets }}</li>
-                    <li>Closed: {{ closedTickets }}</li>
+                    <li>Open: {{ tickets.open }}</li>
+                    <li>Closed: {{ tickets.closed }}</li>
                   </ul>
                 </div>
                 <div class="col-6">
@@ -152,7 +159,8 @@ export default {
       phone: null,
       email: null,
       address: null,
-      created: null
+      created: null,
+      type: null
     },
     
     ticketHeaders: [
@@ -171,8 +179,10 @@ export default {
       { value: "assetBrand", text: "MANUFACTURER", sortable: true }
     ],
     assetItems: [],
-    openTickets: null,
-    closedTickets: null,
+    tickets: {
+      open: null,
+      closed: null
+    },
     //TODO: calc this instead of hard coding
     paidInvoices: 0,
     unpaidInvoices: 0
@@ -216,8 +226,8 @@ export default {
       const data = await request.data;
 
       this.ticketItems = await data;
-      this.openTickets = this.ticketItems.filter(ticket => ticket.ticketStatus != 'Closed').length
-      this.closedTickets = this.ticketItems.filter(ticket => ticket.ticketStatus === 'Closed').length
+      this.tickets.open = this.ticketItems.filter(ticket => ticket.ticketStatus != 'Closed').length
+      this.tickets.closed = this.ticketItems.filter(ticket => ticket.ticketStatus === 'Closed').length
       this.formatDate();
     },
     async loadAssetData(id) {
