@@ -36,13 +36,7 @@ require("./routes/location.routes")(app);
   });
 
   const io = require("socket.io")(server, {
-    cors: {
-      credentials: false,
-      origin: "*",
-      optionsSuccessStatus: 200,
-      allowedHeaders: ["Content-Type", "Authorization"],
-      methods: ["GET", "PUT", "POST", "DELETE", "OPTIONS"],
-    }
+    cors: { origin: "http://localhost:8091" }
   });
 
   const ioServer = io.listen(port2, () => {
@@ -50,6 +44,9 @@ require("./routes/location.routes")(app);
   });
 
   ioServer.on("connection", (client) => {
-    console.log(client + "has connected");
+    console.log("connection established.");
+    client.on('disconnect', () => {
+      console.log("connection has ended");
+    });
   });
 })();
