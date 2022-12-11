@@ -7,12 +7,14 @@
 <script>
 import { IonApp /*, IonRouterOutlet*/ } from '@ionic/vue';
 import { defineComponent } from 'vue';
-import io from 'socket.io-client';
 
-const socket = io('http://localhost:8092');
+import { storeX } from "./store/index";
+const socket = storeX.io
 
 socket.on('connect', () => {
   console.log('hello');
+
+  socket.emit("message", "Hello, world!");
 });
 
 export default defineComponent({
