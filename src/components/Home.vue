@@ -13,7 +13,7 @@
                 <i :class="action.icon"></i>
               </button>
               <button type="button" class="btn btn-success btn-lg actions custom-right"
-                v-on:click="storeX.view = action.url">
+                v-on:click="storeX.navigation.view = action.url">
                 + {{ action.title }}
               </button>
             </div>

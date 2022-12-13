@@ -56,20 +56,24 @@ export default defineComponent({
       console.log(a);
     },
     async openTicket(id, ticketCustomerId) {
-      storeX.view = 'ticket';
-      storeX.ticketId = id;
-      storeX.customerId = ticketCustomerId;
+      this.storeX.updateNavigation({
+        view: 'ticket',
+        ticketId: id,
+        customerId: ticketCustomerId
+      })
     },
     async openCustomer(id) {
-      storeX.view = 'customer';
-      storeX.customerId = id;
+      this.storeX.updateNavigation({
+        view: 'customer',
+        customerId: id
+      })
     },
     async loadTicketData() {
       const req = await TicketService.getTickets();
       const tickets = await req.data;
 
       this.items = await tickets;
-      
+
       this.items.forEach(async item => {
         const data = await this.loadAssetData(item.id);
         const serial = data[0].assetSerial;
@@ -77,7 +81,7 @@ export default defineComponent({
       })
 
       this.formatDate();
-      
+
     },
     async loadAssetData(id) {
       const req = await AssetService.getAssetByTicketId(id);

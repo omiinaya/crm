@@ -88,7 +88,7 @@
               <i class="bi bi-tag"></i>
               Tickets
             </div>
-            <div class="content">
+            <div v-if="ticketItems.length" class="content">
               <EasyDataTable
                 :headers="ticketHeaders"
                 :items="ticketItems"
@@ -110,13 +110,16 @@
                 </template>
               </EasyDataTable>
             </div>
+            <center v-if="!ticketItems.length">
+              There are no tickets to display
+            </center>
           </div>
           <div class="section">
             <div class="header">
               <i class="bi bi-laptop"></i>
               Assets
             </div>
-            <div class="content">
+            <div v-if="assetItems.length" class="content">
               <EasyDataTable
                 :headers="assetHeaders"
                 :items="assetItems"
@@ -126,6 +129,9 @@
                 body-text-direction="center"
               />
             </div>
+            <center v-if="!assetItems.length">
+              There are no assets to display
+            </center>
           </div>
           <div class="section">
             <div class="header">
@@ -189,14 +195,16 @@ export default {
   }),
   methods: {
     async openTicket(id, ticketCustomerId) {
-      storeX.view = 'ticket'
-      storeX.ticketId = id
-      storeX.customerId = ticketCustomerId;
+      this.storeX.updateNavigation({
+        view: 'ticket',
+        ticketId: id,
+        customerId: ticketCustomerId
+      })
     },
     async loadCustomerData(id) {
       const request = await CustomerService.getCustomerById(id)
       const data = await request.data[0];
-      
+      console.log(data)
       const primaryPhone = await this.loadPhoneData(data.primaryPhone);
       const phoneNumber = primaryPhone[0].number;
 
@@ -244,9 +252,9 @@ export default {
     },
   },
   created() {
-    this.loadCustomerData(this.storeX.customerId)
-    this.loadTicketData(this.storeX.customerId)
-    this.loadAssetData(this.storeX.customerId)
+    this.loadCustomerData(this.storeX.navigation.customerId)
+    this.loadTicketData(this.storeX.navigation.customerId)
+    this.loadAssetData(this.storeX.navigation.customerId)
   },
 }
 </script>

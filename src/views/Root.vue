@@ -7,22 +7,22 @@
     </ion-header>
 
     <ion-content :fullscreen="true">
-      <Home v-if="storeX.view === 'home' || !storeX.view" />
-      <Customers v-else-if="storeX.view === 'customers'" />
-      <Assets v-else-if="storeX.view === 'assets'" />
-      <Invoices v-else-if="storeX.view === 'invoices'" />
-      <Tickets v-else-if="storeX.view === 'tickets'" />
-      <Parts v-else-if="storeX.view === 'parts'" />
-      <Inventory v-else-if="storeX.view === 'inventory'" />
-      <Estimates v-else-if="storeX.view === 'estimates'" />
-      <POS v-else-if="storeX.view === 'pos'" />
-      <Admin v-else-if="storeX.view === 'admin'" />
-      <NewCustomer v-else-if="storeX.view === 'newCustomer'" />
-      <NewTicket v-else-if="storeX.view === 'newTicket'" />
-      <NewAsset v-else-if="storeX.view === 'newAsset'" />
-      <CustomerDetail v-else-if="storeX.view === 'customer'" />
-      <TicketDetail v-else-if="storeX.view === 'ticket'" />
-      <Projects v-else-if="storeX.view === 'projects'" />
+      <Home v-if="storeX.navigation.view === 'home' || !storeX.navigation.view" />
+      <Customers v-else-if="storeX.navigation.view === 'customers'" />
+      <Assets v-else-if="storeX.navigation.view === 'assets'" />
+      <Invoices v-else-if="storeX.navigation.view === 'invoices'" />
+      <Tickets v-else-if="storeX.navigation.view === 'tickets'" />
+      <Parts v-else-if="storeX.navigation.view === 'parts'" />
+      <Inventory v-else-if="storeX.navigation.view === 'inventory'" />
+      <Estimates v-else-if="storeX.navigation.view === 'estimates'" />
+      <POS v-else-if="storeX.navigation.view === 'pos'" />
+      <Admin v-else-if="storeX.navigation.view === 'admin'" />
+      <NewCustomer v-else-if="storeX.navigation.view === 'newCustomer'" />
+      <NewTicket v-else-if="storeX.navigation.view === 'newTicket'" />
+      <NewAsset v-else-if="storeX.navigation.view === 'newAsset'" />
+      <CustomerDetail v-else-if="storeX.navigation.view === 'customer'" />
+      <TicketDetail v-else-if="storeX.navigation.view === 'ticket'" />
+      <Projects v-else-if="storeX.navigation.view === 'projects'" />
     </ion-content>
   </ion-page>
 </template>
@@ -63,7 +63,7 @@ export default defineComponent({
     const route = useRoute()
     if (!Object.keys(route.query).length) return
     if (!route.query.view) return
-    storeX.view = route.query.view
+    storeX.navigation.view = route.query.view
     storeX.customerId = route.query.customerId
   },
   components: {

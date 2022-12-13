@@ -189,7 +189,7 @@
                       class="btn btn-secondary dropdown-toggle"
                       data-bs-toggle="dropdown"
                     >
-                      {{ com.visibility || comVis[0] }}
+                    {{ com.comVis }}
                     </button>
                     <ul class="dropdown-menu">
                       <li v-for="(opt, index) in comVis" :key="opt + index">
@@ -209,7 +209,7 @@
                       class="btn btn-secondary dropdown-toggle"
                       data-bs-toggle="dropdown"
                     >
-                      {{ com.type || comTypes[0] }}
+                      {{ com.comType }}
                     </button>
                     <ul class="dropdown-menu">
                       <li v-for="(opt, index) in comTypes" :key="opt + index">
@@ -414,14 +414,14 @@ export default {
   },
   created() {
     this.init();
-    this.ticket.number = this.storeX.ticketId.toString().padStart(5, '0');
+    this.ticket.number = this.storeX.navigation.ticketId.toString().padStart(5, '0');
     this.com.comAuthorId = JSON.parse(localStorage.getItem('user')).id;
     this.com.comAuthorName = JSON.parse(localStorage.getItem('user')).name;
-    this.com.comTicketId = this.storeX.ticketId;
-    this.loadTicketdata(this.storeX.ticketId);
-    this.loadCustomerData(this.storeX.customerId);
-    this.loadAssetData(this.storeX.ticketId);
-    this.loadComData(this.storeX.ticketId);
+    this.com.comTicketId = this.storeX.navigation.ticketId;
+    this.loadTicketdata(this.storeX.navigation.ticketId);
+    this.loadCustomerData(this.storeX.navigation.customerId);
+    this.loadAssetData(this.storeX.navigation.ticketId);
+    this.loadComData(this.storeX.navigation.ticketId);
   },
 }
 </script>

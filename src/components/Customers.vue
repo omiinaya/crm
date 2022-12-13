@@ -44,9 +44,12 @@ export default defineComponent({
   },
   methods: {
     async openCustomer(id) {
-      storeX.view = 'customer'
-      storeX.customerId = id
+      this.storeX.updateNavigation({
+        view: 'customer',
+        customerId: id
+      })
     },
+
     async loadCustomerData() {
       const request = await CustomerService.getCustomers()
       const data = await request.data;
@@ -59,11 +62,13 @@ export default defineComponent({
       })
       this.formatDate();
     },
+
     async loadPhoneData(id) {
       const request = await NumberService.getNumberById(id)
       const data = await request.data;
       return data
     },
+
     async formatDate() {
       this.items.forEach(item => {
         item.createdAt = moment(item.createdAt).format('MM-DD-YYYY HH:MM A');

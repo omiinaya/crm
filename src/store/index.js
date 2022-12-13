@@ -12,10 +12,18 @@ const store = createStore({
 });
 
 export const storeX = reactive({
-  view: null,
-  customerId: null,
-  ticketId: null,
-  io: socket
+  navigation: {
+    view: null,
+    customerId: null,
+    ticketId: null,
+  },
+  prevNav: {},
+  io: socket,
+  updateNavigation (obj) {
+    this.navigation.view = obj.view || null,
+    this.navigation.customerId = obj.customerId || null,
+    this.navigation.ticketId = obj.ticketId || null
+  }
 })
 
 export default store;

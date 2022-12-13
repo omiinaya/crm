@@ -4,8 +4,8 @@
       Assets
       <div class="row">
         <div class="col-12 section">
-          <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="items" theme-color="#1d90ff" table-class-name="customize-table"
-            header-text-direction="center" body-text-direction="center">
+          <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="items" theme-color="#1d90ff"
+            table-class-name="customize-table" header-text-direction="center" body-text-direction="center">
             <template #item-customerName="{ customerName, assetCustomerId }">
               <button type="button" class="btn btn-lg" v-on:click="openCustomer(assetCustomerId)">
                 {{ customerName }}
@@ -44,8 +44,10 @@ export default defineComponent({
   },
   methods: {
     async openCustomer(id) {
-      storeX.view = 'customer'
-      storeX.customerId = id
+      this.storeX.updateNavigation({
+        view: 'customer',
+        customerId: id
+      })
     },
 
     async loadAssetData() {
@@ -93,7 +95,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
 .btn {
   width: 100%;
   font-size: 14px;
@@ -109,6 +110,7 @@ export default defineComponent({
 .btn:hover {
   text-decoration: underline;
 }
+
 .top {
   padding: 20px;
   padding-bottom: 0;

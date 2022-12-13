@@ -1,7 +1,7 @@
 <template>
   <div class="row test align-items-center">
     <div class="col-1-5 offset-1" id="topBar">
-      <button type="button" class="btn" v-on:click="storeX.view = null">
+      <button type="button" class="btn" v-on:click="storeX.navigation.view = null">
         Mobile Me IT Inc.
       </button>
     </div>
@@ -24,7 +24,7 @@
     <div class="col-12 offset-1 navBar">
       <div class="row">
         <div class="col-0-5 text-center" v-for="(link, index) in links" :key="link + index">
-          <button type="button" class="btn btn-lg" v-on:click="storeX.view = link.url">
+          <button type="button" class="btn btn-lg" v-on:click="storeX.navigation.view = link.url">
             <div>
               <i :class="link.icon"></i>
             </div>
