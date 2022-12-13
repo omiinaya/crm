@@ -5,7 +5,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const app = express();
-const port = process.env.SERVER || 8080;
+const port = parseInt(process.env.SERVER) || 8080;
 
 app.use(cors({ origin: "http://localhost:8091" }));
 
@@ -30,7 +30,6 @@ require("./routes/location.routes")(app);
 
 (async () => {
   await dbSetup();
-  const port2 = parseInt(port) + 2;
   const server = app.listen(port, () => {
     console.log(`Server is running on port ${port}.`);
   });
@@ -39,8 +38,8 @@ require("./routes/location.routes")(app);
     cors: { origin: "http://localhost:8091" },
   });
 
-  const socket = io.listen(port2, () => {
-    console.log(`Socket.io is running on port ${port2}.`);
+  const socket = io.listen(port + 2, () => {
+    console.log(`Socket.io is running on port ${port + 2}.`);
   });
 
   socket.on("connection", (client) => {
