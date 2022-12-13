@@ -53,5 +53,9 @@ require("./routes/location.routes")(app);
     client.on("message", (data) => {
       console.log("Received message:", data);
     });
+
+    client.on("ticketCreated", () => {
+      socket.emit("testing", "Hello, world!");
+    });
   });
 })();

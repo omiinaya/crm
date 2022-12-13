@@ -1,5 +1,6 @@
 const db = require("../models");
 const axios = require("axios");
+const io = require('socket.io-client');
 const Com = db.com;
 
 exports.create = async (req, res) => {
@@ -16,6 +17,10 @@ exports.create = async (req, res) => {
 
   try {
     const request = await Com.create(com);
+
+    const socket = io('http://localhost:8092');
+    socket.emit("ticketCreated");
+    
     res.send(await request);
   } catch (err) {
     console.log(err);

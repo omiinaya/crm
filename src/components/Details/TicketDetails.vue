@@ -289,7 +289,12 @@ import AssetService from "../../services/asset.service";
 import WarrantyService from "../../services/warranty.service";
 import ComService from "../../services/com.service";
 import Loading from "../Loading/Loading.vue";
-import moment from 'moment'
+import moment from 'moment';
+const socket = storeX.io;
+
+socket.on('testing', (data) => {
+  console.log(data)
+})
 
 export default {
   name: 'CustomerDetailsPage',
