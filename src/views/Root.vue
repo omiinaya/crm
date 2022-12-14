@@ -8,10 +8,13 @@
             <li
               v-for="(crumb, index) in breadcrumbs"
               :key="breadcrumbs + index"
-              class="breadcrumb-item active"
+              class="breadcrumb-item"
               aria-current="page"
+              v-on:click="testing123(crumb)"
             >
               {{
+                crumb.view.charAt(0).toUpperCase() + crumb.view.slice(1)
+                /*
                 crumb === breadcrumbs[breadcrumbs.length - 1]
                   ? crumb.view !== "customer"
                     ? crumb.view !== "ticket"
@@ -19,6 +22,7 @@
                       : "TODO: Ticket Number" //tickets
                     : "TODO: Customer Name" //customer
                   : crumb.view.charAt(0).toUpperCase() + crumb.view.slice(1)
+                */
               }}
             </li>
           </ol>
@@ -80,7 +84,16 @@ export default defineComponent({
       storeX
     };
   },
-  methods: {},
+  methods: {
+    testing123 (crumb) {
+      console.log(crumb)
+      this.storeX.updateNavigation({
+        view: crumb.view,
+        customerId: crumb.customerId,
+        ticketId: crumb.ticketId
+      })
+    }
+  },
   created() {
     const route = useRoute()
     if (!Object.keys(route.query).length) return
@@ -127,5 +140,13 @@ export default defineComponent({
 
 .breadcrumb {
   justify-content: center;
+}
+
+.breadcrumb-item .li {
+  color: white !important;
+}
+
+.breadcrumb-item:hover {
+  text-decoration: underline;
 }
 </style>
