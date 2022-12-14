@@ -10,26 +10,23 @@
       <div class="breadcrumbs">
         <div class="col-11 offset-1">
           <ol class="breadcrumb">
-            <li
-              v-for="(crumb, index) in breadcrumbs"
-              :key="breadcrumbs + index"
-              class="breadcrumb-item"
-              v-on:click="testing123(crumb)"
-            >
+            <li v-for="(crumb, index) in breadcrumbs" :key="breadcrumbs + index" class="breadcrumb-item"
+              v-on:click="updateNavigation(crumb)">
               {{
-                crumb === breadcrumbs[breadcrumbs.length - 1]
-                  ? crumb === breadcrumbs[breadcrumbs.length - 2]
-                    ? crumb.view.charAt(0).toUpperCase() + crumb.view.slice(1)
-                    : crumb.view.charAt(0).toUpperCase() + crumb.view.slice(1) //current
-                  : '⯇ ' + crumb.view.charAt(0).toUpperCase() + crumb.view.slice(1)
+                  crumb === breadcrumbs[breadcrumbs.length - 1]
+                    ? crumb.view !== "customer"
+                      ? crumb.view !== "ticket"
+                        ? crumb.view.charAt(0).toUpperCase() + crumb.view.slice(1)
+                        : 'Ticket #' + storeX.navigation.ticketId.toString().padStart(5, '0')
+                      : "TODO: Customer Name" //customer
+                    : crumb.view !== 'ticket' ? '⯇ ' + crumb.view.charAt(0).toUpperCase() + crumb.view.slice(1)
+                      : `⯇ Ticket #${storeX.history[storeX.history.length - 2].ticketId.toString().padStart(5, '0')}`
               }}
             </li>
           </ol>
         </div>
       </div>
-      <Home
-        v-if="storeX.navigation.view === 'home' || !storeX.navigation.view"
-      />
+      <Home v-if="storeX.navigation.view === 'home' || !storeX.navigation.view" />
       <Customers v-else-if="storeX.navigation.view === 'customers'" />
       <Assets v-else-if="storeX.navigation.view === 'assets'" />
       <Invoices v-else-if="storeX.navigation.view === 'invoices'" />
@@ -81,8 +78,7 @@ export default defineComponent({
     };
   },
   methods: {
-    testing123 (crumb) {
-      console.log(crumb)
+    updateNavigation(crumb) {
       this.storeX.updateNavigation({
         view: crumb.view,
         customerId: crumb.customerId,
@@ -133,6 +129,7 @@ export default defineComponent({
   margin-top: 20px;
   background-color: #121212;
 }
+
 .btn {
   box-shadow: none;
   border-color: transparent;

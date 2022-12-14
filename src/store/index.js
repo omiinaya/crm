@@ -21,10 +21,11 @@ export const storeX = reactive({
   io: socket,
   history: [{ view: "home" }],
   updateNavigation(obj) {
-    (this.navigation.view = obj.view || null),
-      (this.navigation.customerId = obj.customerId || null),
-      (this.navigation.ticketId = obj.ticketId || null);
+    this.navigation.view = obj.view
+    this.navigation.customerId = obj.customerId,
+    this.navigation.ticketId = obj.ticketId
     this.history.push(obj);
+    console.log(this.history)
   },
   getBreadcrumbs() {
     const arr = this.history.slice(-2);
