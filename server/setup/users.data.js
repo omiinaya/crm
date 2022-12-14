@@ -14,7 +14,7 @@ const users = [
         password: "$2a$08$7O/xmmuyMmc4PuCF2dcPxue3bHuGmQvvn1M2AidQnYzNE.QC7bTyy",
     },
     {
-        firstName: "Enmanuel",
+        firstName: "Manny",
         lastName: "Carbonell",
         username: "test3",
         email: "test3@gmail.com",

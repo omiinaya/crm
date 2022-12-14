@@ -279,9 +279,7 @@ export default {
     async loadTechnicianData() {
       const request = await UserService.getAllUsers();
       const technicianList = await request.data;
-      technicianList.forEach((tech) => {
-        this.techItems.push(tech);
-      })
+      this.techItems = technicianList;
     },
     async createTicket(data) {
       console.log(data)
