@@ -63,7 +63,27 @@
                 <label class="col-sm-6">
                   <i class="bi bi-clipboard2-pulse"></i> Status:
                 </label>
-                <div class="col-sm-6">{{ ticket.status }}</div>
+                <div class="col-sm-6">
+                  <!-- make this a dropdown -->
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-secondary dropdown-toggle"
+                      data-bs-toggle="dropdown"
+                    >
+                    {{ ticket.status }}
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li v-for="(status, index) in ticketStatus" :key="status + index">
+                        <a
+                          class="dropdown-item"
+                          href="#!"
+                          v-on:click="ticketStatusHandler(storeX.navigation.ticketId, status)"
+                          >{{ status }}
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
@@ -323,6 +343,7 @@ export default {
     ],
     items: [],
     newOptions: ['Part Order', 'Estimate', 'Appointment', 'Intake Form', 'Outtake Form'],
+    ticketStatus: ['New', 'Waiting for Parts', 'Waiting on Customer', 'In Progress', 'Ready for Pickup', 'Resolved', 'Customer Reply'],
     comVis: ['Private Note', 'Publc Note', 'Email', 'SMS', 'Email + SMS'],
     comTypes: ['Update', 'Issue', 'Diagnosis', 'Parts Ordered', 'Parts Arrival', 'Complete'],
     com: {
@@ -392,13 +413,19 @@ export default {
     async loadComData(id) {
       const request = await ComService.getComsByTicketId(id)
       const data = await request.data;
-      this.coms = data;
+      this.coms = data.reverse();
     },
     async comTypeHandler(opt) {
       this.com.comType = opt
     },
     async comVisHandler(opt) {
       this.com.comVis = opt
+    },
+    async ticketStatusHandler(id, data) {
+      console.log(id)
+      console.log(data)
+      const obj = { ticketStatus: data}
+      TicketService.updateTicket(id, obj)
     },
     async init() {
       this.comTypeHandler(this.comTypes[0]);
@@ -422,6 +449,11 @@ export default {
     this.storeX.io.on('comCreatedResponse', (id) => {
       if (this.storeX.navigation.ticketId != id) return;
       this.loadComData(this.storeX.navigation.ticketId);
+    })
+
+    this.storeX.io.on('ticketUpdateResponse', (id) => {
+      if (this.storeX.navigation.ticketId != id) return;
+      this.loadTicketdata(this.storeX.navigation.ticketId);
     })
   },
 }

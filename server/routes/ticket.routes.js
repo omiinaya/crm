@@ -10,7 +10,7 @@ module.exports = app => {
     router.get("/fields", ticketFields.findAll);
     //router.get("/:id", assetField.findByRoleId)
     //router.get("/role/:id", assetField.findByRole)
-    //router.put("/:id", assetField.update);
+    router.put("/id/:id", ticket.update);
     //router.delete("/:id", assetField.delete);
   
     app.use('/api/ticket', router);

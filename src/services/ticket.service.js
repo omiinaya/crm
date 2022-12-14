@@ -25,6 +25,11 @@ class TicketService {
   createTicket(data) {
     return axios.post(API_URL, data);
   }
+
+  //PUT
+  updateTicket(ticketId, data) {
+    return axios.put(API_URL + `id/${ticketId}`, data);
+  }
 }
 
 export default new TicketService();

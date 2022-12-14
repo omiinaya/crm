@@ -1,7 +1,7 @@
 const db = require("../models");
 const axios = require("axios");
-const io = require('socket.io-client');
 const Com = db.com;
+const io = require('socket.io-client');
 
 exports.create = async (req, res) => {
   const comFields = await axios.get(
@@ -17,9 +17,9 @@ exports.create = async (req, res) => {
 
   try {
     const request = await Com.create(com);
-    const socket = io('http://localhost:8092');
     const ticketId = await request.comTicketId
-
+    
+    const socket = io('http://localhost:8092');
     socket.emit("comCreatedRequest", ticketId);
     
     res.send(await request);

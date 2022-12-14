@@ -56,5 +56,9 @@ require("./routes/location.routes")(app);
     client.on("comCreatedRequest", (id) => {
       socket.emit("comCreatedResponse", id);
     });
+
+    client.on("ticketUpdateRequest", (id) => {
+      socket.emit("ticketUpdateResponse", id);
+    });
   });
 })();

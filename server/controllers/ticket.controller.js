@@ -2,6 +2,7 @@ const db = require("../models");
 const Ticket = db.ticket;
 const Asset = db.asset;
 const axios = require("axios");
+const io = require('socket.io-client');
 
 exports.create = async (req, res) => {
   const ticketFields = await axios.get(
@@ -73,7 +74,7 @@ exports.findByTicketId = (req, res) => {
 exports.findByCustomerId = (req, res) => {
   const id = req.params.id;
   console.log(id)
-  
+
   Ticket.findAll({
     where: { ticketCustomerId: id },
   })
@@ -96,6 +97,8 @@ exports.update = (req, res) => {
   })
     .then((num) => {
       if (num == 1) {
+        const socket = io('http://localhost:8092');
+        socket.emit("ticketUpdateRequest", id);
         res.send({
           message: "Tutorial was updated successfully.",
         });
@@ -110,6 +113,7 @@ exports.update = (req, res) => {
         message: "Error updating Tutorial with id=" + id + err,
       });
     });
+
 };
 
 exports.delete = (req, res) => {
