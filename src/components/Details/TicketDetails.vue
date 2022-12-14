@@ -55,7 +55,7 @@
                     </button>
                     <ul class="dropdown-menu">
                       <li v-for="(status, index) in ticketStatus" :key="status + index">
-                        <a class="dropdown-item" href="#!"
+                        <a class="dropdown-item" href="#"
                           v-on:click="ticketStatusHandler(storeX.navigation.ticketId, status)">{{ status }}
                         </a>
                       </li>
@@ -74,7 +74,7 @@
                     </button>
                     <ul class="dropdown-menu">
                       <li v-for="(tech, index) in technicians" :key="tech + index">
-                        <a class="dropdown-item" href="#!"
+                        <a class="dropdown-item" href="#"
                           v-on:click="ticketTechHandler(storeX.navigation.ticketId, tech.fullName)">{{ tech.fullName }}
                         </a>
                       </li>
@@ -236,8 +236,8 @@
                   <div class="col-1 offset-2">
                     {{ com.comType }}
                   </div>
-                  <div class="col-1 offset-3">
-                    {{ com.comType }}
+                  <div class="col-3 offset-3">
+                    {{ com.createdAt }}
                   </div>
                 </div>
                 <div class="row">
@@ -314,7 +314,8 @@ export default {
       comMsg: null,
       comAuthorId: null,
       comTicketId: null,
-      comAuthorName: null
+      comAuthorName: null,
+      comCreated: null
     },
     coms: [],
   }),
@@ -381,6 +382,9 @@ export default {
     async loadComData(id) {
       const request = await ComService.getComsByTicketId(id)
       const data = await request.data;
+      data.forEach(com => 
+        com.createdAt = moment(com.createdAt).format('ddd MM-DD-YYYY HH:MM A')
+      )
       this.coms = data.reverse();
     },
     async comTypeHandler(opt) {
