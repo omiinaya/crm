@@ -337,7 +337,6 @@ export default {
   }),
   methods: {
     async createCom() {
-      console.log(this.com)
       ComService.createCom(this.com);
     },
     async loadTicketdata(id) {
@@ -394,15 +393,12 @@ export default {
       const request = await ComService.getComsByTicketId(id)
       const data = await request.data;
       this.coms = data;
-      console.log(this.coms)
     },
     async comTypeHandler(opt) {
       this.com.comType = opt
-      console.log(this.com.comType)
     },
     async comVisHandler(opt) {
       this.com.comVis = opt
-      console.log(this.com.comVis)
     },
     async init() {
       this.comTypeHandler(this.comTypes[0]);

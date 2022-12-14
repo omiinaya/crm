@@ -11,7 +11,7 @@ export default {
     storeX
   }),
   created() {
-    console.log(storeX.navigaton.view)
+    console.log(storeX.navigation.view)
   },
   methods: {}
 }

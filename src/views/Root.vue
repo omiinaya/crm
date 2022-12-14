@@ -3,11 +3,33 @@
     <ion-header :translucent="true">
       <ion-toolbar>
         <NavBar />
+        <div class="container-fluid text-center">
+          <ol class="breadcrumb text-center">
+            <li
+              v-for="(crumb, index) in breadcrumbs"
+              :key="breadcrumbs + index"
+              class="breadcrumb-item active"
+              aria-current="page"
+            >
+              {{
+                crumb === breadcrumbs[breadcrumbs.length - 1]
+                  ? crumb.view !== "customer"
+                    ? crumb.view !== "ticket"
+                      ? crumb.view.charAt(0).toUpperCase() + crumb.view.slice(1)
+                      : "TODO: Ticket Number" //tickets
+                    : "TODO: Customer Name" //customer
+                  : crumb.view.charAt(0).toUpperCase() + crumb.view.slice(1)
+              }}
+            </li>
+          </ol>
+        </div>
       </ion-toolbar>
     </ion-header>
 
     <ion-content :fullscreen="true">
-      <Home v-if="storeX.navigation.view === 'home' || !storeX.navigation.view" />
+      <Home
+        v-if="storeX.navigation.view === 'home' || !storeX.navigation.view"
+      />
       <Customers v-else-if="storeX.navigation.view === 'customers'" />
       <Assets v-else-if="storeX.navigation.view === 'assets'" />
       <Invoices v-else-if="storeX.navigation.view === 'invoices'" />
@@ -28,9 +50,9 @@
 </template>
 
 <script>
+import { storeX } from "../store/index";
 import { IonContent, IonHeader, IonPage, IonToolbar } from '@ionic/vue';
 import { defineComponent } from 'vue';
-import { storeX } from "../store/index";
 import NavBar from '../components/NavBar.vue';
 import Home from '../components/Home.vue';
 import Customers from '../components/Customers.vue';
@@ -66,6 +88,11 @@ export default defineComponent({
     storeX.navigation.view = route.query.view
     storeX.customerId = route.query.customerId
   },
+  computed: {
+    breadcrumbs() {
+      return this.storeX.getBreadcrumbs()
+    }
+  },
   components: {
     IonContent,
     IonHeader,
@@ -96,5 +123,9 @@ export default defineComponent({
 .btn {
   box-shadow: none;
   border-color: transparent;
+}
+
+.breadcrumb {
+  justify-content: center;
 }
 </style>
