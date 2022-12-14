@@ -1,6 +1,5 @@
 require("dotenv").config();
-const dbSetup = require("./setup/db.setup");
-
+const setup = require("./setup/db.setup");
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -29,17 +28,18 @@ require("./routes/customer.routes")(app);
 require("./routes/location.routes")(app);
 
 (async () => {
-  await dbSetup();
-  const server = app.listen(port, () => {
-    console.log(`Server is running on port ${port}.`);
-  });
+  await setup();
 
-  const io = require("socket.io")(server, {
+  const options = {
     cors: { origin: "http://localhost:8091" },
-  });
+  };
 
+  const server = app.listen(port, () => {
+    console.log(`Server: ${port}.`);
+  });
+  const io = require("socket.io")(server, options);
   const socket = io.listen(port + 2, () => {
-    console.log(`Socket.io is running on port ${port + 2}.`);
+    console.log(`Socket.io: ${port + 2}.`);
   });
 
   socket.on("connection", (client) => {
@@ -53,8 +53,8 @@ require("./routes/location.routes")(app);
       console.log("Received message:", data);
     });
 
-    client.on("ticketCreated", () => {
-      socket.emit("testing", "Hello, world!");
+    client.on("comCreatedRequest", (id) => {
+      socket.emit("comCreatedResponse", id);
     });
   });
 })();

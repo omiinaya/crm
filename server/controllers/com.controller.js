@@ -17,9 +17,10 @@ exports.create = async (req, res) => {
 
   try {
     const request = await Com.create(com);
-
     const socket = io('http://localhost:8092');
-    socket.emit("ticketCreated");
+    const ticketId = await request.comTicketId
+
+    socket.emit("comCreatedRequest", ticketId);
     
     res.send(await request);
   } catch (err) {

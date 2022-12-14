@@ -189,7 +189,7 @@
                       class="btn btn-secondary dropdown-toggle"
                       data-bs-toggle="dropdown"
                     >
-                    {{ com.comVis }}
+                      {{ com.comVis }}
                     </button>
                     <ul class="dropdown-menu">
                       <li v-for="(opt, index) in comVis" :key="opt + index">
@@ -290,11 +290,6 @@ import WarrantyService from "../../services/warranty.service";
 import ComService from "../../services/com.service";
 import Loading from "../Loading/Loading.vue";
 import moment from 'moment';
-const socket = storeX.io;
-
-socket.on('testing', (data) => {
-  console.log(data)
-})
 
 export default {
   name: 'CustomerDetailsPage',
@@ -427,6 +422,11 @@ export default {
     this.loadCustomerData(this.storeX.navigation.customerId);
     this.loadAssetData(this.storeX.navigation.ticketId);
     this.loadComData(this.storeX.navigation.ticketId);
+
+    this.storeX.io.on('comCreatedResponse', (id) => {
+      if (this.storeX.navigation.ticketId != id) return;
+      this.loadComData(this.storeX.navigation.ticketId);
+    })
   },
 }
 </script>

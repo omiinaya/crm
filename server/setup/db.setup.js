@@ -54,7 +54,7 @@ const config = {
 const connection = mysql.createConnection(config);
 const query = util.promisify(connection.query).bind(connection);
 
-async function dbSetup() {
+async function setup() {
   await query(`CREATE DATABASE IF NOT EXISTS \`${process.env.DB}\`;`);
   //comment force:true to stop resetting the database on server restart
   db.sequelize.sync({ force: true }).then(() => dummyData());
@@ -265,4 +265,4 @@ function dummyData() {
   });
 }
 
-module.exports = dbSetup;
+module.exports = setup;
