@@ -27,9 +27,19 @@ export const storeX = reactive({
     this.history.push(obj);
   },
   getBreadcrumbs() {
-    const x = this.history.slice(-3)
-    console.log(x)
-    return x;
+    const arr = this.history.slice(-2);
+    const uniqueIds = new Set();
+    const unique = arr.filter((el) => {
+      const isDuplicate = uniqueIds.has(el.view);
+      uniqueIds.add(el.view);
+
+      if (!isDuplicate) {
+        return true;
+      }
+      return false;
+    });
+
+    return unique;
   },
 });
 

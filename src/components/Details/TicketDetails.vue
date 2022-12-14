@@ -502,6 +502,7 @@ ul {
 .top {
   padding-top: 25px;
   padding-bottom: 0;
+  padding-top: 0 !important;
   font-size: 32px;
 }
 

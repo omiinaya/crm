@@ -3,34 +3,30 @@
     <ion-header :translucent="true">
       <ion-toolbar>
         <NavBar />
-        <div class="container-fluid text-center">
-          <ol class="breadcrumb text-center">
-            <li
-              v-for="(crumb, index) in breadcrumbs"
-              :key="breadcrumbs + index"
-              class="breadcrumb-item"
-              aria-current="page"
-              v-on:click="testing123(crumb)"
-            >
-              {{
-                crumb.view.charAt(0).toUpperCase() + crumb.view.slice(1)
-                /*
-                crumb === breadcrumbs[breadcrumbs.length - 1]
-                  ? crumb.view !== "customer"
-                    ? crumb.view !== "ticket"
-                      ? crumb.view.charAt(0).toUpperCase() + crumb.view.slice(1)
-                      : "TODO: Ticket Number" //tickets
-                    : "TODO: Customer Name" //customer
-                  : crumb.view.charAt(0).toUpperCase() + crumb.view.slice(1)
-                */
-              }}
-            </li>
-          </ol>
-        </div>
       </ion-toolbar>
     </ion-header>
 
     <ion-content :fullscreen="true">
+      <div class="breadcrumbs">
+        <div class="col-11 offset-1">
+          <ol class="breadcrumb">
+            <li
+              v-for="(crumb, index) in breadcrumbs"
+              :key="breadcrumbs + index"
+              class="breadcrumb-item"
+              v-on:click="testing123(crumb)"
+            >
+              {{
+                crumb === breadcrumbs[breadcrumbs.length - 1]
+                  ? crumb === breadcrumbs[breadcrumbs.length - 2]
+                    ? crumb.view.charAt(0).toUpperCase() + crumb.view.slice(1)
+                    : crumb.view.charAt(0).toUpperCase() + crumb.view.slice(1) //current
+                  : '⯇ ' + crumb.view.charAt(0).toUpperCase() + crumb.view.slice(1)
+              }}
+            </li>
+          </ol>
+        </div>
+      </div>
       <Home
         v-if="storeX.navigation.view === 'home' || !storeX.navigation.view"
       />
@@ -133,20 +129,28 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.breadcrumbs {
+  margin-top: 20px;
+  background-color: #121212;
+}
 .btn {
   box-shadow: none;
   border-color: transparent;
-}
-
-.breadcrumb {
-  justify-content: center;
 }
 
 .breadcrumb-item .li {
   color: white !important;
 }
 
+.breadcrumb-item:last-child {
+  color: grey !important;
+}
+
 .breadcrumb-item:hover {
   text-decoration: underline;
+}
+
+.breadcrumb-item:last-child:hover {
+  text-decoration: none;
 }
 </style>
