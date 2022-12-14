@@ -215,7 +215,7 @@ export default {
       this.customer.email = data.email;
       this.customer.phone = data.phone;
       this.customer.type = data.customerType;
-      this.customer.created = moment(data.createdAt).format('MM-DD-YYYY');
+      this.customer.created = moment(data.createdAt).format('MMMM-DD-YYYY');
       this.customer.phone = phoneNumber;
       this.customer.address = customerAddress;
     },

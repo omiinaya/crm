@@ -38,7 +38,7 @@
     "sequelize": "^6.25.3",
     "socket.io": "^4.5.4",
     "socket.io-client": "^4.5.4",
-    "twilio": "^3.83.4",
+    "twilio": "^3.84.0",
     "vee-validate": "^4.7.1",
     "vue": "3.2.27",
     "vue-materialize-datatable": "^1.0.4",

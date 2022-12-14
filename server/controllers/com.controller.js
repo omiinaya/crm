@@ -3,6 +3,11 @@ const axios = require("axios");
 const Com = db.com;
 const io = require('socket.io-client');
 
+const accountSid = process.env.TWILIO_SID;
+const authToken = process.env.TWILIO_AUTH;
+
+const client = require('twilio')(accountSid, authToken);
+
 exports.create = async (req, res) => {
   const comFields = await axios.get(
     "http://localhost:8090/api/com/fields"
@@ -17,11 +22,27 @@ exports.create = async (req, res) => {
 
   try {
     const request = await Com.create(com);
-    const ticketId = await request.comTicketId
-    
+    const ticketId = await request.comTicketId;
+    const vis = await request.comVis;
+
     const socket = io('http://localhost:8092');
     socket.emit("comCreatedRequest", ticketId);
-    
+
+    if (vis === 'Email + SMS') {
+      console.log('Send SMS')
+      //TODO: SEND SMS USING TWILIO
+      console.log(accountSid)
+      console.log(authToken)
+
+      client.messages
+        .create({
+          body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
+          from: '+17866613221',
+          to: '+17865682555'
+        })
+        .then(message => console.log(message.sid));
+    }
+
     res.send(await request);
   } catch (err) {
     console.log(err);
@@ -60,7 +81,7 @@ exports.findByTicketId = (req, res) => {
 
 exports.findByAuthorId = (req, res) => {
   const id = req.params.id;
-  
+
   Com.findAll({
     where: { comAuthorId: id },
   })
