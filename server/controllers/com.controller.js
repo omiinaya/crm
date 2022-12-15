@@ -14,6 +14,11 @@ exports.create = async (req, res) => {
   );
   const comResponse = await comFields.data;
 
+  comResponse[comResponse.length] = {
+    id: 7,
+    name: 'customerPhone'
+  }
+
   let com = {};
 
   for (let i = 0; i < comResponse.length; i++) {
@@ -23,22 +28,23 @@ exports.create = async (req, res) => {
   try {
     const request = await Com.create(com);
     const ticketId = await request.comTicketId;
-    const vis = await request.comVis;
-
+    const visibility = com.comVis;
+    const message = com.comMsg;
+    const number = `+1${com.customerPhone.replaceAll('-', '')}`
+    const twilio = `+1${7866613221}`
     const socket = io('http://localhost:8092');
+
     socket.emit("comCreatedRequest", ticketId);
 
-    if (vis === 'Email + SMS') {
-      console.log('Send SMS')
-      //TODO: SEND SMS USING TWILIO
-      console.log(accountSid)
-      console.log(authToken)
+    if (visibility === 'Email + SMS' || visibility === 'SMS') {
+      console.log(number)
+      console.log(twilio)
 
       client.messages
         .create({
-          body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
-          from: '+17866613221',
-          to: '+17865682555'
+          body: message,
+          from: twilio,
+          to: number
         })
         .then(message => console.log(message.sid));
     }

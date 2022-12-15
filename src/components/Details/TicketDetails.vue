@@ -315,12 +315,14 @@ export default {
       comAuthorId: null,
       comTicketId: null,
       comAuthorName: null,
-      comCreated: null
+      comCreated: null,
+      comCustomerNumber: null
     },
     coms: [],
   }),
   methods: {
     async createCom() {
+      this.com.customerPhone = this.customer.phone;
       ComService.createCom(this.com);
     },
     async loadTechnicianData() {
