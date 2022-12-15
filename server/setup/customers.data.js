@@ -1,10 +1,10 @@
 const customers = [
     {
-      firstName: "John",
-      lastName: "Abramson",
+      firstName: "Omar",
+      lastName: "Minaya",
       businessName: "Testing",
       customerType: "Individual",
-      email: "testing1@gmail.com",
+      email: "omar@mobilemeit.com",
       primaryPhone: 1,
       primaryAddress: 1,
       city: "test city",
@@ -12,7 +12,7 @@ const customers = [
       zip: "33015",
     },
     {
-      firstName: "Emily",
+      firstName: "Jose",
       lastName: "Adams",
       businessName: "Testing 2",
       customerType: "Individual",
@@ -24,7 +24,7 @@ const customers = [
       zip: "33015",
     },
     {
-      firstName: "Julie",
+      firstName: "Sergio",
       lastName: "Ash",
       businessName: "Testing 3",
       customerType: "Individual",
@@ -36,7 +36,7 @@ const customers = [
       zip: "33015",
     },
     {
-      firstName: "Avila",
+      firstName: "Matias",
       lastName: "Fernando",
       businessName: "Testing 4",
       customerType: "Individual",

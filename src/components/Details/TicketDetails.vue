@@ -323,13 +323,13 @@ export default {
   methods: {
     async createCom() {
       this.com.customerPhone = this.customer.phone;
+      this.com.customerEmail = this.customer.email;
       ComService.createCom(this.com);
     },
     async loadTechnicianData() {
       const request = await UserService.getAllUsers();
       const data = await request.data;
       this.technicians = data;
-      console.log(this.technicians)
     },
     async loadTicketdata(id) {
       const request = await TicketService.getTicketById(id)
@@ -401,10 +401,7 @@ export default {
     },
 
     async ticketTechHandler(id, data) {
-      console.log(id)
-      console.log(data)
       const obj = { ticketTech: data }
-      console.log(obj)
       TicketService.updateTicket(id, obj)
     },
 

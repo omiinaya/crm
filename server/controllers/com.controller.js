@@ -2,11 +2,52 @@ const db = require("../models");
 const axios = require("axios");
 const Com = db.com;
 const io = require('socket.io-client');
+const nodemailer = require('nodemailer');
 
 const accountSid = process.env.TWILIO_SID;
 const authToken = process.env.TWILIO_AUTH;
 
+const transport = nodemailer.createTransport({
+  service: process.env.MAIL_SERVICE,
+  host: process.env.MAIL_HOST,
+  port: process.env.MAIL_PORT,
+  secure: false,
+  auth: {
+    user: process.env.OUTLOOK_USR,
+    pass: process.env.OUTLOOK_PWD
+  },
+  tls: {
+    ciphers: process.env.MAIL_CIPHERS,
+    rejectUnauthorized: false,
+  }
+});
+
 const client = require('twilio')(accountSid, authToken);
+
+function sendText(message, sender, receiver) {
+  client.messages
+    .create({
+      body: message,
+      from: sender,
+      to: receiver
+    })
+    .then(message => console.log(message.sid));
+}
+
+function sendMail(email, subject, text) {
+  transport.sendMail({
+    from: process.env.OUTLOOK_USR,
+    to: email,
+    subject: subject,
+    text: text
+  }, (error, info) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log(`Email sent: ${info.response}`);
+    }
+  });
+}
 
 exports.create = async (req, res) => {
   const comFields = await axios.get(
@@ -17,6 +58,11 @@ exports.create = async (req, res) => {
   comResponse[comResponse.length] = {
     id: 7,
     name: 'customerPhone'
+  }
+
+  comResponse[comResponse.length] = {
+    id: 8,
+    name: 'customerEmail'
   }
 
   let com = {};
@@ -33,20 +79,14 @@ exports.create = async (req, res) => {
     const number = `+1${com.customerPhone.replaceAll('-', '')}`
     const twilio = `+1${7866613221}`
     const socket = io('http://localhost:8092');
+    const email = com.customerEmail;
+    const subject = `Ticket #${ticketId.toString().padStart(5, '0')}`
 
     socket.emit("comCreatedRequest", ticketId);
 
     if (visibility === 'Email + SMS' || visibility === 'SMS') {
-      console.log(number)
-      console.log(twilio)
-
-      client.messages
-        .create({
-          body: message,
-          from: twilio,
-          to: number
-        })
-        .then(message => console.log(message.sid));
+      sendText(message, twilio, number)
+      sendMail(email, subject, message)
     }
 
     res.send(await request);
