@@ -12,7 +12,7 @@
                 </button>
                 <ul class="dropdown-menu">
                   <li v-for="(opt, index) in newOptions" :key="opt + index">
-                    <a class="dropdown-item" href="#!" v-on:click="newSelected = opt">{{ opt }}
+                    <a class="dropdown-item" href="#" v-on:click="newSelected = opt">{{ opt }}
                     </a>
                   </li>
                 </ul>
@@ -204,7 +204,7 @@
                     </button>
                     <ul class="dropdown-menu">
                       <li v-for="(opt, index) in comVis" :key="opt + index">
-                        <a class="dropdown-item" href="#!" v-on:click="comVisHandler(opt)">{{ opt }}
+                        <a class="dropdown-item" href="#" v-on:click="comVisHandler(opt)">{{ opt }}
                         </a>
                       </li>
                     </ul>
@@ -217,7 +217,7 @@
                     </button>
                     <ul class="dropdown-menu">
                       <li v-for="(opt, index) in comTypes" :key="opt + index">
-                        <a class="dropdown-item" href="#!" v-on:click="comTypeHandler(opt)">{{ opt }}
+                        <a class="dropdown-item" href="#" v-on:click="comTypeHandler(opt)">{{ opt }}
                         </a>
                       </li>
                     </ul>

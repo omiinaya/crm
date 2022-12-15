@@ -64,7 +64,7 @@
                     <li v-for="(type, index) in phoneTypes" :key="type + index">
                       <a
                         class="dropdown-item"
-                        href="#!"
+                        href="#"
                         v-on:click="customerForm['phoneType'] = type"
                         >{{ type }}
                       </a>

@@ -36,7 +36,7 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li v-for="(type, index) in JSON.parse(field.options)" :key="type + index">
-                <a class="dropdown-item" href="#!" v-on:click="assetForm[field.name] = type">{{ type }}
+                <a class="dropdown-item" href="#" v-on:click="assetForm[field.name] = type">{{ type }}
                 </a>
               </li>
             </ul>

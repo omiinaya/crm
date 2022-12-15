@@ -14,7 +14,7 @@
         {{ this.$store.state.auth.user.name }}
       </li>
       <li class="nav-item rightBar">
-        <router-link to="#!" class="nav-link" @click="logOut()">
+        <router-link to="#" class="nav-link" @click="logOut()">
           <i class="bi bi-box-arrow-in-right"></i>
         </router-link>
       </li>
