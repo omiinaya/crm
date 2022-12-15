@@ -84,8 +84,12 @@ exports.create = async (req, res) => {
 
     socket.emit("comCreatedRequest", ticketId);
 
-    if (visibility === 'Email + SMS' || visibility === 'SMS') {
+    if (visibility === 'Email + SMS') {
       sendText(message, twilio, number)
+      sendMail(email, subject, message)
+    } else if (visibility === 'SMS') {
+      sendText(message, twilio, number)
+    } else if (visibility === 'Email') {
       sendMail(email, subject, message)
     }
 
