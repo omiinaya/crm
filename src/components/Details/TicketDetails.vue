@@ -86,7 +86,19 @@
                 <label class="col-sm-6">
                   <i class="bi bi-list-check"></i> Type:
                 </label>
-                <div class="col-sm-6">{{ ticket.type }}</div>
+                <div class="col-sm-6">
+                  <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                      {{ ticket.type }}
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li v-for="(type, index) in ticketTypes" :key="type + index">
+                        <a class="dropdown-item" href="#" v-on:click="ticketTypeHandler(storeX.navigation.ticketId, type)">{{ type }}
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
@@ -306,6 +318,7 @@ export default {
     technicians: [],
     newOptions: ['Part Order', 'Estimate', 'Appointment', 'Intake Form', 'Outtake Form'],
     ticketStatus: ['New', 'Waiting for Parts', 'Waiting on Customer', 'In Progress', 'Ready for Pickup', 'Resolved', 'Customer Reply'],
+    ticketTypes: ['Flat Rate Labor', 'Warranty Labor', 'In-House Labor'],
     comVis: ['Private Note', 'Publc Note', 'Email', 'SMS', 'Email + SMS'],
     comTypes: ['Update', 'Issue', 'Diagnosis', 'Parts Ordered', 'Parts Arrival', 'Complete'],
     com: {
@@ -384,7 +397,7 @@ export default {
     async loadComData(id) {
       const request = await ComService.getComsByTicketId(id)
       const data = await request.data;
-      data.forEach(com => 
+      data.forEach(com =>
         com.createdAt = moment(com.createdAt).format('ddd MM-DD-YYYY HH:MM A')
       )
       this.coms = data.reverse();
@@ -402,6 +415,11 @@ export default {
 
     async ticketTechHandler(id, data) {
       const obj = { ticketTech: data }
+      TicketService.updateTicket(id, obj)
+    },
+
+    async ticketTypeHandler(id, data) {
+      const obj = { ticketType: data }
       TicketService.updateTicket(id, obj)
     },
 
