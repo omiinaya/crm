@@ -7,9 +7,6 @@ const customers = [
       email: "omar@mobilemeit.com",
       primaryPhone: 1,
       primaryAddress: 1,
-      city: "test city",
-      state: "Florida",
-      zip: "33015",
     },
     {
       firstName: "Jose",
@@ -19,9 +16,6 @@ const customers = [
       email: "testing2@gmail.com",
       primaryPhone: 2,
       primaryAddress: 2,
-      city: "test city",
-      state: "Florida",
-      zip: "33015",
     },
     {
       firstName: "Sergio",
@@ -31,9 +25,6 @@ const customers = [
       email: "testing3@gmail.com",
       primaryPhone: 3,
       primaryAddress: 3,
-      city: "test city",
-      state: "Florida",
-      zip: "33015",
     },
     {
       firstName: "Matias",
@@ -43,9 +34,6 @@ const customers = [
       email: "testing4@gmail.com",
       primaryPhone: 4,
       primaryAddress: 4,
-      city: "test city",
-      state: "Florida",
-      zip: "33015",
     },
   ];
 

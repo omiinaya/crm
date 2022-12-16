@@ -1,12 +1,12 @@
 const numbers = [
   {
     id: 1,
-    address1: '405 test street',
-    address2: 'Apt 201',
+    address1: '7070 NW 177th st',
+    address2: 'Apt 200',
     country: 'United States',
     state: 'Florida',
-    city: 'Miami',
-    zip: '32135',
+    city: 'Hialeah',
+    zip: '33015',
   },
   {
     id: 2,

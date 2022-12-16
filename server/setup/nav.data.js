@@ -13,16 +13,17 @@ const navs = [
   },
   {
     id: 2,
-    title: "Assets",
-    icon: "bi bi-laptop",
-    url: "assets",
-  },
-  {
-    id: 3,
     title: "Tickets",
     icon: "bi bi-tag",
     url: "tickets",
   },
+  {
+    id: 3,
+    title: "Assets",
+    icon: "bi bi-laptop",
+    url: "assets",
+  },
+  /*
   {
     id: 4,
     title: "Invoices",
@@ -60,6 +61,7 @@ const navs = [
     icon: "bi bi-cash",
     url: "pos",
   },
+  */
   {
     id: 10,
     title: "Admin",
@@ -67,6 +69,7 @@ const navs = [
     url: "admin",
     roleId: 3,
   },
+  
 ];
 
 module.exports = navs
