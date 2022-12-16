@@ -84,7 +84,7 @@
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
-                  <i class="bi bi-list-check"></i> Type:
+                  <i class="bi bi-list-check"></i> Labor Type:
                 </label>
                 <Dropdown
                   :title="ticket.type"
@@ -213,7 +213,6 @@
                   :handler="comTypeHandler"
                   :byTicket="false"
                 />
-                
                 <div class="col-2 offset-6">test</div>
               </div>
             </div>
@@ -318,7 +317,7 @@ export default {
     ticketAssets: [],
     ticketTechs: [],
     ticketStatus: ['New', 'Waiting for Parts', 'Waiting on Client', 'In Progress', 'Ready for Pickup', 'Customer Reply', 'Resolved'],
-    ticketTypes: ['Flat Rate Labor', 'Warranty Labor', 'In-House Labor'],
+    ticketTypes: ['Flat Rate', 'Warranty', 'In-House'],
     comVis: ['Private Note', 'Publc Note', 'Email', 'SMS', 'Email + SMS'],
     comTypes: ['Update', 'Issue', 'Diagnosis', 'Parts Ordered', 'Parts Arrival', 'Complete'],
     com: {

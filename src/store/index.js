@@ -20,27 +20,19 @@ export const storeX = reactive({
   prevNav: {},
   io: socket,
   history: [{ view: "home" }],
+
   updateNavigation(obj) {
-    this.navigation.view = obj.view
-    this.navigation.customerId = obj.customerId,
-    this.navigation.ticketId = obj.ticketId
+    this.navigation.view = obj.view;
+    this.navigation.customerId = obj.customerId;
+    this.navigation.ticketId = obj.ticketId;
+
+    const x = JSON.stringify(this.history[this.history.length-1])
+    const y = JSON.stringify(obj)
+
+    if (x === y) return
+
     this.history.push(obj);
-    console.log(this.history)
-  },
-  getBreadcrumbs() {
-    const arr = this.history.slice(-2);
-    const uniqueIds = new Set();
-    const unique = arr.filter((el) => {
-      const isDuplicate = uniqueIds.has(el.view);
-      uniqueIds.add(el.view);
-
-      if (!isDuplicate) {
-        return true;
-      }
-      return false;
-    });
-
-    return unique;
+    if (this.history.length > 2) this.history.shift();
   },
 });
 

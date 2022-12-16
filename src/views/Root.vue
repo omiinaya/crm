@@ -10,23 +10,30 @@
       <div class="breadcrumbs">
         <div class="col-11 offset-1">
           <ol class="breadcrumb">
-            <li v-for="(crumb, index) in breadcrumbs" :key="breadcrumbs + index" class="breadcrumb-item"
-              v-on:click="updateNavigation(crumb)">
+            <li
+              v-for="(crumb, index) in breadcrumbs"
+              :key="breadcrumbs + index"
+              class="breadcrumb-item"
+              v-on:click="updateNavigation(crumb)"
+            >
               {{
-                  crumb === breadcrumbs[breadcrumbs.length - 1]
-                    ? crumb.view !== "customer"
-                      ? crumb.view !== "ticket"
-                        ? crumb.view.charAt(0).toUpperCase() + crumb.view.slice(1)
-                        : 'Ticket #' + storeX.navigation.ticketId.toString().padStart(5, '0')
-                      : "Customer: TODO: Customer Name" //customer
-                    : crumb.view !== 'ticket' ? '⯇ ' + crumb.view.charAt(0).toUpperCase() + crumb.view.slice(1)
-                      : `⯇ Ticket #${storeX.history[storeX.history.length - 2].ticketId.toString().padStart(5, '0')}`
+                crumb === breadcrumbs[breadcrumbs.length - 1]
+                  ? crumb.view !== "customer"
+                    ? crumb.view !== "ticket"
+                      ? `${crumb.view.charAt(0).toUpperCase()}${crumb.view.slice(1)}`
+                      : `Ticket # ${storeX.navigation.ticketId.toString().padStart(5, "0")}`
+                    : "Customer: TODO: Customer Name" //customer
+                  : crumb.view !== "ticket"
+                  ? `⯇ ${crumb.view.charAt(0).toUpperCase()}${crumb.view.slice(1)}`
+                  : `⯇ Ticket #${storeX.history[storeX.history.length - 2].ticketId.toString().padStart(5, "0")}`
               }}
             </li>
           </ol>
         </div>
       </div>
-      <Home v-if="storeX.navigation.view === 'home' || !storeX.navigation.view" />
+      <Home
+        v-if="storeX.navigation.view === 'home' || !storeX.navigation.view"
+      />
       <Customers v-else-if="storeX.navigation.view === 'customers'" />
       <Assets v-else-if="storeX.navigation.view === 'assets'" />
       <Invoices v-else-if="storeX.navigation.view === 'invoices'" />
@@ -84,6 +91,10 @@ export default defineComponent({
         customerId: crumb.customerId,
         ticketId: crumb.ticketId
       })
+
+      const url = new URL(window.location);
+      url.searchParams.set('view', crumb.view);
+      window.history.pushState(null, '', url.toString());
     }
   },
   created() {
@@ -95,7 +106,7 @@ export default defineComponent({
   },
   computed: {
     breadcrumbs() {
-      return this.storeX.getBreadcrumbs()
+      return this.storeX.history
     }
   },
   components: {
