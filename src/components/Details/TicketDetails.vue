@@ -7,24 +7,39 @@
             <div class="col-8 top">#{{ ticket.number }}</div>
             <div class="col-1 top">
               <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                >
                   New
                 </button>
                 <ul class="dropdown-menu">
                   <li v-for="(opt, index) in newOptions" :key="opt + index">
-                    <a class="dropdown-item" href="#" v-on:click="newSelected = opt">{{ opt }}
+                    <a
+                      class="dropdown-item"
+                      href="#"
+                      v-on:click="newSelected = opt"
+                      >{{ opt }}
                     </a>
                   </li>
                 </ul>
               </div>
             </div>
             <div class="col-1 top">
-              <button type="button" class="btn btn-success" v-on:click="print(customerForm)">
+              <button
+                type="button"
+                class="btn btn-success"
+                v-on:click="print(customerForm)"
+              >
                 test 2
               </button>
             </div>
             <div class="col-1 top">
-              <button type="button" class="btn btn-success" v-on:click="print(customerForm)">
+              <button
+                type="button"
+                class="btn btn-success"
+                v-on:click="print(customerForm)"
+              >
                 test 3
               </button>
             </div>
@@ -48,57 +63,35 @@
                 <label class="col-sm-6">
                   <i class="bi bi-clipboard2-pulse"></i> Status:
                 </label>
-                <div class="col-sm-6">
-                  <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
-                      {{ ticket.status }}
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li v-for="(status, index) in ticketStatus" :key="status + index">
-                        <a class="dropdown-item" href="#"
-                          v-on:click="ticketStatusHandler(storeX.navigation.ticketId, status)">{{ status }}
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+                <Dropdown
+                  :title="ticket.status"
+                  :items="ticketStatus"
+                  :cols="6"
+                  :handler="ticketStatusHandler"
+                />
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-person-circle"></i> Assignee:
                 </label>
-                <div class="col-sm-6">
-                  <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
-                      {{ ticket.tech }}
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li v-for="(tech, index) in technicians" :key="tech + index">
-                        <a class="dropdown-item" href="#"
-                          v-on:click="ticketTechHandler(storeX.navigation.ticketId, tech.fullName)">{{ tech.fullName }}
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+                <Dropdown
+                  :title="ticket.tech"
+                  :items="ticketTechs"
+                  :cols="6"
+                  :handler="ticketTechHandler"
+                  byProp="fullName"
+                />
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-list-check"></i> Type:
                 </label>
-                <div class="col-sm-6">
-                  <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
-                      {{ ticket.type }}
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li v-for="(type, index) in ticketTypes" :key="type + index">
-                        <a class="dropdown-item" href="#" v-on:click="ticketTypeHandler(storeX.navigation.ticketId, type)">{{ type }}
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+                <Dropdown
+                  :title="ticket.type"
+                  :items="ticketTypes"
+                  :cols="6"
+                  :handler="ticketTypeHandler"
+                />
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
@@ -147,7 +140,10 @@
                   <i class="bi bi-geo-alt"></i> Primary Address:
                 </label>
                 <div class="col-sm-6">
-                  <a :href="`https://maps.google.com/?q=${customer.address}`" target="_blank">
+                  <a
+                    :href="`https://maps.google.com/?q=${customer.address}`"
+                    target="_blank"
+                  >
                     {{ customer.address }}
                   </a>
                 </div>
@@ -174,9 +170,15 @@
               <i class="bi bi-laptop"></i>
               Relevant Asset
             </div>
-            <EasyDataTable :headers="headers" :items="items" theme-color="#1d90ff"
-              table-class-name="customize-table-details" header-text-direction="center" body-text-direction="center"
-              hide-footer>
+            <EasyDataTable
+              :headers="headers"
+              :items="ticketAssets"
+              theme-color="#1d90ff"
+              table-class-name="customize-table-details"
+              header-text-direction="center"
+              body-text-direction="center"
+              hide-footer
+            >
               <template #item-warranty="{ warranty }">
                 <Loading v-if="!warranty" />
                 <a class="warranty" v-else :href="warranty[1]" target="_blank">
@@ -199,12 +201,19 @@
               <div class="row">
                 <div class="col-2">
                   <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                    <button
+                      class="btn btn-secondary dropdown-toggle"
+                      data-bs-toggle="dropdown"
+                    >
                       {{ com.comVis }}
                     </button>
                     <ul class="dropdown-menu">
                       <li v-for="(opt, index) in comVis" :key="opt + index">
-                        <a class="dropdown-item" href="#" v-on:click="comVisHandler(opt)">{{ opt }}
+                        <a
+                          class="dropdown-item"
+                          href="#"
+                          v-on:click="comVisHandler(opt)"
+                          >{{ opt }}
                         </a>
                       </li>
                     </ul>
@@ -212,12 +221,19 @@
                 </div>
                 <div class="col-2">
                   <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                    <button
+                      class="btn btn-secondary dropdown-toggle"
+                      data-bs-toggle="dropdown"
+                    >
                       {{ com.comType }}
                     </button>
                     <ul class="dropdown-menu">
                       <li v-for="(opt, index) in comTypes" :key="opt + index">
-                        <a class="dropdown-item" href="#" v-on:click="comTypeHandler(opt)">{{ opt }}
+                        <a
+                          class="dropdown-item"
+                          href="#"
+                          v-on:click="comTypeHandler(opt)"
+                          >{{ opt }}
                         </a>
                       </li>
                     </ul>
@@ -228,8 +244,12 @@
             </div>
             <div class="content">
               <div class="col-sm-12">
-                <textarea class="form-control text-area" rows="6" v-model="com.comMsg"
-                  @input="testing123(com.comMsg)"></textarea>
+                <textarea
+                  class="form-control text-area"
+                  rows="6"
+                  v-model="com.comMsg"
+                  @input="testing123(com.comMsg)"
+                ></textarea>
               </div>
               <div class="col-2 offset-10">
                 <button class="btn messages" v-on:click="createCom(com)">
@@ -239,7 +259,11 @@
             </div>
           </div>
           <div class="test">
-            <div v-for="(com, index) in coms" class="col-12 form-control com mt-3" :key="com + index">
+            <div
+              v-for="(com, index) in coms"
+              class="col-12 form-control com mt-3"
+              :key="com + index"
+            >
               <div class="mb-3">
                 <div class="row">
                   <div class="col-3">
@@ -282,11 +306,12 @@ import WarrantyService from "../../services/warranty.service";
 import ComService from "../../services/com.service";
 import UserService from "../../services/user.service";
 import Loading from "../Loading/Loading.vue";
+import Dropdown from "../Dropdown.vue";
 import moment from 'moment';
 
 export default {
   name: 'CustomerDetailsPage',
-  components: { Loading },
+  components: { Loading, Dropdown },
   data: () => ({
     storeX,
     ticket: {
@@ -314,10 +339,10 @@ export default {
       { value: "assetTag", text: "TAG", sortable: true },
       { value: "warranty", text: "WARRANTY", sortable: true },
     ],
-    items: [],
-    technicians: [],
     newOptions: ['Part Order', 'Estimate', 'Appointment', 'Intake Form', 'Outtake Form'],
-    ticketStatus: ['New', 'Waiting for Parts', 'Waiting on Customer', 'In Progress', 'Ready for Pickup', 'Resolved', 'Customer Reply'],
+    ticketAssets: [],
+    ticketTechs: [],
+    ticketStatus: ['New', 'Waiting for Parts', 'Waiting on Client', 'In Progress', 'Ready for Pickup', 'Customer Reply', 'Resolved'],
     ticketTypes: ['Flat Rate Labor', 'Warranty Labor', 'In-House Labor'],
     comVis: ['Private Note', 'Publc Note', 'Email', 'SMS', 'Email + SMS'],
     comTypes: ['Update', 'Issue', 'Diagnosis', 'Parts Ordered', 'Parts Arrival', 'Complete'],
@@ -342,7 +367,7 @@ export default {
     async loadTechnicianData() {
       const request = await UserService.getAllUsers();
       const data = await request.data;
-      this.technicians = data;
+      this.ticketTechs = data;
     },
     async loadTicketdata(id) {
       const request = await TicketService.getTicketById(id)
@@ -384,9 +409,9 @@ export default {
       const request = await AssetService.getAssetByTicketId(id)
       const data = await request.data;
       data[0].assetName = data[0].assetName.split('(')[0];
-      this.items = await data;
+      this.ticketAssets = await data;
       const warranty = await this.loadWarrantyData(data[0].assetSerial);
-      this.items[0]['warranty'] = warranty;
+      this.ticketAssets[0]['warranty'] = warranty;
       return data
     },
     async loadWarrantyData(serial) {
@@ -402,12 +427,15 @@ export default {
       )
       this.coms = data.reverse();
     },
+
     async comTypeHandler(opt) {
       this.com.comType = opt
     },
+
     async comVisHandler(opt) {
       this.com.comVis = opt
     },
+
     async ticketStatusHandler(id, data) {
       const obj = { ticketStatus: data }
       TicketService.updateTicket(id, obj)
@@ -427,6 +455,7 @@ export default {
       this.comTypeHandler(this.comTypes[0]);
       this.comVisHandler(this.comVis[0]);
     },
+
     async testing123(a) {
       console.log(a)
     }

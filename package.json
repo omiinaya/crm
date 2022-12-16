@@ -43,7 +43,6 @@
     "twilio": "^3.84.0",
     "vee-validate": "^4.7.1",
     "vue": "3.2.27",
-    "vue-materialize-datatable": "^1.0.4",
     "vue-route": "^1.5.1",
     "vue-router": "^4.0.12",
     "vue3-easy-data-table": "^1.5.12",
