@@ -218,6 +218,8 @@ export default {
       this.customer.created = moment(data.createdAt).format('MMMM-DD-YYYY');
       this.customer.phone = phoneNumber;
       this.customer.address = customerAddress;
+
+      this.storeX.customerName = this.customer.name;
     },
     async loadPhoneData(id) {
       const request = await NumberService.getNumberById(id)

@@ -17,14 +17,11 @@ export const storeX = reactive({
     customerId: null,
     ticketId: null,
   },
-  prevNav: {},
   io: socket,
   history: [],
+  customerName: null,
 
   updateNavigation(obj) {
-
-    console.log(obj)
-
     this.navigation.view = obj.view;
     this.navigation.customerId = obj.customerId;
     this.navigation.ticketId = obj.ticketId;
@@ -38,7 +35,6 @@ export const storeX = reactive({
     if (this.history.length > 2) this.history.shift();
 
     const url = new URL(window.location);
-    
 
     if (obj.view) url.searchParams.set("view", obj.view);
     if (obj.customerId) url.searchParams.set("customerId", obj.customerId);

@@ -26,16 +26,10 @@
                       : `Ticket # ${storeX.navigation.ticketId
                           .toString()
                           .padStart(5, "0")}`
-                    : "Customer: TODO: Customer Name" //customer
+                    : `Customer: ${storeX.customerName}` //customer
                   : crumb.view !== "ticket"
-                  ? `⯇ ${crumb.view.charAt(0).toUpperCase()}${crumb.view.slice(
-                      1
-                    )}`
-                  : `⯇ Ticket #${storeX.history[
-                      storeX.history.length - 2
-                    ].ticketId
-                      .toString()
-                      .padStart(5, "0")}`
+                  ? crumb.view !== "customer" ? `⯇ ${crumb.view.charAt(0).toUpperCase()}${crumb.view.slice(1)}` : `⯇ Customer: ${storeX.customerName}`
+                  : `⯇ Ticket #${storeX.history[storeX.history.length - 2].ticketId.toString().padStart(5, "0")}`
               }}
             </li>
           </ol>
