@@ -53,7 +53,7 @@
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li v-for="(tech, index) in techItems" :key="tech + index">
-                      <a class="dropdown-item" href="#" v-on:click="(ticketForm[field.name] = tech.fullName)">{{
+                      <a class="dropdown-item" v-on:click="(ticketForm[field.name] = tech.fullName)">{{
                           tech.fullName
                       }}
                       </a>
@@ -74,7 +74,7 @@
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li v-for="(type, index) in JSON.parse(field.options)" :key="type + index">
-                      <a class="dropdown-item" href="#" v-on:click="ticketForm[field.name] = type">{{ type }}
+                      <a class="dropdown-item" v-on:click="ticketForm[field.name] = type">{{ type }}
                       </a>
                     </li>
                   </ul>
@@ -94,7 +94,7 @@
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li v-for="(type, index) in phoneTypes" :key="type + index">
-                      <a class="dropdown-item" href="#" v-on:click="ticketForm['phoneType'] = type">{{ type }}
+                      <a class="dropdown-item" v-on:click="ticketForm['phoneType'] = type">{{ type }}
                       </a>
                     </li>
                   </ul>
@@ -194,7 +194,7 @@
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li v-for="(type, index) in JSON.parse(field.options)" :key="type + index">
-                      <a class="dropdown-item" href="#" v-on:click="ticketForm[field.name] = type">{{ type }}
+                      <a class="dropdown-item" v-on:click="ticketForm[field.name] = type">{{ type }}
                       </a>
                     </li>
                   </ul>

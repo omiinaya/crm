@@ -12,19 +12,19 @@
           
           <a v-if="byProp"
             class="dropdown-item"
-            href="#"
+            
             @click="handler(storeX.navigation.ticketId, item[byProp])"
             >{{ item[byProp] }}
           </a>
           <a v-else-if="byTicket"
             class="dropdown-item"
-            href="#"
+            
             @click="handler(storeX.navigation.ticketId, item)"
             >{{ item }}
           </a>
           <a v-else
             class="dropdown-item"
-            href="#"
+           
             @click="handler(item)"
             >{{ item }}
           </a>

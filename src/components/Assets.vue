@@ -113,6 +113,7 @@ export default defineComponent({
 
 .top {
   padding: 20px;
+  padding-top: 0 !important;
   padding-bottom: 0;
   font-size: 24px;
 }

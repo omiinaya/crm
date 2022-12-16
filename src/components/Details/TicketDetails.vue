@@ -17,7 +17,6 @@
                   <li v-for="(opt, index) in newOptions" :key="opt + index">
                     <a
                       class="dropdown-item"
-                      href="#"
                       v-on:click="newSelected = opt"
                       >{{ opt }}
                     </a>
@@ -168,7 +167,7 @@
           <div class="section">
             <div class="header">
               <i class="bi bi-laptop"></i>
-              Relevant Asset
+              Assets
             </div>
             <EasyDataTable
               :headers="headers"
@@ -186,7 +185,7 @@
                 </a>
               </template>
               <template #item-assetName="{ assetName }">
-                <a class="warranty" href="#">
+                <a class="warranty">
                   {{ assetName }}
                 </a>
               </template>
