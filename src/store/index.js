@@ -19,9 +19,12 @@ export const storeX = reactive({
   },
   prevNav: {},
   io: socket,
-  history: [{ view: "home" }],
+  history: [],
 
   updateNavigation(obj) {
+
+    console.log(obj)
+
     this.navigation.view = obj.view;
     this.navigation.customerId = obj.customerId;
     this.navigation.ticketId = obj.ticketId;
