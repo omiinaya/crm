@@ -26,13 +26,25 @@ export const storeX = reactive({
     this.navigation.customerId = obj.customerId;
     this.navigation.ticketId = obj.ticketId;
 
-    const x = JSON.stringify(this.history[this.history.length-1])
-    const y = JSON.stringify(obj)
+    const x = JSON.stringify(this.history[this.history.length - 1]);
+    const y = JSON.stringify(obj);
 
-    if (x === y) return
+    if (x === y) return;
 
     this.history.push(obj);
     if (this.history.length > 2) this.history.shift();
+
+    const url = new URL(window.location);
+    
+
+    if (obj.view) url.searchParams.set("view", obj.view);
+    if (obj.customerId) url.searchParams.set("customerId", obj.customerId);
+    if (obj.ticketId) url.searchParams.set("ticketId", obj.ticketId);
+  
+    if (obj.view !== 'ticket') url.searchParams.delete("ticketId");
+    if (obj.view !== 'customer' && obj.view !== 'ticket') url.searchParams.delete("customerId");
+    
+    window.history.pushState(null, "", url.toString());
   },
 });
 

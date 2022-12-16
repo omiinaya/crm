@@ -69,14 +69,14 @@ export default {
         required: false
     }
   },
-  
+  /*
   created() {
     console.log(this.items)
     console.log(this.title)
     console.log(this.handler)
     console.log(this.byProp)
   },
-  
+  */
 };
 </script>
 

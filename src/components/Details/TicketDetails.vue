@@ -407,7 +407,6 @@ export default {
     },
 
     async comVisHandler(opt) {
-      console.log(opt)
       this.com.comVis = opt
     },
 

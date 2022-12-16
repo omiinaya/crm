@@ -20,12 +20,22 @@
                 crumb === breadcrumbs[breadcrumbs.length - 1]
                   ? crumb.view !== "customer"
                     ? crumb.view !== "ticket"
-                      ? `${crumb.view.charAt(0).toUpperCase()}${crumb.view.slice(1)}`
-                      : `Ticket # ${storeX.navigation.ticketId.toString().padStart(5, "0")}`
+                      ? `${crumb.view
+                          .charAt(0)
+                          .toUpperCase()}${crumb.view.slice(1)}`
+                      : `Ticket # ${storeX.navigation.ticketId
+                          .toString()
+                          .padStart(5, "0")}`
                     : "Customer: TODO: Customer Name" //customer
                   : crumb.view !== "ticket"
-                  ? `⯇ ${crumb.view.charAt(0).toUpperCase()}${crumb.view.slice(1)}`
-                  : `⯇ Ticket #${storeX.history[storeX.history.length - 2].ticketId.toString().padStart(5, "0")}`
+                  ? `⯇ ${crumb.view.charAt(0).toUpperCase()}${crumb.view.slice(
+                      1
+                    )}`
+                  : `⯇ Ticket #${storeX.history[
+                      storeX.history.length - 2
+                    ].ticketId
+                      .toString()
+                      .padStart(5, "0")}`
               }}
             </li>
           </ol>
@@ -91,10 +101,6 @@ export default defineComponent({
         customerId: crumb.customerId,
         ticketId: crumb.ticketId
       })
-
-      const url = new URL(window.location);
-      url.searchParams.set('view', crumb.view);
-      window.history.pushState(null, '', url.toString());
     }
   },
   created() {
@@ -102,8 +108,14 @@ export default defineComponent({
     if (!Object.keys(route.query).length) return
     if (!route.query.view) return
     storeX.navigation.view = route.query.view
-    storeX.customerId = route.query.customerId
+    storeX.navigation.customerId = route.query.customerId
+    storeX.navigation.ticketId = route.query.ticketId
   },
+  watch: {
+    $route (to){
+      window.location.href = to.fullPath;
+  }
+},
   computed: {
     breadcrumbs() {
       return this.storeX.history
