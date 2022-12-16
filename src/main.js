@@ -3,7 +3,7 @@ import { IonicVue } from "@ionic/vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import * as VeeValidate from "vee-validate";
+//import VeeValidate from 'vee-validate';
 import Vue3EasyDataTable from "vue3-easy-data-table";
 
 import "@ionic/vue/css/core.css";
@@ -29,14 +29,12 @@ import "vue3-easy-data-table/dist/style.css";
 /* Theme variables */
 import "./theme/variables.css";
 
-/* optional default css */
-import "vue3-simple-typeahead/dist/vue3-simple-typeahead.css";
+
 
 const app = createApp(App)
   .use(IonicVue)
   .use(router)
   .use(store)
-  .use(VeeValidate)
 
 app.component("EasyDataTable", Vue3EasyDataTable);
 

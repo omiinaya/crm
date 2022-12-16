@@ -199,46 +199,21 @@
             </div>
             <div class="content">
               <div class="row">
-                <div class="col-2">
-                  <div class="dropdown">
-                    <button
-                      class="btn btn-secondary dropdown-toggle"
-                      data-bs-toggle="dropdown"
-                    >
-                      {{ com.comVis }}
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li v-for="(opt, index) in comVis" :key="opt + index">
-                        <a
-                          class="dropdown-item"
-                          href="#"
-                          v-on:click="comVisHandler(opt)"
-                          >{{ opt }}
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="dropdown">
-                    <button
-                      class="btn btn-secondary dropdown-toggle"
-                      data-bs-toggle="dropdown"
-                    >
-                      {{ com.comType }}
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li v-for="(opt, index) in comTypes" :key="opt + index">
-                        <a
-                          class="dropdown-item"
-                          href="#"
-                          v-on:click="comTypeHandler(opt)"
-                          >{{ opt }}
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+                <Dropdown
+                  :title="com.comVis"
+                  :items="comVis"
+                  :cols="2"
+                  :handler="comVisHandler"
+                  :byTicket="false"
+                />
+                <Dropdown
+                  :title="com.comType"
+                  :items="comTypes"
+                  :cols="2"
+                  :handler="comTypeHandler"
+                  :byTicket="false"
+                />
+                
                 <div class="col-2 offset-6">test</div>
               </div>
             </div>
@@ -433,6 +408,7 @@ export default {
     },
 
     async comVisHandler(opt) {
+      console.log(opt)
       this.com.comVis = opt
     },
 

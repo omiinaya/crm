@@ -47,7 +47,6 @@
     "vue-router": "^4.0.12",
     "vue3-easy-data-table": "^1.5.12",
     "vue3-simple-typeahead": "^1.0.11",
-    "vuejs-smart-table": "^0.0.8",
     "vuex": "^4.1.0",
     "yup": "^0.32.11"
   },
