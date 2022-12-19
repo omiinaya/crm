@@ -110,9 +110,9 @@
                 </template>
               </EasyDataTable>
             </div>
-            <center v-if="!ticketItems.length">
+            <div class="text-center" v-if="!ticketItems.length">
               There are no tickets to display
-            </center>
+            </div>
           </div>
           <div class="section">
             <div class="header">
@@ -129,9 +129,9 @@
                 body-text-direction="center"
               />
             </div>
-            <center v-if="!assetItems.length">
+            <div class="text-center" v-if="!assetItems.length">
               There are no assets to display
-            </center>
+            </div>
           </div>
           <div class="section">
             <div class="header">
@@ -204,7 +204,7 @@ export default {
     async loadCustomerData(id) {
       const request = await CustomerService.getCustomerById(id)
       const data = await request.data[0];
-      console.log(data)
+      
       const primaryPhone = await this.loadPhoneData(data.primaryPhone);
       const phoneNumber = primaryPhone[0].number;
 
@@ -243,6 +243,9 @@ export default {
     async loadAssetData(id) {
       const request = await AssetService.getAssetsByCustomer(id)
       const data = await request.data;
+
+      if (!data.length) return;
+
       data[0].assetName = data[0].assetName.split('(')[0];
       this.assetItems = await data;
     },

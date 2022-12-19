@@ -7,7 +7,7 @@
       <div class="menu text-center">
         Get Started
         <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-          <div v-for="(action, index) in actions" :key="action + index">
+          <div v-for="(action, index) in storeX.home.actions" :key="action + index">
             <div class="btn-group" role="group" aria-label="Basic mixed styles example">
               <button type="button" class="btn btn-secondary btn-lg actions custom-left">
                 <i :class="action.icon"></i>
@@ -38,10 +38,10 @@
       <div class="details">
         <ul>
           <li>
-            Total Tickets: {{ totalTicketCount }}
+            Total Tickets: {{ storeX.ticket.ticketTotalCount }}
           </li>
           <li>
-            Open Tickets: {{ openTicketCount }}
+            Open Tickets: {{ storeX.ticket.ticketOpenCount }}
           </li>
         </ul>
       </div>
@@ -52,36 +52,15 @@
 <script>
 import { defineComponent } from 'vue';
 import { storeX } from "../store/index";
-import HomeService from "../services/home.service";
-import TicketService from "../services/ticket.service";
 
 export default defineComponent({
   name: 'HomePage',
   data() {
-    return {
-      actions: null,
-      totalTicketCount: null,
-      openTicketCount: null,
-      storeX
-    };
-  },
-  methods: {
-    async getActionItems() {
-      const highest = Math.max(...this.$store.state.auth.user.roles);
-      const req = await HomeService.getRoleNav(highest);
-      this.actions = await req.data;
-    },
-    async loadTicketData() {
-      const req = await TicketService.getTickets();
-      const tickets = await req.data;
-
-      this.totalTicketCount = tickets.length;
-      this.openTicketCount = tickets.length; //filter by status later
-    },
+    return { storeX };
   },
   created() {
-    this.getActionItems()
-    this.loadTicketData()
+    storeX.getActionItems()
+    storeX.loadTicketData()
   }
 });
 </script>

@@ -10,32 +10,26 @@
       <div class="breadcrumbs">
         <div class="col-11 offset-1">
           <ol class="breadcrumb">
-            <li
-              v-for="(crumb, index) in breadcrumbs"
-              :key="breadcrumbs + index"
-              class="breadcrumb-item"
-              v-on:click="updateNavigation(crumb)"
-            >
+            <li v-for="(crumb, index) in storeX.history" :key="storeX.history + index" class="breadcrumb-item"
+              v-on:click="updateNavigation(crumb)">
               {{
-                crumb === breadcrumbs[breadcrumbs.length - 1]
-                  ? crumb.view !== "Customer"
-                    ? crumb.view !== "Ticket"
-                      ? crumb.view
-                      : `Ticket # ${storeX.navigation.ticketId
+                  crumb === storeX.history[storeX.history.length - 1]
+                    ? crumb.view !== "Customer"
+                      ? crumb.view !== "Ticket"
+                        ? crumb.view
+                        : `#${storeX.navigation.ticketId
                           .toString()
                           .padStart(5, "0")}`
-                    : `Customer: ${storeX.customerName}` //customer
-                  : crumb.view !== "Ticket"
-                  ? crumb.view !== "Customer" ? `⯇ ${crumb.view}` : `⯇ Customer: ${storeX.customerName}`
-                  : `⯇ Ticket #${storeX.history[storeX.history.length - 2].ticketId.toString().padStart(5, "0")}`
+                      : `${storeX.customerName}` //customer
+                    : crumb.view !== "Ticket"
+                      ? crumb.view !== "Customer" ? `⯇ ${crumb.view}` : `⯇ ${storeX.customerName}`
+                      : `⯇ #${storeX.history[storeX.history.length - 2].ticketId.toString().padStart(5, "0")}`
               }}
             </li>
           </ol>
         </div>
       </div>
-      <Home
-        v-if="storeX.navigation.view === 'Home' || !storeX.navigation.view"
-      />
+      <Home v-if="storeX.navigation.view === 'Home' || !storeX.navigation.view" />
       <Customers v-else-if="storeX.navigation.view === 'Customers'" />
       <Assets v-else-if="storeX.navigation.view === 'Assets'" />
       <Invoices v-else-if="storeX.navigation.view === 'Invoices'" />
@@ -89,15 +83,11 @@ export default defineComponent({
     storeX.navigation.ticketId = route.query.ticketId
   },
   watch: {
-    $route (to){
+    $route(to) {
       window.location.href = to.fullPath;
-  }
-},
-  computed: {
-    breadcrumbs() {
-      return this.storeX.history
     }
   },
+
   components: {
     IonContent,
     IonHeader,

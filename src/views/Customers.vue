@@ -4,7 +4,7 @@
       Customers
       <div class="row">
         <div class="col-12 section">
-          <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="items" theme-color="#1d90ff"
+          <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="storeX.customers" theme-color="#1d90ff"
             table-class-name="customize-table" header-text-direction="center" body-text-direction="center">
             <template #item-name="{ firstName, lastName, id }">
               <button type="button" class="btn btn-lg" v-on:click="openCustomer(id)">
@@ -21,9 +21,6 @@
 <script>
 import { defineComponent } from 'vue';
 import { storeX } from "../store/index";
-import CustomerService from "../services/customer.service";
-import NumberService from "../services/number.service";
-import moment from 'moment'
 
 export default defineComponent({
   name: 'CustomerPage',
@@ -49,34 +46,9 @@ export default defineComponent({
         customerId: id
       })
     },
-
-    async loadCustomerData() {
-      const request = await CustomerService.getCustomers()
-      const data = await request.data;
-      this.items = await data;
-      this.items.forEach(async item => {
-        const id = item.primaryPhone;
-        const res = await this.loadPhoneData(id);
-        const number = res[0].number;
-        item.phone = number;
-      })
-      this.formatDate();
-    },
-
-    async loadPhoneData(id) {
-      const request = await NumberService.getNumberById(id)
-      const data = await request.data;
-      return data
-    },
-
-    async formatDate() {
-      this.items.forEach(item => {
-        item.createdAt = moment(item.createdAt).format('MM-DD-YYYY HH:MM A');
-      })
-    },
   },
   async created() {
-    this.loadCustomerData()
+    storeX.loadCustomerData()
   }
 });
 
