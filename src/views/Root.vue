@@ -74,13 +74,17 @@ export default defineComponent({
       })
     }
   },
-  created() {
+  beforeCreate() {
     const route = useRoute()
     if (!Object.keys(route.query).length) return
     if (!route.query.view) return
+
     storeX.navigation.view = route.query.view
     storeX.navigation.customerId = route.query.customerId
     storeX.navigation.ticketId = route.query.ticketId
+    
+    console.log(storeX.navigation)
+    console.log(storeX.history)
   },
   watch: {
     $route(to) {

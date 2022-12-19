@@ -1,9 +1,9 @@
 <template>
-  <div>Inventory</div>
+  <div>Projects</div>
 </template>
 
 <script>
-import { storeX } from "../store/index";
+import { storeX } from "../../store/index";
 export default {
   name: 'InventoryPage',
   components: {},

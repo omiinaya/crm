@@ -1,7 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 
 // lazy-loaded
-const Profile = () => import("./views/Profile.vue")
+const Profile = () => import("./views/TODO/Profile.vue")
 const Root = () => import("./views/Root.vue")
 const Login = () => import("./views/Login.vue")
 const Register = () => import("./views/Register.vue")

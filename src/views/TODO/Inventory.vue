@@ -1,11 +1,11 @@
 <template>
-  <div>POS</div>
+  <div>Inventory</div>
 </template>
 
 <script>
-import { storeX } from "../store/index";
+import { storeX } from "../../store/index";
 export default {
-  name: 'PosPage',
+  name: 'InventoryPage',
   components: {},
   data: () => ({
     storeX
