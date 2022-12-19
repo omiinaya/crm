@@ -4,7 +4,7 @@
       <div clas="row">
         <div class="col-12 top">
           <div class="row">
-            <div class="col-9">{{ customer.name }}</div>
+            <div class="col-9">{{ storeX.customer.name }}</div>
             <div class="col-3">test</div>
           </div>
         </div>
@@ -23,10 +23,10 @@
                 </label>
                 <div class="col-sm-6">
                   <a
-                    :href="`mailto:${customer.email}`"
+                    :href="`mailto:${storeX.customer.email}`"
                     target="_blank"
                   >
-                    {{ customer.email }}
+                    {{ storeX.customer.email }}
                   </a>
                 </div>
               </div>
@@ -34,7 +34,7 @@
                 <label class="col-sm-6">
                   <i class="bi bi-telephone"></i> Phone:
                 </label>
-                <div class="col-sm-6">{{ customer.phone }}</div>
+                <div class="col-sm-6">{{ storeX.customer.phone }}</div>
               </div>
               <div class="row align-items-top mb-2">
                 <label class="col-sm-6">
@@ -42,10 +42,10 @@
                 </label>
                 <div class="col-sm-6">
                   <a
-                    :href="`https://maps.google.com/?q=${customer.address}`"
+                    :href="`https://maps.google.com/?q=${storeX.customer.address}`"
                     target="_blank"
                   >
-                    {{ customer.address }}
+                    {{ storeX.customer.address }}
                   </a>
                 </div>
               </div>
@@ -53,7 +53,7 @@
                 <label class="col-sm-6">
                   <i class="bi bi-calendar-event"></i> Created:
                 </label>
-                <div class="col-sm-6">{{ customer.created }}</div>
+                <div class="col-sm-6">{{ storeX.customer.created }}</div>
               </div>
             </div>
           </div>
@@ -67,8 +67,8 @@
                 <div class="col-6">
                   <div class="header">Tickets:</div>
                   <ul>
-                    <li>Open: {{ tickets.open }}</li>
-                    <li>Closed: {{ tickets.closed }}</li>
+                    <li>Open: {{ storeX.openTickets() }}</li>
+                    <li>Closed: {{ storeX.closedTickets() }}</li>
                   </ul>
                 </div>
                 <div class="col-6">
@@ -88,10 +88,10 @@
               <i class="bi bi-tag"></i>
               Tickets
             </div>
-            <div v-if="ticketItems.length" class="content">
+            <div v-if="storeX.tickets.length" class="content">
               <EasyDataTable
                 :headers="ticketHeaders"
-                :items="ticketItems"
+                :items="storeX.tickets"
                 theme-color="#1d90ff"
                 table-class-name="customize-table"
                 header-text-direction="center"
@@ -110,7 +110,7 @@
                 </template>
               </EasyDataTable>
             </div>
-            <div class="text-center" v-if="!ticketItems.length">
+            <div class="text-center" v-if="!storeX.tickets.length">
               There are no tickets to display
             </div>
           </div>
@@ -119,17 +119,17 @@
               <i class="bi bi-laptop"></i>
               Assets
             </div>
-            <div v-if="assetItems.length" class="content">
+            <div v-if="storeX.assets.length" class="content">
               <EasyDataTable
                 :headers="assetHeaders"
-                :items="assetItems"
+                :items="storeX.assets"
                 theme-color="#1d90ff"
                 table-class-name="customize-table"
                 header-text-direction="center"
                 body-text-direction="center"
               />
             </div>
-            <div class="text-center" v-if="!assetItems.length">
+            <div class="text-center" v-if="!storeX.assets.length">
               There are no assets to display
             </div>
           </div>
@@ -148,26 +148,12 @@
   
 <script>
 import { storeX } from "../../store/index";
-import CustomerService from "../../services/customer.service";
-import TicketService from "../../services/ticket.service";
-import AssetService from "../../services/asset.service";
-import NumberService from "../../services/number.service";
-import LocationService from "../../services/location.service";
-import moment from 'moment'
 
 export default {
   name: 'CustomerDetailsPage',
   components: {},
   data: () => ({
     storeX,
-    customer: {
-      name: null,
-      phone: null,
-      email: null,
-      address: null,
-      created: null,
-      type: null
-    },
     
     ticketHeaders: [
       { value: "id", text: "ID", sortable: true },
@@ -176,7 +162,6 @@ export default {
       { value: "createdAt", text: "CREATED", sortable: true },
       { value: "ticketStatus", text: "STATUS", sortable: true },
     ],
-    ticketItems: [],
     assetHeaders: [
       { value: "id", text: "ID", sortable: true },
       { value: "assetName", text: "NAME", sortable: true },
@@ -184,7 +169,6 @@ export default {
       { value: "assetType", text: "TYPE", sortable: true },
       { value: "assetBrand", text: "MANUFACTURER", sortable: true }
     ],
-    assetItems: [],
     tickets: {
       open: null,
       closed: null
@@ -201,66 +185,12 @@ export default {
         customerId: ticketCustomerId
       })
     },
-    async loadCustomerData(id) {
-      const request = await CustomerService.getCustomerById(id)
-      const data = await request.data[0];
-      
-      const primaryPhone = await this.loadPhoneData(data.primaryPhone);
-      const phoneNumber = primaryPhone[0].number;
-
-      const primaryAddress = await this.loadLocationData(data.primaryAddress);
-      const customerAddress = Object.values(primaryAddress[0]).slice(1, 7).join(', '); //gets address
-
-      this.customer.name = `${data.firstName} ${data.lastName}`;
-      this.customer.email = data.email;
-      this.customer.phone = data.phone;
-      this.customer.type = data.customerType;
-      this.customer.created = moment(data.createdAt).format('MMMM-DD-YYYY');
-      this.customer.phone = phoneNumber;
-      this.customer.address = customerAddress;
-
-      this.storeX.customerName = this.customer.name;
-    },
-    async loadPhoneData(id) {
-      const request = await NumberService.getNumberById(id)
-      const data = await request.data;
-      return data
-    },
-    async loadLocationData(id) {
-      const request = await LocationService.getLocationById(id)
-      const data = await request.data;
-      return data
-    },
-    async loadTicketData(id) {
-      const request = await TicketService.getTicketsByCustomer(id)
-      const data = await request.data;
-
-      this.ticketItems = await data;
-      this.tickets.open = this.ticketItems.filter(ticket => ticket.ticketStatus != 'Closed').length
-      this.tickets.closed = this.ticketItems.filter(ticket => ticket.ticketStatus === 'Closed').length
-      this.formatDate();
-    },
-    async loadAssetData(id) {
-      const request = await AssetService.getAssetsByCustomer(id)
-      const data = await request.data;
-
-      if (!data.length) return;
-
-      data[0].assetName = data[0].assetName.split('(')[0];
-      this.assetItems = await data;
-    },
-    async formatDate() {
-      this.ticketItems.forEach(item => {
-        item.createdAt = moment(item.createdAt).format('MM-DD-YYYY HH:MM A');
-        item.updatedAt = moment(item.updatedAt).format('MM-DD-YYYY HH:MM A');
-      })
-    },
   },
   created() {
-    this.loadCustomerData(this.storeX.navigation.customerId)
-    this.loadTicketData(this.storeX.navigation.customerId)
-    this.loadAssetData(this.storeX.navigation.customerId)
-  },
+    storeX.loadCustomerByCustomerId(storeX.navigation.customerId)
+    storeX.loadTicketsByCustomerId(storeX.navigation.customerId)
+    storeX.loadAssetsByCustomerId(storeX.navigation.customerId)
+  }
 }
 </script>
   

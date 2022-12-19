@@ -7,7 +7,7 @@
       <div class="menu text-center">
         Get Started
         <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-          <div v-for="(action, index) in storeX.home.actions" :key="action + index">
+          <div v-for="(action, index) in homeActions" :key="action + index">
             <div class="btn-group" role="group" aria-label="Basic mixed styles example">
               <button type="button" class="btn btn-secondary btn-lg actions custom-left">
                 <i :class="action.icon"></i>
@@ -38,10 +38,10 @@
       <div class="details">
         <ul>
           <li>
-            Total Tickets: {{ storeX.ticket.ticketTotalCount }}
+            Total Tickets: {{ totalTickets }}
           </li>
           <li>
-            Open Tickets: {{ storeX.ticket.ticketOpenCount }}
+            Open Tickets: {{ openTickets }}
           </li>
         </ul>
       </div>
@@ -57,6 +57,17 @@ export default defineComponent({
   name: 'HomePage',
   data() {
     return { storeX };
+  },
+  computed: {
+    openTickets() {
+      return storeX.tickets.filter(ticket => ticket.ticketStatus !== "Closed").length;
+    },
+    totalTickets() {
+      return storeX.tickets.length;
+    },
+    homeActions() {
+      return storeX.home.actions;
+    }
   },
   created() {
     storeX.getActionItems()
