@@ -42,10 +42,10 @@ export const storeX = reactive({
 
   customer: {
     name: null,
-    phone: null,
     email: null,
-    address: null,
-    created: null,
+    primaryPhone: null,
+    primaryAddress: null,
+    createdAt: null,
     type: null
   },
 
@@ -126,24 +126,36 @@ export const storeX = reactive({
     this.tickets = await req.data;
   },
 
+  async loadAssetData() {
+    const req = await AssetService.getAssets()
+    const assets = await req.data;
+    assets[0].assetName = assets[0].assetName.split('(')[0];
+    this.assets = await assets;
+
+    this.assets.forEach(async asset => {
+      const customer = await this.loadCustomerByCustomerId(asset.assetCustomerId)
+      asset.customerName = customer.fullName;
+    })
+  },
+
   async loadCustomerByCustomerId(id) {
     const request = await CustomerService.getCustomerById(id)
     const data = await request.data[0];
-    
+
     const primaryPhone = await this.loadPhoneDataById(data.primaryPhone);
     const phoneNumber = primaryPhone[0].number;
 
     const primaryAddress = await this.loadLocationDataById(data.primaryAddress);
     const customerAddress = Object.values(primaryAddress[0]).slice(1, 7).join(', '); //gets address
 
-    this.customer.name = `${data.firstName} ${data.lastName}`;
-    this.customer.email = data.email;
-    this.customer.type = data.customerType;
-    this.customer.created = moment(data.createdAt).format('MMMM-DD-YYYY');
-    this.customer.phone = phoneNumber;
-    this.customer.address = customerAddress;
+    data.fullName = `${data.firstName} ${data.lastName}`;
+    data.createdAt = moment(data.createdAt).format('MMMM-DD-YYYY');
+    data.primaryPhone = phoneNumber;
+    data.primaryAddress = customerAddress;
 
-    this.customerName = this.customer.name;
+    this.customerName = data.fullName;
+    this.customer = data;
+    return data;
   },
 
   async loadPhoneDataById(id) {

@@ -4,7 +4,7 @@
       Assets
       <div class="row">
         <div class="col-12 section">
-          <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="items" theme-color="#1d90ff"
+          <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="storeX.assets" theme-color="#1d90ff"
             table-class-name="customize-table" header-text-direction="center" body-text-direction="center">
             <template #item-customerName="{ customerName, assetCustomerId }">
               <button type="button" class="btn btn-lg" v-on:click="openCustomer(assetCustomerId)">
@@ -87,7 +87,7 @@ export default defineComponent({
     },
   },
   async created() {
-    this.loadAssetData()
+    storeX.loadAssetData()
     this.loadCustomerData()
   }
 });

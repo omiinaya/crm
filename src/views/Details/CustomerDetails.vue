@@ -34,7 +34,7 @@
                 <label class="col-sm-6">
                   <i class="bi bi-telephone"></i> Phone:
                 </label>
-                <div class="col-sm-6">{{ storeX.customer.phone }}</div>
+                <div class="col-sm-6">{{ storeX.customer.primaryPhone }}</div>
               </div>
               <div class="row align-items-top mb-2">
                 <label class="col-sm-6">
@@ -42,10 +42,10 @@
                 </label>
                 <div class="col-sm-6">
                   <a
-                    :href="`https://maps.google.com/?q=${storeX.customer.address}`"
+                    :href="`https://maps.google.com/?q=${storeX.customer.primaryAddress}`"
                     target="_blank"
                   >
-                    {{ storeX.customer.address }}
+                    {{ storeX.customer.primaryAddress }}
                   </a>
                 </div>
               </div>
@@ -53,7 +53,7 @@
                 <label class="col-sm-6">
                   <i class="bi bi-calendar-event"></i> Created:
                 </label>
-                <div class="col-sm-6">{{ storeX.customer.created }}</div>
+                <div class="col-sm-6">{{ storeX.customer.createdAt }}</div>
               </div>
             </div>
           </div>
