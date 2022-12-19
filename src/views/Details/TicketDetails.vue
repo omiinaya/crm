@@ -278,8 +278,8 @@ import AssetService from "../../services/asset.service";
 import WarrantyService from "../../services/warranty.service";
 import ComService from "../../services/com.service";
 import UserService from "../../services/user.service";
-import Loading from "../Loading/Loading.vue";
-import Dropdown from "../Dropdown.vue";
+import Loading from "../../components/Loading.vue";
+import Dropdown from "../../components/Dropdown.vue";
 import moment from 'moment';
 
 export default {

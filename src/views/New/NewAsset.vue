@@ -59,7 +59,7 @@
 <script>
 import AssetService from "../../services/asset.service";
 import CustomerService from "../../services/customer.service"
-import TypeAhead from "../TypeAhead.vue"
+import TypeAhead from "../../components/TypeAhead.vue"
 import { storeX } from "../../store/index";
 
 export default {

@@ -231,7 +231,7 @@ import CustomerService from "../../services/customer.service"
 import UserService from "../../services/user.service";
 import AssetService from "../../services/asset.service";
 import { storeX } from "../../store/index";
-import TypeAhead from "../TypeAhead.vue"
+import TypeAhead from "../../components/TypeAhead.vue"
 
 export default {
   name: 'NewCustomerPage',

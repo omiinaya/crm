@@ -18,8 +18,8 @@
             >
               {{
                 crumb === breadcrumbs[breadcrumbs.length - 1]
-                  ? crumb.view !== "customer"
-                    ? crumb.view !== "ticket"
+                  ? crumb.view !== "Customer"
+                    ? crumb.view !== "Ticket"
                       ? `${crumb.view
                           .charAt(0)
                           .toUpperCase()}${crumb.view.slice(1)}`
@@ -27,8 +27,8 @@
                           .toString()
                           .padStart(5, "0")}`
                     : `Customer: ${storeX.customerName}` //customer
-                  : crumb.view !== "ticket"
-                  ? crumb.view !== "customer" ? `⯇ ${crumb.view.charAt(0).toUpperCase()}${crumb.view.slice(1)}` : `⯇ Customer: ${storeX.customerName}`
+                  : crumb.view !== "Ticket"
+                  ? crumb.view !== "Customer" ? `⯇ ${crumb.view.charAt(0).toUpperCase()}${crumb.view.slice(1)}` : `⯇ Customer: ${storeX.customerName}`
                   : `⯇ Ticket #${storeX.history[storeX.history.length - 2].ticketId.toString().padStart(5, "0")}`
               }}
             </li>
@@ -36,23 +36,23 @@
         </div>
       </div>
       <Home
-        v-if="storeX.navigation.view === 'home' || !storeX.navigation.view"
+        v-if="storeX.navigation.view === 'Home' || !storeX.navigation.view"
       />
-      <Customers v-else-if="storeX.navigation.view === 'customers'" />
-      <Assets v-else-if="storeX.navigation.view === 'assets'" />
-      <Invoices v-else-if="storeX.navigation.view === 'invoices'" />
-      <Tickets v-else-if="storeX.navigation.view === 'tickets'" />
-      <Parts v-else-if="storeX.navigation.view === 'parts'" />
-      <Inventory v-else-if="storeX.navigation.view === 'inventory'" />
-      <Estimates v-else-if="storeX.navigation.view === 'estimates'" />
-      <POS v-else-if="storeX.navigation.view === 'pos'" />
-      <Admin v-else-if="storeX.navigation.view === 'admin'" />
-      <NewCustomer v-else-if="storeX.navigation.view === 'newCustomer'" />
-      <NewTicket v-else-if="storeX.navigation.view === 'newTicket'" />
-      <NewAsset v-else-if="storeX.navigation.view === 'newAsset'" />
-      <CustomerDetail v-else-if="storeX.navigation.view === 'customer'" />
-      <TicketDetail v-else-if="storeX.navigation.view === 'ticket'" />
-      <Projects v-else-if="storeX.navigation.view === 'projects'" />
+      <Customers v-else-if="storeX.navigation.view === 'Customers'" />
+      <Assets v-else-if="storeX.navigation.view === 'Assets'" />
+      <Invoices v-else-if="storeX.navigation.view === 'Invoices'" />
+      <Tickets v-else-if="storeX.navigation.view === 'Tickets'" />
+      <Parts v-else-if="storeX.navigation.view === 'Parts'" />
+      <Inventory v-else-if="storeX.navigation.view === 'Inventory'" />
+      <Estimates v-else-if="storeX.navigation.view === 'Estimates'" />
+      <POS v-else-if="storeX.navigation.view === 'Pos'" />
+      <Admin v-else-if="storeX.navigation.view === 'Admin'" />
+      <NewCustomer v-else-if="storeX.navigation.view === 'NewCustomer'" />
+      <NewTicket v-else-if="storeX.navigation.view === 'NewTicket'" />
+      <NewAsset v-else-if="storeX.navigation.view === 'NewAsset'" />
+      <CustomerDetails v-else-if="storeX.navigation.view === 'Customer'" />
+      <TicketDetails v-else-if="storeX.navigation.view === 'Ticket'" />
+      <Projects v-else-if="storeX.navigation.view === 'Projects'" />
     </ion-content>
   </ion-page>
 </template>
@@ -61,23 +61,8 @@
 import { storeX } from "../store/index";
 import { IonContent, IonHeader, IonPage, IonToolbar } from '@ionic/vue';
 import { defineComponent } from 'vue';
-import NavBar from '../components/NavBar.vue';
-import Home from '../components/Home.vue';
-import Customers from '../components/Customers.vue';
-import Assets from '../components/Assets.vue';
-import Invoices from '../components/Invoices.vue';
-import Tickets from '../components/Tickets.vue';
-import Parts from '../components/Parts.vue';
-import Inventory from '../components/Inventory.vue';
-import Estimates from '../components/Estimates.vue';
-import POS from '../components/POS.vue';
-import Admin from '../components/Admin.vue';
-import NewCustomer from '../components/New/NewCustomer.vue';
-import NewTicket from '../components/New/NewTicket.vue';
-import NewAsset from '../components/New/NewAsset.vue';
-import CustomerDetail from '../components/Details/CustomerDetails.vue';
-import TicketDetail from '../components/Details/TicketDetails.vue';
-import Projects from '../components/Projects.vue';
+import * as Components from "../components";
+import * as Views from "../views";
 import { useRoute } from 'vue-router'
 
 export default defineComponent({
@@ -120,23 +105,24 @@ export default defineComponent({
     IonHeader,
     IonPage,
     IonToolbar,
-    NavBar,
-    Home,
-    Customers,
-    Assets,
-    Invoices,
-    Tickets,
-    Parts,
-    Inventory,
-    Estimates,
-    POS,
-    Admin,
-    NewCustomer,
-    NewTicket,
-    NewAsset,
-    CustomerDetail,
-    TicketDetail,
-    Projects
+
+    NavBar: Components.NavBar,
+    Home: Views.Home,
+    Customers: Views.Customers,
+    Assets: Views.Assets,
+    Invoices: Views.Invoices,
+    Tickets: Views.Tickets,
+    Parts: Views.Parts,
+    Inventory: Views.Inventory,
+    Estimates: Views.Estimates,
+    POS: Views.POS,
+    Admin: Views.Admin,
+    NewCustomer: Views.NewCustomer,
+    NewTicket: Views.NewTicket,
+    NewAsset: Views.NewAsset,
+    CustomerDetails: Views.CustomerDetails,
+    TicketDetails: Views.TicketDetails,
+    Projects: Views.Projects
   },
 });
 </script>
