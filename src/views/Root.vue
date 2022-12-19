@@ -20,15 +20,13 @@
                 crumb === breadcrumbs[breadcrumbs.length - 1]
                   ? crumb.view !== "Customer"
                     ? crumb.view !== "Ticket"
-                      ? `${crumb.view
-                          .charAt(0)
-                          .toUpperCase()}${crumb.view.slice(1)}`
+                      ? crumb.view
                       : `Ticket # ${storeX.navigation.ticketId
                           .toString()
                           .padStart(5, "0")}`
                     : `Customer: ${storeX.customerName}` //customer
                   : crumb.view !== "Ticket"
-                  ? crumb.view !== "Customer" ? `⯇ ${crumb.view.charAt(0).toUpperCase()}${crumb.view.slice(1)}` : `⯇ Customer: ${storeX.customerName}`
+                  ? crumb.view !== "Customer" ? `⯇ ${crumb.view}` : `⯇ Customer: ${storeX.customerName}`
                   : `⯇ Ticket #${storeX.history[storeX.history.length - 2].ticketId.toString().padStart(5, "0")}`
               }}
             </li>

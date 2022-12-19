@@ -45,7 +45,7 @@ export default defineComponent({
   methods: {
     async openCustomer(id) {
       this.storeX.updateNavigation({
-        view: 'customer',
+        view: 'Customer',
         customerId: id
       })
     },

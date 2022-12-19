@@ -57,14 +57,14 @@ export default defineComponent({
     },
     async openTicket(id, ticketCustomerId) {
       this.storeX.updateNavigation({
-        view: 'ticket',
+        view: 'Ticket',
         ticketId: id,
         customerId: ticketCustomerId
       })
     },
     async openCustomer(id) {
       this.storeX.updateNavigation({
-        view: 'customer',
+        view: 'Customer',
         customerId: id
       })
     },

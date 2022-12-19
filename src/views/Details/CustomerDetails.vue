@@ -196,7 +196,7 @@ export default {
   methods: {
     async openTicket(id, ticketCustomerId) {
       this.storeX.updateNavigation({
-        view: 'ticket',
+        view: 'Ticket',
         ticketId: id,
         customerId: ticketCustomerId
       })
