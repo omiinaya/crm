@@ -21,9 +21,6 @@
 <script>
 import { defineComponent } from 'vue';
 import { storeX } from "../store/index";
-import AssetService from "../services/asset.service"
-import CustomerService from "../services/customer.service"
-import moment from 'moment'
 
 export default defineComponent({
   name: 'AssetPage',
@@ -50,45 +47,12 @@ export default defineComponent({
       })
     },
 
-    async loadAssetData() {
-      const req = await AssetService.getAssets()
-      const assets = await req.data;
-      assets[0].assetName = assets[0].assetName.split('(')[0];
-      this.items = await assets;
-
-      this.formatDate();
-    },
-
-    async loadCustomerData() {
-      const req = await CustomerService.getCustomers();
-      const customers = await req.data;
-
-      let fullName = '';
-      this.items.forEach(item => {
-        const customer = customers.filter(customer => {
-          const customerId = parseInt(customer.id)
-          const assetCustomerId = parseInt(item.assetCustomerId)
-
-          return customerId === assetCustomerId
-        });
-        fullName = `${customer[0].firstName} ${customer[0].lastName}`
-        item['customerName'] = fullName;
-      })
-    },
-
-    async formatDate() {
-      this.items.forEach(item => {
-        item.createdAt = moment(item.createdAt).format('MM-DD-YYYY HH:MM A');
-      })
-    },
-
     testing123(a) {
       console.log(a)
     },
   },
   async created() {
     storeX.loadAssetData()
-    this.loadCustomerData()
   }
 });
 

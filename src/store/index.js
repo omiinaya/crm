@@ -122,8 +122,23 @@ export const storeX = reactive({
   },
 
   async loadTicketData() {
-    const req = await TicketService.getTickets();
-    this.tickets = await req.data;
+    const tickets = await TicketService.getTickets();
+    const customers = await CustomerService.getCustomers();
+
+    this.tickets = await tickets.data;
+    this.customers = await customers.data;
+
+    const customerLookup = {};
+    for (const customer of this.customers) {
+      customerLookup[customer.id] = `${customer.firstName} ${customer.lastName}`;
+    }
+
+    for (const ticket of this.tickets) {
+      const data = await this.loadAssetByTicketId(ticket.id);
+      ticket.assetSerial = data[0].assetSerial;
+      ticket.customerName = customerLookup[ticket.ticketCustomerId];
+    }
+    this.formatDate(this.tickets);
   },
 
   async loadAssetData() {
@@ -183,6 +198,12 @@ export const storeX = reactive({
 
     data[0].assetName = data[0].assetName.split('(')[0];
     this.assets = await data;
+  },
+
+  async loadAssetByTicketId(id) {
+    const req = await AssetService.getAssetByTicketId(id);
+    const asset = await req.data;
+    return asset;
   },
 
   openTickets() {
