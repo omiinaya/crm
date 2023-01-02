@@ -26,19 +26,13 @@
                     field.label
                 }}:
                 </label>
-                <div class="col-sm-2-5 dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%; padding: 5px"
-                    placeholder="Dropdown">
-                    {{ customerForm["phoneType"] }}
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li v-for="(type, index) in phoneTypes" :key="type + index">
-                      <a class="dropdown-item" v-on:click="customerForm['phoneType'] = type">{{ type }}
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+                <Dropdown
+                  :title="customerForm['phoneType']"
+                  :items="phoneTypes"
+                  :handler="dropdownHandler"
+                  name = 'phoneType'
+                  cols="2-5"
+                />
                 <div class="col-sm-4">
                   <input :type="field.type" class="form-control" :id="field.label + index"
                     :placeholder="field.placeholder" v-model="customerForm[field.name]" />
@@ -167,12 +161,13 @@
 
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
+import Dropdown from "../../components/Dropdown.vue"
 import { storeX } from "../../store/index";
 import * as yup from "yup";
 
 export default {
   name: 'NewCustomerPage',
-  components: { Form, Field, ErrorMessage },
+  components: { Form, Field, ErrorMessage, Dropdown },
   data() {
     const schema = yup.object().shape({
       address1: yup
@@ -213,6 +208,9 @@ export default {
   methods: {
     print(a) {
       console.log(a)
+    },
+    dropdownHandler(type, name) {
+      this.customerForm[name] = type
     },
     async getCustomerFieldItems() {
       const req = await storeX.CustomerService.getCustomerFields();

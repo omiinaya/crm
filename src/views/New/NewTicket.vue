@@ -247,10 +247,8 @@ export default {
     testing() {
       console.log(this.ticketForm);
     },
-    dropdownHandler(type, name, prop) {
-      console.log(type)
-      console.log(name)
-      if (!prop) return this.ticketForm[name] = type
+    dropdownHandler(type, name) {
+      this.ticketForm[name] = type
     }
   },
   created() {

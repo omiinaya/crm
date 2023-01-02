@@ -91,4 +91,11 @@ export default {
   color: white;
   padding-bottom: 5px;
 }
+
+.col-sm-2-5 {
+  flex: 0 0 21.0625%;
+  max-width: 21.0625%;
+  position: relative;
+  width: 100%;
+}
 </style>
