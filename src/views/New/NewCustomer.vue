@@ -3,25 +3,13 @@
     <div class="row align-items-center">
       <div class="col-6 offset-1 title">New Customer</div>
       <div class="col-5">
-        <button
-          type="button"
-          class="btn btn-primary"
-          v-on:click="createCustomer(customerForm)"
-        >
+        <button type="button" class="btn btn-primary" v-on:click="createCustomer(customerForm)">
           New Customer
         </button>
-        <button
-          type="button"
-          class="btn btn-secondary"
-          v-on:click="print(customerForm)"
-        >
+        <button type="button" class="btn btn-secondary" v-on:click="print(customerForm)">
           TEST BUTTON 2
         </button>
-        <button
-          type="button"
-          class="btn btn-success"
-          v-on:click="print(customerForm)"
-        >
+        <button type="button" class="btn btn-success" v-on:click="print(customerForm)">
           TEST BUTTON 3
         </button>
       </div>
@@ -30,189 +18,109 @@
       <div class="row align-items-top">
         <div class="cols-12 sub-title">BASIC INFO</div>
         <div class="col-6">
-          <div class="form">
-            <div
-              v-for="(field, index) in customerFields.left"
-              :key="field + index"
-            >
+          <Form>
+            <div v-for="(field, index) in customerFields.left" :key="field + index">
               <div v-if="!field.show"></div>
-              <div
-                v-else-if="field.name === 'phone'"
-                class="mb-3 row align-items-center"
-              >
-                <label
-                  :for="field.label + index"
-                  class="col-sm-4 col-form-label"
-                  ><i :class="field.icon"></i> {{ field.label }}:
+              <div v-else-if="field.name === 'phone'" class="mb-3 row align-items-center">
+                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
+                    field.label
+                }}:
                 </label>
                 <div class="col-sm-2-5 dropdown">
-                  <button
-                    class="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    style="width: 100%; padding: 5px"
-                    placeholder="Dropdown"
-                  >
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%; padding: 5px"
+                    placeholder="Dropdown">
                     {{ customerForm["phoneType"] }}
                   </button>
-                  <ul
-                    class="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li v-for="(type, index) in phoneTypes" :key="type + index">
-                      <a
-                        class="dropdown-item"
-                        v-on:click="customerForm['phoneType'] = type"
-                        >{{ type }}
+                      <a class="dropdown-item" v-on:click="customerForm['phoneType'] = type">{{ type }}
                       </a>
                     </li>
                   </ul>
                 </div>
                 <div class="col-sm-4">
-                  <input
-                    :type="field.type"
-                    class="form-control"
-                    :id="field.label + index"
-                    :placeholder="field.placeholder"
-                    v-model="customerForm[field.name]"
-                  />
+                  <input :type="field.type" class="form-control" :id="field.label + index"
+                    :placeholder="field.placeholder" v-model="customerForm[field.name]" />
                 </div>
                 <div class="col-sm-2-3">
-                  <input
-                    :type="field.type"
-                    class="form-control"
-                    :id="field.label + index"
-                    placeholder="Ext."
-                    v-model="customerForm['extension']"
-                  />
+                  <input :type="field.type" class="form-control" :id="field.label + index" placeholder="Ext."
+                    v-model="customerForm['extension']" />
                 </div>
               </div>
-              <div
-                v-else-if="field.name === 'customerType'"
-                class="mb-3 row align-items-center"
-              >
-                <label
-                  :for="field.label + index"
-                  class="col-sm-4 col-form-label"
-                  ><i :class="field.icon"></i> {{ field.label }}:
+              <div v-else-if="field.name === 'customerType'" class="mb-3 row align-items-center">
+                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
+                    field.label
+                }}:
                 </label>
                 <div class="col-sm-8" style="height: 25px">
-                  <div
-                    v-for="(type, index) in customerTypes"
-                    :key="type + index"
-                    class="form-check form-check-inline"
-                  >
+                  <div v-for="(type, index) in customerTypes" :key="type + index" class="form-check form-check-inline">
                     <div v-if="!index">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="inlineRadio1"
-                        value="option1"
-                        v-on:click="customerForm[field.name] = type"
-                        checked
-                      />
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                        value="option1" v-on:click="customerForm[field.name] = type" checked />
                       <label class="form-check-label" for="inlineRadio1">{{
-                        type
+                          type
                       }}</label>
                     </div>
                     <div v-else>
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="inlineRadio1"
-                        value="option1"
-                        v-on:click="customerForm[field.name] = type"
-                      />
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                        value="option1" v-on:click="customerForm[field.name] = type" />
                       <label class="form-check-label" for="inlineRadio1">{{
-                        type
+                          type
                       }}</label>
                     </div>
                   </div>
                 </div>
               </div>
-              <div
-                v-else-if="field.name === 'businessName'"
-                class="mb-3 row align-items-center"
-                v-show="customerForm['customerType'] === customerTypes[1]"
-              >
-                <label
-                  :for="field.label + index"
-                  class="col-sm-4 col-form-label"
-                  ><i :class="field.icon"></i> {{ field.label }}:
+              <div v-else-if="field.name === 'businessName'" class="mb-3 row align-items-center"
+                v-show="customerForm['customerType'] === customerTypes[1]">
+                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
+                    field.label
+                }}:
                 </label>
                 <div class="col-sm-8">
-                  <input
-                    :type="field.type"
-                    class="form-control"
-                    :id="field.label + index"
-                    :placeholder="field.placeholder"
-                    v-model="customerForm[field.name]"
-                  />
+                  <input :type="field.type" class="form-control" :id="field.label + index"
+                    :placeholder="field.placeholder" v-model="customerForm[field.name]" />
                 </div>
               </div>
-              <div
-                v-else-if="field.name === 'schoolName'"
-                class="mb-3 row align-items-center"
-                v-show="customerForm['customerType'] === customerTypes[2]"
-              >
-                <label
-                  :for="field.label + index"
-                  class="col-sm-4 col-form-label"
-                  ><i :class="field.icon"></i> {{ field.label }}:
+              <div v-else-if="field.name === 'schoolName'" class="mb-3 row align-items-center"
+                v-show="customerForm['customerType'] === customerTypes[2]">
+                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
+                    field.label
+                }}:
                 </label>
                 <div class="col-sm-8">
-                  <input
-                    :type="field.type"
-                    class="form-control"
-                    :id="field.label + index"
-                    :placeholder="field.placeholder"
-                    v-model="customerForm[field.name]"
-                  />
+                  <input :type="field.type" class="form-control" :id="field.label + index"
+                    :placeholder="field.placeholder" v-model="customerForm[field.name]" />
                 </div>
               </div>
               <div v-else class="mb-3 row align-items-center">
-                <label
-                  :for="field.label + index"
-                  class="col-sm-4 col-form-label"
-                  ><i :class="field.icon"></i> {{ field.label }}:
+                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
+                    field.label
+                }}:
                 </label>
                 <div class="col-sm-8">
-                  <input
-                    :type="field.type"
-                    class="form-control"
-                    :id="field.label + index"
-                    :placeholder="field.placeholder"
-                    v-model="customerForm[field.name]"
-                  />
+                  <input :type="field.type" class="form-control" :id="field.label + index"
+                    :placeholder="field.placeholder" v-model="customerForm[field.name]" />
                 </div>
               </div>
             </div>
-          </div>
+          </Form>
         </div>
+
         <div class="col-6">
-          <div class="form">
-            <div
-              class="mb-3 row align-items-center"
-              v-for="(field, index) in customerFields.right"
-              :key="field + index"
-            >
-              <label :for="field.label + index" class="col-sm-4 col-form-label"
-                ><i :class="field.icon"></i> {{ field.label }}:
-              </label>
-              <div class="col-sm-8">
-                <input
-                  :type="field.type"
-                  class="form-control"
-                  :id="field.label + index"
-                  :placeholder="field.placeholder"
-                  v-model="customerForm[field.name]"
-                />
-              </div>
+          <Form @submit="testing123" class="mb-3 row align-items-center" v-for="(field, index) in customerFields.right" :key="field + index" :validation-schema="schema">
+            <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{ field.label
+            }}:
+            </label>
+            <div class="col-sm-8">
+              <Field :name="field.name" :type="field.type" class="form-control" :id="field.label + index"
+                :placeholder="field.placeholder" v-model="customerForm[field.name]" />
+              <ErrorMessage :name="field.name" class="error-feedback" />
             </div>
+          </Form>
+          <div v-if="message" class="alert" :class="successful ? 'alert-success' : 'alert-danger'">
+            {{ message }}
           </div>
         </div>
       </div>
@@ -222,50 +130,35 @@
       <div class="row align-items-top">
         <div class="cols-10 sub-title">CUSTOMER SETTINGS</div>
         <div class="col-6">
-          <div class="form">
-            <div
-              class="mb-3 row align-items-center"
-              v-for="(field, index) in settingsFields.left"
-              :key="field + index"
-            >
-              <label :for="field.label + index" class="col-sm-5 col-form-label"
-                ><i :class="field.icon"></i> {{ field.label }}:
+          <Form>
+            <div class="mb-3 row align-items-center" v-for="(field, index) in settingsFields.left" :key="field + index">
+              <label :for="field.label + index" class="col-sm-5 col-form-label"><i :class="field.icon"></i> {{
+                  field.label
+              }}:
               </label>
               <div class="col-sm-7">
-                <input
-                  :type="field.type"
-                  class="form-check-input"
-                  :id="field.label + index"
-                  :placeholder="field.placeholder"
-                  v-model="customerForm[field.name]"
-                  :checked="getChecked(index, 'left')"
-                />
+                <input :type="field.type" class="form-check-input" :id="field.label + index"
+                  :placeholder="field.placeholder" v-model="customerForm[field.name]"
+                  :checked="getChecked(index, 'left')" />
               </div>
             </div>
-          </div>
+          </Form>
         </div>
         <div class="col-6">
-          <div class="form">
-            <div
-              class="mb-3 row align-items-center"
-              v-for="(field, index) in settingsFields.right"
-              :key="field + index"
-            >
-              <label :for="field.label + index" class="col-sm-5 col-form-label"
-                ><i :class="field.icon"></i> {{ field.label }}:
+          <Form>
+            <div class="mb-3 row align-items-center" v-for="(field, index) in settingsFields.right"
+              :key="field + index">
+              <label :for="field.label + index" class="col-sm-5 col-form-label"><i :class="field.icon"></i> {{
+                  field.label
+              }}:
               </label>
               <div class="col-sm-7">
-                <input
-                  :type="field.type"
-                  class="form-check-input"
-                  :id="field.label + index"
-                  :placeholder="field.placeholder"
-                  v-model="customerForm[field.name]"
-                  :checked="getChecked(index, 'right')"
-                />
+                <input :type="field.type" class="form-check-input" :id="field.label + index"
+                  :placeholder="field.placeholder" v-model="customerForm[field.name]"
+                  :checked="getChecked(index, 'right')" />
               </div>
             </div>
-          </div>
+          </Form>
         </div>
       </div>
     </div>
@@ -275,29 +168,50 @@
 <script>
 import CustomerService from "../../services/customer.service";
 import LocationService from "../../services/location.service";
+import { Form, Field, ErrorMessage } from "vee-validate";
 import { storeX } from "../../store/index";
+import * as yup from "yup";
 
 export default {
   name: 'NewCustomerPage',
-  components: {},
-  data: () => ({
-    customerFields: {
-      left: null,
-      right: null
-    },
-    locationFields: null,
-    settingsFields: {
-      left: null,
-      right: null
-    },
-    customerTypes: ['Individual'],
-    phoneTypes: null,
-    customerForm: {
-      phoneType: 'Mobile',
-      extension: null
-    },
-    storeX
-  }),
+  components: { Form, Field, ErrorMessage },
+  data() {
+    const schema = yup.object().shape({
+      address1: yup
+        .string()
+        .required("First name is required!")
+        .min(3, "Must be at least 3 characters!")
+        .max(20, "Must be maximum 20 characters!"),
+      lastName: yup
+        .string()
+        .required("Last name is required!")
+        .min(3, "Must be at least 3 characters!")
+        .max(20, "Must be maximum 20 characters!"),
+    });
+
+    return {
+      successful: false,
+      loading: false,
+      message: "",
+      schema,
+      customerFields: {
+        left: null,
+        right: null
+      },
+      locationFields: null,
+      settingsFields: {
+        left: null,
+        right: null
+      },
+      customerTypes: ['Individual'],
+      phoneTypes: null,
+      customerForm: {
+        phoneType: 'Mobile',
+        extension: null
+      },
+      storeX
+    };
+  },
   methods: {
     print(a) {
       console.log(a)
@@ -367,12 +281,14 @@ export default {
   position: relative;
   width: 100%;
 }
+
 .btn {
   margin-right: 10px !important;
 }
 
-.form {
+Form {
   margin: 30px;
+  margin-top: 0;
 }
 
 .title {
