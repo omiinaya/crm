@@ -45,68 +45,27 @@
                     field.label
                 }}:
                 </label>
-                <div class="col-sm-8 dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" :id="'dropdownMenuButton' + index"
-                    data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%; padding: 5px"
-                    placeholder="Dropdown">
-                    {{ ticketForm[field.name] }}
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li v-for="(tech, index) in techItems" :key="tech + index">
-                      <a class="dropdown-item" v-on:click="(ticketForm[field.name] = tech.fullName)">{{
-                          tech.fullName
-                      }}
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+                <Dropdown
+                  :name = field.name
+                  :title="ticketForm[field.name]"
+                  :items="techItems"
+                  :cols="8"
+                  :handler="dropdownHandler"
+                  byProp="fullName"
+                />
               </div>
               <div v-else-if="field.type === 'dropdown'" class="mb-3 row align-items-center">
                 <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
                     field.label
                 }}:
                 </label>
-                <div class="col-sm-8 dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" :id="'dropdownMenuButton' + index"
-                    data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%; padding: 5px"
-                    placeholder="Dropdown">
-                    {{ ticketForm[field.name] }}
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li v-for="(type, index) in JSON.parse(field.options)" :key="type + index">
-                      <a class="dropdown-item" v-on:click="ticketForm[field.name] = type">{{ type }}
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              <div v-else-if="field.name === 'phone'" class="mb-3 row align-items-center">
-                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
-                    field.label
-                }}:
-                </label>
-                <div class="col-sm-2 dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%; padding: 5px"
-                    placeholder="Dropdown">
-                    {{ ticketForm["phoneType"] }}
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li v-for="(type, index) in phoneTypes" :key="type + index">
-                      <a class="dropdown-item" v-on:click="ticketForm['phoneType'] = type">{{ type }}
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="col-sm-4">
-                  <input :type="field.type" class="form-control" :id="field.label + index"
-                    :placeholder="field.placeholder" v-model="ticketForm[field.name]" />
-                </div>
-                <div class="col-sm-2">
-                  <input :type="field.type" class="form-control" :id="field.label + index" placeholder="Ext."
-                    v-model="ticketForm['extension']" />
-                </div>
+                <Dropdown
+                  :name = field.name
+                  :title="ticketForm[field.name]"
+                  :items="JSON.parse(field.options)"
+                  :cols="8"
+                  :handler="dropdownHandler"
+                />
               </div>
               <div v-else-if="field.name === 'customerType'" class="mb-3 row align-items-center">
                 <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
@@ -288,8 +247,10 @@ export default {
     testing() {
       console.log(this.ticketForm);
     },
-    dropdownHandler(type, name) {
-      this.ticketForm[name] = type
+    dropdownHandler(type, name, prop) {
+      console.log(type)
+      console.log(name)
+      if (!prop) return this.ticketForm[name] = type
     }
   },
   created() {

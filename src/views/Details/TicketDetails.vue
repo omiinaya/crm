@@ -68,6 +68,7 @@
                   :items="ticketTechs"
                   :cols="6"
                   :handler="ticketTechHandler"
+                  :byTicket="true"
                   byProp="fullName"
                 />
               </div>

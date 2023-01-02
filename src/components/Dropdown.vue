@@ -9,15 +9,20 @@
       </button>
       <ul class="dropdown-menu">
         <li v-for="(item, index) in items" :key="item + index">
-          <a v-if="byProp"
+          <a v-if="byProp && byTicket"
             class="dropdown-item"
-            @click="handler(storeX.navigation.ticketId, item[byProp])"
+            @click="handler(storeX.navigation.ticketId, item[byProp], this.name)"
             >{{ item[byProp] }}
           </a>
           <a v-else-if="byTicket"
             class="dropdown-item"
-            @click="handler(storeX.navigation.ticketId, item)"
+            @click="handler(storeX.navigation.ticketId, item, this.name)"
             >{{ item }}
+          </a>
+          <a v-else-if="byProp"
+            class="dropdown-item"
+            @click="handler(item[byProp], this.name)"
+            >{{ item[byProp] }}
           </a>
           <a v-else
             class="dropdown-item"
