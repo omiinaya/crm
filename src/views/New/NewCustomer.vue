@@ -109,7 +109,7 @@
         </div>
 
         <div class="col-6">
-          <Form @submit="testing123" class="mb-3 row align-items-center" v-for="(field, index) in customerFields.right" :key="field + index" :validation-schema="schema">
+          <Form class="mb-3 row align-items-center" v-for="(field, index) in customerFields.right" :key="field + index" :validation-schema="schema">
             <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{ field.label
             }}:
             </label>
@@ -291,6 +291,9 @@ Form {
   margin-top: 0;
 }
 
+.error-feedback {
+  color: red;
+}
 .title {
   margin-top: 25px;
   margin-bottom: 25px;
