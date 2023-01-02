@@ -57,8 +57,6 @@
 </template>
 
 <script>
-import AssetService from "../../services/asset.service";
-import CustomerService from "../../services/customer.service"
 import TypeAhead from "../../components/TypeAhead.vue"
 import { storeX } from "../../store/index";
 
@@ -77,7 +75,7 @@ export default {
   }),
   methods: {
     async loadAssetFields() {
-      const req = await AssetService.getAssetFields();
+      const req = await storeX.AssetService.getAssetFields();
       this.assetFields = await req.data
 
       const assetTypes = this.assetFields.filter(field => field.name === 'assetType')[0].options
@@ -87,7 +85,7 @@ export default {
       this.assetForm['assetBrand'] = JSON.parse(assetBrands)[0];
     },
     async loadCustomerData() {
-      const request = await CustomerService.getCustomers()
+      const request = await storeX.CustomerService.getCustomers()
       const customerList = await request.data;
 
       customerList.forEach((customer) => {
@@ -96,7 +94,7 @@ export default {
     },
     async createAsset() {
       console.log(this.assetForm)
-      AssetService.createAsset(this.assetForm);
+      storeX.AssetService.createAsset(this.assetForm);
     },
     testing() {
       console.log(this.assetForm)

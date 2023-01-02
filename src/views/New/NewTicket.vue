@@ -226,10 +226,6 @@
 </template>
 
 <script>
-import ticketService from "../../services/ticket.service";
-import CustomerService from "../../services/customer.service"
-import UserService from "../../services/user.service";
-import AssetService from "../../services/asset.service";
 import { storeX } from "../../store/index";
 import TypeAhead from "../../components/TypeAhead.vue"
 
@@ -249,7 +245,7 @@ export default {
       console.log(a);
     },
     async getTicketFieldItems() {
-      const req = await ticketService.getTicketFields();
+      const req = await storeX.ticketService.getTicketFields();
       this.ticketFields = await req.data;
       //get list of options
       const ticketTypes = this.ticketFields.filter(field => field.name === 'ticketType')[0].options
@@ -258,7 +254,7 @@ export default {
       this.ticketForm['ticketTech'] = this.techItems[0].fullName;
     },
     async loadAssetFields() {
-      const req = await AssetService.getAssetFields();
+      const req = await storeX.AssetService.getAssetFields();
       const arr = req.data;
       await arr.splice(0, 3); //removes customer name, customer id and ticket number
       this.assetFields = arr;
@@ -270,20 +266,20 @@ export default {
       this.ticketForm['assetBrand'] = JSON.parse(assetBrands)[0];
     },
     async loadCustomerData() {
-      const request = await CustomerService.getCustomers()
+      const request = await storeX.CustomerService.getCustomers()
       const customerList = await request.data;
       customerList.forEach((customer) => {
         this.customerItems.push(customer);
       })
     },
     async loadTechnicianData() {
-      const request = await UserService.getAllUsers();
+      const request = await storeX.UserService.getAllUsers();
       const technicianList = await request.data;
       this.techItems = technicianList;
     },
     async createTicket(data) {
       console.log(data)
-      const ticket = await ticketService.createTicket(data);
+      const ticket = await storeX.TicketService.createTicket(data);
       const ticketId = ticket.data.id
       storeX.updateNavigation({ view: 'Ticket', ticketId: ticketId })
     },

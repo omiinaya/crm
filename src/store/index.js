@@ -11,6 +11,7 @@ import CustomerService from "../services/customer.service";
 import NumberService from "../services/number.service";
 import LocationService from "../services/location.service";
 import AssetService from "../services/asset.service";
+import UserService from "../services/user.service";
 
 const socket = io("http://localhost:8092");
 
@@ -29,17 +30,11 @@ export const storeX = reactive({
   io: socket,
   history: [],
   customerName: null,
-
-  home: {
-    actions: null
-  },
-
+  home: { actions: null },
   tickets: [],
   assets: [],
   customers: [],
-
   ticket: null,
-
   customer: {
     name: null,
     email: null,
@@ -48,6 +43,14 @@ export const storeX = reactive({
     createdAt: null,
     type: null
   },
+
+  HomeService,
+  TicketService,
+  CustomerService,
+  NumberService,
+  LocationService,
+  AssetService,
+  UserService,
 
   updateNavigation(obj) {
     this.navigation.view = obj.view;

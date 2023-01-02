@@ -166,8 +166,6 @@
 </template>
 
 <script>
-import CustomerService from "../../services/customer.service";
-import LocationService from "../../services/location.service";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { storeX } from "../../store/index";
 import * as yup from "yup";
@@ -217,8 +215,8 @@ export default {
       console.log(a)
     },
     async getCustomerFieldItems() {
-      const req = await CustomerService.getCustomerFields();
-      const loc = await LocationService.getLocationFields();
+      const req = await storeX.CustomerService.getCustomerFields();
+      const loc = await storeX.LocationService.getLocationFields();
       this.customerFields.left = await req.data
       this.customerFields.right = await loc.data
 
@@ -233,12 +231,12 @@ export default {
       this.customerForm['customerType'] = this.customerTypes[0]
     },
     async getSettingsFieldItems() {
-      const req = await CustomerService.getCustomerSettingsFields();
+      const req = await storeX.CustomerService.getCustomerSettingsFields();
       this.settingsFields.left = await req.data.filter(field => !field.side);
       this.settingsFields.right = await req.data.filter(field => field.side);
     },
     async createCustomer(data) {
-      const customer = await CustomerService.createCustomer(data);
+      const customer = await storeX.CustomerService.createCustomer(data);
       const customerId = customer.data.id
       storeX.updateNavigation({ view: 'Customer', customerId: customerId })
     },
