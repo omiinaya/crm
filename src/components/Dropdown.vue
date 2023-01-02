@@ -9,23 +9,19 @@
       </button>
       <ul class="dropdown-menu">
         <li v-for="(item, index) in items" :key="item + index">
-          
           <a v-if="byProp"
             class="dropdown-item"
-            
             @click="handler(storeX.navigation.ticketId, item[byProp])"
             >{{ item[byProp] }}
           </a>
           <a v-else-if="byTicket"
             class="dropdown-item"
-            
             @click="handler(storeX.navigation.ticketId, item)"
             >{{ item }}
           </a>
           <a v-else
             class="dropdown-item"
-           
-            @click="handler(item)"
+            @click="handler(item, this.name)"
             >{{ item }}
           </a>
         </li>
@@ -55,28 +51,31 @@ export default {
         type: Function,
         required: true,
     },
+    name: {
+      type: String,
+      required: false
+    },
     title: {
         type: String,
         required: false,
     },
     byProp: {
         type: String,
-        required: false
     },
     byTicket: {
         type: Boolean,
-        default: true,
-        required: false
+        default: false,
     }
   },
-  /*
+  
   created() {
+    console.log(this.name)
     console.log(this.items)
     console.log(this.title)
     console.log(this.handler)
     console.log(this.byProp)
   },
-  */
+  
 };
 </script>
 

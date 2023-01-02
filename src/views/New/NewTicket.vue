@@ -186,19 +186,13 @@
                     field.label
                 }}:
                 </label>
-                <div class="col-sm-8 dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" :id="'dropdownMenuButton' + index"
-                    data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%; padding: 5px"
-                    placeholder="Dropdown">
-                    {{ ticketForm[field.name] }}
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li v-for="(type, index) in JSON.parse(field.options)" :key="type + index">
-                      <a class="dropdown-item" v-on:click="ticketForm[field.name] = type">{{ type }}
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+                <Dropdown
+                  :name="field.name"
+                  :title="ticketForm[field.name]"
+                  :items="JSON.parse(field.options)"
+                  :cols="8"
+                  :handler="dropdownHandler"
+                />
               </div>
               <div v-else>
                 <div class="mb-3 row align-items-center">
@@ -228,10 +222,11 @@
 <script>
 import { storeX } from "../../store/index";
 import TypeAhead from "../../components/TypeAhead.vue"
+import Dropdown from "../../components/Dropdown.vue"
 
 export default {
   name: 'NewCustomerPage',
-  components: { TypeAhead },
+  components: { TypeAhead, Dropdown },
   data: () => ({
     customerItems: [],
     techItems: [],
@@ -245,7 +240,7 @@ export default {
       console.log(a);
     },
     async getTicketFieldItems() {
-      const req = await storeX.ticketService.getTicketFields();
+      const req = await storeX.TicketService.getTicketFields();
       this.ticketFields = await req.data;
       //get list of options
       const ticketTypes = this.ticketFields.filter(field => field.name === 'ticketType')[0].options
@@ -280,8 +275,9 @@ export default {
     async createTicket(data) {
       console.log(data)
       const ticket = await storeX.TicketService.createTicket(data);
-      const ticketId = ticket.data.id
-      storeX.updateNavigation({ view: 'Ticket', ticketId: ticketId })
+      const ticketId = ticket.data.id;
+      const customerId = ticket.data.ticketCustomerId;
+      storeX.updateNavigation({ view: 'Ticket', ticketId: ticketId, customerId: customerId });
     },
     getChecked(index, side) {
       const checked = JSON.parse(this.settingsFields[side][index].options).default;
@@ -291,6 +287,9 @@ export default {
     },
     testing() {
       console.log(this.ticketForm);
+    },
+    dropdownHandler(type, name) {
+      this.ticketForm[name] = type
     }
   },
   created() {

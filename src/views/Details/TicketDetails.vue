@@ -6,23 +6,12 @@
           <div class="row">
             <div class="col-8 top">#{{ ticket.number }}</div>
             <div class="col-1 top">
-              <div class="dropdown">
-                <button
-                  class="btn btn-secondary dropdown-toggle"
-                  data-bs-toggle="dropdown"
-                >
-                  New
-                </button>
-                <ul class="dropdown-menu">
-                  <li v-for="(opt, index) in newOptions" :key="opt + index">
-                    <a
-                      class="dropdown-item"
-                      v-on:click="newSelected = opt"
-                      >{{ opt }}
-                    </a>
-                  </li>
-                </ul>
-              </div>
+              <Dropdown
+                  title="New"
+                  :items="newOptions"
+                  :cols="12"
+                  :handler="newHandler"
+                />
             </div>
             <div class="col-1 top">
               <button
@@ -67,6 +56,7 @@
                   :items="ticketStatus"
                   :cols="6"
                   :handler="ticketStatusHandler"
+                  :byTicket="true"
                 />
               </div>
               <div class="row align-items-center mb-2">
@@ -90,6 +80,7 @@
                   :items="ticketTypes"
                   :cols="6"
                   :handler="ticketTypeHandler"
+                  :byTicket="true"
                 />
               </div>
               <div class="row align-items-center mb-2">
@@ -203,14 +194,12 @@
                   :items="comVis"
                   :cols="2"
                   :handler="comVisHandler"
-                  :byTicket="false"
                 />
                 <Dropdown
                   :title="com.comType"
                   :items="comTypes"
                   :cols="2"
                   :handler="comTypeHandler"
-                  :byTicket="false"
                 />
                 <div class="col-2 offset-6">test</div>
               </div>
@@ -270,14 +259,6 @@
   
 <script>
 import { storeX } from "../../store/index";
-import TicketService from "../../services/ticket.service";
-import CustomerService from "../../services/customer.service";
-import NumberService from "../../services/number.service";
-import LocationService from "../../services/location.service";
-import AssetService from "../../services/asset.service";
-import WarrantyService from "../../services/warranty.service";
-import ComService from "../../services/com.service";
-import UserService from "../../services/user.service";
 import Loading from "../../components/Loading.vue";
 import Dropdown from "../../components/Dropdown.vue";
 import moment from 'moment';
@@ -335,15 +316,15 @@ export default {
     async createCom() {
       this.com.customerPhone = this.customer.phone;
       this.com.customerEmail = this.customer.email;
-      ComService.createCom(this.com);
+      storeX.ComService.createCom(this.com);
     },
     async loadTechnicianData() {
-      const request = await UserService.getAllUsers();
+      const request = await storeX.UserService.getAllUsers();
       const data = await request.data;
       this.ticketTechs = data;
     },
     async loadTicketdata(id) {
-      const request = await TicketService.getTicketById(id)
+      const request = await storeX.TicketService.getTicketById(id)
       const data = await request.data[0];
       this.ticket.title = data.ticketTitle;
       this.ticket.type = data.ticketType;
@@ -353,7 +334,7 @@ export default {
       this.ticket.updated = moment(data.updateAt).format('MMM DD YYYY HH:MM A');
     },
     async loadCustomerData(id) {
-      const request = await CustomerService.getCustomerById(id)
+      const request = await storeX.CustomerService.getCustomerById(id)
       const data = await request.data[0];
 
       const primaryPhone = await this.loadPhoneData(data.primaryPhone);
@@ -369,18 +350,19 @@ export default {
       this.customer.created = moment(data.createdAt).format('MM-DD-YYYY');
     },
     async loadPhoneData(id) {
-      const request = await NumberService.getNumberById(id)
+      const request = await storeX.NumberService.getNumberById(id)
       const data = await request.data;
       return data
     },
     async loadLocationData(id) {
-      const request = await LocationService.getLocationById(id)
+      const request = await storeX.LocationService.getLocationById(id)
       const data = await request.data;
       return data
     },
     async loadAssetData(id) {
-      const request = await AssetService.getAssetByTicketId(id)
+      const request = await storeX.AssetService.getAssetByTicketId(id)
       const data = await request.data;
+      console.log(data)
       data[0].assetName = data[0].assetName.split('(')[0];
       this.ticketAssets = await data;
       const warranty = await this.loadWarrantyData(data[0].assetSerial);
@@ -388,12 +370,12 @@ export default {
       return data
     },
     async loadWarrantyData(serial) {
-      const request = await WarrantyService.getLenovoWarranty(serial)
+      const request = await storeX.WarrantyService.getLenovoWarranty(serial)
       const data = await request.data
       return data
     },
     async loadComData(id) {
-      const request = await ComService.getComsByTicketId(id)
+      const request = await storeX.ComService.getComsByTicketId(id)
       const data = await request.data;
       data.forEach(com =>
         com.createdAt = moment(com.createdAt).format('ddd MM-DD-YYYY HH:MM A')
@@ -411,17 +393,22 @@ export default {
 
     async ticketStatusHandler(id, data) {
       const obj = { ticketStatus: data }
-      TicketService.updateTicket(id, obj)
+      storeX.TicketService.updateTicket(id, obj)
     },
 
     async ticketTechHandler(id, data) {
       const obj = { ticketTech: data }
-      TicketService.updateTicket(id, obj)
+      storeX.TicketService.updateTicket(id, obj)
     },
 
     async ticketTypeHandler(id, data) {
       const obj = { ticketType: data }
-      TicketService.updateTicket(id, obj)
+      storeX.TicketService.updateTicket(id, obj)
+    },
+
+    async newHandler(opt) {
+      this.newSelected = opt
+      console.log(opt)
     },
 
     async init() {
