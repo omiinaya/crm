@@ -283,7 +283,9 @@ export default {
     },
     async createTicket(data) {
       console.log(data)
-      ticketService.createTicket(data);
+      const ticket = await ticketService.createTicket(data);
+      const ticketId = ticket.data.id
+      storeX.updateNavigation({ view: 'Ticket', ticketId: ticketId })
     },
     getChecked(index, side) {
       const checked = JSON.parse(this.settingsFields[side][index].options).default;

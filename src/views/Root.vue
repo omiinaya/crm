@@ -82,9 +82,6 @@ export default defineComponent({
     storeX.navigation.view = route.query.view
     storeX.navigation.customerId = route.query.customerId
     storeX.navigation.ticketId = route.query.ticketId
-    
-    console.log(storeX.navigation)
-    console.log(storeX.history)
   },
   watch: {
     $route(to) {

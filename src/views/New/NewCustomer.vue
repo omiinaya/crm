@@ -324,7 +324,9 @@ export default {
       this.settingsFields.right = await req.data.filter(field => field.side);
     },
     async createCustomer(data) {
-      CustomerService.createCustomer(data);
+      const customer = await CustomerService.createCustomer(data);
+      const customerId = customer.data.id
+      storeX.updateNavigation({ view: 'Customer', customerId: customerId })
     },
     getChecked(index, side) {
       const checked = JSON.parse(this.settingsFields[side][index].options).default
