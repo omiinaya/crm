@@ -77,6 +77,9 @@ export default defineComponent({
 </script>
   
 <style scoped>
+.btn {
+  font-size: 16px;
+}
 .menu {
   padding: 10px;
 }
@@ -90,7 +93,7 @@ export default defineComponent({
 }
 
 .custom-right {
-  width: 200px !important;
+  width: 165px !important;
   text-align: left;
 }
 
