@@ -29,18 +29,13 @@
           <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{ field.label
           }}:
           </label>
-          <div class="col-sm-6 dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-              data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%; padding: 5px" placeholder="Dropdown">
-              {{ assetForm[field.name] }}
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li v-for="(type, index) in JSON.parse(field.options)" :key="type + index">
-                <a class="dropdown-item" v-on:click="assetForm[field.name] = type">{{ type }}
-                </a>
-              </li>
-            </ul>
-          </div>
+          <Dropdown
+            :name="field.name"
+            :title="assetForm[field.name]"
+            :items="JSON.parse(field.options)"
+            :cols="6"
+            :handler="dropdownHandler"
+          />
         </div>
         <div v-else class="mb-3 row align-items-center">
           <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{ field.label
@@ -58,11 +53,12 @@
 
 <script>
 import TypeAhead from "../../components/TypeAhead.vue"
+import Dropdown from "../../components/Dropdown.vue"
 import { storeX } from "../../store/index";
 
 export default {
   name: 'NewAssetPage',
-  components: { TypeAhead },
+  components: { TypeAhead, Dropdown },
   data: () => ({
     assetFields: null,
     assetForm: {
@@ -74,6 +70,9 @@ export default {
     storeX
   }),
   methods: {
+    dropdownHandler(type, name) {
+      this.assetForm[name] = type
+    },
     async loadAssetFields() {
       const req = await storeX.AssetService.getAssetFields();
       this.assetFields = await req.data
