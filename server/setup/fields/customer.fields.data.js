@@ -9,7 +9,6 @@ const customerFields = [
         placeholder: "First Name",
         icon: "bi bi-person",
         data: 'STRING',
-        required: true,
         show: true,
     },
     {
@@ -19,7 +18,6 @@ const customerFields = [
         placeholder: "Last Name",
         icon: "bi bi-person",
         data: 'STRING',
-        required: true,
         show: true,
     },
     {
@@ -37,6 +35,7 @@ const customerFields = [
         type: "text",
         placeholder: "Business Name",
         icon: "bi bi-building",
+        allowNull: true,
         show: true,
     },
     {
@@ -45,6 +44,7 @@ const customerFields = [
         type: "text",
         placeholder: "School Name",
         icon: "bi bi-mortarboard",
+        allowNull: true,
         show: true,
     },
     {
@@ -54,7 +54,6 @@ const customerFields = [
         placeholder: "Email Address",
         icon: "bi bi-envelope",
         data: 'STRING',
-        required: true,
         show: true,
     },
     {
@@ -64,6 +63,7 @@ const customerFields = [
         placeholder: "Phone Number",
         icon: "bi bi-telephone",
         data: 'STRING',
+        allowNull: true,
         show: true,
         options: JSON.stringify(phoneTypes)
     },
@@ -73,6 +73,7 @@ const customerFields = [
         type: "text",
         placeholder: "Primary Phone",
         icon: "bi bi-telephone",
+        allowNull: true,
         data: 'STRING',
         show: false,
     },
@@ -82,6 +83,7 @@ const customerFields = [
         type: "text",
         placeholder: "Primary Address",
         icon: "bi bi-telephone",
+        allowNull: true,
         data: 'STRING',
         show: false,
     }

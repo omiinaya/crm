@@ -11,7 +11,6 @@ const ticketFields = [
         placeholder: "Customer Name",
         icon: "bi bi-person",
         data: 'STRING',
-        required: true,
         show: true,
     },
     {
@@ -30,7 +29,6 @@ const ticketFields = [
         placeholder: "Ticket Title",
         icon: "bi bi-card-heading",
         data: 'STRING',
-        required: true,
         show: true,
     },
     {
@@ -46,7 +44,6 @@ const ticketFields = [
         name: "ticketType",
         label: "Issue Type",
         type: "dropdown",
-        //placeholder: "Issue Type",
         icon: "bi bi-card-list",
         show: true,
         data: 'STRING',
@@ -65,18 +62,15 @@ const ticketFields = [
         name: "ticketDue",
         label: "Due Date",
         type: "date",
-        placeholder: moment(
-
-        ).format('MMMM DD YYYY'),
         icon: "bi bi-calendar-event",
         show: true,
+        allowNull: true,
         data: 'STRING'
     },
     {
         name: "ticketTech",
         label: "Technician",
         type: "dropdown",
-        //placeholder: "Issue Type",
         icon: "bi bi-person",
         show: true,
         data: 'STRING',

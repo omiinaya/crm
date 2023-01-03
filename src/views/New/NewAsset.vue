@@ -33,7 +33,7 @@
             :name="field.name"
             :title="assetForm[field.name]"
             :items="JSON.parse(field.options)"
-            :cols="6"
+            cols="6"
             :handler="dropdownHandler"
           />
         </div>

@@ -9,7 +9,7 @@
               <Dropdown
                   title="New"
                   :items="newOptions"
-                  :cols="12"
+                  cols="12"
                   :handler="newHandler"
                 />
             </div>
@@ -54,7 +54,7 @@
                 <Dropdown
                   :title="ticket.status"
                   :items="ticketStatus"
-                  :cols="6"
+                  cols="6"
                   :handler="ticketStatusHandler"
                   :byTicket="true"
                 />
@@ -66,7 +66,7 @@
                 <Dropdown
                   :title="ticket.tech"
                   :items="ticketTechs"
-                  :cols="6"
+                  cols="6"
                   :handler="ticketTechHandler"
                   :byTicket="true"
                   byProp="fullName"
@@ -79,7 +79,7 @@
                 <Dropdown
                   :title="ticket.type"
                   :items="ticketTypes"
-                  :cols="6"
+                  cols="6"
                   :handler="ticketTypeHandler"
                   :byTicket="true"
                 />
@@ -193,13 +193,13 @@
                 <Dropdown
                   :title="com.comVis"
                   :items="comVis"
-                  :cols="2"
+                  cols="2"
                   :handler="comVisHandler"
                 />
                 <Dropdown
                   :title="com.comType"
                   :items="comTypes"
-                  :cols="2"
+                  cols="2"
                   :handler="comTypeHandler"
                 />
                 <div class="col-2 offset-6">test</div>

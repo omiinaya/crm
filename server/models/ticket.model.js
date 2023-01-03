@@ -6,18 +6,24 @@ module.exports = (sequelize, Sequelize) => {
         const field = ticketFields[i]
         if (!field.data) continue;
         if (field.name === 'ticketCustomerName') continue;
-        if (field.name === 'required') { dynamicFields[field.name] = field.required }
-        dynamicFields[field.name] = { type: Sequelize[field.data] }
+        dynamicFields[field.name] = { 
+            type: Sequelize[field.data], 
+            allowNull: field.allowNull || false
+        }
     }
 
-    const Ticket = sequelize.define("ticket", {
+    const test = {
         id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
             primaryKey: true
         },
         ...dynamicFields
-    });
+    }
+
+    const Ticket = sequelize.define("ticket", test);
+
+    console.log(test)
 
     return Ticket;
 };

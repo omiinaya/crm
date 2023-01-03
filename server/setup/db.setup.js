@@ -72,7 +72,7 @@ function dummyData() {
       placeholder: fields.placeholder,
       icon: fields.icon,
       show: fields.show,
-      required: fields.required || false,
+      allowNull: fields.allowNull,
       options: fields.options,
     });
   });
@@ -98,7 +98,7 @@ function dummyData() {
       placeholder: fields.placeholder,
       icon: fields.icon,
       show: fields.show,
-      required: fields.required || false,
+      allowNull: fields.allowNull,
       options: fields.options,
     });
   });
