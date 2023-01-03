@@ -9,6 +9,7 @@ const customerFields = [
         placeholder: "First Name",
         icon: "bi bi-person",
         data: 'STRING',
+        required: true,
         show: true,
     },
     {
@@ -18,6 +19,7 @@ const customerFields = [
         placeholder: "Last Name",
         icon: "bi bi-person",
         data: 'STRING',
+        required: true,
         show: true,
     },
     {
@@ -52,6 +54,7 @@ const customerFields = [
         placeholder: "Email Address",
         icon: "bi bi-envelope",
         data: 'STRING',
+        required: true,
         show: true,
     },
     {

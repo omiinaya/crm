@@ -231,8 +231,9 @@ export default {
     },
     async createCustomer(data) {
       const customer = await storeX.CustomerService.createCustomer(data);
-      const customerId = customer.data.id
-      storeX.updateNavigation({ view: 'Customer', customerId: customerId })
+      if (customer.status !== 200) return;
+      const customerId = customer.data.id;
+      storeX.updateNavigation({ view: 'Customer', customerId: customerId });
     },
     getChecked(index, side) {
       const checked = JSON.parse(this.settingsFields[side][index].options).default

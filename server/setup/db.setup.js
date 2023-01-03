@@ -61,6 +61,88 @@ async function setup() {
 }
 
 function dummyData() {
+
+  //FIELDS:
+  customerFields.forEach((fields, index) => {
+    CustomerFields.create({
+      id: index + 1,
+      name: fields.name,
+      label: fields.label,
+      type: fields.type,
+      placeholder: fields.placeholder,
+      icon: fields.icon,
+      show: fields.show,
+      required: fields.required || false,
+      options: fields.options,
+    });
+  });
+
+  locationFields.forEach((fields, index) => {
+    LocationFields.create({
+      id: index + 1,
+      name: fields.name,
+      label: fields.label,
+      type: fields.type,
+      placeholder: fields.placeholder,
+      icon: fields.icon,
+      options: fields.options,
+    });
+  });
+
+  ticketFields.forEach((fields, index) => {
+    TicketFields.create({
+      id: index + 1,
+      name: fields.name,
+      label: fields.label,
+      type: fields.type,
+      placeholder: fields.placeholder,
+      icon: fields.icon,
+      show: fields.show,
+      required: fields.required || false,
+      options: fields.options,
+    });
+  });
+
+  assetFields.forEach((fields, index) => {
+    AssetFields.create({
+      id: index + 1,
+      name: fields.name,
+      label: fields.label,
+      type: fields.type,
+      placeholder: fields.placeholder,
+      icon: fields.icon,
+      options: fields.options,
+      data: fields.data,
+      show: fields.show,
+    });
+  });
+
+  customerSettingsFields.forEach((settings, index) => {
+    CustomerSettingsFields.create({
+      id: index + 1,
+      name: settings.name,
+      label: settings.label,
+      type: settings.type,
+      placeholder: settings.placeholder,
+      icon: settings.icon,
+      side: settings.side,
+      options: settings.options,
+    });
+  });
+
+  comFields.forEach((fields, index) => {
+    ComFields.create({
+      id: index + 1,
+      name: fields.name,
+      label: fields.label,
+      type: fields.type,
+      placeholder: fields.placeholder,
+      icon: fields.icon,
+      options: fields.options,
+    });
+  });
+
+  // data
   customers.forEach((customer, index) => {
     Customer.create({
       id: index + 1,
@@ -116,44 +198,6 @@ function dummyData() {
     });
   });
 
-  customerFields.forEach((fields, index) => {
-    CustomerFields.create({
-      id: index + 1,
-      name: fields.name,
-      label: fields.label,
-      type: fields.type,
-      placeholder: fields.placeholder,
-      icon: fields.icon,
-      show: fields.show,
-      options: fields.options,
-    });
-  });
-
-  locationFields.forEach((fields, index) => {
-    LocationFields.create({
-      id: index + 1,
-      name: fields.name,
-      label: fields.label,
-      type: fields.type,
-      placeholder: fields.placeholder,
-      icon: fields.icon,
-      options: fields.options,
-    });
-  });
-
-  ticketFields.forEach((fields, index) => {
-    TicketFields.create({
-      id: index + 1,
-      name: fields.name,
-      label: fields.label,
-      type: fields.type,
-      placeholder: fields.placeholder,
-      icon: fields.icon,
-      show: fields.show,
-      options: fields.options,
-    });
-  });
-
   businesses.forEach((business) => {
     Business.create({
       name: business.name,
@@ -166,33 +210,6 @@ function dummyData() {
       type: number.type,
       number: number.number,
       customerId: number.customerId,
-    });
-  });
-
-  assetFields.forEach((fields, index) => {
-    AssetFields.create({
-      id: index + 1,
-      name: fields.name,
-      label: fields.label,
-      type: fields.type,
-      placeholder: fields.placeholder,
-      icon: fields.icon,
-      options: fields.options,
-      data: fields.data,
-      show: fields.show,
-    });
-  });
-
-  customerSettingsFields.forEach((settings, index) => {
-    CustomerSettingsFields.create({
-      id: index + 1,
-      name: settings.name,
-      label: settings.label,
-      type: settings.type,
-      placeholder: settings.placeholder,
-      icon: settings.icon,
-      side: settings.side,
-      options: settings.options,
     });
   });
 
@@ -227,18 +244,6 @@ function dummyData() {
       comAuthorId: com.comAuthorId,
       comTicketId: com.comTicketId,
       comAuthorName: com.comAuthorName
-    });
-  });
-
-  comFields.forEach((fields, index) => {
-    ComFields.create({
-      id: index + 1,
-      name: fields.name,
-      label: fields.label,
-      type: fields.type,
-      placeholder: fields.placeholder,
-      icon: fields.icon,
-      options: fields.options,
     });
   });
 

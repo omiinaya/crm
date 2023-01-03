@@ -46,7 +46,7 @@
     field.label
 }}:
                 </label>
-                <Dropdown :name=field.name :title="ticketForm[field.name]" :items="techItems" :cols="8"
+                <Dropdown :name=field.name :title="ticketForm[field.name]" :items="techItems" cols="8"
                   :handler="dropdownHandler" byProp="fullName" />
               </div>
               <div v-else-if="field.type === 'dropdown'" class="mb-3 row align-items-center">
@@ -54,7 +54,7 @@
     field.label
 }}:
                 </label>
-                <Dropdown :name=field.name :title="ticketForm[field.name]" :items="JSON.parse(field.options)" :cols="8"
+                <Dropdown :name=field.name :title="ticketForm[field.name]" :items="JSON.parse(field.options)" cols="8"
                   :handler="dropdownHandler" />
               </div>
               <div v-else-if="field.name === 'customerType'" class="mb-3 row align-items-center">
@@ -146,7 +146,7 @@
                   {{ field.label }}:
                 </label>
                 <Dropdown :name="field.name" :title="ticketForm[field.name]" :items="JSON.parse(field.options)"
-                  :cols="8" :handler="dropdownHandler" />
+                  cols="8" :handler="dropdownHandler" />
               </div>
               <div v-else>
                 <div class="mb-3 row align-items-center">
@@ -232,6 +232,7 @@ export default {
     async createTicket(data) {
       console.log(data)
       const ticket = await storeX.TicketService.createTicket(data);
+      if (ticket.status !== 200) return;
       const ticketId = ticket.data.id;
       const customerId = ticket.data.ticketCustomerId;
       storeX.updateNavigation({ view: 'Ticket', ticketId: ticketId, customerId: customerId });

@@ -10,8 +10,9 @@ const ticketFields = [
         type: "typeahead",
         placeholder: "Customer Name",
         icon: "bi bi-person",
+        data: 'STRING',
+        required: true,
         show: true,
-        data: 'STRING'
     },
     {
         name: "ticketCustomerId",
@@ -19,8 +20,8 @@ const ticketFields = [
         type: "text",
         placeholder: "Customer Id",
         icon: "bi bi-person",
+        data: 'STRING',
         show: false,
-        data: 'STRING'
     },
     {
         name: "ticketTitle",
@@ -28,8 +29,9 @@ const ticketFields = [
         type: "text",
         placeholder: "Ticket Title",
         icon: "bi bi-card-heading",
+        data: 'STRING',
+        required: true,
         show: true,
-        data: 'STRING'
     },
     {
         name: "ticketStatus",

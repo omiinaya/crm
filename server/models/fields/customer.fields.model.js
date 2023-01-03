@@ -26,6 +26,9 @@ module.exports = (sequelize, Sequelize) => {
     options: {
       type: Sequelize.STRING
     },
+    required: {
+      type: Sequelize.STRING
+    },
     show: {
       type: Sequelize.BOOLEAN,
     },
