@@ -18,94 +18,91 @@
       <div class="row align-items-top">
         <div class="cols-12 sub-title">BASIC INFO</div>
         <div class="col-6">
-          <Form>
-            <div v-for="(field, index) in customerFields.left" :key="field + index">
-              <div v-if="!field.show"></div>
-              <div v-else-if="field.name === 'phone'" class="mb-3 row align-items-center">
-                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
-                    field.label
-                }}:
-                </label>
-                <Dropdown
-                  :title="customerForm['phoneType']"
-                  :items="phoneTypes"
-                  :handler="dropdownHandler"
-                  name = 'phoneType'
-                  cols="2-5"
-                />
-                <div class="col-sm-4">
-                  <input :type="field.type" class="form-control" :id="field.label + index"
-                    :placeholder="field.placeholder" v-model="customerForm[field.name]" />
-                </div>
-                <div class="col-sm-2-3">
-                  <input :type="field.type" class="form-control" :id="field.label + index" placeholder="Ext."
-                    v-model="customerForm['extension']" />
-                </div>
+
+          <div v-for="(field, index) in customerFields.left" :key="field + index">
+            <div v-if="!field.show"></div>
+            <Form v-else-if="field.name === 'phone'" class="mb-3 row align-items-center">
+              <label :for="field.label + index" class="col-sm-4 col-form-label">
+                <i :class="field.icon"></i>
+                {{ field.label }}:
+              </label>
+              <Dropdown :title="customerForm['phoneType']" :items="phoneTypes" :handler="dropdownHandler"
+                name='phoneType' cols="2-5" />
+              <div class="col-sm-4">
+                <input :type="field.type" class="form-control" :id="field.label + index"
+                  :placeholder="field.placeholder" v-model="customerForm[field.name]" />
               </div>
-              <div v-else-if="field.name === 'customerType'" class="mb-3 row align-items-center">
-                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
-                    field.label
-                }}:
-                </label>
-                <div class="col-sm-8" style="height: 25px">
-                  <div v-for="(type, index) in customerTypes" :key="type + index" class="form-check form-check-inline">
-                    <div v-if="!index">
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                        value="option1" v-on:click="customerForm[field.name] = type" checked />
-                      <label class="form-check-label" for="inlineRadio1">{{
-                          type
-                      }}</label>
-                    </div>
-                    <div v-else>
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                        value="option1" v-on:click="customerForm[field.name] = type" />
-                      <label class="form-check-label" for="inlineRadio1">{{
-                          type
-                      }}</label>
-                    </div>
+              <div class="col-sm-2-3">
+                <input :type="field.type" class="form-control" :id="field.label + index" placeholder="Ext."
+                  v-model="customerForm['extension']" />
+              </div>
+            </Form>
+            <Form v-else-if="field.name === 'customerType'" class="mb-3 row align-items-center">
+              <label :for="field.label + index" class="col-sm-4 col-form-label">
+                <i :class="field.icon"></i>
+                {{ field.label }}:
+              </label>
+              <div class="col-sm-8" style="height: 25px">
+                <div v-for="(type, index) in customerTypes" :key="type + index" class="form-check form-check-inline">
+                  <div v-if="!index">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                      value="option1" v-on:click="customerForm[field.name] = type" checked />
+                    <label class="form-check-label" for="inlineRadio1">
+                      {{ type }}
+                    </label>
+                  </div>
+                  <div v-else>
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                      value="option1" v-on:click="customerForm[field.name] = type" />
+                    <label class="form-check-label" for="inlineRadio1">
+                      {{ type }}
+                    </label>
                   </div>
                 </div>
               </div>
-              <div v-else-if="field.name === 'businessName'" class="mb-3 row align-items-center"
-                v-show="customerForm['customerType'] === customerTypes[1]">
-                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
-                    field.label
-                }}:
-                </label>
-                <div class="col-sm-8">
-                  <input :type="field.type" class="form-control" :id="field.label + index"
-                    :placeholder="field.placeholder" v-model="customerForm[field.name]" />
-                </div>
+            </Form>
+            <Form v-else-if="field.name === 'businessName'" class="mb-3 row align-items-center"
+              v-show="customerForm['customerType'] === customerTypes[1]">
+              <label :for="field.label + index" class="col-sm-4 col-form-label">
+                <i :class="field.icon"></i>
+                {{ field.label }}:
+              </label>
+              <div class="col-sm-8">
+                <input :type="field.type" class="form-control" :id="field.label + index"
+                  :placeholder="field.placeholder" v-model="customerForm[field.name]" />
               </div>
-              <div v-else-if="field.name === 'schoolName'" class="mb-3 row align-items-center"
-                v-show="customerForm['customerType'] === customerTypes[2]">
-                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
-                    field.label
-                }}:
-                </label>
-                <div class="col-sm-8">
-                  <input :type="field.type" class="form-control" :id="field.label + index"
-                    :placeholder="field.placeholder" v-model="customerForm[field.name]" />
-                </div>
+            </Form>
+            <Form v-else-if="field.name === 'schoolName'" class="mb-3 row align-items-center"
+              v-show="customerForm['customerType'] === customerTypes[2]">
+              <label :for="field.label + index" class="col-sm-4 col-form-label">
+                <i :class="field.icon"></i>
+                {{ field.label }}:
+              </label>
+              <div class="col-sm-8">
+                <input :type="field.type" class="form-control" :id="field.label + index"
+                  :placeholder="field.placeholder" v-model="customerForm[field.name]" />
               </div>
-              <div v-else class="mb-3 row align-items-center">
-                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
-                    field.label
-                }}:
-                </label>
-                <div class="col-sm-8">
-                  <input :type="field.type" class="form-control" :id="field.label + index"
-                    :placeholder="field.placeholder" v-model="customerForm[field.name]" />
-                </div>
+            </Form>
+            <Form v-else class="mb-3 row align-items-center" :validation-schema="schema">
+              <label :for="field.label + index" class="col-sm-4">
+                <i :class="field.icon"></i>
+                {{ field.label }}:
+              </label>
+              <div class="col-sm-8">
+                <Field :name="field.name" :type="field.type" class="form-control" :id="field.label + index"
+                  :placeholder="field.placeholder" v-model="customerForm[field.name]" />
+                <ErrorMessage :name="field.name" class="error-feedback" />
               </div>
-            </div>
-          </Form>
+            </Form>
+          </div>
         </div>
 
         <div class="col-6">
-          <Form class="mb-3 row align-items-center" v-for="(field, index) in customerFields.right" :key="field + index" :validation-schema="schema">
-            <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{ field.label
-            }}:
+          <Form class="mb-3 row align-items-center" v-for="(field, index) in customerFields.right" :key="field + index"
+            :validation-schema="schema">
+            <label :for="field.label + index" class="col-sm-4 col-form-label">
+              <i :class="field.icon"></i>
+              {{ field.label }}:
             </label>
             <div class="col-sm-8">
               <Field :name="field.name" :type="field.type" class="form-control" :id="field.label + index"
@@ -113,9 +110,6 @@
               <ErrorMessage :name="field.name" class="error-feedback" />
             </div>
           </Form>
-          <div v-if="message" class="alert" :class="successful ? 'alert-success' : 'alert-danger'">
-            {{ message }}
-          </div>
         </div>
       </div>
     </div>
@@ -126,9 +120,8 @@
         <div class="col-6">
           <Form>
             <div class="mb-3 row align-items-center" v-for="(field, index) in settingsFields.left" :key="field + index">
-              <label :for="field.label + index" class="col-sm-5 col-form-label"><i :class="field.icon"></i> {{
-                  field.label
-              }}:
+              <label :for="field.label + index" class="col-sm-5 col-form-label">
+                <i :class="field.icon"></i> {{ field.label }}:
               </label>
               <div class="col-sm-7">
                 <input :type="field.type" class="form-check-input" :id="field.label + index"
@@ -142,9 +135,9 @@
           <Form>
             <div class="mb-3 row align-items-center" v-for="(field, index) in settingsFields.right"
               :key="field + index">
-              <label :for="field.label + index" class="col-sm-5 col-form-label"><i :class="field.icon"></i> {{
-                  field.label
-              }}:
+              <label :for="field.label + index" class="col-sm-5 col-form-label">
+                <i :class="field.icon"></i>
+                {{ field.label }}:
               </label>
               <div class="col-sm-7">
                 <input :type="field.type" class="form-check-input" :id="field.label + index"
@@ -170,16 +163,19 @@ export default {
   components: { Form, Field, ErrorMessage, Dropdown },
   data() {
     const schema = yup.object().shape({
-      address1: yup
+      firstName: yup
         .string()
         .required("First name is required!")
-        .min(3, "Must be at least 3 characters!")
-        .max(20, "Must be maximum 20 characters!"),
+        .min(1, "Must be at least 1 characters!"),
+
       lastName: yup
         .string()
         .required("Last name is required!")
-        .min(3, "Must be at least 3 characters!")
-        .max(20, "Must be maximum 20 characters!"),
+        .min(1, "Must be at least 1 characters!"),
+      email: yup
+        .string()
+        .required("Email address is required!")
+        .min(1, "Must be at least 1 characters!"),
     });
 
     return {
@@ -197,7 +193,7 @@ export default {
         right: null
       },
       customerTypes: ['Individual'],
-      phoneTypes: null,
+      phoneTypes: [],
       customerForm: {
         phoneType: 'Mobile',
         extension: null
@@ -283,13 +279,13 @@ export default {
 }
 
 Form {
-  margin: 30px;
-  margin-top: 0;
+  margin: 15px;
 }
 
 .error-feedback {
-  color: red;
+  color: #da3e3e;
 }
+
 .title {
   margin-top: 25px;
   margin-bottom: 25px;

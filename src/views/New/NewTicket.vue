@@ -184,7 +184,7 @@ export default {
   components: { TypeAhead, Dropdown, DatePicker },
   data: () => ({
     customerItems: [],
-    techItems: [],
+    techItems: ['Select Technician'],
     ticketFields: null,
     assetFields: null,
     ticketForm: {},

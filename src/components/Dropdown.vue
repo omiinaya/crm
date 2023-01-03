@@ -45,7 +45,7 @@ export default {
   }),
   props: {
     cols: {
-        type: Number,
+        type: String,
         required: true,
     },
     items: {
@@ -74,11 +74,13 @@ export default {
   },
   
   created() {
+    /*
     console.log(this.name)
     console.log(this.items)
     console.log(this.title)
     console.log(this.handler)
     console.log(this.byProp)
+    */
   },
   
 };
