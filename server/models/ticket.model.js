@@ -23,7 +23,5 @@ module.exports = (sequelize, Sequelize) => {
 
     const Ticket = sequelize.define("ticket", test);
 
-    console.log(test)
-
     return Ticket;
 };

@@ -60,7 +60,7 @@ export default defineComponent({
   },
   computed: {
     openTickets() {
-      return storeX.tickets.filter(ticket => ticket.ticketStatus !== "Closed").length;
+      return storeX.tickets.filter(ticket => ticket.ticketStatus !== "Resolved").length;
     },
     totalTickets() {
       return storeX.tickets.length;

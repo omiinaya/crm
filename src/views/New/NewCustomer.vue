@@ -118,7 +118,7 @@
       <div class="row align-items-top">
         <div class="cols-10 sub-title">CUSTOMER SETTINGS</div>
         <div class="col-6">
-          <Form>
+          <div class="form2">
             <div class="mb-3 row align-items-center" v-for="(field, index) in settingsFields.left" :key="field + index">
               <label :for="field.label + index" class="col-sm-5 col-form-label">
                 <i :class="field.icon"></i> {{ field.label }}:
@@ -129,10 +129,10 @@
                   :checked="getChecked(index, 'left')" />
               </div>
             </div>
-          </Form>
+          </div>
         </div>
         <div class="col-6">
-          <Form>
+          <div class="form2">
             <div class="mb-3 row align-items-center" v-for="(field, index) in settingsFields.right"
               :key="field + index">
               <label :for="field.label + index" class="col-sm-5 col-form-label">
@@ -145,7 +145,7 @@
                   :checked="getChecked(index, 'right')" />
               </div>
             </div>
-          </Form>
+          </div>
         </div>
       </div>
     </div>
@@ -281,6 +281,10 @@ export default {
 
 Form {
   margin: 15px;
+}
+
+.form2 {
+  margin: 30px;
 }
 
 .error-feedback {
