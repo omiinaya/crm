@@ -179,10 +179,13 @@ export default {
     });
 
     return {
+      //error handling
       successful: false,
       loading: false,
       message: "",
       schema,
+      
+      //fields
       customerFields: {
         left: null,
         right: null
@@ -192,12 +195,20 @@ export default {
         left: null,
         right: null
       },
+      
+      //types
       customerTypes: ['Individual'],
       phoneTypes: [],
+      
+      //forms
       customerForm: {
         phoneType: 'Mobile',
-        extension: null
+        extension: null,
+        country: 'United States'
       },
+
+      countryItems: [],
+
       storeX
     };
   },
@@ -207,6 +218,22 @@ export default {
     },
     dropdownHandler(type, name) {
       this.customerForm[name] = type
+    },
+    async loadCountries() {
+      const countries = await storeX.CSCService.getCountries()
+      const data = countries.data;
+      this.countryItems = data;
+      console.log(this.countryItems);
+    },
+    async loadStates() {
+      //233 = US
+      const states = await storeX.CSCService.getStatesByCountry(233);
+      console.log(states)
+    },
+    async loadCities() {
+      //1436 = Florida
+      const cities = await storeX.CSCService.getCitiesByState(1436);
+      console.log(cities)
     },
     async getCustomerFieldItems() {
       const req = await storeX.CustomerService.getCustomerFields();
@@ -248,6 +275,9 @@ export default {
   created() {
     this.getCustomerFieldItems();
     this.getSettingsFieldItems();
+    this.loadCountries();
+    this.loadStates();
+    this.loadCities();
   },
   watch: {
     customerForm: {

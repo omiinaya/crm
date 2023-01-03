@@ -80,6 +80,7 @@ export default defineComponent({
 .btn {
   font-size: 16px;
 }
+
 .menu {
   padding: 10px;
 }

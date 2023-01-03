@@ -14,6 +14,7 @@ import AssetService from "../services/asset.service";
 import UserService from "../services/user.service";
 import WarrantyService from "../services/warranty.service";
 import ComService from "../services/com.service";
+import CSCService from "../services/csc.service";
 
 const socket = io("http://localhost:8092");
 
@@ -55,6 +56,7 @@ export const storeX = reactive({
   UserService,
   WarrantyService,
   ComService,
+  CSCService,
 
   updateNavigation(obj) {
     this.navigation.view = obj.view;
