@@ -6,28 +6,15 @@
           <div class="row">
             <div class="col-8 top">#{{ ticket.number }}</div>
             <div class="col-1 top">
-              <Dropdown
-                  title="New"
-                  :items="newOptions"
-                  cols="12"
-                  :handler="newHandler"
-                />
+              <Dropdown title="New" :items="newOptions" cols="12" :handler="newHandler" />
             </div>
             <div class="col-1 top">
-              <button
-                type="button"
-                class="btn btn-success"
-                v-on:click="print(customerForm)"
-              >
+              <button type="button" class="btn btn-success" v-on:click="print(customerForm)">
                 test 2
               </button>
             </div>
             <div class="col-1 top">
-              <button
-                type="button"
-                class="btn btn-success"
-                v-on:click="print(customerForm)"
-              >
+              <button type="button" class="btn btn-success" v-on:click="print(customerForm)">
                 test 3
               </button>
             </div>
@@ -51,38 +38,22 @@
                 <label class="col-sm-6">
                   <i class="bi bi-clipboard2-pulse"></i> Status:
                 </label>
-                <Dropdown
-                  :title="ticket.status"
-                  :items="ticketStatus"
-                  cols="6"
-                  :handler="ticketStatusHandler"
-                  :byTicket="true"
-                />
+                <Dropdown :title="ticket.status" :items="ticketStatus" cols="6" :handler="ticketStatusHandler"
+                  :byTicket="true" />
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-person-circle"></i> Assignee:
                 </label>
-                <Dropdown
-                  :title="ticket.tech"
-                  :items="ticketTechs"
-                  cols="6"
-                  :handler="ticketTechHandler"
-                  :byTicket="true"
-                  byProp="fullName"
-                />
+                <Dropdown :title="ticket.tech" :items="ticketTechs" cols="6" :handler="ticketTechHandler"
+                  :byTicket="true" byProp="fullName" />
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-list-check"></i> Labor Type:
                 </label>
-                <Dropdown
-                  :title="ticket.type"
-                  :items="ticketTypes"
-                  cols="6"
-                  :handler="ticketTypeHandler"
-                  :byTicket="true"
-                />
+                <Dropdown :title="ticket.type" :items="ticketTypes" cols="6" :handler="ticketTypeHandler"
+                  :byTicket="true" />
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
@@ -131,10 +102,7 @@
                   <i class="bi bi-geo-alt"></i> Primary Address:
                 </label>
                 <div class="col-sm-6">
-                  <a
-                    :href="`https://maps.google.com/?q=${customer.address}`"
-                    target="_blank"
-                  >
+                  <a :href="`https://maps.google.com/?q=${customer.address}`" target="_blank">
                     {{ customer.address }}
                   </a>
                 </div>
@@ -161,15 +129,9 @@
               <i class="bi bi-laptop"></i>
               Assets
             </div>
-            <EasyDataTable
-              :headers="headers"
-              :items="ticketAssets"
-              theme-color="#1d90ff"
-              table-class-name="customize-table-details"
-              header-text-direction="center"
-              body-text-direction="center"
-              hide-footer
-            >
+            <EasyDataTable :headers="headers" :items="ticketAssets" theme-color="#1d90ff"
+              table-class-name="customize-table-details" header-text-direction="center" body-text-direction="center"
+              hide-footer>
               <template #item-warranty="{ warranty }">
                 <Loading v-if="!warranty" />
                 <a class="warranty" v-else :href="warranty[1]" target="_blank">
@@ -190,29 +152,15 @@
             </div>
             <div class="content">
               <div class="row">
-                <Dropdown
-                  :title="com.comVis"
-                  :items="comVis"
-                  cols="2"
-                  :handler="comVisHandler"
-                />
-                <Dropdown
-                  :title="com.comType"
-                  :items="comTypes"
-                  cols="2"
-                  :handler="comTypeHandler"
-                />
+                <Dropdown :title="com.comVis" :items="comVis" cols="2" :handler="comVisHandler" />
+                <Dropdown :title="com.comType" :items="comTypes" cols="2" :handler="comTypeHandler" />
                 <div class="col-2 offset-6">test</div>
               </div>
             </div>
             <div class="content">
               <div class="col-sm-12">
-                <textarea
-                  class="form-control text-area"
-                  rows="6"
-                  v-model="com.comMsg"
-                  @input="testing123(com.comMsg)"
-                ></textarea>
+                <textarea class="form-control text-area" rows="6" v-model="com.comMsg"
+                  @input="testing123(com.comMsg)"></textarea>
               </div>
               <div class="col-2 offset-10">
                 <button class="btn messages" v-on:click="createCom(com)">
@@ -222,11 +170,7 @@
             </div>
           </div>
           <div class="test">
-            <div
-              v-for="(com, index) in coms"
-              class="col-12 form-control com mt-3"
-              :key="com + index"
-            >
+            <div v-for="(com, index) in coms" class="col-12 form-control com mt-3" :key="com + index">
               <div class="mb-3">
                 <div class="row">
                   <div class="col-3">
@@ -342,12 +286,16 @@ export default {
       const phoneNumber = primaryPhone[0].number;
 
       const primaryAddress = await this.loadLocationData(data.primaryAddress);
-      const customerAddress = Object.values(primaryAddress[0]).slice(1, 7).join(', '); //gets address
+      if (!primaryAddress[0].address1) {
+        this.customer.address = ''
+      } else {
+        const customerAddress = Object.values(primaryAddress[0]).slice(1, 7).join(', '); //gets address
+        this.customer.address = customerAddress.replace(/\b[a-z]/gi, char => char.toUpperCase()) //capitalizes every first letter
+      }
 
       this.customer.name = `${data.firstName} ${data.lastName}`;
       this.customer.email = data.email;
       this.customer.phone = phoneNumber;
-      this.customer.address = customerAddress;
       this.customer.created = moment(data.createdAt).format('MM-DD-YYYY');
     },
     async loadPhoneData(id) {

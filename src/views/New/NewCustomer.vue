@@ -99,6 +99,7 @@
 
         <div class="col-6">
           <div v-for="(field, index) in customerFields.right" :key="field + index">
+
             <Form v-if="field.name === 'country'" class="mb-3 row align-items-center" :validation-schema="schema">
               <label :for="field.label + index" class="col-sm-4 col-form-label">
                 <i :class="field.icon"></i>
@@ -107,7 +108,6 @@
               <Dropdown :title="customerForm['country']" :items="countryItems" :handler="countryDropdownHandler" name='country'
                 cols="8" byProp="name" />
             </Form>
-
 
             <Form v-else-if="field.name === 'state'" class="mb-3 row align-items-center" :validation-schema="schema">
               <label :for="field.label + index" class="col-sm-4 col-form-label">
@@ -127,7 +127,6 @@
                 cols="8" byProp="name" />
             </Form>
 
-
             <Form v-else class="mb-3 row align-items-center" :validation-schema="schema">
               <label :for="field.label + index" class="col-sm-4 col-form-label">
                 <i :class="field.icon"></i>
@@ -139,6 +138,7 @@
                 <ErrorMessage :name="field.name" class="error-feedback" />
               </div>
             </Form>
+            
           </div>
         </div>
       </div>
