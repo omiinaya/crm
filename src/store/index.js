@@ -24,6 +24,12 @@ const store = createStore({
   },
 });
 
+function getHistory() {
+  const value = localStorage.getItem('history');
+  if (!value) return []
+  return JSON.parse(value)
+}
+
 export const storeX = reactive({
   navigation: {
     view: null,
@@ -31,7 +37,7 @@ export const storeX = reactive({
     ticketId: null,
   },
   io: socket,
-  history: [],
+  history: getHistory(),
   customerName: null,
   home: { actions: null },
   tickets: [],
@@ -72,6 +78,9 @@ export const storeX = reactive({
     this.history.push(obj);
 
     if (this.history.length > 2) this.history.shift();
+
+    //saving history to localStorage
+    localStorage.setItem('history', JSON.stringify(this.history));
 
     const url = new URL(window.location);
 
@@ -221,7 +230,7 @@ export const storeX = reactive({
 
   closedTickets() {
     return this.tickets.filter(ticket => ticket.ticketStatus === "Closed").length;
-  }
+  },
 });
 
 export default store;
