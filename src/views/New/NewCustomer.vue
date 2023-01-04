@@ -98,18 +98,48 @@
         </div>
 
         <div class="col-6">
-          <Form class="mb-3 row align-items-center" v-for="(field, index) in customerFields.right" :key="field + index"
-            :validation-schema="schema">
-            <label :for="field.label + index" class="col-sm-4 col-form-label">
-              <i :class="field.icon"></i>
-              {{ field.label }}:
-            </label>
-            <div class="col-sm-8">
-              <Field :name="field.name" :type="field.type" class="form-control" :id="field.label + index"
-                :placeholder="field.placeholder" v-model="customerForm[field.name]" />
-              <ErrorMessage :name="field.name" class="error-feedback" />
-            </div>
-          </Form>
+          <div v-for="(field, index) in customerFields.right" :key="field + index">
+            <Form v-if="field.name === 'country'" class="mb-3 row align-items-center" :validation-schema="schema">
+              <label :for="field.label + index" class="col-sm-4 col-form-label">
+                <i :class="field.icon"></i>
+                {{ field.label }}:
+              </label>
+              <Dropdown :title="customerForm['country']" :items="countryItems" :handler="countryDropdownHandler" name='country'
+                cols="8" byProp="name" />
+            </Form>
+
+
+            <Form v-else-if="field.name === 'state'" class="mb-3 row align-items-center" :validation-schema="schema">
+              <label :for="field.label + index" class="col-sm-4 col-form-label">
+                <i :class="field.icon"></i>
+                {{ field.label }}:
+              </label>
+              <Dropdown :title="customerForm['state']" :items="stateItems" :handler="stateDropdownHandler" name='state'
+                cols="8" byProp="name" />
+            </Form>
+
+            <Form v-else-if="field.name === 'city'" class="mb-3 row align-items-center" :validation-schema="schema">
+              <label :for="field.label + index" class="col-sm-4 col-form-label">
+                <i :class="field.icon"></i>
+                {{ field.label }}:
+              </label>
+              <Dropdown :title="customerForm['city']" :items="cityItems" :handler="dropdownHandler" name='city'
+                cols="8" byProp="name" />
+            </Form>
+
+
+            <Form v-else class="mb-3 row align-items-center" :validation-schema="schema">
+              <label :for="field.label + index" class="col-sm-4 col-form-label">
+                <i :class="field.icon"></i>
+                {{ field.label }}:
+              </label>
+              <div class="col-sm-8">
+                <Field :name="field.name" :type="field.type" class="form-control" :id="field.label + index"
+                  :placeholder="field.placeholder" v-model="customerForm[field.name]" />
+                <ErrorMessage :name="field.name" class="error-feedback" />
+              </div>
+            </Form>
+          </div>
         </div>
       </div>
     </div>
@@ -184,7 +214,7 @@ export default {
       loading: false,
       message: "",
       schema,
-      
+
       //fields
       customerFields: {
         left: null,
@@ -195,11 +225,11 @@ export default {
         left: null,
         right: null
       },
-      
+
       //types
       customerTypes: ['Individual'],
       phoneTypes: [],
-      
+
       //forms
       customerForm: {
         phoneType: 'Mobile',
@@ -208,6 +238,8 @@ export default {
       },
 
       countryItems: [],
+      stateItems: [],
+      cityItems: [],
 
       storeX
     };
@@ -217,23 +249,44 @@ export default {
       console.log(a)
     },
     dropdownHandler(type, name) {
-      this.customerForm[name] = type
+      this.customerForm[name] = type;
+    },
+    countryDropdownHandler(type, name) {
+      this.dropdownHandler(type, name);
+      this.loadStates();
+    },
+    stateDropdownHandler(type, name) {
+      this.dropdownHandler(type, name);
+      this.loadCities();
+    },
+    getCountryId() {
+      const country = this.countryItems.filter(country => country.name === this.customerForm.country);
+      const countryId = country[0].id;
+      return countryId;
+    },
+    getStateId() {
+      const state = this.stateItems.filter(state => state.name === this.customerForm.state);
+      const stateId = state[0].id;
+      return stateId;
     },
     async loadCountries() {
       const countries = await storeX.CSCService.getCountries()
       const data = countries.data;
       this.countryItems = data;
-      console.log(this.countryItems);
+      this.loadStates()
     },
     async loadStates() {
-      //233 = US
-      const states = await storeX.CSCService.getStatesByCountry(233);
-      console.log(states)
+      const countryId = this.getCountryId();
+      const states = await storeX.CSCService.getStatesByCountry(countryId);
+      this.stateItems = states;
+      this.customerForm.state = states[0].name
+      this.loadCities()
     },
     async loadCities() {
-      //1436 = Florida
-      const cities = await storeX.CSCService.getCitiesByState(1436);
-      console.log(cities)
+      const stateId = this.getStateId();
+      const cities = await storeX.CSCService.getCitiesByState(stateId);
+      this.cityItems = cities;
+      this.customerForm.city = cities[0].name
     },
     async getCustomerFieldItems() {
       const req = await storeX.CustomerService.getCustomerFields();
@@ -276,8 +329,6 @@ export default {
     this.getCustomerFieldItems();
     this.getSettingsFieldItems();
     this.loadCountries();
-    this.loadStates();
-    this.loadCities();
   },
   watch: {
     customerForm: {

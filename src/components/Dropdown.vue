@@ -21,7 +21,7 @@
           </a>
           <a v-else-if="byProp"
             class="dropdown-item"
-            @click="handler(item[byProp], this.name)"
+            @click="handler(item[byProp], this.name, item)"
             >{{ item[byProp] }}
           </a>
           <a v-else
@@ -99,5 +99,11 @@ export default {
   max-width: 21.0625%;
   position: relative;
   width: 100%;
+}
+
+.dropdown-menu {
+  max-height: 200px;
+  width: 100%;
+  overflow-y: scroll;
 }
 </style>
