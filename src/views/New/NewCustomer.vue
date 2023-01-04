@@ -279,14 +279,15 @@ export default {
       const countryId = this.getCountryId();
       const states = await storeX.CSCService.getStatesByCountry(countryId);
       this.stateItems = states;
-      this.customerForm.state = states[0].name
+      this.customerForm.state = states[11].name //11 = Florida
       this.loadCities()
     },
     async loadCities() {
       const stateId = this.getStateId();
       const cities = await storeX.CSCService.getCitiesByState(stateId);
       this.cityItems = cities;
-      this.customerForm.city = cities[0].name
+      this.customerForm.city = cities[178].name
+      console.log(cities)
     },
     async getCustomerFieldItems() {
       const req = await storeX.CustomerService.getCustomerFields();
