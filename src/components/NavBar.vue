@@ -100,7 +100,7 @@ export default {
 }
 
 .bi {
-  font-size: 45px;
+  font-size: 30px;
 }
 
 .form-control {
@@ -108,8 +108,8 @@ export default {
 }
 
 .col-0-5 {
-  flex: 0 0 7%;
-  max-width: 7%;
+  flex: 0 0 5%;
+  max-width: 5%;
   position: relative;
   width: 100%;
   padding: 0;

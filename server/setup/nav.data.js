@@ -36,32 +36,29 @@ const navs = [
     url: "Projects",
     roleId: 3
   },
+  /*
   {
     id: 6,
-    title: "Parts",
-    icon: "bi bi-motherboard",
-    url: "Parts",
-  },
-  {
-    id: 7,
     title: "Estimates",
     icon: "bi bi-file-earmark-text",
     url: "Estimates",
   },
+  */
   {
-    id: 8,
+    id: 7,
     title: "Inventory",
     icon: "bi bi-upc-scan",
     url: "Inventory",
   },
   {
-    id: 9,
-    title: "POS",
-    icon: "bi bi-cash",
-    url: "Pos",
+    id: 8,
+    title: "Time",
+    icon: "bi bi-clock-history",
+    url: "TimeSheets",
+    roleId: 3,
   },
   {
-    id: 10,
+    id: 9,
     title: "Admin",
     icon: "bi bi-gear",
     url: "Admin",

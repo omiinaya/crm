@@ -124,13 +124,39 @@
           </div>
         </div>
         <div class="col-8">
-          <div class="section">
+          <div class="section" v-if="!editing.assets">
             <div class="header">
               <i class="bi bi-laptop"></i>
               Assets
             </div>
             <div class="edit">
-              <button class="btn" v-on:click="testing123()">
+              <button class="btn" v-on:click="edit('assets')">
+                <i class="bi bi-pencil"></i>
+              </button>
+            </div>
+            <EasyDataTable :headers="headers" :items="ticketAssets" theme-color="#1d90ff"
+              table-class-name="customize-table-details" header-text-direction="center" body-text-direction="center"
+              hide-footer>
+              <template #item-warranty="{ warranty }">
+                <Loading v-if="!warranty" />
+                <a class="warranty" v-else :href="warranty[1]" target="_blank">
+                  {{ warranty[0] }}
+                </a>
+              </template>
+              <template #item-assetName="{ assetName }">
+                <a class="warranty">
+                  {{ assetName }}
+                </a>
+              </template>
+            </EasyDataTable>
+          </div>
+          <div class="section" v-if="editing.assets">
+            <div class="header">
+              <i class="bi bi-laptop"></i>
+              Assets (Editing)
+            </div>
+            <div class="edit">
+              <button class="btn" v-on:click="edit('assets')">
                 <i class="bi bi-pencil"></i>
               </button>
             </div>
@@ -261,6 +287,9 @@ export default {
       comCustomerNumber: null
     },
     coms: [],
+    editing: {
+      assets: false,
+    }
   }),
   methods: {
     async createCom() {
@@ -292,10 +321,10 @@ export default {
 
       const primaryAddress = await this.loadLocationData(data.primaryAddress);
       if (!primaryAddress[0].address1) {
-        this.customer.address = ''
+        this.customer.address = '';
       } else {
         const customerAddress = Object.values(primaryAddress[0]).slice(1, 7).join(', '); //gets address
-        this.customer.address = customerAddress.replace(/\b[a-z]/gi, char => char.toUpperCase()) //capitalizes every first letter
+        this.customer.address = customerAddress.replace(/\b[a-z]/gi, char => char.toUpperCase()); //capitalizes every first letter
       }
 
       this.customer.name = `${data.firstName} ${data.lastName}`;
@@ -304,65 +333,64 @@ export default {
       this.customer.created = moment(data.createdAt).format('MM-DD-YYYY');
     },
     async loadPhoneData(id) {
-      const request = await storeX.NumberService.getNumberById(id)
+      const request = await storeX.NumberService.getNumberById(id);
       const data = await request.data;
-      return data
+      return data;
     },
     async loadLocationData(id) {
-      const request = await storeX.LocationService.getLocationById(id)
+      const request = await storeX.LocationService.getLocationById(id);
       const data = await request.data;
-      return data
+      return data;
     },
     async loadAssetData(id) {
-      const request = await storeX.AssetService.getAssetByTicketId(id)
+      const request = await storeX.AssetService.getAssetByTicketId(id);
       const data = await request.data;
-      console.log(data)
       data[0].assetName = data[0].assetName.split('(')[0];
       this.ticketAssets = await data;
       const warranty = await this.loadWarrantyData(data[0].assetSerial);
       this.ticketAssets[0]['warranty'] = warranty;
-      return data
+      return data;
     },
     async loadWarrantyData(serial) {
-      const request = await storeX.WarrantyService.getLenovoWarranty(serial)
-      const data = await request.data
-      return data
+      const request = await storeX.WarrantyService.getLenovoWarranty(serial);
+      const data = await request.data;
+      return data;
     },
     async loadComData(id) {
-      const request = await storeX.ComService.getComsByTicketId(id)
+      const request = await storeX.ComService.getComsByTicketId(id);
       const data = await request.data;
       data.forEach(com =>
         com.createdAt = moment(com.createdAt).format('ddd MM-DD-YYYY HH:MM A')
-      )
+      );
       this.coms = data.reverse();
     },
 
     async comTypeHandler(opt) {
-      this.com.comType = opt
+      this.com.comType = opt;
     },
 
     async comVisHandler(opt) {
-      this.com.comVis = opt
+      this.com.comVis = opt;
     },
 
     async ticketStatusHandler(id, data) {
-      const obj = { ticketStatus: data }
-      storeX.TicketService.updateTicket(id, obj)
+      const obj = { ticketStatus: data };
+      storeX.TicketService.updateTicket(id, obj);
     },
 
     async ticketTechHandler(id, data) {
-      const obj = { ticketTech: data }
-      storeX.TicketService.updateTicket(id, obj)
+      const obj = { ticketTech: data };
+      storeX.TicketService.updateTicket(id, obj);
     },
 
     async ticketTypeHandler(id, data) {
-      const obj = { ticketType: data }
-      storeX.TicketService.updateTicket(id, obj)
+      const obj = { ticketType: data };
+      storeX.TicketService.updateTicket(id, obj);
     },
 
     async newHandler(opt) {
-      this.newSelected = opt
-      console.log(opt)
+      this.newSelected = opt;
+      console.log(opt);
     },
 
     async init() {
@@ -370,8 +398,13 @@ export default {
       this.comVisHandler(this.comVis[0]);
     },
 
+    async edit(x) {
+      this.editing[x] = !this.editing[x]
+      console.log(this.editing)
+    },
+
     async testing123(a) {
-      console.log(a)
+      console.log(a);
     }
   },
   created() {
@@ -384,7 +417,7 @@ export default {
     this.loadCustomerData(this.storeX.navigation.customerId);
     this.loadAssetData(this.storeX.navigation.ticketId);
     this.loadComData(this.storeX.navigation.ticketId);
-    this.loadTechnicianData()
+    this.loadTechnicianData();
 
     this.storeX.io.on('comCreatedResponse', (id) => {
       if (this.storeX.navigation.ticketId != id) return;

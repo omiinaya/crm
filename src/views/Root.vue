@@ -45,6 +45,7 @@
       <CustomerDetails v-else-if="storeX.navigation.view === 'Customer'" />
       <TicketDetails v-else-if="storeX.navigation.view === 'Ticket'" />
       <Projects v-else-if="storeX.navigation.view === 'Projects'" />
+      <TimeSheets v-else-if="storeX.navigation.view === 'TimeSheets'" />
     </ion-content>
   </ion-page>
 </template>
@@ -111,7 +112,8 @@ export default defineComponent({
     NewAsset: Views.NewAsset,
     CustomerDetails: Views.CustomerDetails,
     TicketDetails: Views.TicketDetails,
-    Projects: Views.Projects
+    Projects: Views.Projects,
+    TimeSheets: Views.TimeSheets
   },
 });
 </script>
