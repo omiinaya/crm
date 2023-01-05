@@ -54,7 +54,7 @@ const navs = [
     id: 8,
     title: "Time",
     icon: "bi bi-clock-history",
-    url: "TimeSheets",
+    url: "Time",
     roleId: 3,
   },
   {

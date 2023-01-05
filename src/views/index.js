@@ -12,7 +12,7 @@ import Profile from "./TODO/Profile.vue";
 import Projects from "./TODO/Projects.vue";
 import Register from "./Register.vue";
 import Tickets from "./Tickets.vue";
-import TimeSheets from "./TimeSheets.vue";
+import Time from "./Time.vue";
 
 //details
 import CustomerDetails from "./Details/CustomerDetails.vue";
@@ -43,5 +43,5 @@ export {
     NewAsset,
     NewCustomer,
     NewTicket,
-    TimeSheets
+    Time
 };
