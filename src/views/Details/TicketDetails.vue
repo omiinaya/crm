@@ -28,8 +28,8 @@
       </div>
       <div class="row">
         <div class="col-3">
-          <div class="section">
-            <div class="header">
+          <div class="row section">
+            <div class="col-12 header">
               <i class="bi bi-person-circle"></i>
               Ticket Information
             </div>
@@ -69,8 +69,8 @@
               </div>
             </div>
           </div>
-          <div class="section">
-            <div class="header">
+          <div class="row section">
+            <div class="col-12 header">
               <i class="bi bi-person-circle"></i>
               Customer Information
             </div>
@@ -115,8 +115,8 @@
               </div>
             </div>
           </div>
-          <div class="section">
-            <div class="header">
+          <div class="row section">
+            <div class="col-12 header">
               <i class="bi bi-paperclip"></i>
               Attachments
             </div>
@@ -128,6 +128,11 @@
             <div class="header">
               <i class="bi bi-laptop"></i>
               Assets
+            </div>
+            <div class="edit">
+              <button class="btn" v-on:click="testing123()">
+                <i class="bi bi-pencil"></i>
+              </button>
             </div>
             <EasyDataTable :headers="headers" :items="ticketAssets" theme-color="#1d90ff"
               table-class-name="customize-table-details" header-text-direction="center" body-text-direction="center"
@@ -146,12 +151,12 @@
             </EasyDataTable>
           </div>
           <div class="section">
-            <div class="header">
+            <div class="col-12 header">
               <i class="bi bi-chat-dots"></i>
               Communications
             </div>
             <div class="content">
-              <div class="row">
+              <div class="row mt-4">
                 <Dropdown :title="com.comVis" :items="comVis" cols="2" :handler="comVisHandler" />
                 <Dropdown :title="com.comType" :items="comTypes" cols="2" :handler="comTypeHandler" />
                 <div class="col-2 offset-6">test</div>
@@ -409,6 +414,7 @@ export default {
 
 .messages {
   background-color: #c16701;
+  padding: 8px !important;
 }
 
 .text-area {
@@ -439,7 +445,7 @@ export default {
   width: 100%;
   font-size: 14px;
   color: white;
-  padding-bottom: 5px;
+  padding: 0;
 }
 
 .btn::after {
@@ -458,6 +464,14 @@ export default {
 
 .header {
   font-size: 18px;
+  float: left;
+}
+
+.edit {
+  position: relative;
+  float: right;
+  font-size: 18px;
+  z-index: 2 !important;
 }
 
 ul {
@@ -474,7 +488,7 @@ ul {
 }
 
 .section {
-  margin-top: 25px;
+  margin-top: 12px;
   background: #1f1f1f;
   padding: 25px;
 }
@@ -529,5 +543,9 @@ ul {
 <style>
 .customize-table-details .vue3-easy-data-table__main {
   min-height: 0px !important;
+}
+
+.vue3-easy-data-table {
+  z-index: 1 !important
 }
 </style>
