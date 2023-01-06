@@ -248,15 +248,15 @@ export default {
     print(a) {
       console.log(a)
     },
-    dropdownHandler(type, name) {
-      this.customerForm[name] = type;
+    dropdownHandler(item, name) {
+      this.customerForm[name] = item;
     },
-    countryDropdownHandler(type, name) {
-      this.dropdownHandler(type, name);
+    countryDropdownHandler(item, name) {
+      this.dropdownHandler(item, name);
       this.loadStates();
     },
-    stateDropdownHandler(type, name) {
-      this.dropdownHandler(type, name);
+    stateDropdownHandler(item, name) {
+      this.dropdownHandler(item, name);
       this.loadCities();
     },
     getCountryId() {

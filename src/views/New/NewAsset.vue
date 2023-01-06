@@ -70,8 +70,8 @@ export default {
     storeX
   }),
   methods: {
-    dropdownHandler(type, name) {
-      this.assetForm[name] = type
+    dropdownHandler(item, name) {
+      this.assetForm[name] = item
     },
     async loadAssetFields() {
       const req = await storeX.AssetService.getAssetFields();

@@ -11,18 +11,18 @@
         <li v-for="(item, index) in items" :key="item + index">
           <a v-if="byProp && byTicket"
             class="dropdown-item"
-            @click="handler(storeX.navigation.ticketId, item[byProp], this.name)"
+            @click="handler(item, this.name, byProp)"
+            >{{ item[byProp] }}
+          </a>
+          <a v-else-if="byProp"
+            class="dropdown-item"
+            @click="handler(item, this.name, byProp)"
             >{{ item[byProp] }}
           </a>
           <a v-else-if="byTicket"
             class="dropdown-item"
-            @click="handler(storeX.navigation.ticketId, item, this.name)"
+            @click="handler(item, this.name)"
             >{{ item }}
-          </a>
-          <a v-else-if="byProp"
-            class="dropdown-item"
-            @click="handler(item[byProp], this.name, item)"
-            >{{ item[byProp] }}
           </a>
           <a v-else
             class="dropdown-item"
@@ -105,8 +105,7 @@ export default {
   max-height: 200px;
   width: 100%;
   overflow-y: scroll;
-  position: relative;
-  z-index: 9999 !important;
+  
 }
 
 .dropdown-item {

@@ -175,10 +175,10 @@
                   v-model="editing.assets.assetName" />
               </template>
 
-              <template #item-assetBrand="{ assetBrand }">
+              <template #item-assetBrand="{ /*assetBrand*/ }">
 
 
-                <Dropdown :title="assetBrand" :items="assetBrands" cols="12" />
+                <Dropdown2 :items="assetBrands" cols="12" :handler="testing123"/>
 
               </template>
 
@@ -197,7 +197,7 @@
                   <button class="btn" v-on:click="edit('assets')">
                     <i class="bi bi-clipboard"></i>
                   </button>
-                  
+
                   <button class="btn" v-on:click="edit('assets')">
                     <i class="bi bi-paperclip"></i>
                   </button>
@@ -253,11 +253,12 @@
 import { storeX } from "../../store/index";
 import Loading from "../../components/Loading.vue";
 import Dropdown from "../../components/Dropdown.vue";
+import Dropdown2 from "../../components/Dropdown2.vue";
 import moment from 'moment';
 
 export default {
   name: 'CustomerDetailsPage',
-  components: { Loading, Dropdown },
+  components: { Loading, Dropdown, Dropdown2 },
   data: () => ({
     storeX,
     ticket: {
@@ -394,17 +395,23 @@ export default {
       this.com.comVis = opt;
     },
 
-    async ticketStatusHandler(id, data) {
+    async ticketStatusHandler(item, name, byProp) {
+      const data = item[byProp]
+      const id = storeX.navigation.ticketId;
       const obj = { ticketStatus: data };
       storeX.TicketService.updateTicket(id, obj);
     },
 
-    async ticketTechHandler(id, data) {
+    async ticketTechHandler(item, name, byProp) {
+      const data = item[byProp]
+      const id = storeX.navigation.ticketId;
       const obj = { ticketTech: data };
       storeX.TicketService.updateTicket(id, obj);
     },
 
-    async ticketTypeHandler(id, data) {
+    async ticketTypeHandler(item, name, byProp) {
+      const data = item[byProp]
+      const id = storeX.navigation.ticketId;
       const obj = { ticketType: data };
       storeX.TicketService.updateTicket(id, obj);
     },
@@ -424,8 +431,9 @@ export default {
       console.log(this.editing.assets)
     },
 
-    async testing123(a) {
+    async testing123(a, b) {
       console.log(a);
+      console.log(b);
     }
   },
   created() {

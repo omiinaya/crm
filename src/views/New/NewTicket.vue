@@ -246,8 +246,8 @@ export default {
     testing() {
       console.log(this.ticketForm);
     },
-    dropdownHandler(type, name) {
-      this.ticketForm[name] = type
+    dropdownHandler(item, name) {
+      this.ticketForm[name] = item;
     }
   },
   created() {
