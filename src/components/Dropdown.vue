@@ -105,5 +105,12 @@ export default {
   max-height: 200px;
   width: 100%;
   overflow-y: scroll;
+  position: relative;
+  z-index: 9999 !important;
+}
+
+.dropdown-item {
+  position: relative;
+  z-index: 9999 !important;
 }
 </style>

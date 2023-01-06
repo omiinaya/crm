@@ -124,7 +124,7 @@
           </div>
         </div>
         <div class="col-8">
-          <div class="section" v-if="!editing.assets">
+          <div class="section" v-if="!editing.assets.editMode">
             <div class="header">
               <i class="bi bi-laptop"></i>
               Assets
@@ -150,7 +150,7 @@
               </template>
             </EasyDataTable>
           </div>
-          <div class="section" v-if="editing.assets">
+          <div class="section" v-if="editing.assets.editMode">
             <div class="header">
               <i class="bi bi-laptop"></i>
               Assets (Editing)
@@ -169,11 +169,19 @@
                   {{ warranty[0] }}
                 </a>
               </template>
+
               <template #item-assetName="{ assetName }">
-                <a class="warranty">
-                  {{ assetName }}
-                </a>
+                <input type="input" class="form-control" :id="'editAssetName'" :placeholder="assetName"
+                  v-model="editing.assets.assetName" />
               </template>
+
+              <template #item-assetBrand="{ assetBrand }">
+
+
+                <Dropdown :title="assetBrand" :items="assetBrands" cols="12" />
+
+              </template>
+
             </EasyDataTable>
           </div>
           <div class="section">
@@ -185,7 +193,15 @@
               <div class="row mt-4">
                 <Dropdown :title="com.comVis" :items="comVis" cols="2" :handler="comVisHandler" />
                 <Dropdown :title="com.comType" :items="comTypes" cols="2" :handler="comTypeHandler" />
-                <div class="col-2 offset-6">test</div>
+                <div class="col-1 offset-7" style="display: flex">
+                  <button class="btn" v-on:click="edit('assets')">
+                    <i class="bi bi-clipboard"></i>
+                  </button>
+                  
+                  <button class="btn" v-on:click="edit('assets')">
+                    <i class="bi bi-paperclip"></i>
+                  </button>
+                </div>
               </div>
             </div>
             <div class="content">
@@ -274,6 +290,7 @@ export default {
     ticketTechs: [],
     ticketStatus: ['New', 'Waiting for Parts', 'Waiting on Client', 'In Progress', 'Ready for Pickup', 'Customer Reply', 'Resolved'],
     ticketTypes: ['Flat Rate', 'Warranty', 'In-House'],
+    assetBrands: ['Lenovo', 'Dell', 'HP', '...'],
     comVis: ['Private Note', 'Publc Note', 'Email', 'SMS', 'Email + SMS'],
     comTypes: ['Update', 'Issue', 'Diagnosis', 'Parts Ordered', 'Parts Arrival', 'Complete'],
     com: {
@@ -288,7 +305,11 @@ export default {
     },
     coms: [],
     editing: {
-      assets: false,
+      assets: {
+        editMode: false,
+        assetName: null,
+        assetSerial: null
+      },
     }
   }),
   methods: {
@@ -399,8 +420,8 @@ export default {
     },
 
     async edit(x) {
-      this.editing[x] = !this.editing[x]
-      console.log(this.editing)
+      this.editing[x]['editMode'] = !this.editing[x]['editMode']
+      console.log(this.editing.assets)
     },
 
     async testing123(a) {
@@ -476,7 +497,7 @@ export default {
 
 .btn {
   width: 100%;
-  font-size: 14px;
+  font-size: 16px;
   color: white;
   padding: 0;
 }
