@@ -11,13 +11,13 @@
         <li v-for="(item, index) in items" :key="item + index">
           <a v-if="byProp && byTicket"
             class="dropdown-item"
-            @click="handler(item, this.name, byProp)"
-            >{{ item[byProp] }}
+            @click="handler(item, name, byProp)"
+            >{{ item[this.byProp] }}
           </a>
           <a v-else-if="byProp"
             class="dropdown-item"
-            @click="handler(item, this.name, byProp)"
-            >{{ item[byProp] }}
+            @click="handler(item, name, byProp)"
+            >{{ item[this.byProp] }}
           </a>
           <a v-else-if="byTicket"
             class="dropdown-item"
@@ -70,7 +70,7 @@ export default {
     byTicket: {
         type: Boolean,
         default: false,
-    }
+    },
   },
   
   created() {

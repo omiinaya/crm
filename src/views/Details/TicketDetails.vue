@@ -45,8 +45,14 @@
                 <label class="col-sm-6">
                   <i class="bi bi-person-circle"></i> Assignee:
                 </label>
-                <Dropdown :title="ticket.tech" :items="ticketTechs" cols="6" :handler="ticketTechHandler"
-                  :byTicket="true" byProp="fullName" />
+                <Dropdown 
+                :title="ticket.tech" 
+                :items="ticketTechs" 
+                cols="6" 
+                :handler="ticketTechHandler"
+                :byTicket="true" 
+                byProp="fullName" 
+                />
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
@@ -396,9 +402,17 @@ export default {
     },
 
     async ticketStatusHandler(item, name, byProp) {
+      console.log(item)
+      console.log(name)
+      console.log(byProp)
+      
       const data = item[byProp]
       const id = storeX.navigation.ticketId;
       const obj = { ticketStatus: data };
+     
+      console.log(data)
+      console.log(id)
+      console.log(obj)
       storeX.TicketService.updateTicket(id, obj);
     },
 

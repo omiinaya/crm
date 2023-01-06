@@ -8,19 +8,19 @@
 
 <template>
   <div :class="'col-sm-' + cols">
-    <select @change="handler($event, this.name)">
+    <select @change="handler($event.target.value, this.name, this.byProp)">
      
         <option v-for="(item, index) in items" :key="item + index">
-          <a v-if="byProp && byTicket" class="dropdown-item">
+          <a v-if="byProp && byTicket">
             {{ item[byProp] }}
           </a>
-          <a v-else-if="byTicket" class="dropdown-item">
+          <a v-else-if="byProp">
+            {{ item[byProp] }}
+          </a>
+          <a v-else-if="byTicket">
           {{ item }}
           </a>
-          <a v-else-if="byProp" class="dropdown-item">
-            {{ item[byProp] }}
-          </a>
-          <a v-else class="dropdown-item">
+          <a v-else>
             {{ item }}
           </a>
         </option>
@@ -104,16 +104,4 @@ select {
   width: 100%;
 }
 
-.dropdown-menu {
-  max-height: 200px;
-  width: 100%;
-  overflow-y: scroll;
-  position: relative;
-  z-index: 9999 !important;
-}
-
-.dropdown-item {
-  position: relative;
-  z-index: 9999 !important;
-}
 </style>
