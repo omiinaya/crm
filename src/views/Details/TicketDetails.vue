@@ -401,32 +401,22 @@ export default {
       this.com.comVis = opt;
     },
 
-    async ticketStatusHandler(item, name, byProp) {
-      console.log(item)
-      console.log(name)
-      console.log(byProp)
-      
-      const data = item[byProp]
+    async ticketStatusHandler(item, /*name, byProp*/) {
       const id = storeX.navigation.ticketId;
-      const obj = { ticketStatus: data };
-     
-      console.log(data)
-      console.log(id)
-      console.log(obj)
+      const obj = { ticketStatus: item };
       storeX.TicketService.updateTicket(id, obj);
     },
 
-    async ticketTechHandler(item, name, byProp) {
-      const data = item[byProp]
+    async ticketTechHandler(item, /*name,*/ byProp) {
+      const data = item[byProp];
       const id = storeX.navigation.ticketId;
       const obj = { ticketTech: data };
       storeX.TicketService.updateTicket(id, obj);
     },
 
-    async ticketTypeHandler(item, name, byProp) {
-      const data = item[byProp]
+    async ticketTypeHandler(item, /*name, byProp*/) {
       const id = storeX.navigation.ticketId;
-      const obj = { ticketType: data };
+      const obj = { ticketType: item };
       storeX.TicketService.updateTicket(id, obj);
     },
 

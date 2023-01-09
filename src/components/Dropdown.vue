@@ -14,16 +14,19 @@
             @click="handler(item, name, byProp)"
             >{{ item[this.byProp] }}
           </a>
+
           <a v-else-if="byProp"
             class="dropdown-item"
             @click="handler(item, name, byProp)"
             >{{ item[this.byProp] }}
           </a>
+
           <a v-else-if="byTicket"
             class="dropdown-item"
             @click="handler(item, this.name)"
             >{{ item }}
           </a>
+          
           <a v-else
             class="dropdown-item"
             @click="handler(item, this.name)"

@@ -26,7 +26,7 @@ const store = createStore({
 
 function getHistory() {
   const value = localStorage.getItem('history');
-  if (!value) return []
+  if (!value) return [{ view: 'Home' }]
   return JSON.parse(value)
 }
 
@@ -38,7 +38,6 @@ export const storeX = reactive({
   },
   io: socket,
   history: getHistory(),
-  customerName: null,
   home: { actions: null },
   tickets: [],
   assets: [],
@@ -133,7 +132,7 @@ export const storeX = reactive({
 
       customer.phone = primaryPhone;
       customer.address = customerAddress;
-      customer.fullName = `${customer.firstName} ${customer.lastName}`
+      customer.name = `${customer.firstName} ${customer.lastName}`
     })
 
     this.formatDate(this.customers);
@@ -181,12 +180,10 @@ export const storeX = reactive({
     const primaryAddress = await this.loadLocationDataById(data.primaryAddress);
     const customerAddress = Object.values(primaryAddress[0]).slice(1, 7).join(', '); //gets address
 
-    data.fullName = `${data.firstName} ${data.lastName}`;
+    data.name = `${data.firstName} ${data.lastName}`;
     data.createdAt = moment(data.createdAt).format('MMMM-DD-YYYY');
     data.primaryPhone = phoneNumber;
     data.primaryAddress = customerAddress;
-
-    this.customerName = data.fullName;
     this.customer = data;
     return data;
   },
