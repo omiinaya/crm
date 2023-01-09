@@ -2,9 +2,12 @@
   <div class="row">
     <div class="col-10 offset-1 top">
       Customers
+      <div class="row mt-2 search">
+        <input type="text" placeholder="Search for a customer" @input="searchHandler($event)"/>
+      </div>
       <div class="row">
         <div class="col-12 section">
-          <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="storeX.customers" theme-color="#1d90ff"
+          <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="filteredCustomers" theme-color="#1d90ff"
             table-class-name="customize-table" header-text-direction="center" body-text-direction="center">
             <template #item-name="{ firstName, lastName, id }">
               <button type="button" class="btn btn-lg" v-on:click="openCustomer(id)">
@@ -35,8 +38,8 @@ export default defineComponent({
         { value: "customerType", text: "TYPE", sortable: true },
         { value: "createdAt", text: "CREATED", sortable: true }
       ],
-      items: [],
-      itemsSelected: []
+      itemsSelected: [],
+      searchFilter: null
     };
   },
   methods: {
@@ -46,15 +49,52 @@ export default defineComponent({
         customerId: id
       })
     },
+    async searchHandler(input) {
+      const value = input.target.value;
+      this.searchFilter = value;
+
+      console.log(this.searchFilter)
+      console.log(storeX.customers)
+      console.log(this.filteredCustomers)
+    },
+
+    async testing123(a) {
+      console.log(a)
+    }
+  },
+  computed: {
+    filteredCustomers() {
+      if (!this.searchFilter) return storeX.customers;
+    
+      const filtered = storeX.customers.filter(customer => {
+        const input = this.searchFilter;
+        const name = `${customer.firstName} ${customer.lastName}`;
+        const email = customer.email || '';
+        const phone = customer.phone || '';
+
+        const ifName = name.toLowerCase().includes(input);
+        const ifEmail = email.toLowerCase().includes(input);
+        const ifPhone = phone.includes(input);
+
+        const byCondition = ifName || ifEmail || ifPhone;
+        
+        return byCondition;
+      })
+      return filtered;
+    }
   },
   async created() {
-    storeX.loadCustomerData()
+    storeX.loadCustomerData();
   }
 });
 
 </script>
 
 <style scoped>
+
+.search {
+  font-size: 16px;
+}
 .top {
   padding: 20px;
   padding-top: 0 !important;
