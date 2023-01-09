@@ -11,13 +11,13 @@
         <li v-for="(item, index) in items" :key="item + index">
           <a v-if="byProp && byTicket"
             class="dropdown-item"
-            @click="handler(item, name, byProp)"
+            @click="handler(item, this.name, this.byProp)"
             >{{ item[this.byProp] }}
           </a>
 
           <a v-else-if="byProp"
             class="dropdown-item"
-            @click="handler(item, name, byProp)"
+            @click="handler(item, this.name, this.byProp)"
             >{{ item[this.byProp] }}
           </a>
 

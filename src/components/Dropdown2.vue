@@ -14,15 +14,19 @@
           <a v-if="byProp && byTicket">
             {{ item[byProp] }}
           </a>
+
           <a v-else-if="byProp">
             {{ item[byProp] }}
           </a>
+
           <a v-else-if="byTicket">
           {{ item }}
           </a>
+
           <a v-else>
             {{ item }}
           </a>
+          
         </option>
         
      

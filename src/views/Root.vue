@@ -20,9 +20,9 @@
                         : `#${storeX.navigation.ticketId
                           .toString()
                           .padStart(5, "0")}`
-                      : `${storeX.customerName}` //customer
+                      : `${storeX.customer.name}` //customer
                     : crumb.view !== "Ticket"
-                      ? crumb.view !== "Customer" ? `⯇ ${crumb.view}` : `⯇ ${storeX.customerName}`
+                      ? crumb.view !== "Customer" ? `⯇ ${crumb.view}` : `⯇ ${storeX.customer.name}`
                       : `⯇ #${storeX.history[storeX.history.length - 2].ticketId.toString().padStart(5, "0")}`
               }}
             </li>
