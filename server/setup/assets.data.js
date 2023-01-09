@@ -13,7 +13,7 @@ const assets = [
       assetTicketId: 2,
       assetType: "Laptop",
       assetBrand: "Lenovo",
-      assetName: "Yoga X13",
+      assetName: "X1 Carbon 3rd Gen (Type 20BS, 20BT) Laptop (ThinkPad) - Type 20BS",
       assetSerial: "R90JXFX3",
       assetTag: "13"
     },
@@ -22,7 +22,7 @@ const assets = [
       assetTicketId: 3,
       assetType: "Laptop",
       assetBrand: "Lenovo",
-      assetName: "Yoga X14",
+      assetName: "E15 Gen 2 (Type 20TD, 20TE) Laptop (ThinkPad) - Type 20TD",
       assetSerial: "PF2LBHNF",
       assetTag: "13"
     }

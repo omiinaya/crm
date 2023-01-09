@@ -161,7 +161,6 @@ export const storeX = reactive({
   async loadAssetData() {
     const req = await AssetService.getAssets()
     const assets = await req.data;
-    assets[0].assetName = assets[0].assetName.split('(')[0];
     this.assets = await assets;
 
     this.assets.forEach(async asset => {
@@ -210,8 +209,6 @@ export const storeX = reactive({
     const data = await request.data;
 
     if (!data.length) return;
-
-    data[0].assetName = data[0].assetName.split('(')[0];
     this.assets = await data;
   },
 
