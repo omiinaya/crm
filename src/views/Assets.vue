@@ -9,7 +9,7 @@
       </div>
       <div class="row">
         <div class="col-12 section">
-          <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="storeX.assets" theme-color="#1d90ff"
+          <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="filteredCustomers" theme-color="#1d90ff"
             table-class-name="customize-table" header-text-direction="center" body-text-direction="center">
             <template #item-customerName="{ customerName, assetCustomerId }">
               <button type="button" class="btn btn-lg" v-on:click="openCustomer(assetCustomerId)">
@@ -69,9 +69,9 @@ export default defineComponent({
       if (!this.searchFilter) return storeX.assets;
     
       const filtered = storeX.assets.filter(asset => {
-        const input = this.searchFilter.toLowerCase();
+        const input = this.searchFilter;
        
-        const customer = asset.customerName;
+        const customer = asset.customerName || '';
         const serial = asset.assetSerial || '';
         const brand = asset.assetBrand || '';
         const type = asset.assetType || '';

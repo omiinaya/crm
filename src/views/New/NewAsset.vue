@@ -95,8 +95,8 @@ export default {
       })
     },
     async createAsset() {
-      console.log(this.assetForm)
-      storeX.AssetService.createAsset(this.assetForm);
+      const newAsset = await storeX.AssetService.createAsset(this.assetForm);
+      console.log(newAsset)
     },
     testing() {
       console.log(this.assetForm)

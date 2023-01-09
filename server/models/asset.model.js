@@ -7,7 +7,10 @@ module.exports = (sequelize, Sequelize) => {
         const field = assetFields[i]
         if (!field.data) continue;
         if (field.name === 'assetCustomerName') continue;
-        dynamicFields[field.name] = { type: Sequelize[field.data] }
+        dynamicFields[field.name] = { 
+            type: Sequelize[field.data],
+            allowNull: field.allowNull || false 
+        }
     }
 
     const Asset = sequelize.define("asset", {

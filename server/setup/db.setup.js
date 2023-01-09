@@ -114,6 +114,7 @@ function dummyData() {
       options: fields.options,
       data: fields.data,
       show: fields.show,
+      allowNull: fields.allowNull,
     });
   });
 

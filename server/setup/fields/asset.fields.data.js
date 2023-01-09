@@ -10,6 +10,7 @@ const assetFields = [
     placeholder: "Customer Name",
     icon: "bi bi-person",
     data: 'STRING',
+    allowNull: false,
     show: true
   },
   {
@@ -19,6 +20,7 @@ const assetFields = [
     placeholder: "Customer Id",
     icon: "bi bi-person",
     data: 'INTEGER',
+    allowNull: false,
     show: false
   },
   {
@@ -28,6 +30,7 @@ const assetFields = [
     placeholder: "Ticket Number",
     icon: "bi bi-tag",
     data: 'INTEGER',
+    allowNull: false,
     show: true
   },
   {
@@ -37,6 +40,7 @@ const assetFields = [
     placeholder: "Asset Type",
     icon: "bi bi-list-check",
     data: 'STRING',
+    allowNull: false,
     show: true,
     options: JSON.stringify(assetTypes)
   },
@@ -47,6 +51,7 @@ const assetFields = [
     placeholder: "Asset Brand",
     icon: "bi bi-nut",
     data: 'STRING',
+    allowNull: false,
     show: true,
     options: JSON.stringify(manufacturers)
   },
@@ -57,6 +62,7 @@ const assetFields = [
     placeholder: "Asset Name",
     icon: "bi bi-laptop",
     data: 'STRING',
+    allowNull: false,
     show: true,
   },
   {
@@ -66,6 +72,7 @@ const assetFields = [
     placeholder: "Asset Serial",
     icon: "bi bi-laptop",
     data: 'STRING',
+    allowNull: false,
     show: true,
   },
   {
@@ -75,6 +82,7 @@ const assetFields = [
     placeholder: "Asset Tag",
     icon: "bi bi-tag",
     data: 'STRING',
+    allowNull: true,
     show: true,
   },
 ];
