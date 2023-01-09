@@ -52,12 +52,7 @@ export default defineComponent({
     async searchHandler(input) {
       const value = input.target.value;
       this.searchFilter = value;
-
-      console.log(this.searchFilter)
-      console.log(storeX.customers)
-      console.log(this.filteredCustomers)
     },
-
     async testing123(a) {
       console.log(a)
     }
@@ -67,7 +62,8 @@ export default defineComponent({
       if (!this.searchFilter) return storeX.customers;
     
       const filtered = storeX.customers.filter(customer => {
-        const input = this.searchFilter;
+        const input = this.searchFilter.toLowerCase();
+        
         const name = `${customer.firstName} ${customer.lastName}`;
         const email = customer.email || '';
         const phone = customer.phone || '';

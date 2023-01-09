@@ -2,9 +2,12 @@
   <div class="row">
     <div class="col-10 offset-1 top">
       Tickets
+      <div class="row mt-2 search">
+        <input type="text" placeholder="Search for a customer" @input="searchHandler($event)"/>
+      </div>
       <div class="row">
         <div class="col-12 section">
-          <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="storeX.tickets" theme-color="#1d90ff"
+          <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="filteredCustomers" theme-color="#1d90ff"
             table-class-name="customize-table" header-text-direction="center" body-text-direction="center">
             <template #item-customerName="{ customerName, ticketCustomerId }">
               <button type="button" class="btn btn-lg" v-on:click="openCustomer(ticketCustomerId)">
@@ -26,10 +29,6 @@
 <script>
 import { defineComponent } from 'vue';
 import { storeX } from "../store/index";
-import TicketService from "../services/ticket.service"
-import CustomerService from "../services/customer.service"
-import AssetService from "../services/asset.service"
-import moment from 'moment'
 
 export default defineComponent({
   name: 'CustomerPage',
@@ -43,11 +42,10 @@ export default defineComponent({
         { value: "ticketDesc", text: "DESCRIPTION", sortable: true },
         { value: "ticketTech", text: "TECHNICIAN", sortable: true },
         { value: "createdAt", text: "CREATED", sortable: true },
-        //{ value: "ticketType", text: "ISSUE", sortable: true },
         { value: "assetSerial", text: "SERIAL", sortable: true },
         { value: "ticketStatus", text: "STATUS", sortable: true },
       ],
-      items: [],
+      searchFilter: null,
       itemsSelected: []
     };
   },
@@ -68,48 +66,36 @@ export default defineComponent({
         customerId: id
       })
     },
-    async loadTicketData() {
-      const req = await TicketService.getTickets();
-      const tickets = await req.data;
+    
+    async searchHandler(input) {
+      const value = input.target.value;
+      this.searchFilter = value;
+      console.log(this.searchFilter)
+      console.log(this.filteredCustomers)
+    },
+  },
+  computed: {
+    filteredCustomers() {
+      if (!this.searchFilter) return storeX.tickets;
+    
+      const filtered = storeX.tickets.filter(ticket => {
+        const input = this.searchFilter.toLowerCase();
 
-      this.items = await tickets;
+        const id = ticket.id;
+        const customer = ticket.customerName || '';
+        const serial = ticket.assetSerial || ''
 
-      this.items.forEach(async item => {
-        const data = await this.loadAssetData(item.id);
-        const serial = data[0].assetSerial;
-        item.assetSerial = serial;
+        const ifId = id.toString().includes(input);
+        const ifCustomer = customer.toLowerCase().includes(input);
+        const ifSerial = serial.toLowerCase().includes(input);
+
+        const byCondition = ifId || ifCustomer || ifSerial;
+        
+        return byCondition;
+        
       })
-
-      this.formatDate();
-
-    },
-    async loadAssetData(id) {
-      const req = await AssetService.getAssetByTicketId(id);
-      const asset = await req.data;
-      return asset;
-    },
-    async formatDate() {
-      this.items.forEach(item => {
-        item.createdAt = moment(item.createdAt).format('MM-DD-YYYY HH:MM A');
-        item.updatedAt = moment(item.updatedAt).format('MM-DD-YYYY HH:MM A');
-      })
-    },
-    async loadCustomerData() {
-      const req = await CustomerService.getCustomers();
-      const customers = await req.data;
-
-      let fullName = '';
-      for (let i = 0; i < this.items.length; i++) {
-        const item = this.items[i]
-        const customer = customers.filter(customer => {
-          const customerId = parseInt(customer.id)
-          const ticketCustomerId = parseInt(item.ticketCustomerId)
-
-          return customerId === ticketCustomerId
-        });
-        fullName = `${customer[0].firstName} ${customer[0].lastName}`
-        item['customerName'] = fullName;
-      }
+      
+      return filtered;
     }
   },
   async created() {
@@ -121,6 +107,9 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.search {
+  font-size: 16px;
+}
 .btn {
   width: 100%;
   font-size: 14px;
