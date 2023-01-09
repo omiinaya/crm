@@ -2,8 +2,10 @@
   <div class="row">
     <div class="col-10 offset-1 top">
       Customers
-      <div class="row mt-2 search">
-        <input type="text" placeholder="Search for a customer" @input="searchHandler($event)"/>
+      <div class="row mt-2">
+        <div class="search">
+          <input type="search" placeholder="Search for a customer" @input="searchHandler($event)" />
+        </div>
       </div>
       <div class="row">
         <div class="col-12 section">
@@ -63,7 +65,7 @@ export default defineComponent({
     
       const filtered = storeX.customers.filter(customer => {
         const input = this.searchFilter.toLowerCase();
-        
+
         const name = `${customer.firstName} ${customer.lastName}`;
         const email = customer.email || '';
         const phone = customer.phone || '';
@@ -90,6 +92,15 @@ export default defineComponent({
 
 .search {
   font-size: 16px;
+  padding: 0;
+}
+
+input:focus {
+  outline: none;
+}
+
+input[type=search]::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
 }
 .top {
   padding: 20px;

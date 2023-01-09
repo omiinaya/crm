@@ -2,13 +2,16 @@
   <div class="row">
     <div class="col-10 offset-1 top">
       Tickets
-      <div class="row mt-2 search">
-        <input type="text" placeholder="Search for a customer" @input="searchHandler($event)"/>
+      <div class="row mt-2">
+        <div class="search">
+          <input type="search" placeholder="Search for a ticket" @input="searchHandler($event)" />
+        </div>
       </div>
       <div class="row">
         <div class="col-12 section">
-          <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="filteredCustomers" theme-color="#1d90ff"
-            table-class-name="customize-table" header-text-direction="center" body-text-direction="center">
+          <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="filteredCustomers"
+            theme-color="#1d90ff" table-class-name="customize-table" header-text-direction="center"
+            body-text-direction="center">
             <template #item-customerName="{ customerName, ticketCustomerId }">
               <button type="button" class="btn btn-lg" v-on:click="openCustomer(ticketCustomerId)">
                 {{ customerName }}
@@ -66,35 +69,35 @@ export default defineComponent({
         customerId: id
       })
     },
-    
+
     async searchHandler(input) {
       const value = input.target.value;
       this.searchFilter = value;
-      console.log(this.searchFilter)
-      console.log(this.filteredCustomers)
     },
   },
   computed: {
     filteredCustomers() {
       if (!this.searchFilter) return storeX.tickets;
-    
+
       const filtered = storeX.tickets.filter(ticket => {
         const input = this.searchFilter.toLowerCase();
 
         const id = ticket.id;
         const customer = ticket.customerName || '';
-        const serial = ticket.assetSerial || ''
+        const serial = ticket.assetSerial || '';
+        const status = ticket.ticketStatus || '';
 
         const ifId = id.toString().includes(input);
         const ifCustomer = customer.toLowerCase().includes(input);
         const ifSerial = serial.toLowerCase().includes(input);
+        const ifStatus = status.toLowerCase().includes(input);
 
-        const byCondition = ifId || ifCustomer || ifSerial;
-        
+        const byCondition = ifId || ifCustomer || ifSerial || ifStatus;
+
         return byCondition;
-        
+
       })
-      
+
       return filtered;
     }
   },
@@ -109,7 +112,17 @@ export default defineComponent({
 <style scoped>
 .search {
   font-size: 16px;
+  padding: 0;
 }
+
+input:focus {
+  outline: none;
+}
+
+input[type=search]::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
+}
+
 .btn {
   width: 100%;
   font-size: 14px;
