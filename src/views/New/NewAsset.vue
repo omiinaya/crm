@@ -1,53 +1,56 @@
 <template>
-  <div class="row">
-    <div class="col-6 offset-1 title">New Asset</div>
-    <div class="col-5 title">
-      <button type="button" class="btn btn-primary" v-on:click="createAsset(assetForm)">
-        New Asset
-      </button>
-      <button type="button" class="btn btn-success" v-on:click="loadCustomerData()">
-        TEST BUTTON 3
+  <div class="row align-items-center">
+    <div class="col-9 offset-1 title">New Asset</div>
+    <div class="col-2">
+      <button type="button" class="btn btn-success" v-on:click="createAsset(assetForm)">
+        Create Asset
       </button>
     </div>
   </div>
   <div class="row">
-    <div class="col-6 offset-1 form">
-      <div class="col-11">Create A New Asset</div>
-      <div v-for="(field, index) in assetFields" :key="field + index">
-        <div v-if="!field.show">
-        </div>
-        <div v-else-if="field.type === 'typeahead'" class="mb-3 row align-items-center">
-          <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{ field.label
-          }}:
-          </label>
-          <div class="col-sm-6">
-            <TypeAhead :placeholder="field.placeholder" :items="customerItems" class="form-control simple-typeahead"
-              @selectItem="(e) => this.assetForm['customerId'] = e.id" />
+    <div class="col-10 offset-1 form">
+      <div class="col-6">
+        <div v-for="(field, index) in assetFields" :key="field + index">
+          <div v-if="!field.show">
           </div>
-        </div>
-        <div v-else-if="field.type === 'dropdown'" class="mb-3 row align-items-center">
-          <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{ field.label
-          }}:
-          </label>
-          <Dropdown2
-            :name="field.name"
-            :title="assetForm[field.name]"
-            :items="JSON.parse(field.options)"
-            cols="6"
-            :handler="dropdownHandler"
-          />
-        </div>
-        <div v-else class="mb-3 row align-items-center">
-          <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{ field.label
-          }}:
-          </label>
-          <div class="col-sm-6">
-            <input :type="field.type" class="form-control" :id="field.label + index" :placeholder="field.placeholder"
-              v-model="assetForm[field.name]" />
+          <div v-else-if="field.type === 'typeahead'" class="mb-3 row align-items-center">
+            <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
+              field.label
+            }}:
+            </label>
+            <div class="col-sm-6">
+              <TypeAhead :placeholder="field.placeholder" :items="customerItems" class="form-control simple-typeahead"
+                @selectItem="(e) => this.assetForm['customerId'] = e.id" />
+            </div>
+          </div>
+          <div v-else-if="field.type === 'dropdown'" class="mb-3 row align-items-center">
+            <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
+              field.label
+            }}:
+            </label>
+            <Dropdown2 :name="field.name" :title="assetForm[field.name]" :items="JSON.parse(field.options)" cols="6"
+              :handler="dropdownHandler" />
+          </div>
+          <div v-else class="mb-3 row align-items-center">
+            <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
+              field.label
+            }}:
+            </label>
+            <div class="col-sm-6">
+              <input :type="field.type" class="form-control" :id="field.label + index" :placeholder="field.placeholder"
+                v-model="assetForm[field.name]" />
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <!--
+    <div class="col-1 offset-10 title">
+      <button type="button" class="btn btn-success" v-on:click="createAsset(assetForm)">
+        Create Asset
+      </button>
+    </div>
+    -->
   </div>
 </template>
 
@@ -115,17 +118,18 @@ export default {
 </script>
 
 <style scoped>
+
 .title {
-  margin-top: 2%;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  font-size: 30px;
 }
 
 .form {
-  margin-top: 2%;
+  background: #1f1f1f;
+  padding: 30px;
 }
 
-.btn {
-  margin-right: 10px !important;
-}
 </style>
 
 <style>
