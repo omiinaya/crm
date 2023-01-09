@@ -92,6 +92,8 @@ select {
   color: white;
   padding: 10px;
   border-radius: 5px;
+  width: 100%;
+  font-size: 14px;
 }
 
 .btn {

@@ -6,7 +6,7 @@
           <div class="row">
             <div class="col-8 top">#{{ ticket.number }}</div>
             <div class="col-1 top">
-              <Dropdown title="New" :items="newOptions" cols="12" :handler="newHandler" />
+              <Dropdown2 title="New" :items="newOptions" cols="12" :handler="newHandler" />
             </div>
             <div class="col-1 top">
               <button type="button" class="btn btn-success" v-on:click="print(customerForm)">
@@ -38,27 +38,21 @@
                 <label class="col-sm-6">
                   <i class="bi bi-clipboard2-pulse"></i> Status:
                 </label>
-                <Dropdown :title="ticket.status" :items="ticketStatus" cols="6" :handler="ticketStatusHandler"
+                <Dropdown2 :title="ticket.status" :items="ticketStatus" cols="6" :handler="ticketStatusHandler"
                   :byTicket="true" />
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-person-circle"></i> Assignee:
                 </label>
-                <Dropdown 
-                :title="ticket.tech" 
-                :items="ticketTechs" 
-                cols="6" 
-                :handler="ticketTechHandler"
-                :byTicket="true" 
-                byProp="fullName" 
-                />
+                <Dropdown2 :title="ticket.tech" :items="ticketTechs" cols="6" :handler="ticketTechHandler"
+                  :byTicket="true" byProp="fullName" />
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-list-check"></i> Labor Type:
                 </label>
-                <Dropdown :title="ticket.type" :items="ticketTypes" cols="6" :handler="ticketTypeHandler"
+                <Dropdown2 :title="ticket.type" :items="ticketTypes" cols="6" :handler="ticketTypeHandler"
                   :byTicket="true" />
               </div>
               <div class="row align-items-center mb-2">
@@ -184,7 +178,7 @@
               <template #item-assetBrand="{ /*assetBrand*/ }">
 
 
-                <Dropdown2 :items="assetBrands" cols="12" :handler="testing123"/>
+                <Dropdown2 :items="assetBrands" cols="12" :handler="testing123" />
 
               </template>
 
@@ -197,8 +191,8 @@
             </div>
             <div class="content">
               <div class="row mt-4">
-                <Dropdown :title="com.comVis" :items="comVis" cols="2" :handler="comVisHandler" />
-                <Dropdown :title="com.comType" :items="comTypes" cols="2" :handler="comTypeHandler" />
+                <Dropdown2 :title="com.comVis" :items="comVis" cols="2" :handler="comVisHandler" />
+                <Dropdown2 :title="com.comType" :items="comTypes" cols="2" :handler="comTypeHandler" />
                 <div class="col-1 offset-7" style="display: flex">
                   <button class="btn" v-on:click="edit('assets')">
                     <i class="bi bi-clipboard"></i>
@@ -258,13 +252,13 @@
 <script>
 import { storeX } from "../../store/index";
 import Loading from "../../components/Loading.vue";
-import Dropdown from "../../components/Dropdown.vue";
+//import Dropdown from "../../components/Dropdown.vue";
 import Dropdown2 from "../../components/Dropdown2.vue";
 import moment from 'moment';
 
 export default {
   name: 'CustomerDetailsPage',
-  components: { Loading, Dropdown, Dropdown2 },
+  components: { Loading, /*Dropdown,*/ Dropdown2 },
   data: () => ({
     storeX,
     ticket: {
