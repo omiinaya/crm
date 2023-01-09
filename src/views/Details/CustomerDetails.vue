@@ -89,9 +89,9 @@
             </div>
             <div v-if="storeX.tickets.length" class="content">
               <EasyDataTable :headers="ticketHeaders" :items="storeX.tickets" theme-color="#1d90ff"
-                table-class-name="customize-table" header-text-direction="center" body-text-direction="center">
+                table-class-name="customize-table" header-text-direction="left" body-text-direction="left">
                 <template #item-ticketTitle="{ ticketTitle, id, ticketCustomerId }">
-                  <button type="button" class="btn btn-lg" v-on:click="openTicket(id, ticketCustomerId)">
+                  <button type="button" class="template-btn btn-lg" v-on:click="openTicket(id, ticketCustomerId)">
                     {{ ticketTitle }}
                   </button>
                 </template>
@@ -108,7 +108,7 @@
             </div>
             <div v-if="storeX.assets.length" class="content">
               <EasyDataTable :headers="assetHeaders" :items="storeX.assets" theme-color="#1d90ff"
-                table-class-name="customize-table" header-text-direction="center" body-text-direction="center" />
+                table-class-name="customize-table" header-text-direction="left" body-text-direction="left" />
             </div>
             <div class="text-center" v-if="!storeX.assets.length">
               There are no assets to display
@@ -186,6 +186,13 @@ export default {
   color: #c1cad4;
   margin: 10px;
   margin-bottom: 0;
+}
+
+.template-btn {
+  font-size: 14px;
+  color: #c1cad4;
+  background: transparent;
+  padding: 0;
 }
 
 .btn:focus {

@@ -10,9 +10,9 @@
       <div class="row">
         <div class="col-12 section">
           <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="filteredCustomers" theme-color="#1d90ff"
-            table-class-name="customize-table" header-text-direction="center" body-text-direction="center">
+            table-class-name="customize-table" header-text-direction="left" body-text-direction="left">
             <template #item-name="{ firstName, lastName, id }">
-              <button type="button" class="btn btn-lg" v-on:click="openCustomer(id)">
+              <button type="button" class="template-btn btn-lg" v-on:click="openCustomer(id)">
                 {{ firstName }} {{ lastName }}
               </button>
             </template>
@@ -113,6 +113,13 @@ input[type=search]::-webkit-search-cancel-button {
   margin-top: 25px;
   background: #1f1f1f;
   padding: 25px;
+}
+
+.template-btn {
+  font-size: 14px;
+  color: #c1cad4;
+  background: transparent;
+  padding: 0;
 }
 
 .btn {

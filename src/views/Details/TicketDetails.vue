@@ -135,7 +135,7 @@
               </button>
             </div>
             <EasyDataTable :headers="headers" :items="ticketAssets" theme-color="#1d90ff"
-              table-class-name="customize-table-details" header-text-direction="center" body-text-direction="center"
+              table-class-name="customize-table-details" header-text-direction="left" body-text-direction="left"
               hide-footer>
               <template #item-warranty="{ warranty }">
                 <Loading v-if="!warranty" />
@@ -161,7 +161,7 @@
               </button>
             </div>
             <EasyDataTable :headers="headers" :items="ticketAssets" theme-color="#1d90ff"
-              table-class-name="customize-table-details" header-text-direction="center" body-text-direction="center"
+              table-class-name="customize-table-details" header-text-direction="left" body-text-direction="left"
               hide-footer>
               <template #item-warranty="{ warranty }">
                 <Loading v-if="!warranty" />

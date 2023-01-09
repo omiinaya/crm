@@ -10,9 +10,9 @@
       <div class="row">
         <div class="col-12 section">
           <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="filteredCustomers" theme-color="#1d90ff"
-            table-class-name="customize-table" header-text-direction="center" body-text-direction="center">
+            table-class-name="customize-table" header-text-direction="left" body-text-direction="left">
             <template #item-customerName="{ customerName, assetCustomerId }">
-              <button type="button" class="btn btn-lg" v-on:click="openCustomer(assetCustomerId)">
+              <button type="button" class="template-btn btn-lg" v-on:click="openCustomer(assetCustomerId)">
                 {{ customerName }}
               </button>
             </template>
@@ -40,7 +40,7 @@ export default defineComponent({
         { value: "assetType", text: "TYPE", sortable: true },
         { value: "assetBrand", text: "MANUFACTURER", sortable: true }
       ],
-      searchFilter: [],
+      searchFilter: null,
       itemsSelected: []
     };
   },
@@ -59,8 +59,6 @@ export default defineComponent({
     async searchHandler(input) {
       const value = input.target.value;
       this.searchFilter = value;
-      console.log(this.searchFilter)
-      console.log(this.filteredCustomers)
     },
   },
   computed: {
@@ -69,7 +67,7 @@ export default defineComponent({
       if (!this.searchFilter) return storeX.assets;
     
       const filtered = storeX.assets.filter(asset => {
-        const input = this.searchFilter;
+        const input = this.searchFilter.toLowerCase();
        
         const customer = asset.customerName || '';
         const serial = asset.assetSerial || '';
@@ -109,6 +107,13 @@ input:focus {
 
 input[type=search]::-webkit-search-cancel-button {
     -webkit-appearance: searchfield-cancel-button;
+}
+
+.template-btn {
+  font-size: 14px;
+  color: #c1cad4;
+  background: transparent;
+  padding: 0;
 }
 .btn {
   width: 100%;
