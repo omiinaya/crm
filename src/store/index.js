@@ -166,7 +166,7 @@ export const storeX = reactive({
 
     this.assets.forEach(async asset => {
       const customer = await this.loadCustomerByCustomerId(asset.assetCustomerId)
-      asset.customerName = customer.fullName;
+      asset.customerName = customer.name;
     })
   },
 

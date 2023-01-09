@@ -4,8 +4,13 @@
       <div clas="row">
         <div class="col-12 top">
           <div class="row">
-            <div class="col-9">{{ storeX.customer.name }}</div>
-            <div class="col-3">test</div>
+            <div class="col-10">{{ storeX.customer.name }}</div>
+            <div class="col-2">
+              <button type="button" class="btn btn-primary" v-on:click="createTicket(ticketForm)">
+                New Ticket
+              </button>
+            </div>
+
           </div>
         </div>
       </div>
@@ -22,10 +27,7 @@
                   <i class="bi bi-envelope"></i> Email:
                 </label>
                 <div class="col-sm-6">
-                  <a
-                    :href="`mailto:${storeX.customer.email}`"
-                    target="_blank"
-                  >
+                  <a :href="`mailto:${storeX.customer.email}`" target="_blank">
                     {{ storeX.customer.email }}
                   </a>
                 </div>
@@ -41,10 +43,7 @@
                   <i class="bi bi-geo-alt"></i> Address:
                 </label>
                 <div class="col-sm-6">
-                  <a
-                    :href="`https://maps.google.com/?q=${storeX.customer.primaryAddress}`"
-                    target="_blank"
-                  >
+                  <a :href="`https://maps.google.com/?q=${storeX.customer.primaryAddress}`" target="_blank">
                     {{ storeX.customer.primaryAddress }}
                   </a>
                 </div>
@@ -89,22 +88,10 @@
               Tickets
             </div>
             <div v-if="storeX.tickets.length" class="content">
-              <EasyDataTable
-                :headers="ticketHeaders"
-                :items="storeX.tickets"
-                theme-color="#1d90ff"
-                table-class-name="customize-table"
-                header-text-direction="center"
-                body-text-direction="center"
-              >
-                <template
-                  #item-ticketTitle="{ ticketTitle, id, ticketCustomerId }"
-                >
-                  <button
-                    type="button"
-                    class="btn btn-lg"
-                    v-on:click="openTicket(id, ticketCustomerId)"
-                  >
+              <EasyDataTable :headers="ticketHeaders" :items="storeX.tickets" theme-color="#1d90ff"
+                table-class-name="customize-table" header-text-direction="center" body-text-direction="center">
+                <template #item-ticketTitle="{ ticketTitle, id, ticketCustomerId }">
+                  <button type="button" class="btn btn-lg" v-on:click="openTicket(id, ticketCustomerId)">
                     {{ ticketTitle }}
                   </button>
                 </template>
@@ -120,14 +107,8 @@
               Assets
             </div>
             <div v-if="storeX.assets.length" class="content">
-              <EasyDataTable
-                :headers="assetHeaders"
-                :items="storeX.assets"
-                theme-color="#1d90ff"
-                table-class-name="customize-table"
-                header-text-direction="center"
-                body-text-direction="center"
-              />
+              <EasyDataTable :headers="assetHeaders" :items="storeX.assets" theme-color="#1d90ff"
+                table-class-name="customize-table" header-text-direction="center" body-text-direction="center" />
             </div>
             <div class="text-center" v-if="!storeX.assets.length">
               There are no assets to display
@@ -154,7 +135,7 @@ export default {
   components: {},
   data: () => ({
     storeX,
-    
+
     ticketHeaders: [
       { value: "id", text: "ID", sortable: true },
       { value: "ticketTitle", text: "TITLE", sortable: true },
@@ -198,11 +179,13 @@ export default {
 .bi {
   padding-right: 5px !important;
 }
+
 .btn {
-  width: 100%;
+  
   font-size: 14px;
   color: #c1cad4;
-  padding: 0;
+  margin: 10px;
+  margin-bottom: 0;
 }
 
 .btn:focus {
@@ -217,6 +200,7 @@ export default {
 li {
   color: #c0c7d2;
 }
+
 .header {
   font-size: 18px;
 }
@@ -244,6 +228,7 @@ ul {
   font-size: 14px;
   color: #c0c7d2;
 }
+
 .customize-table {
   --easy-table-border: 1px solid #1f1f1f;
   --easy-table-row-border: 1px solid #1f1f1f;
