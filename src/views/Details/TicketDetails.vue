@@ -6,7 +6,7 @@
           <div class="row">
             <div class="col-8 top">#{{ ticket.number }}</div>
             <div class="col-1 top">
-              <Dropdown2 title="New" :items="newOptions" cols="12" :handler="newHandler" />
+              <Dropdown title="New" :items="newOptions" cols="12" :handler="newHandler" />
             </div>
             <div class="col-1 top">
               <button type="button" class="btn btn-success" v-on:click="print(customerForm)">
@@ -252,13 +252,13 @@
 <script>
 import { storeX } from "../../store/index";
 import Loading from "../../components/Loading.vue";
-//import Dropdown from "../../components/Dropdown.vue";
+import Dropdown from "../../components/Dropdown.vue";
 import Dropdown2 from "../../components/Dropdown2.vue";
 import moment from 'moment';
 
 export default {
   name: 'CustomerDetailsPage',
-  components: { Loading, /*Dropdown,*/ Dropdown2 },
+  components: { Loading, Dropdown, Dropdown2 },
   data: () => ({
     storeX,
     ticket: {

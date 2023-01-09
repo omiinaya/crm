@@ -29,7 +29,7 @@
           <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{ field.label
           }}:
           </label>
-          <Dropdown
+          <Dropdown2
             :name="field.name"
             :title="assetForm[field.name]"
             :items="JSON.parse(field.options)"
@@ -53,12 +53,12 @@
 
 <script>
 import TypeAhead from "../../components/TypeAhead.vue"
-import Dropdown from "../../components/Dropdown.vue"
+import Dropdown2 from "../../components/Dropdown2.vue"
 import { storeX } from "../../store/index";
 
 export default {
   name: 'NewAssetPage',
-  components: { TypeAhead, Dropdown },
+  components: { TypeAhead, Dropdown2 },
   data: () => ({
     assetFields: null,
     assetForm: {

@@ -107,12 +107,16 @@ export default {
 .dropdown-menu {
   max-height: 200px;
   width: 100%;
-  overflow-y: scroll;
-  
 }
 
 .dropdown-item {
   position: relative;
   z-index: 9999 !important;
 }
+
 </style>
+<!--
+  .dropdown-toggle::after {
+    display: none;
+}
+-->

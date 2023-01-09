@@ -46,7 +46,7 @@
                   field.label
                 }}:
                 </label>
-                <Dropdown :name=field.name :title="ticketForm[field.name].fullName" :items="techItems" cols="8"
+                <Dropdown2 :name=field.name :title="ticketForm[field.name].fullName" :items="techItems" cols="8"
                   :handler="dropdownHandler" byProp="fullName" />
               </div>
               <div v-else-if="field.type === 'dropdown'" class="mb-3 row align-items-center">
@@ -54,7 +54,7 @@
                   field.label
                 }}:
                 </label>
-                <Dropdown :name=field.name :title="ticketForm[field.name]" :items="JSON.parse(field.options)" cols="8"
+                <Dropdown2 :name=field.name :title="ticketForm[field.name]" :items="JSON.parse(field.options)" cols="8"
                   :handler="dropdownHandler" />
               </div>
               <div v-else-if="field.name === 'customerType'" class="mb-3 row align-items-center">
@@ -145,7 +145,7 @@
                   <i :class="field.icon"></i>
                   {{ field.label }}:
                 </label>
-                <Dropdown 
+                <Dropdown2 
                   :name="field.name" 
                   :title="ticketForm[field.name]" 
                   :items="JSON.parse(field.options)" 
@@ -181,12 +181,12 @@
 <script>
 import { storeX } from "../../store/index";
 import TypeAhead from "../../components/TypeAhead.vue"
-import Dropdown from "../../components/Dropdown.vue"
+import Dropdown2 from "../../components/Dropdown2.vue"
 import DatePicker from '@vuepic/vue-datepicker';
 
 export default {
   name: 'NewCustomerPage',
-  components: { TypeAhead, Dropdown, DatePicker },
+  components: { TypeAhead, Dropdown2, DatePicker },
   data: () => ({
     customerItems: [],
     techItems: ['Select Technician'],

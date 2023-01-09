@@ -1,16 +1,10 @@
 <template>
   <div>
     <div class="row align-items-center">
-      <div class="col-6 offset-1 title">New Customer</div>
-      <div class="col-5">
+      <div class="col-9 offset-1 title">New Customer</div>
+      <div class="col-2">
         <button type="button" class="btn btn-primary" v-on:click="createCustomer(customerForm)">
-          New Customer
-        </button>
-        <button type="button" class="btn btn-secondary" v-on:click="print(customerForm)">
-          TEST BUTTON 2
-        </button>
-        <button type="button" class="btn btn-success" v-on:click="print(customerForm)">
-          TEST BUTTON 3
+          Create Customer
         </button>
       </div>
     </div>
@@ -18,7 +12,6 @@
       <div class="row align-items-top">
         <div class="cols-12 sub-title">BASIC INFO</div>
         <div class="col-6">
-
           <div v-for="(field, index) in customerFields.left" :key="field + index">
             <div v-if="!field.show"></div>
             <Form v-else-if="field.name === 'phone'" class="mb-3 row align-items-center">
@@ -26,7 +19,7 @@
                 <i :class="field.icon"></i>
                 {{ field.label }}:
               </label>
-              <Dropdown :title="customerForm['phoneType']" :items="phoneTypes" :handler="dropdownHandler"
+              <Dropdown2 :title="customerForm['phoneType']" :items="phoneTypes" :handler="dropdownHandler"
                 name='phoneType' cols="2-5" />
               <div class="col-sm-4">
                 <input :type="field.type" class="form-control" :id="field.label + index"
@@ -105,7 +98,7 @@
                 <i :class="field.icon"></i>
                 {{ field.label }}:
               </label>
-              <Dropdown :title="customerForm['country']" :items="countryItems" :handler="countryDropdownHandler" name='country'
+              <Dropdown2 :title="customerForm['country']" :items="countryItems" :handler="countryDropdownHandler" name='country'
                 cols="8" byProp="name" />
             </Form>
 
@@ -114,7 +107,7 @@
                 <i :class="field.icon"></i>
                 {{ field.label }}:
               </label>
-              <Dropdown :title="customerForm['state']" :items="stateItems" :handler="stateDropdownHandler" name='state'
+              <Dropdown2 :title="customerForm['state']" :items="stateItems" :handler="stateDropdownHandler" name='state'
                 cols="8" byProp="name" />
             </Form>
 
@@ -123,7 +116,7 @@
                 <i :class="field.icon"></i>
                 {{ field.label }}:
               </label>
-              <Dropdown :title="customerForm['city']" :items="cityItems" :handler="dropdownHandler" name='city'
+              <Dropdown2 :title="customerForm['city']" :items="cityItems" :handler="dropdownHandler" name='city'
                 cols="8" byProp="name" />
             </Form>
 
@@ -179,18 +172,25 @@
         </div>
       </div>
     </div>
+    <div class="row align-items-center">
+      <div class="col-2 offset-10 title" style="float: right">
+        <button type="button" class="btn btn-primary" v-on:click="createCustomer(customerForm)">
+          Create Customer
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
-import Dropdown from "../../components/Dropdown.vue"
+import Dropdown2 from "../../components/Dropdown2.vue"
 import { storeX } from "../../store/index";
 import * as yup from "yup";
 
 export default {
   name: 'NewCustomerPage',
-  components: { Form, Field, ErrorMessage, Dropdown },
+  components: { Form, Field, ErrorMessage, Dropdown2 },
   data() {
     const schema = yup.object().shape({
       firstName: yup
