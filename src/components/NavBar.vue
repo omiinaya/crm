@@ -7,8 +7,7 @@
     </div>
     <div class="col-7 search">
       <TypeAhead2 placeholder="Search all the things" :items="items" class="form-control simple-typeahead"
-        :itemProjection="myProjectionFunction" @selectItem="(e) => this.selected = e.id"
-        @input="searchHandler($event)" />
+        :itemProjection="myProjectionFunction" @selectItem="selectHandler($event)" @input="searchHandler($event)" />
     </div>
     <div class="col-2 topBar">
       <li class="nav-item rightBar">
@@ -70,14 +69,22 @@ export default {
 
       this.searchFilter = value;
 
-      storeX.customers.forEach((item, i) => {
+      for (let i = 0; i < storeX.customers.length; i++) {
+        const item = storeX.customers[i];
         item.customerId = i;
-      });
+      }
 
-      console.log(storeX.customers)
+      for (let i = 0; i < storeX.tickets.length; i++) {
+        const item = storeX.tickets[i];
+        item.ticketId = i;
+      }
+
+      for (let i = 0; i < storeX.assets.length; i++) {
+        const item = storeX.assets[i];
+        item.assetId = i;
+      }
 
       this.items = [...storeX.customers, ...storeX.tickets, ...storeX.assets]
-      //console.log(this.items)
     },
     logOut() {
       this.$store.dispatch('auth/logout');
@@ -95,8 +102,22 @@ export default {
       if ("firstName" in item) {
         return `Customer: ${item.firstName} ${item.lastName}`;
       }
+    },
+    selectHandler(e) {
+      if (e.customerId) {
+        this.selected = e.customerId;
+        console.log(this.selected);
+      }
 
+      if (e.assetId) {
+        this.selected = e.assetId;
+        console.log(this.selected);
+      }
 
+      if (e.ticketId) {
+        this.selected = e.ticketId;
+        console.log(this.selected);
+      }      
     }
   },
   watch: {
