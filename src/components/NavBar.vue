@@ -69,8 +69,15 @@ export default {
       storeX.loadTicketData();
 
       this.searchFilter = value;
+
+      storeX.customers.forEach((item, i) => {
+        item.customerId = i;
+      });
+
+      console.log(storeX.customers)
+
       this.items = [...storeX.customers, ...storeX.tickets, ...storeX.assets]
-      console.log(this.items)
+      //console.log(this.items)
     },
     logOut() {
       this.$store.dispatch('auth/logout');
@@ -88,8 +95,8 @@ export default {
       if ("firstName" in item) {
         return `Customer: ${item.firstName} ${item.lastName}`;
       }
-      
-      
+
+
     }
   },
   watch: {

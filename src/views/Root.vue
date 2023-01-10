@@ -13,15 +13,15 @@
             <li v-for="(crumb, index) in storeX.history" :key="storeX.history + index" class="breadcrumb-item"
               v-on:click="updateNavigation(crumb)">
               {{
-                  crumb === storeX.history[storeX.history.length - 1]
-                    ? crumb.view !== "Customer"
-                      ? crumb.view !== "Ticket"
-                        ? crumb.view
-                        : `#${storeX.navigation.ticketId/*.toString().padStart(5, "0")*/}`
-                      : `${storeX.customer.name}` //customer
-                    : crumb.view !== "Ticket"
-                      ? crumb.view !== "Customer" ? `⯇ ${crumb.view}` : `⯇ ${storeX.customer.name}`
-                      : `⯇ #${storeX.history[storeX.history.length - 2].ticketId/*.toString().padStart(5, "0")*/}`
+  crumb === storeX.history[storeX.history.length - 1]
+  ? crumb.view !== "Customer"
+    ? crumb.view !== "Ticket"
+      ? crumb.view
+      : `#${storeX.navigation.ticketId/*.toString().padStart(5, "0")*/}`
+    : `${storeX.customer.name}` //customer
+  : crumb.view !== "Ticket"
+    ? crumb.view !== "Customer" ? `⯇ ${crumb.view}` : `⯇ ${storeX.customer.name}`
+    : `⯇ #${storeX.history[storeX.history.length - 2].ticketId/*.toString().padStart(5, "0")*/}`
               }}
             </li>
           </ol>
@@ -81,6 +81,14 @@ export default defineComponent({
     storeX.navigation.view = route.query.view
     storeX.navigation.customerId = route.query.customerId
     storeX.navigation.ticketId = route.query.ticketId
+    
+    //action on backpage
+    window.onpopstate = function () {
+      const history = storeX.history;
+      history[history.length] = history[0];
+      history.shift()
+      localStorage.setItem('history', JSON.stringify(storeX.history));
+    }; history.pushState({}, '');
   },
   watch: {
     $route(to) {
