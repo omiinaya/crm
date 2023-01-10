@@ -80,9 +80,16 @@ export default {
       if ("assetSerial" in item) {
         return `Asset: ${item.assetSerial}`;
       }
+
+      if ("email" in item) {
+        return `Customer: ${item.firstName} ${item.lastName} - ${item.email} - ${item.phone}`;
+      }
+
       if ("firstName" in item) {
         return `Customer: ${item.firstName} ${item.lastName}`;
       }
+      
+      
     }
   },
   watch: {

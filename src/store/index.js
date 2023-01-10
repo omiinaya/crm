@@ -116,25 +116,28 @@ export const storeX = reactive({
   async loadCustomerData() {
     const request = await CustomerService.getCustomers()
     const data = await request.data;
-    this.customers = await data;
-
-    //may be unnecessary here. double check.
-    this.customers.forEach(async customer => {
-      //get primary phone number of each customer
+    const promises = data.map(customer => {
       const phoneId = customer.primaryPhone;
-      const phoneRes = await this.loadPhoneDataById(phoneId);
+      const addressId = customer.primaryAddress;
+      return Promise.all([
+        this.loadPhoneDataById(phoneId),
+        this.loadLocationDataById(addressId),
+      ]);
+    });
+    const responses = await Promise.all(promises);
+    data.forEach((customer, index) => {
+      const phoneRes = responses[index][0];
       const primaryPhone = phoneRes[0].number;
-
-      //get primary address number of each customer
-      const addressId = customer.primaryAddress
-      const addressRes = await this.loadLocationDataById(addressId);
-      const customerAddress = Object.values(addressRes[0]).slice(1, 7).join(', '); //gets address
-
+      const addressRes = responses[index][1];
+      const customerAddress = Object.values(addressRes[0]).slice(1, 7).join(', ');
       customer.phone = primaryPhone;
       customer.address = customerAddress;
-      customer.name = `${customer.firstName} ${customer.lastName}`
-    })
-
+      customer.name = `${customer.firstName} ${customer.lastName}`;
+    });
+    // Wait for the phone number data to be received
+    await Promise.all(data.map(d => this.loadPhoneDataById(d.primaryPhone)));
+    // After the phone number data is received, assign the data to this.customers
+    this.customers = data;
     this.formatDate(this.customers);
   },
 
