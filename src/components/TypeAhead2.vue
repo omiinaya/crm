@@ -212,7 +212,7 @@
 	}
 	.simple-typeahead .simple-typeahead-list {
 		position: absolute;
-		width: 100%;
+		width: 230%;
 		border: none;
 		max-height: 400px;
 		overflow-y: auto;

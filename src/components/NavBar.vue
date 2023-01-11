@@ -5,19 +5,19 @@
         Mobile Me IT Inc.
       </button>
     </div>
-    <div class="col-7 search">
+    <div class="col-1-5 search">
       <TypeAhead2 placeholder="Search all the things" :items="items" class="form-control simple-typeahead"
         :itemProjection="myProjectionFunction" @selectItem="selectHandler($event)" @input="searchHandler($event)" />
     </div>
-    <div class="col-2 topBar">
-      <li class="nav-item rightBar">
-        <i class="bi bi-person-circle"></i>
-        {{ this.$store.state.auth.user.name }}
-      </li>
+    <div class="col-2 offset-5 topBar">
       <li class="nav-item rightBar">
         <router-link to="#" class="nav-link" @click="logOut()">
           <i class="bi bi-box-arrow-in-right"></i>
         </router-link>
+      </li>
+      <li class="nav-item rightBar">
+        <i class="bi bi-person-circle"></i>
+        {{ this.$store.state.auth.user.name }}
       </li>
     </div>
   </div>
@@ -63,28 +63,29 @@ export default {
     async searchHandler(input) {
       const value = input.target.value;
 
-      storeX.loadCustomerData();
-      storeX.loadAssetData();
-      storeX.loadTicketData();
+      try {
+        await Promise.all([storeX.loadCustomerData(), storeX.loadAssetData(), storeX.loadTicketData()])
+        this.searchFilter = value;
 
-      this.searchFilter = value;
+        storeX.customers = storeX.customers.map((item, i) => {
+          item.customerId = i;
+          return item;
+        });
 
-      for (let i = 0; i < storeX.customers.length; i++) {
-        const item = storeX.customers[i];
-        item.customerId = i;
+        storeX.tickets = storeX.tickets.map((item, i) => {
+          item.ticketId = i;
+          return item;
+        });
+
+        storeX.assets = storeX.assets.map((item, i) => {
+          item.assetId = i;
+          return item;
+        });
+
+        this.items = [...storeX.customers, ...storeX.tickets, ...storeX.assets]
+      } catch (err) {
+        // handle errors here
       }
-
-      for (let i = 0; i < storeX.tickets.length; i++) {
-        const item = storeX.tickets[i];
-        item.ticketId = i;
-      }
-
-      for (let i = 0; i < storeX.assets.length; i++) {
-        const item = storeX.assets[i];
-        item.assetId = i;
-      }
-
-      this.items = [...storeX.customers, ...storeX.tickets, ...storeX.assets]
     },
     logOut() {
       this.$store.dispatch('auth/logout');
@@ -117,7 +118,7 @@ export default {
       if (e.ticketId) {
         this.selected = e.ticketId;
         console.log(this.selected);
-      }      
+      }
     }
   },
   watch: {
@@ -193,6 +194,7 @@ export default {
 
 .rightBar {
   font-size: 18px;
+  float: right;
 }
 
 .test {

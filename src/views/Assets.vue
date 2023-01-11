@@ -101,6 +101,10 @@ export default defineComponent({
   padding: 0;
 }
 
+input {
+  width: 100%;
+}
+
 input:focus {
   outline: none;
 }

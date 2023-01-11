@@ -114,32 +114,45 @@ export const storeX = reactive({
   },
 
   async loadCustomerData() {
-    const request = await CustomerService.getCustomers()
-    const data = await request.data;
-    const promises = data.map(customer => {
-      const phoneId = customer.primaryPhone;
-      const addressId = customer.primaryAddress;
-      return Promise.all([
-        this.loadPhoneDataById(phoneId),
-        this.loadLocationDataById(addressId),
-      ]);
-    });
-    const responses = await Promise.all(promises);
-    data.forEach((customer, index) => {
-      const phoneRes = responses[index][0];
-      const primaryPhone = phoneRes[0].number;
-      const addressRes = responses[index][1];
-      const customerAddress = Object.values(addressRes[0]).slice(1, 7).join(', ');
-      customer.phone = primaryPhone;
-      customer.address = customerAddress;
-      customer.name = `${customer.firstName} ${customer.lastName}`;
-    });
-    // Wait for the phone number data to be received
-    await Promise.all(data.map(d => this.loadPhoneDataById(d.primaryPhone)));
-    // After the phone number data is received, assign the data to this.customers
-    this.customers = data;
-    this.formatDate(this.customers);
+    try{
+      const customerRequest = await CustomerService.getCustomers();
+      const data = customerRequest.data;
+      const responses = []
+      for (let i = 0; i < data.length; i++) {
+        const customer = data[i];
+        const phoneId = customer.primaryPhone;
+        const addressId = customer.primaryAddress;
+        const [phoneRes, addressRes] = await Promise.all([
+          this.loadPhoneDataById(phoneId),
+          this.loadLocationDataById(addressId),
+        ])
+        responses.push([phoneRes, addressRes])
+      }
+      for (let i = 0; i < data.length; i++) {
+        const customer = data[i];
+        const phoneRes = responses[i][0];
+        if(!phoneRes || !phoneRes[0] || !phoneRes[0].number) {
+           throw new Error('Invalid phone response');
+        }
+        const primaryPhone = phoneRes[0].number;
+        const addressRes = responses[i][1];
+        if(!addressRes || !addressRes[0]) {
+           throw new Error('Invalid address response');
+        }
+        const customerAddress = Object.values(addressRes[0]).slice(1, 7).join(', ');
+        customer.phone = primaryPhone;
+        customer.address = customerAddress;
+        customer.name = `${customer.firstName} ${customer.lastName}`;
+      }
+      // After the phone number data is received, assign the data to this.customers
+      this.customers = data;
+      this.formatDate(this.customers);
+    } catch(error) {
+       // handle error here
+       console.error(error);
+    }
   },
+  
 
   async loadTicketData() {
     const tickets = await TicketService.getTickets();
