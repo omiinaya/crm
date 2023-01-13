@@ -114,7 +114,7 @@ export const storeX = reactive({
   },
 
   async loadCustomerData() {
-    try{
+    try {
       const customerRequest = await CustomerService.getCustomers();
       const data = customerRequest.data;
       const responses = []
@@ -131,28 +131,33 @@ export const storeX = reactive({
       for (let i = 0; i < data.length; i++) {
         const customer = data[i];
         const phoneRes = responses[i][0];
-        if(!phoneRes || !phoneRes[0] || !phoneRes[0].number) {
-           throw new Error('Invalid phone response');
-        }
-        const primaryPhone = phoneRes[0].number;
-        const addressRes = responses[i][1];
-        if(!addressRes || !addressRes[0]) {
-           throw new Error('Invalid address response');
-        }
-        const customerAddress = Object.values(addressRes[0]).slice(1, 7).join(', ');
-        customer.phone = primaryPhone;
-        customer.address = customerAddress;
         customer.name = `${customer.firstName} ${customer.lastName}`;
+        customer.customerId = customer.id;
+        if (phoneRes && phoneRes[0] && phoneRes[0].number) {
+          const primaryPhone = phoneRes[0].number || '';
+          customer.phone = primaryPhone;
+        }
+
+        const addressRes = responses[i][1];
+        if (addressRes && addressRes[0]) {
+          const address1 = addressRes[0]['address1']
+
+          if (address1) {
+            customer.address = Object.values(addressRes[0]).slice(1, 7).join(', ');
+          } else {
+            customer.address = '';
+          }
+        }
+        this.customers = data;
       }
-      // After the phone number data is received, assign the data to this.customers
-      this.customers = data;
+
       this.formatDate(this.customers);
-    } catch(error) {
-       // handle error here
-       console.error(error);
+    } catch (error) {
+      // handle error here
+      console.error(error);
     }
   },
-  
+
 
   async loadTicketData() {
     const tickets = await TicketService.getTickets();
@@ -168,8 +173,10 @@ export const storeX = reactive({
 
     for (const ticket of this.tickets) {
       const data = await this.loadAssetByTicketId(ticket.id);
-      ticket.assetSerial = data[0].assetSerial;
       ticket.customerName = customerLookup[ticket.ticketCustomerId];
+      ticket.ticketId = ticket.id;
+      if (!data.length) return;
+      ticket.ticketAssetSerial = data[0].assetSerial;
     }
     this.formatDate(this.tickets);
   },
@@ -182,6 +189,7 @@ export const storeX = reactive({
     this.assets.forEach(async asset => {
       const customer = await this.loadCustomerByCustomerId(asset.assetCustomerId)
       asset.customerName = customer.name;
+      asset.assetId = asset.id;
     })
   },
 
@@ -189,16 +197,26 @@ export const storeX = reactive({
     const request = await CustomerService.getCustomerById(id)
     const data = await request.data[0];
 
-    const primaryPhone = await this.loadPhoneDataById(data.primaryPhone);
-    const phoneNumber = primaryPhone[0].number;
-
-    const primaryAddress = await this.loadLocationDataById(data.primaryAddress);
-    const customerAddress = Object.values(primaryAddress[0]).slice(1, 7).join(', '); //gets address
-
     data.name = `${data.firstName} ${data.lastName}`;
     data.createdAt = moment(data.createdAt).format('MMMM-DD-YYYY');
-    data.primaryPhone = phoneNumber;
-    data.primaryAddress = customerAddress;
+
+    const primaryPhone = await this.loadPhoneDataById(data.primaryPhone);
+    if (primaryPhone.length) {
+      const phoneNumber = primaryPhone[0].number;
+      data.primaryPhone = phoneNumber;
+    }
+
+    const primaryAddress = await this.loadLocationDataById(data.primaryAddress);
+    console.log(primaryAddress)
+    const address1 = primaryAddress[0]['address1'];
+
+    if (address1) {
+      const customerAddress = Object.values(primaryAddress[0]).slice(1, 7).join(', '); //gets address
+      data.primaryAddress = customerAddress;
+    } else {
+      data.primaryAddress = '';
+    }
+
     this.customer = data;
     return data;
   },

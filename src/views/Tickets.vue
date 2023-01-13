@@ -44,7 +44,7 @@ export default defineComponent({
         { value: "ticketDesc", text: "DESCRIPTION", sortable: true },
         { value: "ticketTech", text: "TECHNICIAN", sortable: true },
         { value: "createdAt", text: "CREATED", sortable: true },
-        { value: "assetSerial", text: "SERIAL", sortable: true },
+        { value: "ticketAssetSerial", text: "SERIAL", sortable: true },
         { value: "ticketStatus", text: "STATUS", sortable: true },
       ],
       searchFilter: null,
@@ -103,6 +103,7 @@ export default defineComponent({
   async created() {
     storeX.loadTicketData()
     storeX.loadCustomerData()
+    console.log(storeX.tickets)
   }
 });
 

@@ -177,6 +177,9 @@
         <button type="button" class="btn btn-primary" v-on:click="createCustomer(customerForm)">
           Create Customer
         </button>
+        <button type="button" class="btn btn-primary" v-on:click="testing12345()">
+          test
+        </button>
       </div>
     </div>
   </div>
@@ -245,6 +248,9 @@ export default {
     };
   },
   methods: {
+    testing12345() {
+      console.log(this.customerForm.country)
+    },
     print(a) {
       console.log(a)
     },

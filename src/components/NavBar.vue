@@ -67,24 +67,10 @@ export default {
         await Promise.all([storeX.loadCustomerData(), storeX.loadAssetData(), storeX.loadTicketData()])
         this.searchFilter = value;
 
-        storeX.customers = storeX.customers.map((item, i) => {
-          item.customerId = i;
-          return item;
-        });
-
-        storeX.tickets = storeX.tickets.map((item, i) => {
-          item.ticketId = i;
-          return item;
-        });
-
-        storeX.assets = storeX.assets.map((item, i) => {
-          item.assetId = i;
-          return item;
-        });
-
-        this.items = [...storeX.customers, ...storeX.tickets, ...storeX.assets]
+        this.items = [...storeX.tickets, ...storeX.customers, ...storeX.assets]
+        console.log(this.filteredCustomers)
       } catch (err) {
-        // handle errors here
+        console.log(err)
       }
     },
     logOut() {
@@ -92,16 +78,17 @@ export default {
       this.$router.push('/login');
     },
     myProjectionFunction(item) {
-      if ("assetSerial" in item) {
+
+      if ("ticketId" in item) {
+        return `Ticket: #${item.ticketId} - ${item.customerName} - ${item.ticketDesc}`;
+
+      }
+      else if ("assetId" in item) {
         return `Asset: ${item.assetSerial}`;
-      }
 
-      if ("email" in item) {
+      }
+      else if ("customerId" in item) {
         return `Customer: ${item.firstName} ${item.lastName} - ${item.email} - ${item.phone}`;
-      }
-
-      if ("firstName" in item) {
-        return `Customer: ${item.firstName} ${item.lastName}`;
       }
     },
     selectHandler(e) {
@@ -138,7 +125,7 @@ export default {
       const filtered = this.items.filter(el => {
         const input = this.searchFilter.toLowerCase();
 
-        const id = el.id;
+        const ticketId = el.ticketId || '';
         const name = `${el.firstName} ${el.lastName}` || '';
         const email = el.email || '';
         const phone = el.phone || '';
@@ -149,6 +136,7 @@ export default {
         const status = el.ticketStatus || '';
 
         const ifName = name.toLowerCase().includes(input);
+        const ifTicketId = ticketId.toString().includes(input);
         const ifCustomer = customer.toLowerCase().includes(input)
         const ifEmail = email.toLowerCase().includes(input);
         const ifPhone = phone.includes(input);
@@ -156,10 +144,9 @@ export default {
         const ifBrand = brand.toLowerCase().includes(input);
         const ifType = type.toLowerCase().includes(input);
 
-        const ifId = id.toString().includes(input);
         const ifStatus = status.toLowerCase().includes(input);
 
-        const byCondition = ifId || ifName || ifCustomer || ifEmail || ifPhone || ifStatus || ifSerial || ifBrand || ifType;
+        const byCondition = ifTicketId || ifName || ifCustomer || ifEmail || ifPhone || ifStatus || ifSerial || ifBrand || ifType;
 
         return byCondition;
 

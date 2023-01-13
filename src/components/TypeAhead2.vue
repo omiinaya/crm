@@ -1,11 +1,11 @@
 <template>
-	<div v-if="initialized" :id="wrapperId" class="simple-typeahead">
+	<div v-show="initialized" :id="wrapperId" class="simple-typeahead">
 		<input ref="inputRef" :id="inputId" class="simple-typeahead-input" type="text" :placeholder="placeholder"
 			v-model="input" @input="onInput" @focus="onFocus" @blur="onBlur" @keydown.down.prevent="onArrowDown"
 			@keydown.up.prevent="onArrowUp" @keydown.enter.prevent="selectCurrentSelection"
 			@keydown.tab.prevent="selectCurrentSelectionTab" autocomplete="off" v-bind="$attrs" />
-		<div v-if="isListVisible" class="simple-typeahead-list">
-			<div class="simple-typeahead-list-header" v-if="$slots['list-header']">
+		<div v-show="isListVisible" class="simple-typeahead-list">
+			<div class="simple-typeahead-list-header" v-show="$slots['list-header']">
 				<slot name="list-header"></slot>
 			</div>
 			<div class="simple-typeahead-list-item"
@@ -13,14 +13,14 @@
 				v-for="(item, index) in filteredItems" :key="index" @mousedown.prevent @click="selectItem(item)"
 				@mouseenter="currentSelectionIndex = index">
 				<span class="simple-typeahead-list-item-text" :data-text="itemProjection(item)"
-					v-if="$slots['list-item-text']">
+					v-show="$slots['list-item-text']">
 					<slot name="list-item-text" :item="item" :itemProjection="itemProjection"
 						:boldMatchText="boldMatchText"></slot>
 				</span>
 				<span class="simple-typeahead-list-item-text" :data-text="itemProjection(item)"
-					v-html="boldMatchText(itemProjection(item))" v-else></span>
+					v-html="boldMatchText(itemProjection(item))" v-show="!$slots['list-item-text']"></span>
 			</div>
-			<div class="simple-typeahead-list-footer" v-if="$slots['list-footer']">
+			<div class="simple-typeahead-list-footer" v-show="$slots['list-footer']">
 				<slot name="list-footer"></slot>
 			</div>
 		</div>
@@ -56,7 +56,7 @@ export default /*#__PURE__*/ defineComponent({
 		},
 		minInputLength: {
 			type: Number,
-			default: 2,
+			default: 1,
 			validator: (prop) => {
 				return prop >= 0;
 			},
@@ -177,8 +177,10 @@ export default /*#__PURE__*/ defineComponent({
 			const regexp = new RegExp(this.escapeRegExp(this.input), 'i');
 			return this.items.filter((item) => {
 				const projected = this.itemProjection(item);
+				if (!projected) return;
 				const noTitle = projected.split(': ')[1];
 				const matching = noTitle.match(regexp)
+				console.log(regexp)
 				return matching;
 			});
 		},
@@ -208,12 +210,12 @@ export default /*#__PURE__*/ defineComponent({
 
 .simple-typeahead .simple-typeahead-list {
 	position: absolute;
-	width: 230%;
+	width: 250%;
 	border: none;
-	max-height: 400px;
+	max-height: 600px;
 	overflow-y: auto;
 	border-bottom: 0.1rem solid #d1d1d1;
-	z-index: 9;
+	z-index: 9 !important;
 }
 
 .simple-typeahead .simple-typeahead-list .simple-typeahead-list-header {
