@@ -133,6 +133,9 @@
               <button class="btn" v-on:click="edit('assets')">
                 <i class="bi bi-pencil"></i>
               </button>
+              <!--
+              <Modal title="test" body="body" />
+              -->
             </div>
             <EasyDataTable :headers="headers" :items="ticketAssets" theme-color="#1d90ff"
               table-class-name="customize-table-details" header-text-direction="left" body-text-direction="left"
@@ -254,11 +257,12 @@ import { storeX } from "../../store/index";
 import Loading from "../../components/Loading.vue";
 import Dropdown from "../../components/Dropdown.vue";
 import Dropdown2 from "../../components/Dropdown2.vue";
+//import Modal from "../../components/Modal.vue";
 import moment from 'moment';
 
 export default {
   name: 'CustomerDetailsPage',
-  components: { Loading, Dropdown, Dropdown2 },
+  components: { Loading, Dropdown, Dropdown2/*, Modal*/ },
   data: () => ({
     storeX,
     ticket: {
