@@ -17,6 +17,10 @@ class TicketService {
     return axios.get(API_URL + `id/${ticketId}`, { headers: authHeader() });
   }
 
+  getTicketByTechnician(ticketName) {
+    return axios.get(API_URL + `technician/name/${ticketName}`, { headers: authHeader() });
+  }
+
   getTicketFields() {
     return axios.get(API_URL + 'fields/', { headers: authHeader() });
   }

@@ -1,54 +1,4 @@
 <template>
-  <!--
-<div class="row">
-  <div class="welcome">Welcome!</div>
-</div>
-<div class="row">
-  <div class="get-started section">
-    <div class="menu text-center">
-      Get Started
-      <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-        <div v-for="(action, index) in homeActions" :key="action + index">
-          <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-            <button type="button" class="btn btn-secondary btn-lg actions custom-left">
-              <i :class="action.icon"></i>
-            </button>
-            <button type="button" class="btn btn-success btn-lg actions custom-right"
-              v-on:click="storeX.updateNavigation({ view: action.url })">
-              + {{ action.title }}
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-6 menu section text-center">
-    <div class="title">
-      Reminders
-    </div>
-    <br />
-    <div class="details">
-     
-    </div>
-  </div>
-  <div class="col-2-5 menu section text-center">
-    <div class="title">
-      Summary
-    </div>
-    <br />
-    <div class="details">
-      <ul>
-        <li>
-          Total Tickets: {{ totalTickets }}
-        </li>
-        <li>
-          Open Tickets: {{ openTickets }}
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
--->
   <div class="row">
     <div class="col-10 offset-1 top">
       Welcome
@@ -69,9 +19,19 @@
           </div>
         </div>
         <div class="col-6 section">
-          <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="items" theme-color="#1d90ff"
-            table-class-name="customize-table" header-text-direction="left" body-text-direction="left">
-
+          <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="storeX.tickets"
+            theme-color="#1d90ff" table-class-name="customize-table" header-text-direction="left"
+            body-text-direction="left">
+            <template #item-ticketTitle="{ ticketTitle, id, ticketCustomerId }">
+              <button type="button" class="template-btn btn-lg" v-on:click="openTicket(id, ticketCustomerId)">
+                {{ ticketTitle }}
+              </button>
+            </template>
+            <template #item-customerName="{ customerName, ticketCustomerId }">
+              <button type="button" class="template-btn btn-lg" v-on:click="openCustomer(ticketCustomerId)">
+                {{ customerName }}
+              </button>
+            </template>
           </EasyDataTable>
         </div>
         <div class="col-sm-2-5-r section text-center">
@@ -100,11 +60,11 @@ export default defineComponent({
   data() {
     return {
       headers: [
-        { value: "id", text: "TICKET #", sortable: true },
-        { value: "name", text: "TITLE", sortable: true },
-        { value: "email", text: "CUSTOMER", sortable: true },
-        { value: "phone", text: "DESCRIPTION", sortable: true },
-        { value: "createdAt", text: "STATUS", sortable: true }
+        { value: "id", text: "#", sortable: true },
+        { value: "ticketTitle", text: "TITLE", sortable: true },
+        { value: "customerName", text: "CUSTOMER", sortable: true },
+        { value: "ticketDesc", text: "DESCRIPTION", sortable: true },
+        { value: "ticketStatus", text: "STATUS", sortable: true }
       ],
       items: [],
       itemsSelected: null,
@@ -120,20 +80,46 @@ export default defineComponent({
     },
     homeActions() {
       return storeX.home.actions;
-    }
+    },
+  },
+  methods: {
+    async openTicket(id, ticketCustomerId) {
+      this.storeX.updateNavigation({
+        view: 'Ticket',
+        ticketId: id,
+        customerId: ticketCustomerId
+      })
+    },
+    async openCustomer(id) {
+      this.storeX.updateNavigation({
+        view: 'Customer',
+        customerId: id
+      })
+    },
   },
   created() {
     storeX.getActionItems()
     storeX.loadTicketData()
+  },
+  filteredTickets() {
+    const name = this.$store.state.auth.user.name;
+    return storeX.tickets.filter(ticket => ticket.ticketTech === name)
   }
 });
 </script>
 
 <style scoped>
 
+.template-btn {
+  font-size: 14px;
+  color: #c1cad4;
+  background: transparent;
+  padding: 0;
+}
 .details {
   font-size: 16px;
 }
+
 .col-sm-2-5-l {
   flex: 0 0 23.0625%;
   max-width: 23.0625%;

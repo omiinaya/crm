@@ -89,6 +89,25 @@ exports.findByCustomerId = (req, res) => {
     });
 };
 
+exports.findByTechnician = (req, res) => {
+  //todo: use ids instead of names
+  const name = req.params.name;
+  console.log(name)
+
+  Ticket.findAll({
+    where: { ticketTech: name },
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials.",
+      });
+    });
+};
+
 exports.update = (req, res) => {
   const id = req.params.id;
 
