@@ -2,18 +2,18 @@
   <div class="row">
     <div class="col-11 offset-1">
       <div clas="row">
-        <div class="col-12">
-          <div class="row">
-            <div class="col-8 top">#{{ ticket.number }}</div>
-            <div class="col-1 top">
+        <div class="col-11 top">
+          <div style="display: flex; justify-content: space-between;">
+            <div class="col-10 top">#{{ ticket.number }}</div>
+            <div>
               <Dropdown title="New" :items="newOptions" cols="12" :handler="newHandler" />
             </div>
-            <div class="col-1 top">
+            <div>
               <button type="button" class="btn btn-success" v-on:click="print(customerForm)">
                 test 2
               </button>
             </div>
-            <div class="col-1 top">
+            <div>
               <button type="button" class="btn btn-success" v-on:click="print(customerForm)">
                 test 3
               </button>
@@ -192,20 +192,25 @@
               <i class="bi bi-chat-dots"></i>
               Communications
             </div>
-            <div class="content">
-              <div class="row mt-4">
-                <Dropdown2 :title="com.comVis" :items="comVis" cols="2" :handler="comVisHandler" />
-                <Dropdown2 :title="com.comType" :items="comTypes" cols="2" :handler="comTypeHandler" />
-                <div class="col-1 offset-7" style="display: flex">
-                  <button class="btn" v-on:click="edit('assets')">
+            <div class="row">
+              <div class="col-12 top">
+                <div class="com-top">
+                  <div class="col-11" style="display: flex;">
+                    <Dropdown2 :title="com.comVis" :items="comVis" cols="2" :handler="comVisHandler" />
+                    <Dropdown2 :title="com.comType" :items="comTypes" cols="2" :handler="comTypeHandler" />
+                  </div>
+                  <button class="com-btn" v-on:click="edit('assets')">
                     <i class="bi bi-clipboard"></i>
                   </button>
 
-                  <button class="btn" v-on:click="edit('assets')">
+                  <button class="com-btn" v-on:click="edit('assets')">
                     <i class="bi bi-paperclip"></i>
                   </button>
                 </div>
               </div>
+            </div>
+            <div class="content">
+
             </div>
             <div class="content">
               <div class="col-sm-12">
@@ -464,6 +469,22 @@ export default {
 </script>
   
 <style scoped>
+.com-top {
+  display: flex; 
+  justify-content: space-between;
+}
+
+.com-top > * > * {
+  margin-right: 15px;
+}
+
+.com-btn {
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent;
+  font-size: 16px;
+}
+
 .test {
   background: #1f1f1f;
   padding: 25px;
@@ -509,7 +530,6 @@ export default {
   width: 100%;
   font-size: 16px;
   color: white;
-  padding: 0;
 }
 
 .btn::after {
@@ -523,7 +543,7 @@ export default {
 }
 
 .title {
-  font-size: 22px;
+  font-size: 20px;
 }
 
 .header {
@@ -548,7 +568,7 @@ ul {
   padding-top: 25px;
   padding-bottom: 0;
   padding-top: 0 !important;
-  font-size: 32px;
+  font-size: 24px;
 }
 
 .section {

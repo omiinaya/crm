@@ -3,7 +3,7 @@
     <div class="col-11 offset-1">
       <div clas="row">
         <div class="col-11 top">
-          <div style="display: flex; justify-content: space-between;">
+          <div class="top-spacing">
             <div>{{ storeX.customer.name }}</div>
             <div>
               <button type="button" class="btn btn-primary" v-on:click="createTicket(ticketForm)">
@@ -175,7 +175,14 @@ export default {
 </script>
   
 <style scoped>
+.top-spacing {
+  display: flex; 
+  justify-content: space-between;
+}
 
+.top-spacing > * > * :not(:last-child) {
+  margin-right: 15px !important;
+}
 .bi {
   padding-right: 5px !important;
 }
