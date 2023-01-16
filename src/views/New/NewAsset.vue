@@ -11,32 +11,48 @@
     <div class="col-10 offset-1 form">
       <div class="col-6">
         <div v-for="(field, index) in assetFields" :key="field + index">
-          <div v-if="!field.show">
-          </div>
-          <div v-else-if="field.type === 'typeahead'" class="mb-3 row align-items-center">
-            <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
+          <div v-if="field.show && field.type === 'typeahead'" class="mb-3 row align-items-center">
+            <label :for="field.label + index" class="col-sm-3 col-form-label"><i :class="field.icon"></i> {{
               field.label
             }}:
             </label>
-            <div class="col-sm-6">
+            <div class="col-sm-4">
               <TypeAhead :placeholder="field.placeholder" :items="customerItems" class="form-control simple-typeahead"
                 @selectItem="(e) => this.assetForm['customerId'] = e.id" />
             </div>
           </div>
-          <div v-else-if="field.type === 'dropdown'" class="mb-3 row align-items-center">
-            <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
+          <div v-else-if="field.show && field.type === 'dropdown'" class="mb-3 row align-items-center">
+            <label :for="field.label + index" class="col-sm-3 col-form-label"><i :class="field.icon"></i> {{
               field.label
             }}:
             </label>
-            <Dropdown2 :name="field.name" :title="assetForm[field.name]" :items="JSON.parse(field.options)" cols="6"
+            <Dropdown2 cols="4" :name="field.name" :title="assetForm[field.name]" :items="JSON.parse(field.options)"
               :handler="dropdownHandler" />
           </div>
-          <div v-else class="mb-3 row align-items-center">
-            <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
+          <div v-else-if="field.show && field.name === 'assetSerial'" class="mb-3 row align-items-center">
+            <label :for="field.label + index" class="col-sm-3 col-form-label"><i :class="field.icon"></i> {{
               field.label
             }}:
             </label>
-            <div class="col-sm-6">
+            <div class="col-sm-4">
+              <input :type="field.type" class="form-control" :id="field.label + index" :placeholder="field.placeholder"
+                v-model="assetForm[field.name]" @input="warrantyHandler()" />
+            </div>
+            <div class="col-sm-5">
+              <div v-show="assetForm[field.name].length < 8 || assetForm[field.name].length > 8">
+                Enter a valid serial to check warranty.
+              </div>
+              <div v-show="assetForm[field.name].length === 8">
+                {{ warranty }}
+              </div>
+            </div>
+          </div>
+          <div v-else-if="field.show" class="mb-3 row align-items-center">
+            <label :for="field.label + index" class="col-sm-3 col-form-label"><i :class="field.icon"></i> {{
+              field.label
+            }}:
+            </label>
+            <div class="col-sm-4">
               <input :type="field.type" class="form-control" :id="field.label + index" :placeholder="field.placeholder"
                 v-model="assetForm[field.name]" />
             </div>
@@ -66,13 +82,24 @@ export default {
     assetFields: null,
     assetForm: {
       type: 'Laptop',
-      manufacturer: 'Lenovo'
+      manufacturer: 'Lenovo',
+      assetSerial: '',
     },
     customerItems: [],
     customerSelected: null,
+    warranty: null,
     storeX
   }),
   methods: {
+    async warrantyHandler() {
+      this.warranty = '';                                                             //resetting warranty state on input
+      const serial = this.assetForm['assetSerial'];                                   //grabbing input from input v-model
+      if (serial.length < 8) return;                                                  //checking if the input has at least 8 chars long
+
+      const warranty = await storeX.loadWarrantyData(serial);                         //requesting warranty data from lenovo
+      if (warranty[0] !== "In Warranty") return this.warranty = 'Not in Warranty';    //sending results to this.warranty
+      return this.warranty = 'In Warranty';
+    },
     dropdownHandler(type, name) {
       this.assetForm[name] = type
     },
@@ -94,12 +121,17 @@ export default {
         this.customerItems.push(customer);
       })
     },
+    async loadWarrantyData(serial) {
+      const request = await storeX.WarrantyService.getLenovoWarranty(serial);
+      const data = await request.data;
+      return data;
+    },
     async createAsset() {
       const newAsset = await storeX.AssetService.createAsset(this.assetForm);
       console.log(newAsset)
     },
-    testing() {
-      console.log(this.assetForm)
+    testing(e) {
+      console.log(e)
     }
   },
   created() {
@@ -119,6 +151,10 @@ export default {
 </script>
 
 <style scoped>
+.btn {
+  font-size: 14px;
+  color: white;
+}
 
 .title {
   margin-top: 25px;
@@ -130,7 +166,6 @@ export default {
   background: #1f1f1f;
   padding: 30px;
 }
-
 </style>
 
 <style>
