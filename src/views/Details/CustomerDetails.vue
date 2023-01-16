@@ -2,15 +2,14 @@
   <div class="row">
     <div class="col-11 offset-1">
       <div clas="row">
-        <div class="col-12 top">
-          <div class="row">
-            <div class="col-10">{{ storeX.customer.name }}</div>
-            <div class="col-2">
+        <div class="col-11 top">
+          <div style="display: flex; justify-content: space-between;">
+            <div>{{ storeX.customer.name }}</div>
+            <div>
               <button type="button" class="btn btn-primary" v-on:click="createTicket(ticketForm)">
                 New Ticket
               </button>
             </div>
-
           </div>
         </div>
       </div>
@@ -176,16 +175,15 @@ export default {
 </script>
   
 <style scoped>
+
 .bi {
   padding-right: 5px !important;
 }
 
 .btn {
-  
   font-size: 14px;
   color: #c1cad4;
-  margin: 10px;
-  margin-bottom: 0;
+  margin-bottom: 10px;
 }
 
 .template-btn {
@@ -219,13 +217,15 @@ ul {
 }
 
 .top {
-  padding: 25px;
+  padding: 20px;
+  padding-top: 0 !important;
   padding-bottom: 0;
-  font-size: 32px;
+  padding-left: 10px;
+  font-size: 24px;
 }
 
 .section {
-  margin-top: 25px;
+  margin-bottom: 25px;
   background: #1f1f1f;
   padding: 25px;
 }

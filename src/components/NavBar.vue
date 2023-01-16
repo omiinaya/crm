@@ -68,7 +68,6 @@ export default {
         this.searchFilter = value;
 
         this.items = [...storeX.tickets, ...storeX.customers, ...storeX.assets]
-        console.log(this.filteredCustomers)
       } catch (err) {
         console.log(err)
       }
@@ -115,43 +114,6 @@ export default {
         console.log(this.customerItems)
       },
       deep: true
-    }
-  },
-
-  computed: {
-    filteredCustomers() {
-      if (!this.searchFilter) return this.items;
-
-      const filtered = this.items.filter(el => {
-        const input = this.searchFilter.toLowerCase();
-
-        const ticketId = el.ticketId || '';
-        const name = `${el.firstName} ${el.lastName}` || '';
-        const email = el.email || '';
-        const phone = el.phone || '';
-        const customer = el.customerName || '';
-        const serial = el.assetSerial || '';
-        const brand = el.assetBrand || '';
-        const type = el.assetType || '';
-        const status = el.ticketStatus || '';
-
-        const ifName = name.toLowerCase().includes(input);
-        const ifTicketId = ticketId.toString().includes(input);
-        const ifCustomer = customer.toLowerCase().includes(input)
-        const ifEmail = email.toLowerCase().includes(input);
-        const ifPhone = phone.includes(input);
-        const ifSerial = serial.toLowerCase().includes(input);
-        const ifBrand = brand.toLowerCase().includes(input);
-        const ifType = type.toLowerCase().includes(input);
-
-        const ifStatus = status.toLowerCase().includes(input);
-
-        const byCondition = ifTicketId || ifName || ifCustomer || ifEmail || ifPhone || ifStatus || ifSerial || ifBrand || ifType;
-
-        return byCondition;
-
-      })
-      return filtered;
     }
   },
 }
