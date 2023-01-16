@@ -549,6 +549,7 @@ export default {
 .header {
   font-size: 18px;
   float: left;
+  margin-bottom: 25px;
 }
 
 .edit {

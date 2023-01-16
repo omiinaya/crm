@@ -4,7 +4,8 @@
       Welcome
       <div class="row">
         <div class="col-sm-2-5-l section text-center">
-          <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+          <div class="title">Actions</div>
+          <div class="action-group btn-group-vertical" role="group" aria-label="Vertical button group">
             <div v-for="(action, index) in homeActions" :key="action + index">
               <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                 <button type="button" class="btn btn-secondary btn-lg actions custom-left">
@@ -19,6 +20,7 @@
           </div>
         </div>
         <div class="col-6 section">
+          <div class="title text-center">Pending Tickets</div>
           <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="storeX.tickets"
             theme-color="#1d90ff" table-class-name="customize-table" header-text-direction="left"
             body-text-direction="left">
@@ -34,16 +36,22 @@
             </template>
           </EasyDataTable>
         </div>
-        <div class="col-sm-2-5-r section text-center">
-          <div class="details">
-            <ul>
-              <li>
-                Total Tickets: {{ totalTickets }}
-              </li>
-              <li>
-                Open Tickets: {{ openTickets }}
-              </li>
-            </ul>
+        <div class="col-sm-2-5-r section">
+          <div class="title text-center">Actions</div>
+          <div class="details row align-items-center mb-2">
+            <label class="col-sm-6">
+              <i class="bi bi-envelope"></i> Total Tickets:
+            </label>
+            <div class="col-sm-6">
+              {{ totalTickets }}
+            </div>
+
+            <label class="col-sm-6">
+              <i class="bi bi-envelope"></i> Open Tickets:
+            </label>
+            <div class="col-sm-6">
+              {{ openTickets }}
+            </div>
           </div>
         </div>
       </div>
@@ -109,15 +117,25 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.title {
+  font-size: 18px;
+}
+
+.action-group {
+  margin-top: 10px;
+}
+
+.details {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #c0c7d2;
+}
 
 .template-btn {
   font-size: 14px;
   color: #c1cad4;
   background: transparent;
   padding: 0;
-}
-.details {
-  font-size: 16px;
 }
 
 .col-sm-2-5-l {
