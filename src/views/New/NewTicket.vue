@@ -1,119 +1,153 @@
 <template>
-  <div>
-    <div class="row align-items-center">
-      <div class="col-7 offset-1 title">New Ticket</div>
-      <div class="col-4">
-        <button type="button" class="btn btn-primary" v-on:click="createTicket(ticketForm)">
-          New Ticket
-        </button>
-        <button type="button" class="btn btn-secondary" v-on:click="print(ticketForm)">
-          TEST BUTTON 2
-        </button>
-      </div>
+  <div class="row align-items-center">
+    <div class="col-7 offset-1 title">New Ticket</div>
+    <div class="col-4">
+      <button type="button" class="btn btn-primary" v-on:click="createTicket(ticketForm)">
+        New Ticket
+      </button>
+      <button type="button" class="btn btn-secondary" v-on:click="print(ticketForm)">
+        TEST BUTTON 2
+      </button>
     </div>
-    <div class="section">
-      <div class="row align-items-top">
-        <div class="cols-12 sub-title">BASIC INFO</div>
-        <div class="col-6">
-          <div class="form">
-            <div v-for="(field, index) in ticketFields" :key="field + index">
-              <div v-if="!field.show">
+  </div>
+  <div class="section">
+    <div class="row align-items-top">
+      <div class="cols-12 sub-title">BASIC INFO</div>
+      <div class="col-6">
+        <div class="form">
+          <div v-for="(field, index) in ticketFields" :key="field + index">
+            <div v-if="!field.show">
+            </div>
+            <div v-else-if="field.type === 'typeahead'" class="mb-3 row align-items-center">
+              <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
+                field.label
+              }}:
+              </label>
+              <div class="col-sm-8">
+                <TypeAhead :placeholder="field.placeholder" :items="customerItems" class="form-control simple-typeahead"
+                  @selectItem="(e) => this.ticketForm['ticketCustomerId'] = e.id" />
               </div>
-              <div v-else-if="field.type === 'typeahead'" class="mb-3 row align-items-center">
-                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
-                  field.label
-                }}:
-                </label>
-                <div class="col-sm-8">
-                  <TypeAhead :placeholder="field.placeholder" :items="customerItems"
-                    class="form-control simple-typeahead"
-                    @selectItem="(e) => this.ticketForm['ticketCustomerId'] = e.id" />
-                </div>
+            </div>
+            <div v-else-if="field.type === 'textarea'" class="mb-3 row align-items-center">
+              <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
+                field.label
+              }}:
+              </label>
+              <div class="col-sm-8">
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                  v-model="ticketForm[field.name]"></textarea>
               </div>
-              <div v-else-if="field.type === 'textarea'" class="mb-3 row align-items-center">
-                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
-                  field.label
-                }}:
-                </label>
-                <div class="col-sm-8">
-                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                    v-model="ticketForm[field.name]"></textarea>
-                </div>
-              </div>
-              <div v-else-if="(field.type === 'dropdown' && field.name === 'ticketTech')"
-                class="mb-3 row align-items-center">
-                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
-                  field.label
-                }}:
-                </label>
-                <Dropdown2 :name=field.name :title="ticketForm[field.name].fullName" :items="techItems" cols="8"
-                  :handler="dropdownHandler" byProp="fullName" />
-              </div>
-              <div v-else-if="field.type === 'dropdown'" class="mb-3 row align-items-center">
-                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
-                  field.label
-                }}:
-                </label>
-                <Dropdown2 :name=field.name :title="ticketForm[field.name]" :items="JSON.parse(field.options)" cols="8"
-                  :handler="dropdownHandler" />
-              </div>
-              <div v-else-if="field.name === 'customerType'" class="mb-3 row align-items-center">
-                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
-                  field.label
-                }}:
-                </label>
-                <div class="col-sm-8" style="height: 25px">
-                  <div v-for="(type, index) in customerTypes" :key="type + index" class="form-check form-check-inline">
-                    <div v-if="!index">
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                        value="option1" v-on:click="ticketForm[field.name] = type" checked />
-                      <label class="form-check-label" for="inlineRadio1">{{
-                        type
-                      }}</label>
-                    </div>
-                    <div v-else>
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                        value="option1" v-on:click="ticketForm[field.name] = type" />
-                      <label class="form-check-label" for="inlineRadio1">{{
-                        type
-                      }}</label>
-                    </div>
+            </div>
+            <div v-else-if="(field.type === 'dropdown' && field.name === 'ticketTech')"
+              class="mb-3 row align-items-center">
+              <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
+                field.label
+              }}:
+              </label>
+              <Dropdown2 :name=field.name :title="ticketForm[field.name].fullName" :items="techItems" cols="8"
+                :handler="dropdownHandler" byProp="fullName" />
+            </div>
+            <div v-else-if="field.type === 'dropdown'" class="mb-3 row align-items-center">
+              <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
+                field.label
+              }}:
+              </label>
+              <Dropdown2 :name=field.name :title="ticketForm[field.name]" :items="JSON.parse(field.options)" cols="8"
+                :handler="dropdownHandler" />
+            </div>
+            <div v-else-if="field.name === 'customerType'" class="mb-3 row align-items-center">
+              <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
+                field.label
+              }}:
+              </label>
+              <div class="col-sm-8" style="height: 25px">
+                <div v-for="(type, index) in customerTypes" :key="type + index" class="form-check form-check-inline">
+                  <div v-if="!index">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                      value="option1" v-on:click="ticketForm[field.name] = type" checked />
+                    <label class="form-check-label" for="inlineRadio1">{{
+                      type
+                    }}</label>
+                  </div>
+                  <div v-else>
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                      value="option1" v-on:click="ticketForm[field.name] = type" />
+                    <label class="form-check-label" for="inlineRadio1">{{
+                      type
+                    }}</label>
                   </div>
                 </div>
               </div>
-              <div v-else-if="field.name === 'businessName'" class="mb-3 row align-items-center"
-                v-show="ticketForm['customerType'] === customerTypes[1]">
-                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
-                  field.label
-                }}:
-                </label>
-                <div class="col-sm-8">
-                  <input :type="field.type" class="form-control" :id="field.label + index"
-                    :placeholder="field.placeholder" v-model="ticketForm[field.name]" />
-                </div>
+            </div>
+            <div v-else-if="field.name === 'businessName'" class="mb-3 row align-items-center"
+              v-show="ticketForm['customerType'] === customerTypes[1]">
+              <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
+                field.label
+              }}:
+              </label>
+              <div class="col-sm-8">
+                <input :type="field.type" class="form-control" :id="field.label + index"
+                  :placeholder="field.placeholder" v-model="ticketForm[field.name]" />
               </div>
-              <div v-else-if="field.name === 'schoolName'" class="mb-3 row align-items-center"
-                v-show="ticketForm['customerType'] === customerTypes[2]">
-                <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
-                  field.label
-                }}:
-                </label>
-                <div class="col-sm-8">
-                  <input :type="field.type" class="form-control" :id="field.label + index"
-                    :placeholder="field.placeholder" v-model="ticketForm[field.name]" />
-                </div>
+            </div>
+            <div v-else-if="field.name === 'schoolName'" class="mb-3 row align-items-center"
+              v-show="ticketForm['customerType'] === customerTypes[2]">
+              <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
+                field.label
+              }}:
+              </label>
+              <div class="col-sm-8">
+                <input :type="field.type" class="form-control" :id="field.label + index"
+                  :placeholder="field.placeholder" v-model="ticketForm[field.name]" />
               </div>
-              <div v-else-if="field.name === 'ticketDue'" class="mb-3 row align-items-center">
-                <label :for="field.label + index" class="col-sm-4">
-                  <i :class="field.icon"></i>
-                  {{ field.label }}:
-                </label>
-                <!-- test -->
-                <div class="col-sm-8">
-                  <DatePicker v-model="ticketForm[field.name]" :format="format" />
-                </div>
+            </div>
+            <div v-else-if="field.name === 'ticketDue'" class="mb-3 row align-items-center">
+              <label :for="field.label + index" class="col-sm-4">
+                <i :class="field.icon"></i>
+                {{ field.label }}:
+              </label>
+              <!-- test -->
+              <div class="col-sm-8">
+                <DatePicker v-model="ticketForm[field.name]" :format="format" />
               </div>
-              <div v-else class="mb-3 row align-items-center">
+            </div>
+            <div v-else class="mb-3 row align-items-center">
+              <label :for="field.label + index" class="col-sm-4">
+                <i :class="field.icon"></i>
+                {{ field.label }}:
+              </label>
+              <div class="col-sm-8">
+                <input :type="field.type" class="form-control" :id="field.label + index"
+                  :placeholder="field.placeholder" v-model="ticketForm[field.name]" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form">
+          test
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="section">
+    <div class="row align-items-top">
+      <div class="cols-10 sub-title">ADD ASSET</div>
+      <div class="col-6">
+        <div class="form">
+          <div v-for="(field, index) in assetFields" :key="field + index">
+            <div v-if="field.type === 'dropdown'" class="mb-3 row align-items-center">
+              <label :for="field.label + index" class="col-sm-4">
+                <i :class="field.icon"></i>
+                {{ field.label }}:
+              </label>
+              <Dropdown2 :name="field.name" :title="ticketForm[field.name]" :items="JSON.parse(field.options)" cols="8"
+                :handler="dropdownHandler" />
+            </div>
+            <div v-else>
+              <div class="mb-3 row align-items-center">
                 <label :for="field.label + index" class="col-sm-4">
                   <i :class="field.icon"></i>
                   {{ field.label }}:
@@ -126,52 +160,10 @@
             </div>
           </div>
         </div>
-        <div class="col-6">
-          <div class="form">
-            test
-          </div>
-        </div>
       </div>
-    </div>
-    <br />
-    <div class="section">
-      <div class="row align-items-top">
-        <div class="cols-10 sub-title">ADD ASSET</div>
-        <div class="col-6">
-          <div class="form">
-            <div v-for="(field, index) in assetFields" :key="field + index">
-              <div v-if="field.type === 'dropdown'" class="mb-3 row align-items-center">
-                <label :for="field.label + index" class="col-sm-4">
-                  <i :class="field.icon"></i>
-                  {{ field.label }}:
-                </label>
-                <Dropdown2 
-                  :name="field.name" 
-                  :title="ticketForm[field.name]" 
-                  :items="JSON.parse(field.options)" 
-                  cols="8"
-                  :handler="dropdownHandler" 
-                />
-              </div>
-              <div v-else>
-                <div class="mb-3 row align-items-center">
-                  <label :for="field.label + index" class="col-sm-4">
-                    <i :class="field.icon"></i>
-                    {{ field.label }}:
-                  </label>
-                  <div class="col-sm-8">
-                    <input :type="field.type" class="form-control" :id="field.label + index"
-                      :placeholder="field.placeholder" v-model="ticketForm[field.name]" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="form">
-            test
-          </div>
+      <div class="col-6">
+        <div class="form">
+          test
         </div>
       </div>
     </div>

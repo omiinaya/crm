@@ -37,19 +37,19 @@
           </EasyDataTable>
         </div>
         <div class="col-sm-2-5-r section">
-          <div class="title text-center">Actions</div>
+          <div class="title text-center">Summary</div>
           <div class="details row align-items-center mb-2">
-            <label class="col-sm-6">
+            <label class="col-sm-6 offset-1">
               <i class="bi bi-envelope"></i> Total Tickets:
             </label>
-            <div class="col-sm-6">
+            <div class="col-sm-3 offset-2">
               {{ totalTickets }}
             </div>
 
-            <label class="col-sm-6">
+            <label class="col-sm-6 offset-1">
               <i class="bi bi-envelope"></i> Open Tickets:
             </label>
-            <div class="col-sm-6">
+            <div class="col-sm-3 offset-2">
               {{ openTickets }}
             </div>
           </div>

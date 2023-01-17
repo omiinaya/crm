@@ -1,20 +1,25 @@
 <template>
-  <div>
-    <div class="row align-items-center">
-      <div class="col-9 offset-1 title">New Customer</div>
-      <div class="col-2">
-        <button type="button" class="btn btn-primary" v-on:click="createCustomer(customerForm)">
-          Create Customer
-        </button>
+  <div class="row">
+    <div class="col-10 offset-1 top">
+      <div class="top-spacing">
+        <div>New Customer</div>
+        <div>
+          <button type="button" class="btn btn-primary" v-on:click="createCustomer(customerForm)">
+            New Customer
+          </button>
+        </div>
       </div>
     </div>
-    <div class="section">
-      <div class="row align-items-top">
-        <div class="cols-12 sub-title">BASIC INFO</div>
-        <div class="col-6">
+  </div>
+  <div class="row">
+    <div class="col-10 offset-1 top">
+      <!------------------------------------------------------------------------------->
+      <div class="row align-items-top section">
+        <div class="cols-12 header">BASIC INFO</div>
+        <div class="col-6 half">
           <div v-for="(field, index) in customerFields.left" :key="field + index">
             <div v-if="!field.show"></div>
-            <Form v-else-if="field.name === 'phone'" class="mb-3 row align-items-center">
+            <Form v-else-if="field.name === 'phone'" class="row align-items-center">
               <label :for="field.label + index" class="col-sm-4 col-form-label">
                 <i :class="field.icon"></i>
                 {{ field.label }}:
@@ -30,7 +35,7 @@
                   v-model="customerForm['extension']" />
               </div>
             </Form>
-            <Form v-else-if="field.name === 'customerType'" class="mb-3 row align-items-center">
+            <Form v-else-if="field.name === 'customerType'" class="row align-items-center">
               <label :for="field.label + index" class="col-sm-4 col-form-label">
                 <i :class="field.icon"></i>
                 {{ field.label }}:
@@ -54,7 +59,7 @@
                 </div>
               </div>
             </Form>
-            <Form v-else-if="field.name === 'businessName'" class="mb-3 row align-items-center"
+            <Form v-else-if="field.name === 'businessName'" class="row align-items-center"
               v-show="customerForm['customerType'] === customerTypes[1]">
               <label :for="field.label + index" class="col-sm-4 col-form-label">
                 <i :class="field.icon"></i>
@@ -65,7 +70,7 @@
                   :placeholder="field.placeholder" v-model="customerForm[field.name]" />
               </div>
             </Form>
-            <Form v-else-if="field.name === 'schoolName'" class="mb-3 row align-items-center"
+            <Form v-else-if="field.name === 'schoolName'" class="row align-items-center"
               v-show="customerForm['customerType'] === customerTypes[2]">
               <label :for="field.label + index" class="col-sm-4 col-form-label">
                 <i :class="field.icon"></i>
@@ -76,7 +81,7 @@
                   :placeholder="field.placeholder" v-model="customerForm[field.name]" />
               </div>
             </Form>
-            <Form v-else class="mb-3 row align-items-center" :validation-schema="schema">
+            <Form v-else class="row align-items-center" :validation-schema="schema">
               <label :for="field.label + index" class="col-sm-4">
                 <i :class="field.icon"></i>
                 {{ field.label }}:
@@ -89,20 +94,18 @@
             </Form>
           </div>
         </div>
-
-        <div class="col-6">
+        <div class="col-5 offset-1">
           <div v-for="(field, index) in customerFields.right" :key="field + index">
-
-            <Form v-if="field.name === 'country'" class="mb-3 row align-items-center" :validation-schema="schema">
+            <Form v-if="field.name === 'country'" class="row align-items-center" :validation-schema="schema">
               <label :for="field.label + index" class="col-sm-4 col-form-label">
                 <i :class="field.icon"></i>
                 {{ field.label }}:
               </label>
-              <Dropdown2 :title="customerForm['country']" :items="countryItems" :handler="countryDropdownHandler" name='country'
-                cols="8" byProp="name" />
+              <Dropdown2 :title="customerForm['country']" :items="countryItems" :handler="countryDropdownHandler"
+                name='country' cols="8" byProp="name" />
             </Form>
 
-            <Form v-else-if="field.name === 'state'" class="mb-3 row align-items-center" :validation-schema="schema">
+            <Form v-else-if="field.name === 'state'" class="row align-items-center" :validation-schema="schema">
               <label :for="field.label + index" class="col-sm-4 col-form-label">
                 <i :class="field.icon"></i>
                 {{ field.label }}:
@@ -111,7 +114,7 @@
                 cols="8" byProp="name" />
             </Form>
 
-            <Form v-else-if="field.name === 'city'" class="mb-3 row align-items-center" :validation-schema="schema">
+            <Form v-else-if="field.name === 'city'" class="row align-items-center" :validation-schema="schema">
               <label :for="field.label + index" class="col-sm-4 col-form-label">
                 <i :class="field.icon"></i>
                 {{ field.label }}:
@@ -120,7 +123,7 @@
                 cols="8" byProp="name" />
             </Form>
 
-            <Form v-else class="mb-3 row align-items-center" :validation-schema="schema">
+            <Form v-else class="row align-items-center" :validation-schema="schema">
               <label :for="field.label + index" class="col-sm-4 col-form-label">
                 <i :class="field.icon"></i>
                 {{ field.label }}:
@@ -131,56 +134,55 @@
                 <ErrorMessage :name="field.name" class="error-feedback" />
               </div>
             </Form>
-            
           </div>
         </div>
       </div>
     </div>
-    <br />
-    <div class="section">
-      <div class="row align-items-top">
-        <div class="cols-10 sub-title">CUSTOMER SETTINGS</div>
-        <div class="col-6">
-          <div class="form2">
-            <div class="mb-3 row align-items-center" v-for="(field, index) in settingsFields.left" :key="field + index">
-              <label :for="field.label + index" class="col-sm-5 col-form-label">
-                <i :class="field.icon"></i> {{ field.label }}:
-              </label>
-              <div class="col-sm-7">
-                <input :type="field.type" class="form-check-input" :id="field.label + index"
-                  :placeholder="field.placeholder" v-model="customerForm[field.name]"
-                  :checked="getChecked(index, 'left')" />
-              </div>
+  </div>
+  <div class="row">
+    <div class="col-10 offset-1 top">
+
+      <!------------------------------------------------------------------------------->
+      <div class="row align-items-top section">
+        <div class="cols-12 header">BASIC INFO</div>
+
+        <div class="col-5 half">
+          <div class="row align-items-center form" v-for="(field, index) in settingsFields.left" :key="field + index">
+            <label :for="field.label + index" class="col-sm-5 col-form-label">
+              <i :class="field.icon"></i> {{ field.label }}:
+            </label>
+            <div class="col-sm-7">
+              <input :type="field.type" class="form-check-input" :id="field.label + index"
+                :placeholder="field.placeholder" v-model="customerForm[field.name]"
+                :checked="getChecked(index, 'left')" />
             </div>
           </div>
         </div>
-        <div class="col-6">
-          <div class="form2">
-            <div class="mb-3 row align-items-center" v-for="(field, index) in settingsFields.right"
-              :key="field + index">
-              <label :for="field.label + index" class="col-sm-5 col-form-label">
-                <i :class="field.icon"></i>
-                {{ field.label }}:
-              </label>
-              <div class="col-sm-7">
-                <input :type="field.type" class="form-check-input" :id="field.label + index"
-                  :placeholder="field.placeholder" v-model="customerForm[field.name]"
-                  :checked="getChecked(index, 'right')" />
-              </div>
+        <div class="col-6 half">
+          <div class="row align-items-center form" v-for="(field, index) in settingsFields.right" :key="field + index">
+            <label :for="field.label + index" class="col-sm-5 col-form-label">
+              <i :class="field.icon"></i>
+              {{ field.label }}:
+            </label>
+            <div class="col-sm-7">
+              <input :type="field.type" class="form-check-input" :id="field.label + index"
+                :placeholder="field.placeholder" v-model="customerForm[field.name]"
+                :checked="getChecked(index, 'right')" />
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="row align-items-center">
-      <div class="col-2 offset-10 title" style="float: right">
-        <button type="button" class="btn btn-primary" v-on:click="createCustomer(customerForm)">
-          Create Customer
-        </button>
-        <button type="button" class="btn btn-primary" v-on:click="testing12345()">
-          test
-        </button>
-      </div>
+  </div>
+
+  <div class="row align-items-center">
+    <div class="col-2 offset-10" style="float: right">
+      <button type="button" class="btn btn-primary" v-on:click="createCustomer(customerForm)">
+        Create Customer
+      </button>
+      <button type="button" class="btn btn-primary" v-on:click="testing12345()">
+        test
+      </button>
     </div>
   </div>
 </template>
@@ -349,11 +351,37 @@ export default {
 </script>
 
 <style scoped>
-.col-sm-2-5 {
-  flex: 0 0 21.0625%;
-  max-width: 21.0625%;
-  position: relative;
-  width: 100%;
+.title {}
+
+.header {
+  padding: 0;
+  font-size: 16px;
+}
+
+label {
+  padding: 0;
+}
+
+.half {
+  padding: 0;
+  margin: 0;
+}
+
+.top {
+  padding: 20px;
+  padding-top: 0 !important;
+  padding-bottom: 0;
+  padding-left: 10px;
+  font-size: 24px;
+}
+
+.top-spacing {
+  display: flex;
+  justify-content: space-between;
+}
+
+.top-spacing>*>* :not(:last-child) {
+  margin-right: 15px !important;
 }
 
 .col-sm-2-3 {
@@ -367,32 +395,26 @@ export default {
   margin-right: 10px !important;
 }
 
-Form {
-  margin: 15px;
+form {
+  font-size: 14px;
+  margin: 0px;
+  margin-bottom: 15px;
 }
 
-.form2 {
-  margin: 30px;
+.form {
+  font-size: 14px;
+  margin: 0px;
+  margin-bottom: 15px;
 }
 
 .error-feedback {
   color: #da3e3e;
 }
 
-.title {
-  margin-top: 25px;
-  margin-bottom: 25px;
-  font-size: 30px;
-}
-
-.sub-title {
-  margin: 30px;
-  margin-bottom: 0;
-}
 
 .section {
-  margin-left: 125px;
-  margin-right: 125px;
+  margin-top: 25px;
   background: #1f1f1f;
+  padding: 25px;
 }
 </style>

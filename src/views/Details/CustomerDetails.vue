@@ -175,14 +175,6 @@ export default {
 </script>
   
 <style scoped>
-.top-spacing {
-  display: flex; 
-  justify-content: space-between;
-}
-
-.top-spacing > * > * :not(:last-child) {
-  margin-right: 15px !important;
-}
 .bi {
   padding-right: 5px !important;
 }
@@ -229,6 +221,15 @@ ul {
   padding-bottom: 0;
   padding-left: 10px;
   font-size: 24px;
+}
+
+.top-spacing {
+  display: flex; 
+  justify-content: space-between;
+}
+
+.top-spacing > * > * :not(:last-child) {
+  margin-right: 15px !important;
 }
 
 .section {
