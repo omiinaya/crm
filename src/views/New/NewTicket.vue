@@ -137,7 +137,7 @@ export default {
   components: { Dropdown2, TypeAhead, DatePicker, Form, /*Field, ErrorMessage*/ },
   data: () => ({
     customerItems: [],
-    techItems: ['Select Technician'],
+    techItems: null,
     ticketFields: null,
     assetFields: null,
     ticketForm: {},
@@ -155,7 +155,8 @@ export default {
       const ticketTypes = this.ticketFields.filter(field => field.name === 'ticketType')[0].options
       //choose first option as default
       this.ticketForm['ticketType'] = JSON.parse(ticketTypes)[0];
-      this.ticketForm['ticketTech'] = this.techItems[0];
+      this.ticketForm['ticketTech'] = this.techItems[0].fullName;
+      console.log(this.techItems[0])
       this.ticketForm['ticketDue'] = new Date();
     },
     async loadAssetFields() {
@@ -181,6 +182,7 @@ export default {
       const request = await storeX.UserService.getAllUsers();
       const technicianList = await request.data;
       this.techItems = technicianList;
+      console.log(this.techItems)
     },
     async createTicket(data) {
       console.log(data)

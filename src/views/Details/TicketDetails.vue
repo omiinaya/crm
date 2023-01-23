@@ -137,21 +137,28 @@
               <Modal title="test" body="body" />
               -->
             </div>
-            <EasyDataTable :headers="headers" :items="ticketAssets" theme-color="#1d90ff"
-              table-class-name="customize-table-details" header-text-direction="left" body-text-direction="left"
-              hide-footer>
-              <template #item-warranty="{ warranty }">
-                <Loading v-if="!warranty" />
-                <a class="warranty" v-else :href="warranty[1]" target="_blank">
-                  {{ warranty[0] }}
-                </a>
-              </template>
-              <template #item-assetName="{ assetName }">
-                <a class="warranty">
-                  {{ assetName }}
-                </a>
-              </template>
-            </EasyDataTable>
+            <div v-if="ticketAssets.length">
+              <EasyDataTable :headers="headers" :items="ticketAssets" theme-color="#1d90ff"
+                table-class-name="customize-table-details" header-text-direction="left" body-text-direction="left"
+                hide-footer>
+                <template #item-warranty="{ warranty }">
+                  <Loading v-if="!warranty" />
+                  <a class="warranty" v-else :href="warranty[1]" target="_blank">
+                    {{ warranty[0] }}
+                  </a>
+                </template>
+                <template #item-assetName="{ assetName }">
+                  <a class="warranty">
+                    {{ assetName }}
+                  </a>
+                </template>
+              </EasyDataTable>
+            </div>
+            <div class="row" v-else>
+              <div class="col-12 text-center">
+                There are no assets to display.
+              </div>
+            </div>
           </div>
           <div class="section" v-if="editing.assets.editMode">
             <div class="header">
@@ -470,11 +477,11 @@ export default {
   
 <style scoped>
 .com-top {
-  display: flex; 
+  display: flex;
   justify-content: space-between;
 }
 
-.com-top > * > * {
+.com-top>*>* {
   margin-right: 15px;
 }
 

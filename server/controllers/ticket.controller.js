@@ -33,7 +33,7 @@ exports.create = async (req, res) => {
     //add ticket number to asset number, after ticket has been created.
     asset["assetTicketId"] = await request.id;
 
-    Asset.create(asset);
+    //Asset.create(asset);
 
     res.send(await request);
   } catch (err) {

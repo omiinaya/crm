@@ -144,7 +144,7 @@
 
       <!------------------------------------------------------------------------------->
       <div class="row align-items-top section">
-        <div class="cols-12 header">BASIC INFO</div>
+        <div class="cols-12 header test">ASSET INFO</div>
 
         <div class="col-5 half">
           <div class="row align-items-center form" v-for="(field, index) in settingsFields.left" :key="field + index">
@@ -175,14 +175,16 @@
     </div>
   </div>
 
-  <div class="row align-items-center">
-    <div class="col-2 offset-10" style="float: right">
-      <button type="button" class="btn btn-primary" v-on:click="createCustomer(customerForm)">
-        Create Customer
-      </button>
-      <button type="button" class="btn btn-primary" v-on:click="testing12345()">
-        test
-      </button>
+  <div class="row bottom">
+    <div class="col-10 offset-1 top">
+      <div class="top-spacing">
+        <div></div>
+        <div>
+          <button type="button" class="btn btn-primary" v-on:click="createCustomer(customerForm)">
+            New Customer
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -353,6 +355,10 @@ export default {
 <style scoped>
 .title {}
 
+.test {
+  margin-bottom: 10px;
+}
+
 .header {
   padding: 0;
   font-size: 16px;
@@ -362,7 +368,10 @@ label {
   padding: 0;
 }
 
-
+.half {
+  padding: 0;
+  margin: 0;
+}
 
 .top {
   padding: 20px;
@@ -413,5 +422,9 @@ form {
   margin-top: 25px;
   background: #1f1f1f;
   padding: 25px;
+}
+
+.bottom {
+  margin-top: 25px;
 }
 </style>
