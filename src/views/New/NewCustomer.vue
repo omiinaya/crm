@@ -362,10 +362,7 @@ label {
   padding: 0;
 }
 
-.half {
-  padding: 0;
-  margin: 0;
-}
+
 
 .top {
   padding: 20px;
