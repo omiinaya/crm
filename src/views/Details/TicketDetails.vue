@@ -396,11 +396,14 @@ export default {
     },
     async loadComData(id) {
       const request = await storeX.ComService.getComsByTicketId(id);
-      const data = await request.data;
-      data.forEach(com =>
-        com.createdAt = moment(com.createdAt).format('ddd MM-DD-YYYY HH:MM A')
-      );
-      this.coms = data.reverse();
+      const data = await request.data.reverse();
+     
+      for (var i = data.length - 1; i >= 0; i--) {
+        const com = data[i];
+        com.createdAt = moment(com.createdAt).format('ddd MM-DD-YYYY HH:MM A');
+      }
+
+      this.coms = data;
     },
 
     async comTypeHandler(opt) {

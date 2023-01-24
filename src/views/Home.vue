@@ -43,14 +43,14 @@
               <i class="bi bi-envelope"></i> Total Tickets:
             </label>
             <div class="col-sm-3 offset-2">
-              {{ totalTickets }}
+              {{ storeX.totalTickets() }}
             </div>
 
             <label class="col-sm-6 offset-1">
               <i class="bi bi-envelope"></i> Open Tickets:
             </label>
             <div class="col-sm-3 offset-2">
-              {{ openTickets }}
+              {{ storeX.openTickets() }}
             </div>
           </div>
         </div>
@@ -80,12 +80,6 @@ export default defineComponent({
     };
   },
   computed: {
-    openTickets() {
-      return storeX.tickets.filter(ticket => ticket.ticketStatus !== "Resolved").length;
-    },
-    totalTickets() {
-      return storeX.tickets.length;
-    },
     homeActions() {
       return storeX.home.actions;
     },

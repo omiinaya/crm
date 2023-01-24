@@ -102,9 +102,10 @@ export const storeX = reactive({
   },
 
   async formatDate(array) {
-    array.forEach(item => {
+    for (let i = array.length - 1; i >= 0; i--) {
+      const item = array[i];
       item.createdAt = moment(item.createdAt).format('MM-DD-YYYY HH:MM A');
-    })
+    }
   },
 
   async getActionItems() {
@@ -198,11 +199,12 @@ export const storeX = reactive({
     const assets = await req.data;
     this.assets = await assets;
 
-    this.assets.forEach(async asset => {
-      const customer = await this.loadCustomerByCustomerId(asset.assetCustomerId)
+    for (let i = this.assets.length - 1; i >= 0; i--) {
+      const asset = this.assets[i];
+      const customer = await this.loadCustomerByCustomerId(asset.assetCustomerId);
       asset.customerName = customer.name;
       asset.assetId = asset.id;
-    })
+    }
   },
 
   async loadCustomerByCustomerId(id) {
@@ -265,11 +267,15 @@ export const storeX = reactive({
   },
 
   openTickets() {
-    return this.tickets.filter(ticket => ticket.ticketStatus !== "Closed").length;
+    return this.tickets.filter(ticket => ticket.ticketStatus !== "Resolved").length;
   },
 
   closedTickets() {
-    return this.tickets.filter(ticket => ticket.ticketStatus === "Closed").length;
+    return this.tickets.filter(ticket => ticket.ticketStatus === "Resolved").length;
+  },
+
+  totalTickets() {
+    return this.tickets.length;
   },
 });
 

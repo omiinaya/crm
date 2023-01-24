@@ -17,7 +17,7 @@
             }}:
             </label>
             <div class="col-sm-4">
-              <TypeAhead :placeholder="field.placeholder" :items="customerItems" class="form-control simple-typeahead"
+              <TypeAhead :placeholder="field.placeholder" :items="storeX.customers" class="form-control simple-typeahead"
                 @selectItem="(e) => this.assetForm['customerId'] = e.id" />
             </div>
           </div>
@@ -85,7 +85,6 @@ export default {
       manufacturer: 'Lenovo',
       assetSerial: '',
     },
-    customerItems: [],
     customerSelected: null,
     warranty: null,
     storeX
@@ -113,19 +112,6 @@ export default {
       this.assetForm['assetType'] = JSON.parse(assetTypes)[0];
       this.assetForm['assetBrand'] = JSON.parse(assetBrands)[0];
     },
-    async loadCustomerData() {
-      const request = await storeX.CustomerService.getCustomers()
-      const customerList = await request.data;
-
-      customerList.forEach((customer) => {
-        this.customerItems.push(customer);
-      })
-    },
-    async loadWarrantyData(serial) {
-      const request = await storeX.WarrantyService.getLenovoWarranty(serial);
-      const data = await request.data;
-      return data;
-    },
     async createAsset() {
       const newAsset = await storeX.AssetService.createAsset(this.assetForm);
       console.log(newAsset)
@@ -136,7 +122,7 @@ export default {
   },
   created() {
     this.loadAssetFields()
-    this.loadCustomerData()
+    storeX.loadCustomerData()
   },
   watch: {
     assetForm: {

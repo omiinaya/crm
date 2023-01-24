@@ -174,9 +174,11 @@ export default {
     async loadCustomerData() {
       const request = await storeX.CustomerService.getCustomers()
       const customerList = await request.data;
-      customerList.forEach((customer) => {
+
+      for (let i = customerList.length - 1; i >= 0; i--) {
+        const customer = customerList[i]
         this.customerItems.push(customer);
-      })
+      }
     },
     async loadTechnicianData() {
       const request = await storeX.UserService.getAllUsers();
