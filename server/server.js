@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const app = express();
 const port = parseInt(process.env.SERVER) || 8080;
 
-app.use(cors({ origin: "http://localhost:8091" }));
+app.use(cors({ origin: ["http://localhost:8091", "https://mmit.vercel.app"] }));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -31,7 +31,7 @@ require("./routes/location.routes")(app);
   await setup();
 
   const options = {
-    cors: { origin: "http://localhost:8091" },
+    cors: { origin: ["http://localhost:8091", "https://mmit.vercel.app"] },
   };
 
   const server = app.listen(port, () => {
