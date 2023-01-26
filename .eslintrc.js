@@ -14,6 +14,7 @@ module.exports = {
     "vue/no-deprecated-dollar-listeners-api": "off",
     "vue/no-deprecated-dollar-scopedslots-api": "off",
     "vue/no-deprecated-slot-scope-attribute": "off",
+    "vue/no-mutating-props": "off",
   },
   overrides: [
     {

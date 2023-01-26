@@ -6,7 +6,7 @@
           <div class="top-spacing">
             <div>{{ storeX.customer.name }}</div>
             <div>
-              <button type="button" class="btn btn-primary" v-on:click="createTicket(ticketForm)">
+              <button type="button" class="btn btn-primary" v-on:click="newTicket()">
                 New Ticket
               </button>
             </div>
@@ -134,7 +134,6 @@ export default {
   components: {},
   data: () => ({
     storeX,
-
     ticketHeaders: [
       { value: "id", text: "ID", sortable: true },
       { value: "ticketTitle", text: "TITLE", sortable: true },
@@ -165,6 +164,13 @@ export default {
         customerId: ticketCustomerId
       })
     },
+    async newTicket() {
+      console.log(storeX.customer.id)
+      this.storeX.updateNavigation({
+        view: 'NewTicket',
+        customerId: storeX.customer.id
+      })
+    }
   },
   created() {
     storeX.loadCustomerByCustomerId(storeX.navigation.customerId)

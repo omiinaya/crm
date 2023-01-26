@@ -7,6 +7,9 @@
           <button type="button" class="btn btn-primary" v-on:click="createTicket(ticketForm)">
             New Ticket
           </button>
+          <button type="button" class="btn btn-primary" v-on:click="typeAheadHandler(storeX.navigation.customerId)">
+            test
+          </button>
         </div>
       </div>
     </div>
@@ -26,7 +29,7 @@
               </label>
               <div class="col-sm-8">
                 <TypeAhead :placeholder="field.placeholder" :items="customerItems" class="form-control simple-typeahead"
-                  @selectItem="(e) => this.ticketForm['ticketCustomerId'] = e.id" />
+                  @selectItem="(e) => typeAheadHandler(e.id)" />
               </div>
             </Form>
             <Form v-else-if="field.type === 'textarea'" class="row align-items-center">
@@ -205,6 +208,11 @@ export default {
     },
     dropdownHandler(item, name) {
       this.ticketForm[name] = item;
+    },
+    typeAheadHandler(id) {
+      this.ticketForm['ticketCustomerId'] = parseInt(id)
+      console.log(document.getElementsByClassName('simple-typeahead')[3].value)
+      document.getElementsByClassName('simple-typeahead')[3].value = storeX.customer.name
     }
   },
   created() {
@@ -212,6 +220,12 @@ export default {
     this.loadAssetFields();
     this.loadTechnicianData();
     this.getTicketFieldItems();
+    if (storeX.navigation.customerId) {
+      storeX.loadCustomerByCustomerId(storeX.navigation.customerId, this.typeAheadHandler)
+    }
+  },
+  mounted() {
+
   },
   watch: {
     ticketForm: {

@@ -76,6 +76,7 @@ export default defineComponent({
   },
   computed: {
     filteredCustomers() {
+      console.log(storeX.tickets)
       if (!this.searchFilter) return storeX.tickets;
 
       const filtered = storeX.tickets.filter(ticket => {
@@ -102,8 +103,6 @@ export default defineComponent({
   },
   async created() {
     storeX.loadTicketData()
-    storeX.loadCustomerData()
-    console.log(storeX.tickets)
   }
 });
 

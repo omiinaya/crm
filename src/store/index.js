@@ -52,6 +52,8 @@ export const storeX = reactive({
     type: null
   },
 
+  newTicketTest: '',
+
   HomeService,
   TicketService,
   CustomerService,
@@ -173,12 +175,13 @@ export const storeX = reactive({
     }
 
     for (const ticket of this.tickets) {
-      const data = await this.loadAssetByTicketId(ticket.id);
+      console.log(ticket)
       ticket.customerName = customerLookup[ticket.ticketCustomerId];
       ticket.ticketId = ticket.id;
-      if (!data.length) return;
-      ticket.ticketAssetSerial = data[0].assetSerial;
+      const data = await this.loadAssetByTicketId(ticket.id);
+      if (data.length) ticket.ticketAssetSerial = data[0].assetSerial;
     }
+
     this.formatDate(this.tickets);
   },
 
@@ -207,7 +210,7 @@ export const storeX = reactive({
     }
   },
 
-  async loadCustomerByCustomerId(id) {
+  async loadCustomerByCustomerId(id, handler) {
     const request = await CustomerService.getCustomerById(id)
     const data = await request.data[0];
 
@@ -232,6 +235,11 @@ export const storeX = reactive({
     }
 
     this.customer = data;
+
+    if (handler) {
+      handler(await data.id)
+    }
+
     return data;
   },
 

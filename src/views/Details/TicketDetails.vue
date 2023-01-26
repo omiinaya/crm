@@ -383,11 +383,13 @@ export default {
     async loadAssetData(id) {
       const request = await storeX.AssetService.getAssetByTicketId(id);
       const data = await request.data;
-      data[0].assetName = data[0].assetName.split('(')[0];
-      this.ticketAssets = await data;
-      const warranty = await this.loadWarrantyData(data[0].assetSerial);
-      this.ticketAssets[0]['warranty'] = warranty;
-      return data;
+      if (data.length) {
+        data[0].assetName = data[0].assetName.split('(')[0];
+        this.ticketAssets = await data;
+        const warranty = await this.loadWarrantyData(data[0].assetSerial);
+        this.ticketAssets[0]['warranty'] = warranty;
+        return data;
+      }
     },
     async loadWarrantyData(serial) {
       const request = await storeX.WarrantyService.getLenovoWarranty(serial);
@@ -397,7 +399,7 @@ export default {
     async loadComData(id) {
       const request = await storeX.ComService.getComsByTicketId(id);
       const data = await request.data.reverse();
-     
+
       for (var i = data.length - 1; i >= 0; i--) {
         const com = data[i];
         com.createdAt = moment(com.createdAt).format('ddd MM-DD-YYYY HH:MM A');
