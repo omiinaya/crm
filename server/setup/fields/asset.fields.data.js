@@ -5,7 +5,7 @@ const manufacturers = ['Lenovo', 'Fujitsu', 'DELL', 'Apple', 'HP', 'MSI']
 const assetFields = [
   {
     name: "assetCustomerName",
-    label: "Customer Name",
+    label: "Customer",
     type: "typeahead",
     placeholder: "Customer Name",
     icon: "bi bi-person",
@@ -25,9 +25,9 @@ const assetFields = [
   },
   {
     name: "assetTicketId",
-    label: "Ticket Number",
+    label: "Ticket #",
     type: "text",
-    placeholder: "Ticket Number",
+    placeholder: "Ticket #",
     icon: "bi bi-tag",
     data: 'INTEGER',
     allowNull: false,

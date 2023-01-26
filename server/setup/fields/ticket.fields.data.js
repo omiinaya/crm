@@ -8,7 +8,7 @@ const ticketFields = [
         name: "ticketCustomerName",
         label: "Customer",
         type: "typeahead",
-        placeholder: "Customer",
+        placeholder: "Customer Name",
         icon: "bi bi-person",
         data: 'STRING',
         show: true,
