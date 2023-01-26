@@ -159,7 +159,6 @@ export default {
       //choose first option as default
       this.ticketForm['ticketType'] = JSON.parse(ticketTypes)[0];
       this.ticketForm['ticketTech'] = this.techItems[0].fullName;
-      console.log(this.techItems[0])
       this.ticketForm['ticketDue'] = new Date();
     },
     async loadAssetFields() {
@@ -187,7 +186,7 @@ export default {
       const request = await storeX.UserService.getAllUsers();
       const technicianList = await request.data;
       this.techItems = technicianList;
-      console.log(this.techItems)
+      this.getTicketFieldItems();
     },
     async createTicket(data) {
       console.log(data)
@@ -219,7 +218,7 @@ export default {
     this.loadCustomerData();
     this.loadAssetFields();
     this.loadTechnicianData();
-    this.getTicketFieldItems();
+
     if (storeX.navigation.customerId) {
       storeX.loadCustomerByCustomerId(storeX.navigation.customerId, this.typeAheadHandler)
     }
