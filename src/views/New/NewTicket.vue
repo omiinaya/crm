@@ -5,10 +5,7 @@
         <div>New Ticket</div>
         <div>
           <button type="button" class="btn btn-primary" v-on:click="createTicket(ticketForm)">
-            New Ticket
-          </button>
-          <button type="button" class="btn btn-primary" v-on:click="typeAheadHandler(storeX.navigation.customerId)">
-            test
+            Create Ticket
           </button>
         </div>
       </div>
@@ -16,13 +13,12 @@
   </div>
   <div class="row">
     <div class="col-10 offset-1 top">
-      <!------------------------------------------------------------------------------->
       <div class="row align-items-top section">
         <div class="cols-12 header">BASIC INFO</div>
         <div class="col-6 half">
           <div v-for="(field, index) in ticketFields" :key="field + index">
             <div v-if="!field.show"></div>
-            <Form v-else-if="field.type === 'typeahead'" class="row align-items-center">
+            <Form v-else-if="field.name === 'ticketCustomerName'" class="row align-items-center">
               <label :for="field.label + index" class="col-sm-4 col-form-label">
                 <i :class="field.icon"></i>
                 {{ field.label }}:
@@ -89,7 +85,6 @@
   </div>
   <div class="row">
     <div class="col-10 offset-1 top">
-      <!------------------------------------------------------------------------------->
       <div class="row align-items-top section">
         <div class="cols-12 header">ASSET INFO</div>
         <div class="col-6">

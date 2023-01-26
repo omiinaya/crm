@@ -6,9 +6,9 @@ const technicians = ["Omar", "Manny", "Matias"];
 const ticketFields = [
     {
         name: "ticketCustomerName",
-        label: "Customer Name",
+        label: "Customer",
         type: "typeahead",
-        placeholder: "Customer Name",
+        placeholder: "Customer",
         icon: "bi bi-person",
         data: 'STRING',
         show: true,
