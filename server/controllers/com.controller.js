@@ -51,7 +51,7 @@ function sendMail(email, subject, text) {
 
 exports.create = async (req, res) => {
   const comFields = await axios.get(
-    "http://localhost:8090/api/com/fields"
+    "https://db-x4jr.onrender.com/api/com/fields"
   );
 
   let comResponse = await comFields.data;

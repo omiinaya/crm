@@ -1,7 +1,7 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://localhost:8090/api/nav/';
+const API_URL = 'https://db-x4jr.onrender.com/api/nav/';
 
 class NavService {
   getPublicContent() {

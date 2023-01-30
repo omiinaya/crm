@@ -56,6 +56,7 @@ const query = util.promisify(connection.query).bind(connection);
 
 async function setup() {
   await query(`CREATE DATABASE IF NOT EXISTS \`${process.env.DB}\`;`);
+  console.log(config)
   //comment force:true to stop resetting the database on server restart
   db.sequelize.sync({ force: true }).then(() => dummyData());
 }
