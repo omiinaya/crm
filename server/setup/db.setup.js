@@ -20,9 +20,9 @@ const homeActions = require("./actions/home.actions.data");
 //fields
 const comFields = require("./fields/com.fields.data");
 const assetFields = require("./fields/asset.fields.data");
-const ticketFields = require("./fields/ticket.fields.data");
-const customerFields = require("./fields/customer.fields.data");
-const locationFields = require("./fields/location.fields.data");
+//const ticketFields = require("./fields/ticket.fields.data");
+//const customerFields = require("./fields/customer.fields.data");
+//const locationFields = require("./fields/location.fields.data");
 const customerSettingsFields = require("./fields/customer.settings.fields");
 
 
@@ -61,10 +61,18 @@ async function setup() {
   db.sequelize.sync({ force: true }).then(() => dummyData());
 }
 
-function dummyData() {
+async function dummyData() {
+  const customerFields = await import("./fields/customer.fields.data.js");
+  const customerFieldsData = customerFields.default;
+
+  const locationFields = await import("./fields/location.fields.data.js");
+  const locationFieldsData = locationFields.default;
+
+  const ticketFields = await import("./fields/ticket.fields.data.js");
+  const ticketFieldsData = ticketFields.default;
 
   //FIELDS:
-  customerFields.forEach((fields, index) => {
+  customerFieldsData.forEach((fields, index) => {
     CustomerFields.create({
       id: index + 1,
       name: fields.name,
@@ -78,7 +86,7 @@ function dummyData() {
     });
   });
 
-  locationFields.forEach((fields, index) => {
+  locationFieldsData.forEach((fields, index) => {
     LocationFields.create({
       id: index + 1,
       name: fields.name,
@@ -90,7 +98,7 @@ function dummyData() {
     });
   });
 
-  ticketFields.forEach((fields, index) => {
+  ticketFieldsData.forEach((fields, index) => {
     TicketFields.create({
       id: index + 1,
       name: fields.name,
