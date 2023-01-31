@@ -11,7 +11,7 @@ const assets = require("./assets.data");
 const tickets = require("./tickets.data");
 const numbers = require("./numbers.data");
 const locations = require("./locations.data");
-const customers = require("./customers.data");
+//const customers = require("./customers.data");
 const businesses = require("./businesses.data");
 
 //actions

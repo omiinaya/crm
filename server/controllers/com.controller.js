@@ -3,6 +3,7 @@ const axios = require("axios");
 const Com = db.com;
 const io = require('socket.io-client');
 const nodemailer = require('nodemailer');
+const PORT = process.env.PORT
 
 const accountSid = process.env.TWILIO_SID;
 const authToken = process.env.TWILIO_AUTH;
@@ -51,7 +52,7 @@ function sendMail(email, subject, text) {
 
 exports.create = async (req, res) => {
   const comFields = await axios.get(
-    "http://localhost:8090/api/com/fields"
+    `http://localhost:${PORT}/api/com/fields`
   );
 
   let comResponse = await comFields.data;

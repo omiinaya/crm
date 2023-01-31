@@ -2,9 +2,10 @@ const db = require("../../models");
 const ComFields = db.comFields
 const Op = db.Sequelize.Op;
 const axios = require("axios")
+const PORT = process.env.PORT
 
 exports.create = async (req, res) => {
-  const comFields = await axios.get("http://localhost:8090/api/com/fields");
+  const comFields = await axios.get(`http://localhost:${PORT}/api/com/fields`);
   const comResponse = await comFields.data;
 
 

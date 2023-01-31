@@ -5,7 +5,7 @@ const serveStatic = require("serve-static");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const app = express();
-const port = parseInt(process.env.SERVER) || 8080;
+const port = parseInt(process.env.PORT) || 8080;
 const path = require('path');
 
 const origins = ["http://localhost:8091", "http://localhost:8090", "http://localhost:8092", "https://mmit.vercel.app"];

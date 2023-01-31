@@ -1,14 +1,15 @@
 const db = require("../models");
 const Ticket = db.ticket;
-const Asset = db.asset;
+//const Asset = db.asset;
 const axios = require("axios");
 const io = require('socket.io-client');
+const PORT = process.env.PORT
 
 exports.create = async (req, res) => {
   const ticketFields = await axios.get(
-    "http://localhost:8090/api/ticket/fields"
+    `http://localhost:${PORT}/api/ticket/fields`
   );
-  const assetFields = await axios.get("http://localhost:8090/api/asset/fields");
+  const assetFields = await axios.get(`http://localhost:${PORT}/api/asset/fields`);
   const ticketResponse = await ticketFields.data;
   const assetResponse = await assetFields.data;
 

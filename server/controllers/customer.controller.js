@@ -5,6 +5,7 @@ const Number = db.number;
 const Location = db.location;
 const CustomerSettings = db.customerSettings;
 const Op = db.Sequelize.Op;
+const PORT = process.env.PORT
 
 exports.create = async (req, res) => {
   if (!req.body.firstName) {
@@ -15,13 +16,13 @@ exports.create = async (req, res) => {
   }
 
   const customerFields = await axios.get(
-    "http://localhost:8090/api/customers/fields"
+    `http://localhost:${PORT}/api/customers/fields`
   );
   const locationFields = await axios.get(
-    "http://localhost:8090/api/locations/fields"
+    `http://localhost:${PORT}/api/locations/fields`
   );
   const customerSettingsFields = await axios.get(
-    "http://localhost:8090/api/customers/settings/fields"
+    `http://localhost:${PORT}/api/customers/settings/fields`
   );
 
   const customerResponse = await customerFields.data;

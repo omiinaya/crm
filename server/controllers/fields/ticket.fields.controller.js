@@ -2,9 +2,10 @@ const db = require("../../models");
 const TicketFields = db.ticketFields
 const Op = db.Sequelize.Op;
 const axios = require("axios")
+const PORT = process.env.PORT
 
 exports.create = async (req, res) => {
-  const ticketFields = await axios.get("http://localhost:8090/api/ticket/fields");
+  const ticketFields = await axios.get(`http://localhost:${PORT}/api/ticket/fields`);
   const ticketResponse = await assetFields.data;
 
 

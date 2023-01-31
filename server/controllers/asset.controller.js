@@ -1,9 +1,10 @@
 const db = require("../models");
 const Asset = db.asset
 const axios = require('axios')
+const PORT = process.env.PORT
 
 exports.create = async (req, res) => {
-  const assetFields = await axios.get("http://localhost:8090/api/asset/fields");
+  const assetFields = await axios.get(`http://localhost:${PORT}/api/asset/fields`);
   const assetResponse = await assetFields.data;
 
   const fields = [...assetResponse]
