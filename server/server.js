@@ -39,7 +39,7 @@ const server = app.listen(port, () => {
 
 (async () => {
 
-  await setup();
+  //await setup();
 
   const options = {
     cors: { origin: origins },

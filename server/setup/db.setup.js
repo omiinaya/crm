@@ -18,7 +18,7 @@ const businesses = require("./businesses.data");
 const homeActions = require("./actions/home.actions.data");
 
 //fields
-const comFields = require("./fields/com.fields.data");
+//const comFields = require("./fields/com.fields.data");
 //const assetFields = require("./fields/asset.fields.data");
 //const ticketFields = require("./fields/ticket.fields.data");
 //const customerFields = require("./fields/customer.fields.data");
@@ -79,6 +79,9 @@ async function dummyData() {
 
   const comFields = await import("./fields/com.fields.data.js");
   const comFieldsData = comFields.default;
+
+  const customers = await import("./customers.data.js");
+  const customersData = customers.default;
 
   //FIELDS:
   customerFieldsData.forEach((fields, index) => {
@@ -162,7 +165,7 @@ async function dummyData() {
   });
 
   // data
-  customers.forEach((customer, index) => {
+  customersData.forEach((customer, index) => {
     Customer.create({
       id: index + 1,
       firstName: customer.firstName,
