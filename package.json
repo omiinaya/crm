@@ -11,7 +11,7 @@
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
     "dev": "concurrently \"npm run client\" \"npm run server\"",
-    "start": "ionic serve -p 8091"
+    "start": "npm run dev"
   },
   "dependencies": {
     "@capacitor/app": "4.1.0",
