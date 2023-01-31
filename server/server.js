@@ -18,7 +18,7 @@ app.use(serveStatic(path.join(__dirname, 'dist')));
 app.use('/', serveStatic(path.join(__dirname, '../dist')))
 
 app.get('/', function (req, res) {
-	res.sendFile(path.join(__dirname, '../dist/index.html'))
+  res.sendFile(path.join(__dirname, '../dist/index.html'))
 })
 
 require("./routes/nav.routes")(app);
@@ -34,15 +34,16 @@ require("./routes/customer.routes")(app);
 require("./routes/location.routes")(app);
 
 (async () => {
+  const server = app.listen(port, () => {
+    console.log(`Server: ${port}.`);
+  });
+
   await setup();
 
   const options = {
     cors: { origin: origins },
   };
 
-  const server = app.listen(port, () => {
-    console.log(`Server: ${port}.`);
-  });
   const io = require("socket.io")(server, options);
   const socket = io.listen(port + 2, () => {
     console.log(`Socket.io: ${port + 2}.`);
