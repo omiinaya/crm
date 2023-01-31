@@ -3,7 +3,7 @@ const Asset = db.asset
 const axios = require('axios')
 
 exports.create = async (req, res) => {
-  const assetFields = await axios.get("https://db-x4jr.onrender.com/api/asset/fields");
+  const assetFields = await axios.get("http://localhost:8090/api/asset/fields");
   const assetResponse = await assetFields.data;
 
   const fields = [...assetResponse]

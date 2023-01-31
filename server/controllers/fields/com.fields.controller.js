@@ -4,7 +4,7 @@ const Op = db.Sequelize.Op;
 const axios = require("axios")
 
 exports.create = async (req, res) => {
-  const comFields = await axios.get("https://db-x4jr.onrender.com/api/com/fields");
+  const comFields = await axios.get("http://localhost:8090/api/com/fields");
   const comResponse = await comFields.data;
 
 

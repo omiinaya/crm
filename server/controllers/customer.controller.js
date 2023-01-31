@@ -15,13 +15,13 @@ exports.create = async (req, res) => {
   }
 
   const customerFields = await axios.get(
-    "https://db-x4jr.onrender.com/api/customers/fields"
+    "http://localhost:8090/api/customers/fields"
   );
   const locationFields = await axios.get(
-    "https://db-x4jr.onrender.com/api/locations/fields"
+    "http://localhost:8090/api/locations/fields"
   );
   const customerSettingsFields = await axios.get(
-    "https://db-x4jr.onrender.com/api/customers/settings/fields"
+    "http://localhost:8090/api/customers/settings/fields"
   );
 
   const customerResponse = await customerFields.data;

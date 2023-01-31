@@ -6,9 +6,9 @@ const io = require('socket.io-client');
 
 exports.create = async (req, res) => {
   const ticketFields = await axios.get(
-    "https://db-x4jr.onrender.com/api/ticket/fields"
+    "http://localhost:8090/api/ticket/fields"
   );
-  const assetFields = await axios.get("https://db-x4jr.onrender.com/api/asset/fields");
+  const assetFields = await axios.get("http://localhost:8090/api/asset/fields");
   const ticketResponse = await ticketFields.data;
   const assetResponse = await assetFields.data;
 
