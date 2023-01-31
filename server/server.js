@@ -33,10 +33,11 @@ require("./routes/business.routes")(app);
 require("./routes/customer.routes")(app);
 require("./routes/location.routes")(app);
 
+const server = app.listen(port, () => {
+  console.log(`Server: ${port}.`);
+});
+
 (async () => {
-  const server = app.listen(port, () => {
-    console.log(`Server: ${port}.`);
-  });
 
   await setup();
 
