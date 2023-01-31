@@ -8,16 +8,18 @@ const app = express();
 const port = parseInt(process.env.SERVER) || 8080;
 const path = require('path');
 
-app.use(cors({ origin: ["http://localhost:8091", "https://mmit.vercel.app"] }));
+const origins = ["http://localhost:8091", "http://localhost:8090", "http://localhost:8092", "https://mmit.vercel.app"];
+
+app.use(cors({ origin: origins }));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(serveStatic(path.join(__dirname, 'dist')));
+app.use('/', serveStatic(path.join(__dirname, '../dist')))
 
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to your application." });
-});
+app.get('/', function (req, res) {
+	res.sendFile(path.join(__dirname, '../dist/index.html'))
+})
 
 require("./routes/nav.routes")(app);
 require("./routes/auth.routes")(app);
@@ -35,7 +37,7 @@ require("./routes/location.routes")(app);
   await setup();
 
   const options = {
-    cors: { origin: ["http://localhost:8091", "https://mmit.vercel.app"] },
+    cors: { origin: origins },
   };
 
   const server = app.listen(port, () => {

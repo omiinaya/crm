@@ -275,11 +275,15 @@ export const storeX = reactive({
   },
 
   openTickets() {
-    return this.tickets.filter(ticket => ticket.ticketStatus !== "Resolved").length;
+    if (this.tickets.length) {
+      return this.tickets.filter(ticket => ticket.ticketStatus !== "Resolved").length;
+    }
   },
 
   closedTickets() {
-    return this.tickets.filter(ticket => ticket.ticketStatus === "Resolved").length;
+    if (this.tickets.length) {
+      return this.tickets.filter(ticket => ticket.ticketStatus === "Resolved").length;
+    }
   },
 
   totalTickets() {
