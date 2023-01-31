@@ -19,11 +19,11 @@ const homeActions = require("./actions/home.actions.data");
 
 //fields
 const comFields = require("./fields/com.fields.data");
-const assetFields = require("./fields/asset.fields.data");
+//const assetFields = require("./fields/asset.fields.data");
 //const ticketFields = require("./fields/ticket.fields.data");
 //const customerFields = require("./fields/customer.fields.data");
 //const locationFields = require("./fields/location.fields.data");
-const customerSettingsFields = require("./fields/customer.settings.fields");
+//const customerSettingsFields = require("./fields/customer.settings.fields");
 
 
 const Nav = db.nav;
@@ -71,6 +71,15 @@ async function dummyData() {
   const ticketFields = await import("./fields/ticket.fields.data.js");
   const ticketFieldsData = ticketFields.default;
 
+  const assetFields = await import("./fields/asset.fields.data.js");
+  const assetFieldsData = assetFields.default;
+
+  const customerSettingsFields = await import("./fields/customer.settings.fields.js");
+  const customerSettingsFieldsData = customerSettingsFields.default;
+
+  const comFields = await import("./fields/com.fields.data.js");
+  const comFieldsData = comFields.default;
+
   //FIELDS:
   customerFieldsData.forEach((fields, index) => {
     CustomerFields.create({
@@ -112,7 +121,7 @@ async function dummyData() {
     });
   });
 
-  assetFields.forEach((fields, index) => {
+  assetFieldsData.forEach((fields, index) => {
     AssetFields.create({
       id: index + 1,
       name: fields.name,
@@ -127,7 +136,7 @@ async function dummyData() {
     });
   });
 
-  customerSettingsFields.forEach((settings, index) => {
+  customerSettingsFieldsData.forEach((settings, index) => {
     CustomerSettingsFields.create({
       id: index + 1,
       name: settings.name,
@@ -140,7 +149,7 @@ async function dummyData() {
     });
   });
 
-  comFields.forEach((fields, index) => {
+  comFieldsData.forEach((fields, index) => {
     ComFields.create({
       id: index + 1,
       name: fields.name,
