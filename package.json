@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "server": "cd server && node --optimize_for_size --max_old_space_size=460 server.js",
+    "server": "cd server && node --optimize_for_size --max_old_space_size=460 --gc_interval=100 server.js",
     "dev": "concurrently \"npm run serve\" \"npm run server\"",
     "prestart": "npm run build",
     "start": "npm run server"
@@ -20,7 +20,6 @@
     "@ionic/vue": "^6.0.0",
     "@ionic/vue-router": "^6.0.0",
     "@popperjs/core": "^2.11.6",
-    "@sendgrid/mail": "^7.7.0",
     "@vue/cli-service": "^5.0.8",
     "@vuepic/vue-datepicker": "^3.6.4",
     "axios": "1.0.0",
@@ -55,13 +54,15 @@
     "yup": "^0.32.11",
     "@capacitor/cli": "4.4.0",
     "@vue/cli-plugin-babel": "~5.0.0-rc.1",
+    "@vue/cli-plugin-router": "~5.0.0-rc.1",
+    "@vue/test-utils": "^2.0.0-rc.16"
+  },
+  "devDependencies": {
+    "eslint": "^8.4.1",
+    "eslint-plugin-vue": "^8.2.0",
     "@vue/cli-plugin-e2e-cypress": "~5.0.0-rc.1",
     "@vue/cli-plugin-eslint": "~5.0.0-rc.1",
-    "@vue/cli-plugin-router": "~5.0.0-rc.1",
-    "@vue/test-utils": "^2.0.0-rc.16",
-    "cypress": "^8.7.0",
-    "eslint": "^8.4.1",
-    "eslint-plugin-vue": "^8.2.0"
+    "cypress": "^8.7.0"
   },
   "engines": {
     "node": "16.17.0"
