@@ -1,15 +1,19 @@
 require("dotenv").config();
 const setup = require("./setup/db.setup");
 const express = require("express");
+const serveStatic = require("serve-static");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const app = express();
 const port = parseInt(process.env.SERVER) || 8080;
+const path = require('path');
 
 app.use(cors({ origin: ["http://localhost:8091", "https://mmit.vercel.app"] }));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(serveStatic(path.join(__dirname, 'dist')));
 
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to your application." });
