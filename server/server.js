@@ -8,7 +8,7 @@ const app = express();
 const port = parseInt(process.env.PORT) || 8080;
 const path = require('path');
 
-const origins = ["http://localhost:8091", "http://localhost:15169", "http://localhost:8092", "https://mmit.vercel.app"];
+const origins = ["http://localhost:8091", "http://localhost", "http://localhost:8092", "https://mmit.vercel.app"];
 
 app.use(cors({ origin: origins }));
 

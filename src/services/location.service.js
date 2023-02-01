@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-const API_URL = "http://localhost:15169/api/locations/";
+const API_URL = "http://localhost/api/locations/";
 
 class LocationService {
 

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://localhost:15169/api/nav/';
+const API_URL = 'http://localhost/api/nav/';
 
 class NavService {
   getPublicContent() {

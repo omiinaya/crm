@@ -1,7 +1,7 @@
 import axios from 'axios';
 //import authHeader from './auth-header';
 
-const API_URL = 'http://localhost:15169/api/businesses/';
+const API_URL = 'http://localhost/api/businesses/';
 
 class BusinessService {
   getBusinesses() {

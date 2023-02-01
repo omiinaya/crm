@@ -5,8 +5,8 @@ const util = require("util");
 //data
 const navs = require("./nav.data");
 const coms = require("./coms.data");
-const users = require("./users.data");
-const roles = require("./roles.data");
+//const users = require("./users.data");
+//const roles = require("./roles.data");
 const assets = require("./assets.data");
 const tickets = require("./tickets.data");
 const numbers = require("./numbers.data");
@@ -82,6 +82,12 @@ async function dummyData() {
 
   const customers = await import("./customers.data.js");
   const customersData = customers.default;
+
+  const users = await import("./users.data.js");
+  const usersData = users.default;
+
+  const roles = await import("./roles.data.js");
+  const rolesData = roles.default;
 
   //FIELDS:
   customerFieldsData.forEach((fields, index) => {
@@ -181,7 +187,7 @@ async function dummyData() {
     });
   });
 
-  users.forEach((user) => {
+  usersData.forEach((user) => {
     User.create({
       firstName: user.firstName,
       lastName: user.lastName,
@@ -193,7 +199,7 @@ async function dummyData() {
     });
   });
 
-  roles.forEach((role, index) => {
+  rolesData.forEach((role, index) => {
     Role.create({
       id: index + 1,
       name: role,
