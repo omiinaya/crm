@@ -2,11 +2,11 @@ module.exports = (sequelize, Sequelize) => {
   const customerSettingsFields = require("../../setup/fields/customer.settings.fields");
 
   let dynamicFields = {};
-  for (let i = 0; i < customerSettingsFields.length; i++) {
+  for (let i = customerSettingsFields.length - 1; i >= 0; i--) {
     const field = customerSettingsFields[i];
     if (!field.data) continue;
-    dynamicFields[field.name] = { 
-      type: Sequelize[field.data.type], 
+    dynamicFields[field.name] = {
+      type: Sequelize[field.data.type],
       default: field.data.default
     };
   }

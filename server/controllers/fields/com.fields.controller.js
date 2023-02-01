@@ -16,9 +16,9 @@ exports.create = async (req, res) => {
 
   let com = {};
 
-  for (let i = 0; i < fields.length; i++) {
+  for (let i = fields.length - 1; i >= 0; i--) {
     asset[fields[i].name] = req.body[fields[i].name];
-  }
+    }
 
   try {
     const request = await ComFields.create(comFields)

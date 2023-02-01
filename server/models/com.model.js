@@ -2,10 +2,9 @@ module.exports = (sequelize, Sequelize) => {
     const comFields = require('../setup/fields/com.fields.data')
 
     let dynamicFields = {}
-    for (let i = 0; i < comFields.length; i++) {
+    for (let i = comFields.length - 1; i >= 0; i--) {
         const field = comFields[i]
         if (!field.data) continue;
-        //if (field.name === 'ticketCustomerName') continue;
         dynamicFields[field.name] = { type: Sequelize[field.data] }
     }
 

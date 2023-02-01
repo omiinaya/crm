@@ -123,8 +123,9 @@ export const storeX = reactive({
     try {
       const customerRequest = await CustomerService.getCustomers();
       const data = customerRequest.data;
-      const responses = []
-      for (let i = 0; i < data.length; i++) {
+      const responses = [];
+
+      for (let i = data.length - 1; i >= 0; i--) {
         const customer = data[i];
         const phoneId = customer.primaryPhone;
         const addressId = customer.primaryAddress;
@@ -134,17 +135,19 @@ export const storeX = reactive({
         ])
         responses.push([phoneRes, addressRes])
       }
-      for (let i = 0; i < data.length; i++) {
+
+      for (let i = data.length - 1; i >= 0; i--) {
         const customer = data[i];
         const phoneRes = responses[i][0];
-        customer.name = `${customer.firstName} ${customer.lastName}`;
+        const addressRes = responses[i][1];
+        customer.name = `${ customer.firstName } ${ customer.lastName }`;
         customer.customerId = customer.id;
+
         if (phoneRes && phoneRes[0] && phoneRes[0].number) {
           const primaryPhone = phoneRes[0].number || '';
           customer.phone = primaryPhone;
         }
 
-        const addressRes = responses[i][1];
         if (addressRes && addressRes[0]) {
           const address1 = addressRes[0]['address1']
 
