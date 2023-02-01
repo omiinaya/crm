@@ -3,19 +3,19 @@ const db = require("../models/index");
 const util = require("util");
 
 //data
-const navs = require("./nav.data");
+//const navs = require("./nav.data");
 const coms = require("./coms.data");
 //const users = require("./users.data");
 //const roles = require("./roles.data");
-const assets = require("./assets.data");
-const tickets = require("./tickets.data");
-const numbers = require("./numbers.data");
-const locations = require("./locations.data");
+//const assets = require("./assets.data");
+//const tickets = require("./tickets.data");
+//const numbers = require("./numbers.data");
+//const locations = require("./locations.data");
 //const customers = require("./customers.data");
-const businesses = require("./businesses.data");
+//const businesses = require("./businesses.data");
 
 //actions
-const homeActions = require("./actions/home.actions.data");
+//const homeActions = require("./actions/home.actions.data");
 
 //fields
 //const comFields = require("./fields/com.fields.data");
@@ -89,7 +89,31 @@ async function dummyData() {
   const roles = await import("./roles.data.js");
   const rolesData = roles.default;
 
-  //FIELDS:
+  const navs = await import("./navs.data.js");
+  const navsData = navs.default;
+
+  const homeActions = await import("./actions/home.actions.data.js");
+  const homeActionsData = homeActions.default;
+
+  const businesses = await import("./businesses.data.js");
+  const businessesData = businesses.default;
+
+  const numbers = await import("./numbers.data.js");
+  const numbersData = numbers.default;
+
+  const locations = await import("./locations.data.js");
+  const locationsData = locations.default;
+
+  const assets = await import("./assets.data.js");
+  const assetsData = assets.default;
+
+  const tickets = await import("./tickets.data.js");
+  const ticketsData = tickets.default;
+
+  const coms = await import("./coms.data.js");
+  const comsData = coms.default;
+
+  //FIELDS
   customerFieldsData.forEach((fields, index) => {
     CustomerFields.create({
       id: index + 1,
@@ -170,7 +194,7 @@ async function dummyData() {
     });
   });
 
-  // data
+  //DATA
   customersData.forEach((customer, index) => {
     Customer.create({
       id: index + 1,
@@ -206,7 +230,7 @@ async function dummyData() {
     });
   });
 
-  navs.forEach((role, index) => {
+  navsData.forEach((role, index) => {
     Nav.create({
       id: index + 1,
       title: role.title,
@@ -216,7 +240,7 @@ async function dummyData() {
     });
   });
 
-  homeActions.forEach((action, index) => {
+  homeActionsData.forEach((action, index) => {
     HomeActions.create({
       id: index + 1,
       title: action.title,
@@ -226,13 +250,13 @@ async function dummyData() {
     });
   });
 
-  businesses.forEach((business) => {
+  businessesData.forEach((business) => {
     Business.create({
       name: business.name,
     });
   });
 
-  numbers.forEach((number, index) => {
+  numbersData.forEach((number, index) => {
     Number.create({
       id: index + 1,
       type: number.type,
@@ -241,7 +265,7 @@ async function dummyData() {
     });
   });
 
-  assets.forEach((asset) => {
+  assetsData.forEach((asset) => {
     Asset.create({
       assetCustomerId: asset.assetCustomerId,
       assetTicketId: asset.assetTicketId,
@@ -253,7 +277,7 @@ async function dummyData() {
     });
   });
 
-  tickets.forEach((ticket) => {
+  ticketsData.forEach((ticket) => {
     Ticket.create({
       ticketCustomerId: ticket.ticketCustomerId,
       ticketTitle: ticket.ticketTitle,
@@ -264,7 +288,7 @@ async function dummyData() {
     });
   });
 
-  coms.forEach((com) => {
+  comsData.forEach((com) => {
     Com.create({
       comVis: com.comVis,
       comType: com.comType,
@@ -275,7 +299,7 @@ async function dummyData() {
     });
   });
 
-  locations.forEach((location, index) => {
+  locationsData.forEach((location, index) => {
     Location.create({
       id: index + 1,
       address1: location.address1,
