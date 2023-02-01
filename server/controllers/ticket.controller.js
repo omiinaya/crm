@@ -19,11 +19,11 @@ exports.create = async (req, res) => {
   let ticket = {};
   let asset = {};
 
-  for (let i = 0; i < ticketResponse.length; i++) {
+  for (let i = ticketResponse.length - 1; i >= 0; i--) {
     ticket[ticketResponse[i].name] = req.body[ticketResponse[i].name];
   }
 
-  for (let i = 0; i < assetResponse.length; i++) {
+  for (let i = assetResponse.length - 1; i >= 0; i--) {
     if (assetResponse[i].name === "assetCustomerName") continue; //ignore customerName field.
     asset[assetResponse[i].name] = req.body[assetResponse[i].name];
   }

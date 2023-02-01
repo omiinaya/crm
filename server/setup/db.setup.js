@@ -2,30 +2,6 @@ const mysql = require("mysql2");
 const db = require("../models/index");
 const util = require("util");
 
-//data
-//const navs = require("./nav.data");
-const coms = require("./coms.data");
-//const users = require("./users.data");
-//const roles = require("./roles.data");
-//const assets = require("./assets.data");
-//const tickets = require("./tickets.data");
-//const numbers = require("./numbers.data");
-//const locations = require("./locations.data");
-//const customers = require("./customers.data");
-//const businesses = require("./businesses.data");
-
-//actions
-//const homeActions = require("./actions/home.actions.data");
-
-//fields
-//const comFields = require("./fields/com.fields.data");
-//const assetFields = require("./fields/asset.fields.data");
-//const ticketFields = require("./fields/ticket.fields.data");
-//const customerFields = require("./fields/customer.fields.data");
-//const locationFields = require("./fields/location.fields.data");
-//const customerSettingsFields = require("./fields/customer.settings.fields");
-
-
 const Nav = db.nav;
 const Com = db.com;
 const Role = db.role;

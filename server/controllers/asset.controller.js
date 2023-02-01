@@ -14,7 +14,7 @@ exports.create = async (req, res) => {
 
   let asset = {};
 
-  for (let i = 0; i < fields.length; i++) {
+  for (let i = fields.length - 1; i >= 0; i--) {
     asset[fields[i].name] = req.body[fields[i].name];
   }
 

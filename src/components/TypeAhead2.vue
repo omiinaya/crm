@@ -180,7 +180,6 @@ export default /*#__PURE__*/ defineComponent({
 				if (!projected) return;
 				const noTitle = projected.split(': ')[1];
 				const matching = noTitle.match(regexp)
-				console.log(regexp)
 				return matching;
 			});
 		},

@@ -63,9 +63,9 @@ exports.create = async (req, res) => {
 
   let com = {};
 
-  for (let i = 0; i < comResponse.length; i++) {
+  for (let i = comResponse.length - 1; i >= 0; i--) {
     com[comResponse[i].name] = req.body[comResponse[i].name];
-  }
+    }
 
   try {
     const request = await Com.create(com);

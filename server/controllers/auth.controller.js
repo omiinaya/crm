@@ -70,9 +70,9 @@ exports.signin = (req, res) => {
 
       var authorities = [];
       user.getRoles().then(roles => {
-        for (let i = 0; i < roles.length; i++) {
+        for (let i = roles.length - 1; i >= 0; i--) {
           authorities.push(roles[i].id);
-        }
+          }
         res.status(200).send({
           id: user.id,
           name: `${user.firstName} ${user.lastName}`,

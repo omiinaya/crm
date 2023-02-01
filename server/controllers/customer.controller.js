@@ -40,8 +40,7 @@ exports.create = async (req, res) => {
 
   let customer = {};
 
-  for (let i = 0; i < fields.length; i++) {
-    //console.log(fields[i]);
+  for (let i = fields.length - 1; i >= 0; i--) {
     customer[fields[i].name] = req.body[fields[i].name];
   }
 
