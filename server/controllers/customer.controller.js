@@ -5,7 +5,10 @@ const Number = db.number;
 const Location = db.location;
 const CustomerSettings = db.customerSettings;
 const Op = db.Sequelize.Op;
+
 const PORT = process.env.PORT
+const IS_PROD = process.env.NODE_ENV === "production";
+const URL = IS_PROD ? "https://mmit-crm.herokuapp.com" : `http://localhost:${PORT}`;
 
 exports.create = async (req, res) => {
   if (!req.body.firstName) {
@@ -16,13 +19,13 @@ exports.create = async (req, res) => {
   }
 
   const customerFields = await axios.get(
-    `http://localhost:${PORT}/api/customers/fields`
+    `${URL}/api/customers/fields`
   );
   const locationFields = await axios.get(
-    `http://localhost:${PORT}/api/locations/fields`
+    `${URL}/api/locations/fields`
   );
   const customerSettingsFields = await axios.get(
-    `http://localhost:${PORT}/api/customers/settings/fields`
+    `${URL}/api/customers/settings/fields`
   );
 
   const customerResponse = await customerFields.data;

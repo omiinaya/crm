@@ -16,7 +16,11 @@ import WarrantyService from "../services/warranty.service";
 import ComService from "../services/com.service";
 import CSCService from "../services/csc.service";
 
-const socket = io("http://localhost:8092");
+const IS_PROD = process.env.NODE_ENV === "production";
+//const URL = IS_PROD ? "https://mmit-crm.herokuapp.com" : `http://localhost:${PORT}`;
+const IOURL = IS_PROD ? "https://mmit-crm.herokuapp.com" : `http://localhost:8092`;
+
+const socket = io(IOURL);
 
 const store = createStore({
   modules: {

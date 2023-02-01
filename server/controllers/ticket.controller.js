@@ -3,13 +3,17 @@ const Ticket = db.ticket;
 //const Asset = db.asset;
 const axios = require("axios");
 const io = require('socket.io-client');
+
 const PORT = process.env.PORT
+const IS_PROD = process.env.NODE_ENV === "production";
+const URL = IS_PROD ? "https://mmit-crm.herokuapp.com" : `http://localhost:${PORT}`;
+const IOURL = IS_PROD ? "https://mmit-crm.herokuapp.com" : `http://localhost:${PORT+2}`;
 
 exports.create = async (req, res) => {
   const ticketFields = await axios.get(
-    `http://localhost:${PORT}/api/ticket/fields`
+    `${URL}/api/ticket/fields`
   );
-  const assetFields = await axios.get(`http://localhost:${PORT}/api/asset/fields`);
+  const assetFields = await axios.get(`${URL}/api/asset/fields`);
   const ticketResponse = await ticketFields.data;
   const assetResponse = await assetFields.data;
 
@@ -117,7 +121,7 @@ exports.update = (req, res) => {
   })
     .then((num) => {
       if (num == 1) {
-        const socket = io('http://localhost:8092');
+        const socket = io(IOURL);
         socket.emit("ticketUpdateRequest", id);
         res.send({
           message: "Tutorial was updated successfully.",

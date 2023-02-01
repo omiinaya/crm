@@ -2,10 +2,13 @@ const db = require("../../models");
 const TicketFields = db.ticketFields
 const Op = db.Sequelize.Op;
 const axios = require("axios")
+
 const PORT = process.env.PORT
+const IS_PROD = process.env.NODE_ENV === "production";
+const URL = IS_PROD ? "https://mmit-crm.herokuapp.com" : `http://localhost:${PORT}`;
 
 exports.create = async (req, res) => {
-  const ticketFields = await axios.get(`http://localhost:${PORT}/api/ticket/fields`);
+  const ticketFields = await axios.get(`${URL}/api/ticket/fields`);
   const ticketResponse = await assetFields.data;
 
 

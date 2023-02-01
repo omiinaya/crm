@@ -1,7 +1,10 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-const API_URL = "http://localhost/api/locations/";
+const IS_PROD = process.env.NODE_ENV === "production";
+const URL = IS_PROD ? "https://mmit-crm.herokuapp.com" : `http://localhost:8090`;
+
+const API_URL = `${URL}/api/locations/`;
 
 class LocationService {
 

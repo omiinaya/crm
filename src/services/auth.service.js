@@ -1,6 +1,9 @@
 import axios from 'axios';
-//TODO: env 
-const API_URL = `http://localhost/api/auth/`;
+
+const IS_PROD = process.env.NODE_ENV === "production";
+const URL = IS_PROD ? "https://mmit-crm.herokuapp.com" : `http://localhost:8090`;
+
+const API_URL = `${URL}/api/auth/`;
 
 class AuthService {
   login(user) {

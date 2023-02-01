@@ -1,10 +1,13 @@
 const db = require("../models");
 const Asset = db.asset
 const axios = require('axios')
+
 const PORT = process.env.PORT
+const IS_PROD = process.env.NODE_ENV === "production";
+const URL = IS_PROD ? "https://mmit-crm.herokuapp.com" : `http://localhost:${PORT}`;
 
 exports.create = async (req, res) => {
-  const assetFields = await axios.get(`http://localhost:${PORT}/api/asset/fields`);
+  const assetFields = await axios.get(`${URL}/api/asset/fields`);
   const assetResponse = await assetFields.data;
 
   const fields = [...assetResponse]
