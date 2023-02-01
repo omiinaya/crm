@@ -6,6 +6,7 @@ const API_URL = 'http://localhost:8090/api/asset/';
 class AssetService {
   //GET
   getAssets() {
+    console.log(process.env)
     return axios.get(API_URL);
   }
 
