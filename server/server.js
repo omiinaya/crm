@@ -8,9 +8,9 @@ const app = express();
 const port = parseInt(process.env.PORT) || 8080;
 const path = require('path');
 
-const origins = ["http://localhost:8091", "http://localhost:8092", "https://mmit-crm.herokuapp.com/"];
+const origins = { origin: ["http://localhost:8091", "http://localhost:8092", "https://mmit-crm.herokuapp.com/"] };
 
-app.use(cors({ origin: origins }));
+app.use(cors(origins));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -39,10 +39,10 @@ const server = app.listen(port, () => {
 
 (async () => {
 
-  //await setup();
+  await setup();
 
   const options = {
-    cors: { origin: origins },
+    cors: origins,
   };
 
   const io = require("socket.io")(server, options);
