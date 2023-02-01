@@ -450,9 +450,8 @@ export default {
       console.log(this.editing.assets)
     },
 
-    async testing123(a, b) {
+    async testing123(a) {
       console.log(a);
-      console.log(b);
     }
   },
   created() {

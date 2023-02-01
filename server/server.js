@@ -46,11 +46,8 @@ const server = app.listen(port, () => {
   };
 
   const io = require("socket.io")(server, options);
-  const socket = io.listen(port + 2, () => {
-    console.log(`Socket.io: ${port + 2}.`);
-  });
 
-  socket.on("connection", (client) => {
+  io.on('connection', client => {
     console.log("connection established.");
 
     client.on("disconnect", () => {
@@ -62,11 +59,12 @@ const server = app.listen(port, () => {
     });
 
     client.on("comCreatedRequest", (id) => {
-      socket.emit("comCreatedResponse", id);
+      console.log('test')
+      io.emit("comCreatedResponse", id);
     });
 
     client.on("ticketUpdateRequest", (id) => {
-      socket.emit("ticketUpdateResponse", id);
+      io.emit("ticketUpdateResponse", id);
     });
   });
 })();

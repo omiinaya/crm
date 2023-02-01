@@ -4,10 +4,9 @@ const Com = db.com;
 const io = require('socket.io-client');
 const nodemailer = require('nodemailer');
 
-const PORT = process.env.PORT
+const PORT = parseInt(process.env.PORT);
 const IS_PROD = process.env.NODE_ENV === "production";
 const URL = IS_PROD ? "https://mmit-crm.herokuapp.com" : `http://localhost:${PORT}`;
-const IOURL = IS_PROD ? "https://mmit-crm.herokuapp.com" : `http://localhost:${PORT+2}`;
 
 const accountSid = process.env.TWILIO_SID;
 const authToken = process.env.TWILIO_AUTH;
@@ -75,7 +74,8 @@ exports.create = async (req, res) => {
     const message = com.comMsg;
     const number = `+1${com.customerPhone.replaceAll('-', '')}`
     const twilio = `+1${7866613221}`
-    const socket = io(IOURL);
+    const socket = io(URL);
+    console.log(URL)
     const email = com.customerEmail;
     const subject = `Ticket #${ticketId.toString().padStart(5, '0')}`
 
