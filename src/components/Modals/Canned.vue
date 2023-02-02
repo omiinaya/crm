@@ -19,12 +19,12 @@
             </div>
             <div class="row mt-3">
                 <div class="col-12">
-                    <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="filteredCustomers"
+                    <EasyDataTable :headers="headers" :items="filteredResponses"
                         theme-color="#1d90ff" table-class-name="customize-table" header-text-direction="left"
                         body-text-direction="left">
-                        <template #item-name="{ firstName, lastName, id }">
-                            <button type="button" class="template-btn btn-lg" v-on:click="openCustomer(id)">
-                                {{ firstName }} {{ lastName }}
+                        <template #item-actions="{}">
+                            <button type="button" class="btn btn-lg" v-on:click="openCustomer(id)">
+                                Insert
                             </button>
                         </template>
                     </EasyDataTable>
@@ -65,19 +65,28 @@ immediate assistance or have any questions. Please call our center at 305-381-58
             { value: "body", text: "BODY", sortable: true },
             { value: "actions", text: "ACTIONS", sortable: true },
         ],
+        searchFilter: null
     }),
     methods: {
         async closeHandler() {
             storeX.dialogs.canned = false;
         },
-        async searchHandler(e) {
-            console.log(e)
+        async searchHandler(input) {
+            const value = input.target.value;
+            this.searchFilter = value;
+            console.log(this.searchFilter)
         }
     },
     created() { },
     computed: {
-        filteredCustomers() {
-            return this.items;
+        filteredResponses() {
+            if (!this.searchFilter) return this.items;
+            const filtered = this.items.filter(item => {
+                const title = item.title.toLowerCase()
+                const input = this.searchFilter.toLowerCase()
+                return title.includes(input)
+            })
+            return filtered;
         }
     },
 };
@@ -86,6 +95,13 @@ immediate assistance or have any questions. Please call our center at 305-381-58
 <style scoped>
 .bi {
     font-size: 25px;
+}
+
+.btn {
+    width: 100%;
+    font-size: 16px;
+    background-color: #6C757D;
+    color: white;
 }
 
 input {
