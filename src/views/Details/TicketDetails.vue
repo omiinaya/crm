@@ -21,7 +21,7 @@
           </div>
           <div class="row">
             <div class="col-3 title">
-              {{ ticket.title }}
+              {{ storeX.ticket.title }}
             </div>
             <div class="col-9 title">
               test
@@ -60,15 +60,15 @@
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
-                  <i class="bi bi-calendar-date"></i> Date Due:
+                  <i class="bi bi-calendar-date"></i> Date Edited:
                 </label>
-                <div class="col-sm-6">{{ ticket.updated }}</div>
+                <div class="col-sm-6">{{ storeX.ticket.updated }}</div>
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-calendar-date"></i> Date Created:
                 </label>
-                <div class="col-sm-6">{{ ticket.created }}</div>
+                <div class="col-sm-6">{{ storeX.ticket.created }}</div>
               </div>
             </div>
           </div>
@@ -82,15 +82,15 @@
                 <label class="col-sm-6">
                   <i class="bi bi-person-circle"></i> Name:
                 </label>
-                <div class="col-sm-6">{{ customer.name }}</div>
+                <div class="col-sm-6">{{ storeX.customer.name }}</div>
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-envelope"></i> Email:
                 </label>
                 <div class="col-sm-6">
-                  <a :href="`mailto:${customer.email}`" target="_blank">
-                    {{ customer.email }}
+                  <a :href="`mailto:${storeX.customer.email}`" target="_blank">
+                    {{ storeX.customer.email }}
                   </a>
                 </div>
               </div>
@@ -98,15 +98,15 @@
                 <label class="col-sm-6">
                   <i class="bi bi-telephone"></i> Primary Phone:
                 </label>
-                <div class="col-sm-6">{{ customer.phone }}</div>
+                <div class="col-sm-6">{{ storeX.customer.primaryPhone }}</div>
               </div>
               <div class="row align-items-top mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-geo-alt"></i> Primary Address:
                 </label>
                 <div class="col-sm-6">
-                  <a :href="`https://maps.google.com/?q=${customer.address}`" target="_blank">
-                    {{ customer.address }}
+                  <a :href="`https://maps.google.com/?q=${storeX.customer.primaryAddress}`" target="_blank">
+                    {{ storeX.customer.address }}
                   </a>
                 </div>
               </div>
@@ -137,8 +137,8 @@
                 <i class="bi bi-pencil"></i>
               </button>
             </div>
-            <div v-if="ticketAssets.length">
-              <EasyDataTable :headers="headers" :items="ticketAssets" theme-color="#1d90ff"
+            <div v-if="storeX.asset.length">
+              <EasyDataTable :headers="headers" :items="storeX.asset" theme-color="#1d90ff"
                 table-class-name="customize-table-details" header-text-direction="left" body-text-direction="left"
                 hide-footer>
                 <template #item-warranty="{ warranty }">
@@ -170,7 +170,7 @@
                 <i class="bi bi-pencil"></i>
               </button>
             </div>
-            <EasyDataTable :headers="headers" :items="ticketAssets" theme-color="#1d90ff"
+            <EasyDataTable :headers="headers" :items="storeX.asset" theme-color="#1d90ff"
               table-class-name="customize-table-details" header-text-direction="left" body-text-direction="left"
               hide-footer>
               <template #item-warranty="{ warranty }">
@@ -337,54 +337,14 @@ export default {
   }),
   methods: {
     async createCom() {
-      this.com.customerPhone = this.customer.phone;
-      this.com.customerEmail = this.customer.email;
+      this.com.customerPhone = storeX.customer.phone;
+      this.com.customerEmail = storeX.customer.email;
       storeX.ComService.createCom(this.com);
     },
     async loadTechnicianData() {
       const request = await storeX.UserService.getAllUsers();
       const data = await request.data;
       this.ticketTechs = data;
-    },
-    async loadTicketdata(id) {
-      const request = await storeX.TicketService.getTicketById(id)
-      const data = await request.data[0];
-      this.ticket.title = data.ticketTitle;
-      this.ticket.type = data.ticketType;
-      this.ticket.tech = data.ticketTech;
-      this.ticket.status = data.ticketStatus;
-      this.ticket.created = moment(data.createdAt).format('MMM DD YYYY HH:MM A');
-      this.ticket.updated = moment(data.updateAt).format('MMM DD YYYY HH:MM A');
-    },
-    async loadCustomerData(id) {
-      const request = await storeX.CustomerService.getCustomerById(id)
-      const data = await request.data[0];
-
-      const primaryPhone = await this.loadPhoneData(data.primaryPhone);
-      const phoneNumber = primaryPhone[0].number;
-
-      const primaryAddress = await this.loadLocationData(data.primaryAddress);
-      if (!primaryAddress[0].address1) {
-        this.customer.address = '';
-      } else {
-        const customerAddress = Object.values(primaryAddress[0]).slice(1, 7).join(', '); //gets address
-        this.customer.address = customerAddress.replace(/\b[a-z]/gi, char => char.toUpperCase()); //capitalizes every first letter
-      }
-
-      this.customer.name = `${data.firstName} ${data.lastName}`;
-      this.customer.email = data.email;
-      this.customer.phone = phoneNumber;
-      this.customer.created = moment(data.createdAt).format('MM-DD-YYYY');
-    },
-    async loadPhoneData(id) {
-      const request = await storeX.NumberService.getNumberById(id);
-      const data = await request.data;
-      return data;
-    },
-    async loadLocationData(id) {
-      const request = await storeX.LocationService.getLocationById(id);
-      const data = await request.data;
-      return data;
     },
     async loadAssetData(id) {
       const request = await storeX.AssetService.getAssetByTicketId(id);
@@ -422,22 +382,22 @@ export default {
       this.com.comVis = opt;
     },
 
-    async ticketStatusHandler(item, /*name, byProp*/) {
+    async ticketStatusHandler(item) {
       const id = storeX.navigation.ticketId;
       const obj = { ticketStatus: item };
       storeX.TicketService.updateTicket(id, obj);
     },
 
-    async ticketTechHandler(item, /*name,*/ byProp) {
-      const data = item[byProp];
+    async ticketTypeHandler(item) {
       const id = storeX.navigation.ticketId;
-      const obj = { ticketTech: data };
+      const obj = { ticketType: item };
       storeX.TicketService.updateTicket(id, obj);
     },
 
-    async ticketTypeHandler(item, /*name, byProp*/) {
+    async ticketTechHandler(item, byProp) {
+      const data = item[byProp];
       const id = storeX.navigation.ticketId;
-      const obj = { ticketType: item };
+      const obj = { ticketTech: data };
       storeX.TicketService.updateTicket(id, obj);
     },
 
@@ -466,11 +426,13 @@ export default {
     this.com.comAuthorId = JSON.parse(localStorage.getItem('user')).id;
     this.com.comAuthorName = JSON.parse(localStorage.getItem('user')).name;
     this.com.comTicketId = this.storeX.navigation.ticketId;
-    this.loadTicketdata(this.storeX.navigation.ticketId);
-    this.loadCustomerData(this.storeX.navigation.customerId);
-    this.loadAssetData(this.storeX.navigation.ticketId);
+
     this.loadComData(this.storeX.navigation.ticketId);
     this.loadTechnicianData();
+
+    storeX.loadCustomerByCustomerId(this.storeX.navigation.customerId);
+    storeX.loadTicketById(this.storeX.navigation.ticketId);
+    storeX.loadAssetByTicketId(this.storeX.navigation.ticketId)
 
     this.storeX.io.on('comCreatedResponse', (id) => {
       if (this.storeX.navigation.ticketId != id) return;
@@ -479,7 +441,7 @@ export default {
 
     this.storeX.io.on('ticketUpdateResponse', (id) => {
       if (this.storeX.navigation.ticketId != id) return;
-      this.loadTicketdata(this.storeX.navigation.ticketId);
+      storeX.loadTicketById(this.storeX.navigation.ticketId);
     })
   },
 }

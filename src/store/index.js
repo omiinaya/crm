@@ -45,7 +45,14 @@ export const storeX = reactive({
   tickets: [],
   assets: [],
   customers: [],
-  ticket: null,
+  ticket: {
+    title: null,
+    type: null,
+    tech: null,
+    status: null,
+    updated: null,
+    created: null,
+  },
   customer: {
     name: null,
     email: null,
@@ -53,6 +60,9 @@ export const storeX = reactive({
     primaryAddress: null,
     createdAt: null,
     type: null
+  },
+  asset: {
+
   },
 
   newTicketTest: '',
@@ -143,7 +153,7 @@ export const storeX = reactive({
         const customer = data[i];
         const phoneRes = responses[i][0];
         const addressRes = responses[i][1];
-        customer.name = `${ customer.firstName } ${ customer.lastName }`;
+        customer.name = `${customer.firstName} ${customer.lastName}`;
         customer.customerId = customer.id;
 
         if (phoneRes && phoneRes[0] && phoneRes[0].number) {
@@ -278,9 +288,32 @@ export const storeX = reactive({
   },
 
   async loadAssetByTicketId(id) {
+    console.log('test')
     const req = await AssetService.getAssetByTicketId(id);
-    const asset = await req.data;
-    return asset;
+    const data = await req.data;
+    console.log(data)
+    if (data.length) {
+      data[0].assetName = data[0].assetName.split('(')[0];
+      this.asset = await data[0];
+      console.log(this.asset)
+      const warranty = await this.loadWarrantyData(data.assetSerial);
+      this.asset['warranty'] = warranty;
+      return data;
+    }
+    console.log(this.asset)
+  },
+
+  async loadTicketById(id) {
+    const request = await TicketService.getTicketById(id)
+    const data = await request.data[0];
+    this.ticket.id = data.id;
+    this.ticket.title = data.ticketTitle;
+    this.ticket.type = data.ticketType;
+    this.ticket.tech = data.ticketTech;
+    this.ticket.status = data.ticketStatus;
+    this.ticket.created = moment(data.createdAt).format('MMM DD YYYY HH:MM A');
+    this.ticket.updated = moment(data.updateAt).format('MMM DD YYYY HH:MM A');
+    console.log(this.ticket)
   },
 
   openTickets() {
