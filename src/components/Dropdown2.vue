@@ -8,7 +8,7 @@
 
 <template>
   <div :class="'col-sm-' + cols">
-    <select @change="handler($event.target.value, this.name, this.byProp)">
+    <select @change="handler($event.target.value, this.name, this.byProp)" >
      
         <option v-for="(item, index) in items" :key="item + index">
           <a v-if="byProp && byTicket">
@@ -72,15 +72,7 @@ export default {
     }
   },
 
-  created() {
-    /*
-    console.log(this.name)
-    console.log(this.items)
-    console.log(this.title)
-    console.log(this.handler)
-    console.log(this.byProp)
-    */
-  },
+  created() {},
 
 };
 </script>

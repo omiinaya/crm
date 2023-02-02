@@ -20,9 +20,10 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-12 title">
+            <div class="col-3 title">
               {{ ticket.title }}
             </div>
+            <div class="col-9 title" style="background: white; color: black">stepper</div>
           </div>
         </div>
       </div>
