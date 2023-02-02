@@ -1,12 +1,9 @@
 <template>
-  <v-dialog v-model="this.$parent.dialog">
+  <v-dialog v-model="storeX.dialogs[dialog]">
     <v-card class="vmodal">
       <v-card-text>
         <slot name="content"></slot>
       </v-card-text>
-      <v-card-actions>
-        <v-btn block @click="this.$parent.dialog = false">Close Dialog</v-btn>
-      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
@@ -19,6 +16,12 @@ export default {
   data: () => ({
     storeX,
   }),
+  props: {
+    dialog: {
+      type: String,
+      required: true
+    }
+  },
   created() { },
 };
 </script>
@@ -37,7 +40,7 @@ export default {
   position: absolute;
   top: 50%;
   left: 50%;
-  
+
   width: 900px;
   height: 600px;
   transform: translate(-50%, -50%)

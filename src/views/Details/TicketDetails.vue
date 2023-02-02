@@ -206,16 +206,12 @@
                     <Dropdown2 :title="com.comVis" :items="comVis" cols="2" :handler="comVisHandler" />
                     <Dropdown2 :title="com.comType" :items="comTypes" cols="2" :handler="comTypeHandler" />
                   </div>
-                  <button class="com-btn" v-on:click="() => { dialog = true }">
+                  <button class="com-btn" v-on:click="() => { storeX.dialogs.canned = true }">
                     <i class="bi bi-clipboard"></i>
                   </button>
-                  <Modal>
+                  <Modal dialog="canned">
                     <template v-slot:content>
-                      <div class="row">
-                        <div class="col-12">
-                          INSERT CANNED RESPONSE
-                        </div>
-                      </div>
+                      <Canned />
                     </template>
                   </Modal>
                   <button class="com-btn" v-on:click="edit('assets')">
@@ -278,11 +274,12 @@ import Loading from "../../components/Loading.vue";
 import Dropdown from "../../components/Dropdown.vue";
 import Dropdown2 from "../../components/Dropdown2.vue";
 import Modal from "../../components/Modal.vue";
+import Canned from "../../components/Modals/Canned.vue";
 import moment from 'moment';
 
 export default {
   name: 'CustomerDetailsPage',
-  components: { Loading, Dropdown, Dropdown2, Modal },
+  components: { Loading, Dropdown, Dropdown2, Modal, Canned },
   data: () => ({
     storeX,
     ticket: {

@@ -56,6 +56,9 @@ export const storeX = reactive({
   },
 
   newTicketTest: '',
+  dialogs: {
+    canned: false
+  },
 
   HomeService,
   TicketService,
