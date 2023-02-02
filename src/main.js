@@ -3,9 +3,16 @@ import { IonicVue } from "@ionic/vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-//import VeeValidate from 'vee-validate';
+
 import Vue3EasyDataTable from "vue3-easy-data-table";
 import DatePicker from '@vuepic/vue-datepicker';
+
+import { createVuetify } from 'vuetify';
+
+import * as components from 'vuetify/components';
+import * as directives from 'vuetify/directives';
+
+import 'vuetify/styles';
 
 import "@ionic/vue/css/core.css";
 
@@ -25,17 +32,22 @@ import "bootstrap/dist/js/bootstrap.bundle";
 import "bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-//imports css
 import "vue3-easy-data-table/dist/style.css";
 import '@vuepic/vue-datepicker/dist/main.css'
 
 /* Theme variables */
 import "./theme/variables.css";
 
+const vuetify = createVuetify({
+  components,
+  directives,
+})
+
 const app = createApp(App)
   .use(IonicVue)
   .use(router)
   .use(store)
+  .use(vuetify)
 
 app.component("EasyDataTable", Vue3EasyDataTable);
 app.component('DatePicker', DatePicker);

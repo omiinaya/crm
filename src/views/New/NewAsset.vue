@@ -138,6 +138,7 @@ export default {
     }
   },
   created() {
+    this.storeX.tickets = [];
     this.loadAssetFields()
     storeX.loadCustomerData()
   },
