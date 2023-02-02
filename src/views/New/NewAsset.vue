@@ -17,9 +17,18 @@
             }}:
             </label>
             <div class="col-sm-4">
-              <TypeAhead :placeholder="field.placeholder" :items="storeX.customers" class="form-control simple-typeahead"
-                @selectItem="(e) => this.assetForm['customerId'] = e.id" />
+              <TypeAhead :placeholder="field.placeholder" :items="storeX.customers"
+                class="form-control simple-typeahead" @selectItem="(e) => customerHandler(e)" />
             </div>
+          </div>
+          <div v-else-if="field.show && field.type === 'dropdown' && field.name === 'assetTicketId'"
+            class="mb-3 row align-items-center">
+            <label :for="field.label + index" class="col-sm-3 col-form-label"><i :class="field.icon"></i> {{
+              field.label
+            }}:
+            </label>
+            <Dropdown2 cols="4" :name="field.name" :title="assetForm[field.name]" :items="openTicketsByCustomer"
+              :handler="dropdownHandler" byProp="id" />
           </div>
           <div v-else-if="field.show && field.type === 'dropdown'" class="mb-3 row align-items-center">
             <label :for="field.label + index" class="col-sm-3 col-form-label"><i :class="field.icon"></i> {{
@@ -60,13 +69,13 @@
         </div>
       </div>
     </div>
-    <!--
+
     <div class="col-1 offset-10 title">
-      <button type="button" class="btn btn-success" v-on:click="createAsset(assetForm)">
-        Create Asset
+      <button type="button" class="btn btn-success" v-on:click="testing(assetForm)">
+        Test
       </button>
     </div>
-    -->
+
   </div>
 </template>
 
@@ -118,17 +127,38 @@ export default {
     },
     testing(e) {
       console.log(e)
+      console.log(storeX.tickets)
+    },
+    async customerHandler(e) {
+      const customerId = e.customerId;
+      this.assetForm['customerId'] = customerId;
+      storeX.loadTicketsByCustomerId(customerId);
+      const tickets = this.openTicketsByCustomer;
+      console.log(tickets)
     }
   },
   created() {
     this.loadAssetFields()
     storeX.loadCustomerData()
   },
+  computed: {
+    openTicketsByCustomer() {
+      const filtered = storeX.tickets.filter(ticket => ticket.ticketStatus !== "Resolved");
+      const customer = this.assetForm['customerId']
+      if (!filtered.length && !customer) {
+        return [{ id: 'Select a customer' }]
+      } else if (!filtered.length && customer) {
+        return [{ id: 'No tickets found' }]
+      } else {
+        return storeX.tickets.filter(ticket => ticket.ticketStatus !== "Resolved");
+      }
+    },
+  },
   watch: {
     assetForm: {
       handler(newData) {
         console.log(newData)
-        console.log(this.customerItems)
+        //console.log(this.customerItems)
       },
       deep: true
     }

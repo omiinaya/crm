@@ -26,7 +26,7 @@ const assetFields = [
   {
     name: "assetTicketId",
     label: "Ticket #",
-    type: "text",
+    type: "dropdown",
     placeholder: "Ticket #",
     icon: "bi bi-tag",
     data: 'INTEGER',
