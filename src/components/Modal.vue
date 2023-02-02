@@ -1,23 +1,14 @@
 <template>
-  <div class="text-center">
-    <v-dialog v-model="dialog">
-      <template v-slot:activator="{ props }">
-        <button class="com-btn" v-bind="props">
-          <slot></slot>
-        </button>
-      </template>
-
-      <v-card>
-        <v-card-text>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua.
-        </v-card-text>
-        <v-card-actions>
-          <v-btn block @click="dialog = false">Close Dialog</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </div>
+  <v-dialog v-model="this.$parent.dialog">
+    <v-card class="vmodal">
+      <v-card-text>
+        <slot name="content"></slot>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn block @click="this.$parent.dialog = false">Close Dialog</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>
@@ -27,11 +18,8 @@ export default {
   name: 'MyComponent',
   data: () => ({
     storeX,
-    dialog: false,
   }),
-
   created() { },
-
 };
 </script>
 
@@ -41,5 +29,17 @@ export default {
   margin: 0 !important;
   background: transparent;
   font-size: 16px;
+}
+
+.vmodal {
+  background-color: black;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  
+  width: 900px;
+  height: 600px;
+  transform: translate(-50%, -50%)
 }
 </style>

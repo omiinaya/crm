@@ -14,7 +14,7 @@
               </button>
             </div>
             <div>
-              <button type="button" class="btn btn-success" v-on:click="print(customerForm)">
+              <button type="button" class="btn btn-success" v-on:click="() => { dialog = true }">
                 test 3
               </button>
             </div>
@@ -23,7 +23,9 @@
             <div class="col-3 title">
               {{ ticket.title }}
             </div>
-            <div class="col-9 title" style="background: white; color: black">stepper</div>
+            <div class="col-9 title">
+              test
+            </div>
           </div>
         </div>
       </div>
@@ -134,9 +136,6 @@
               <button class="btn" v-on:click="edit('assets')">
                 <i class="bi bi-pencil"></i>
               </button>
-              <!--
-              <Modal title="test" body="body" />
-              -->
             </div>
             <div v-if="ticketAssets.length">
               <EasyDataTable :headers="headers" :items="ticketAssets" theme-color="#1d90ff"
@@ -207,8 +206,17 @@
                     <Dropdown2 :title="com.comVis" :items="comVis" cols="2" :handler="comVisHandler" />
                     <Dropdown2 :title="com.comType" :items="comTypes" cols="2" :handler="comTypeHandler" />
                   </div>
-                  <Modal>
+                  <button class="com-btn" v-on:click="() => { dialog = true }">
                     <i class="bi bi-clipboard"></i>
+                  </button>
+                  <Modal>
+                    <template v-slot:content>
+                      <div class="row">
+                        <div class="col-12">
+                          INSERT CANNED RESPONSE
+                        </div>
+                      </div>
+                    </template>
                   </Modal>
                   <button class="com-btn" v-on:click="edit('assets')">
                     <i class="bi bi-paperclip"></i>
@@ -327,7 +335,8 @@ export default {
         assetName: null,
         assetSerial: null
       },
-    }
+    },
+    dialog: false
   }),
   methods: {
     async createCom() {
@@ -480,6 +489,10 @@ export default {
 </script>
   
 <style scoped>
+.stepper {
+  font-size: 16px;
+}
+
 .com-top {
   display: flex;
   justify-content: space-between;
