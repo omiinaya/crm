@@ -100,13 +100,12 @@ export default {
   }),
   methods: {
     async warrantyHandler() {
-      this.warranty = '';                                                             //resetting warranty state on input
-      const serial = this.assetForm['assetSerial'];                                   //grabbing input from input v-model
-      if (serial.length < 8) return;                                                  //checking if the input has at least 8 chars long
-
-      const warranty = await storeX.loadWarrantyData(serial);                         //requesting warranty data from lenovo
-      if (warranty[0] !== "In Warranty") return this.warranty = 'Not in Warranty';    //sending results to this.warranty
-      return this.warranty = 'In Warranty';
+      this.warranty = '';                                                             
+      const serial = this.assetForm['assetSerial'];                 
+      if (serial.length < 8) return;
+      const warranty = await storeX.bLoadWarrantyData(serial);
+      if (!warranty) return this.warranty = 'This is not a valid serial.';
+      this.warranty = warranty[0];
     },
     dropdownHandler(type, name) {
       this.assetForm[name] = type

@@ -227,6 +227,18 @@ export const storeX = reactive({
     }
   },
 
+  async bLoadWarrantyData(serial) {
+    try {
+      const input = serial.trim()
+      const request = await storeX.WarrantyService.getLenovoWarranty(input);
+      const data = await request.data;
+      return data;
+    }
+    catch (e) {
+      return false;
+    }
+  },
+
   async loadAssetData() {
     const req = await AssetService.getAssets()
     const assets = await req.data;
