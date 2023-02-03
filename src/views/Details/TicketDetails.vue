@@ -203,8 +203,8 @@
               <div class="col-12 top">
                 <div class="com-top">
                   <div class="col-11" style="display: flex;">
-                    <Dropdown2 :title="com.comVis" :items="comVis" cols="2" :handler="comVisHandler" />
-                    <Dropdown2 :title="com.comType" :items="comTypes" cols="2" :handler="comTypeHandler" />
+                    <Dropdown2 :title="storeX.com.comVis" :items="comVis" cols="2" :handler="comVisHandler" />
+                    <Dropdown2 :title="storeX.com.comType" :items="comTypes" cols="2" :handler="comTypeHandler" />
                   </div>
                   <button class="com-btn" v-on:click="() => { storeX.dialogs.canned = true }">
                     <i class="bi bi-clipboard"></i>
@@ -222,12 +222,12 @@
             </div>
             <div class="content">
               <div class="col-sm-12">
-                <textarea class="form-control text-area" rows="6" v-model="com.comMsg"
-                  @input="testing123(com.comMsg)"></textarea>
+                <textarea class="form-control text-area" rows="6" v-model="storeX.com.comMsg"
+                  @input="testing123(storeX.com.comMsg)"></textarea>
               </div>
               <div class="col-2 offset-10">
-                <button class="btn messages" v-on:click="createCom(com)">
-                  {{ com.comVis }}
+                <button class="btn messages" v-on:click="createCom(storeX.com)">
+                  {{ storeX.com.comVis }}
                 </button>
               </div>
             </div>
@@ -305,16 +305,6 @@ export default {
     assetBrands: ['Lenovo', 'Dell', 'HP', '...'],
     comVis: ['Private Note', 'Publc Note', 'Email', 'SMS', 'Email + SMS'],
     comTypes: ['Update', 'Issue', 'Diagnosis', 'Parts Ordered', 'Parts Arrival', 'Complete'],
-    com: {
-      comVis: null,
-      comType: null,
-      comMsg: null,
-      comAuthorId: null,
-      comTicketId: null,
-      comAuthorName: null,
-      comCreated: null,
-      comPhoneNumber: null
-    },
     coms: [],
     editing: {
       assets: {
@@ -327,31 +317,15 @@ export default {
   }),
   methods: {
     async createCom() {
-      this.com.customerPhone = storeX.customer.phone;
-      this.com.customerEmail = storeX.customer.email;
-      storeX.ComService.createCom(this.com);
-      this.com.comMsg = ''; //clearing box after com creation
+      storeX.com.customerPhone = storeX.customer.phone;
+      storeX.com.customerEmail = storeX.customer.email;
+      storeX.ComService.createCom(storeX.com);
+      storeX.com.comMsg = ''; //clearing box after com creation
     },
     async loadTechnicianData() {
       const request = await storeX.UserService.getAllUsers();
       const data = await request.data;
       this.ticketTechs = data;
-    },
-    async loadAssetData(id) {
-      const request = await storeX.AssetService.getAssetByTicketId(id);
-      const data = await request.data;
-      if (data.length) {
-        data[0].assetName = data[0].assetName.split('(')[0];
-        this.ticketAssets = await data;
-        const warranty = await this.loadWarrantyData(data[0].assetSerial);
-        this.ticketAssets[0]['warranty'] = warranty;
-        return data;
-      }
-    },
-    async loadWarrantyData(serial) {
-      const request = await storeX.WarrantyService.getLenovoWarranty(serial);
-      const data = await request.data;
-      return data;
     },
     async loadComData(id) {
       const request = await storeX.ComService.getComsByTicketId(id);
@@ -366,11 +340,11 @@ export default {
     },
 
     async comTypeHandler(opt) {
-      this.com.comType = opt;
+      storeX.com.comType = opt;
     },
 
     async comVisHandler(opt) {
-      this.com.comVis = opt;
+      storeX.com.comVis = opt;
     },
 
     async ticketStatusHandler(item) {
@@ -409,12 +383,10 @@ export default {
       await storeX.loadAssetByTicketId(this.storeX.navigation.ticketId);
 
       this.ticket.number = this.storeX.navigation.ticketId.toString().padStart(5, '0');
-      this.com.comAuthorId = JSON.parse(localStorage.getItem('user')).id;
-      this.com.comAuthorName = JSON.parse(localStorage.getItem('user')).name;
-      this.com.comTicketId = storeX.ticket.id;
-      this.com.comPhoneNumber = storeX.customer.primaryPhone;
-
-      console.log(storeX.asset)
+      storeX.com.comAuthorId = JSON.parse(localStorage.getItem('user')).id;
+      storeX.com.comAuthorName = JSON.parse(localStorage.getItem('user')).name;
+      storeX.com.comTicketId = storeX.ticket.id;
+      storeX.com.comPhoneNumber = storeX.customer.primaryPhone;
     },
 
     async edit(x) {

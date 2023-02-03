@@ -21,8 +21,8 @@
                 <div class="col-12">
                     <EasyDataTable :headers="headers" :items="filteredResponses" theme-color="#1d90ff"
                         table-class-name="customize-table" header-text-direction="left" body-text-direction="left">
-                        <template #item-actions="{}">
-                            <button type="button" class="btn btn-lg" v-on:click="openCustomer(id)">
+                        <template #item-actions="{ id }">
+                            <button type="button" class="btn btn-lg" v-on:click="insertHandler(id)">
                                 Insert
                             </button>
                         </template>
@@ -42,19 +42,23 @@ export default {
     data: () => ({
         items: [
             {
+                id: 0,
                 title: 'REPAIR DECLINED',
                 body: `This message is to inform you the system dropped off for service is ready for pickup. Our system notes indicate the diagnostic was complete and you have chosen to decline repair.  Should you have any questions or concerns please call us at 305-381-5898.`
             },
-            {
+            {   
+                id: 1,
                 title: 'REPAIR COMPLETE (FUJITSU)',
                 body: `${storeX.customer.name}, we have great news! Ticket# ${storeX.ticket.id}, Serial# ${storeX.asset[0].assetSerial} has been repaired and is ready to ship back to your facility. Should you have any questions, please call us at 305-381-5898 Thank you again for choosing MobileMe IT for your repair needs.`
             },
             {
+                id: 2,
                 title: 'PARTS ORDERED',
                 body: `This message is to update and inform you that our technicians have completed the diagnostics of your system and determined parts are required in order to complete the repair. The required parts have been placed on order. As soon as those parts are received and installed, we will notify you that your repair has been completed.  Thank you again for entrusting MobileMe IT with your repair needs, should you require any 
 immediate assistance or have any questions. Please call our center at 305-381-5898.`
             },
             {
+                id: 3,
                 title: 'REPAIR COMPLETE',
                 body: `${storeX.customer.name}, we have great news! Ticket#: ${storeX.ticket.id}, Serial# ${storeX.asset[0].assetSerial} has been repaired and is ready for pickup. You can come by anytime Mon-Fri from 10am-6pm. Should you have any questions, please call us at 305-381-5898 Thank you again for choosing MobileMe IT for your repair needs.`
             }
@@ -74,6 +78,12 @@ immediate assistance or have any questions. Please call our center at 305-381-58
             const value = input.target.value;
             this.searchFilter = value;
             console.log(this.searchFilter)
+        },
+        async insertHandler(id) {
+            const response = this.items[id];
+            const msg = response.body;
+            storeX.com.comMsg = msg;
+            storeX.dialogs.canned = false;
         }
     },
     created() { 
@@ -95,8 +105,15 @@ immediate assistance or have any questions. Please call our center at 305-381-58
 </script>
 
 <style scoped>
+
+.com-btn {
+    background-color: black;
+    padding: 0;
+}
 .bi {
     font-size: 25px;
+    background-color: black;
+    padding: 0;
 }
 
 .btn {

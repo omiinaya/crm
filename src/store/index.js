@@ -68,6 +68,17 @@ export const storeX = reactive({
     canned: false
   },
 
+  com: {
+    comVis: null,
+    comType: null,
+    comMsg: null,
+    comAuthorId: null,
+    comTicketId: null,
+    comAuthorName: null,
+    comCreated: null,
+    comPhoneNumber: null
+  },
+
   HomeService,
   TicketService,
   CustomerService,
@@ -187,11 +198,13 @@ export const storeX = reactive({
     this.customers = await customers.data;
 
     const customerLookup = {};
-    for (const customer of this.customers) {
-      customerLookup[customer.id] = `${customer.firstName} ${customer.lastName}`;
+    for (let i = this.customers.length - 1; i >= 0; i--) {
+      const customer = this.customers[i];
+      customerLookup[customer.id] = `${ customer.firstName } ${ customer.lastName }`;
     }
 
-    for (const ticket of this.tickets) {
+    for (let i = this.tickets.length - 1; i >= 0; i--) {
+      const ticket = this.tickets[i];
       ticket.customerName = customerLookup[ticket.ticketCustomerId];
       ticket.ticketId = ticket.id;
       const data = await this.loadAssetByTicketId(ticket.id);
@@ -286,18 +299,17 @@ export const storeX = reactive({
   },
 
   async loadAssetByTicketId(id) {
-    this.asset = {};
+
     const req = await AssetService.getAssetByTicketId(id);
     const data = await req.data;
-    console.log(data)
-    if (data.length) {
-      const warranty = await this.loadWarrantyData(data[0].assetSerial);
-      data[0].assetName = data[0].assetName.split('(')[0];
-      data[0]['warranty'] = warranty;
-      this.asset = await data;
-      return data;
-    }
-    console.log(this.asset)
+    if (!data.length) return
+
+    this.asset = data;
+    data[0].assetName = data[0].assetName.split('(')[0];
+    const warranty = await this.loadWarrantyData(data[0].assetSerial);
+    this.asset[0]['warranty'] = warranty;
+    return data;
+
   },
 
   async loadTicketById(id) {
