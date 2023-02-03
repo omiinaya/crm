@@ -59,23 +59,22 @@ exports.create = async (req, res) => {
   );
 
   let comResponse = await comFields.data;
-  comResponse = [...comResponse, { id: 7, name: "customerPhone" }, { id: 8, name: "customerEmail" }];
+  comResponse = [...comResponse, { id: 7, name: "comPhoneNumber" }, { id: 8, name: "customerEmail" }];
 
   let com = {};
 
   for (let i = comResponse.length - 1; i >= 0; i--) {
     com[comResponse[i].name] = req.body[comResponse[i].name];
-    }
+  }
 
   try {
     const request = await Com.create(com);
     const ticketId = await request.comTicketId;
     const visibility = com.comVis;
     const message = com.comMsg;
-    const number = `+1${com.customerPhone.replaceAll('-', '')}`
+    const number = `+1${com.comPhoneNumber.replaceAll('-', '')}`
     const twilio = `+1${7866613221}`
     const socket = io(URL);
-    console.log(URL)
     const email = com.customerEmail;
     const subject = `Ticket #${ticketId.toString().padStart(5, '0')}`
 

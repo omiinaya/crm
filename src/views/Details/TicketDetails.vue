@@ -221,9 +221,6 @@
               </div>
             </div>
             <div class="content">
-
-            </div>
-            <div class="content">
               <div class="col-sm-12">
                 <textarea class="form-control text-area" rows="6" v-model="com.comMsg"
                   @input="testing123(com.comMsg)"></textarea>
@@ -323,7 +320,7 @@ export default {
       comTicketId: null,
       comAuthorName: null,
       comCreated: null,
-      comCustomerNumber: null
+      comPhoneNumber: null
     },
     coms: [],
     editing: {
@@ -409,6 +406,23 @@ export default {
     async init() {
       this.comTypeHandler(this.comTypes[0]);
       this.comVisHandler(this.comVis[0]);
+
+      this.loadComData(this.storeX.navigation.ticketId);
+      this.loadTechnicianData();
+
+      await storeX.loadCustomerByCustomerId(this.storeX.navigation.customerId);
+      await storeX.loadTicketById(this.storeX.navigation.ticketId);
+      await storeX.loadAssetByTicketId(this.storeX.navigation.ticketId)
+
+      this.ticket.number = this.storeX.navigation.ticketId.toString().padStart(5, '0');
+      this.com.comAuthorId = JSON.parse(localStorage.getItem('user')).id;
+      this.com.comAuthorName = JSON.parse(localStorage.getItem('user')).name;
+      this.com.comTicketId = storeX.ticket.id;
+      this.com.comPhoneNumber = storeX.customer.primaryPhone;
+
+      console.log(this.com)
+      console.log(storeX.customer.primaryPhone)
+      console.log(storeX.ticket.id)
     },
 
     async edit(x) {
@@ -422,17 +436,6 @@ export default {
   },
   created() {
     this.init();
-    this.ticket.number = this.storeX.navigation.ticketId.toString().padStart(5, '0');
-    this.com.comAuthorId = JSON.parse(localStorage.getItem('user')).id;
-    this.com.comAuthorName = JSON.parse(localStorage.getItem('user')).name;
-    this.com.comTicketId = this.storeX.navigation.ticketId;
-
-    this.loadComData(this.storeX.navigation.ticketId);
-    this.loadTechnicianData();
-
-    storeX.loadCustomerByCustomerId(this.storeX.navigation.customerId);
-    storeX.loadTicketById(this.storeX.navigation.ticketId);
-    storeX.loadAssetByTicketId(this.storeX.navigation.ticketId)
 
     this.storeX.io.on('comCreatedResponse', (id) => {
       if (this.storeX.navigation.ticketId != id) return;

@@ -49,6 +49,7 @@ const server = app.listen(port, () => {
 
   io.on('connection', client => {
     console.log("connection established.");
+    io.emit("resetHistory");
 
     client.on("disconnect", () => {
       console.log("connection has ended");
