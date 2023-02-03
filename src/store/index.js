@@ -200,7 +200,7 @@ export const storeX = reactive({
     const customerLookup = {};
     for (let i = this.customers.length - 1; i >= 0; i--) {
       const customer = this.customers[i];
-      customerLookup[customer.id] = `${ customer.firstName } ${ customer.lastName }`;
+      customerLookup[customer.id] = `${customer.firstName} ${customer.lastName}`;
     }
 
     for (let i = this.tickets.length - 1; i >= 0; i--) {
@@ -259,7 +259,13 @@ export const storeX = reactive({
 
     if (address1) {
       const customerAddress = Object.values(primaryAddress[0]).slice(1, 7).reverse().join(' '); //gets address
-      data.primaryAddress = customerAddress;
+      const words = customerAddress.split(" ");
+      //capitalizes the first letter of each word
+      for (let i = 0; i < words.length; i++) {
+        words[i] = words[i][0].toUpperCase() + words[i].substr(1);
+      }
+      const capitalized = words.join(' ');
+      data.primaryAddress = capitalized;
     } else {
       data.primaryAddress = '';
     }
@@ -299,7 +305,6 @@ export const storeX = reactive({
   },
 
   async loadAssetByTicketId(id) {
-
     const req = await AssetService.getAssetByTicketId(id);
     const data = await req.data;
     if (!data.length) return

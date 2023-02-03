@@ -372,6 +372,8 @@ export default {
     },
 
     async init() {
+      storeX.asset = [];
+
       this.comTypeHandler(this.comTypes[0]);
       this.comVisHandler(this.comVis[0]);
 
@@ -381,6 +383,8 @@ export default {
       await storeX.loadCustomerByCustomerId(this.storeX.navigation.customerId);
       await storeX.loadTicketById(this.storeX.navigation.ticketId);
       await storeX.loadAssetByTicketId(this.storeX.navigation.ticketId);
+
+      console.log(storeX.asset)
 
       this.ticket.number = this.storeX.navigation.ticketId.toString().padStart(5, '0');
       storeX.com.comAuthorId = JSON.parse(localStorage.getItem('user')).id;

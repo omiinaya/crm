@@ -86,10 +86,7 @@ immediate assistance or have any questions. Please call our center at 305-381-58
             storeX.dialogs.canned = false;
         }
     },
-    created() { 
-        console.log(storeX.customer) 
-        console.log(storeX.ticket)
-    },
+    created() {},
     computed: {
         filteredResponses() {
             if (!this.searchFilter) return this.items;
