@@ -337,6 +337,7 @@ export default {
       this.com.customerPhone = storeX.customer.phone;
       this.com.customerEmail = storeX.customer.email;
       storeX.ComService.createCom(this.com);
+      this.com.comMsg = ''; //clearing box after com creation
     },
     async loadTechnicianData() {
       const request = await storeX.UserService.getAllUsers();
