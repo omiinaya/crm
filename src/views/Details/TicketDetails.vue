@@ -106,7 +106,7 @@
                 </label>
                 <div class="col-sm-6">
                   <a :href="`https://maps.google.com/?q=${storeX.customer.primaryAddress}`" target="_blank">
-                    {{ storeX.customer.address }}
+                    {{ storeX.customer.primaryAddress }}
                   </a>
                 </div>
               </div>
@@ -288,13 +288,6 @@ export default {
       tech: null,
       status: null
     },
-    customer: {
-      name: null,
-      email: null,
-      phone: null,
-      address: null,
-      created: null
-    },
     warranty: null,
     headers: [
       { value: "assetName", text: "NAME", sortable: true },
@@ -413,7 +406,7 @@ export default {
 
       await storeX.loadCustomerByCustomerId(this.storeX.navigation.customerId);
       await storeX.loadTicketById(this.storeX.navigation.ticketId);
-      await storeX.loadAssetByTicketId(this.storeX.navigation.ticketId)
+      await storeX.loadAssetByTicketId(this.storeX.navigation.ticketId);
 
       this.ticket.number = this.storeX.navigation.ticketId.toString().padStart(5, '0');
       this.com.comAuthorId = JSON.parse(localStorage.getItem('user')).id;
@@ -421,9 +414,7 @@ export default {
       this.com.comTicketId = storeX.ticket.id;
       this.com.comPhoneNumber = storeX.customer.primaryPhone;
 
-      console.log(this.com)
-      console.log(storeX.customer.primaryPhone)
-      console.log(storeX.ticket.id)
+      console.log(storeX.asset)
     },
 
     async edit(x) {

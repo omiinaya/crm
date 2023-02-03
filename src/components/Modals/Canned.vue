@@ -47,7 +47,7 @@ export default {
             },
             {
                 title: 'REPAIR COMPLETE (FUJITSU)',
-                body: `{{customer_business_name_or_customer_full_name}} We have Great News! Ticket# {{ticket_number}} Serial# {{asset_serial}} has been repaired and is ready to ship back to your facility. Should you have any questions, please call us at 305-381-5898 Thank you again for choosing MobileMe IT for your repair needs.`
+                body: `${storeX.customer.name}, we have great news! Ticket# ${storeX.ticket.id}, Serial# ${storeX.asset[0].assetSerial} has been repaired and is ready to ship back to your facility. Should you have any questions, please call us at 305-381-5898 Thank you again for choosing MobileMe IT for your repair needs.`
             },
             {
                 title: 'PARTS ORDERED',
@@ -56,7 +56,7 @@ immediate assistance or have any questions. Please call our center at 305-381-58
             },
             {
                 title: 'REPAIR COMPLETE',
-                body: `${storeX.customer.name}, we have great news! Ticket#: ${storeX.ticket.id}, Serial# ${storeX.asset.assetSerial} has been repaired and is ready for pickup. You can come by anytime Mon-Fri from 10am-6pm. Should you have any questions, please call us at 305-381-5898 Thank you again for choosing MobileMe IT for your repair needs.`
+                body: `${storeX.customer.name}, we have great news! Ticket#: ${storeX.ticket.id}, Serial# ${storeX.asset[0].assetSerial} has been repaired and is ready for pickup. You can come by anytime Mon-Fri from 10am-6pm. Should you have any questions, please call us at 305-381-5898 Thank you again for choosing MobileMe IT for your repair needs.`
             }
         ],
         headers: [

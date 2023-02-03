@@ -61,9 +61,7 @@ export const storeX = reactive({
     createdAt: null,
     type: null
   },
-  asset: {
-
-  },
+  asset: {},
 
   newTicketTest: '',
   dialogs: {
@@ -194,11 +192,11 @@ export const storeX = reactive({
     }
 
     for (const ticket of this.tickets) {
-      console.log(ticket)
       ticket.customerName = customerLookup[ticket.ticketCustomerId];
       ticket.ticketId = ticket.id;
       const data = await this.loadAssetByTicketId(ticket.id);
-      if (data.length) ticket.ticketAssetSerial = data[0].assetSerial;
+      console.log(data)
+      if (data) ticket.ticketAssetSerial = data[0].assetSerial;
     }
 
     this.formatDate(this.tickets);
@@ -247,7 +245,7 @@ export const storeX = reactive({
     const address1 = primaryAddress[0]['address1'];
 
     if (address1) {
-      const customerAddress = Object.values(primaryAddress[0]).slice(1, 7).join(', '); //gets address
+      const customerAddress = Object.values(primaryAddress[0]).slice(1, 7).reverse().join(' '); //gets address
       data.primaryAddress = customerAddress;
     } else {
       data.primaryAddress = '';
@@ -288,16 +286,15 @@ export const storeX = reactive({
   },
 
   async loadAssetByTicketId(id) {
-    console.log('test')
+    this.asset = {};
     const req = await AssetService.getAssetByTicketId(id);
     const data = await req.data;
     console.log(data)
     if (data.length) {
+      const warranty = await this.loadWarrantyData(data[0].assetSerial);
       data[0].assetName = data[0].assetName.split('(')[0];
-      this.asset = await data[0];
-      console.log(this.asset)
-      const warranty = await this.loadWarrantyData(data.assetSerial);
-      this.asset['warranty'] = warranty;
+      data[0]['warranty'] = warranty;
+      this.asset = await data;
       return data;
     }
     console.log(this.asset)
