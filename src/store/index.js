@@ -79,6 +79,8 @@ export const storeX = reactive({
     comPhoneNumber: null
   },
 
+  warranty: [],
+
   HomeService,
   TicketService,
   CustomerService,
@@ -218,12 +220,13 @@ export const storeX = reactive({
   async loadWarrantyData(serial) {
     try {
       const input = serial.trim()
-      const request = await storeX.WarrantyService.getLenovoWarranty(input);
-      const data = await request.data;
-      return data;
+      storeX.WarrantyService.getLenovoWarranty(input).then(res => {
+        const warranty = res.data;
+        this.asset[0]['warranty'] = warranty;
+      });
     }
     catch (e) {
-      return false;
+      console.log(e)
     }
   },
 
@@ -323,8 +326,8 @@ export const storeX = reactive({
 
     this.asset = data;
     data[0].assetName = data[0].assetName.split('(')[0];
-    const warranty = await this.loadWarrantyData(data[0].assetSerial);
-    this.asset[0]['warranty'] = warranty;
+    this.loadWarrantyData(data[0].assetSerial);
+    //this.asset[0]['warranty'] = warranty;
     return data;
 
   },
