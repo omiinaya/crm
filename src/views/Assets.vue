@@ -72,8 +72,9 @@ export default defineComponent({
       this.searchFilter = value;
     },
 
-    async test() {
-      console.log(storeX.assets)
+    async init() {
+      await storeX.loadAssetData()
+      //do stuff with assets after they have loaded.
       storeX.assets.forEach(async asset => {
         const id = asset.id;
         const serial = asset.assetSerial;
@@ -81,9 +82,7 @@ export default defineComponent({
         const warranty = await storeX.bLoadWarrantyData(serial);
         this.warranty[id] = warranty[0];
       })
-      //const x = await storeX.bLoadWarrantyData(s)
-      //this.warranty[i] = x;
-      //return this.warranty[i][0]
+      console.log(this.warranty)
     }
   },
   computed: {
@@ -113,8 +112,7 @@ export default defineComponent({
     },
   },
   async created() {
-    storeX.loadAssetData()
-    this.test()
+    this.init()
   }
 });
 
