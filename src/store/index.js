@@ -249,7 +249,6 @@ export const storeX = reactive({
 
     for (let i = this.assets.length - 1; i >= 0; i--) {
       const asset = this.assets[i];
-      asset.assetName =asset.assetName.split('(')[0];
       const customer = await this.loadCustomerByCustomerId(asset.assetCustomerId);
       asset.customerName = customer.name;
       asset.assetId = asset.id;

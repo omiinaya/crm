@@ -18,9 +18,9 @@
               </button>
             </template>
             <template #item-assetWarranty="{ id }">
-              <Loading class="align-items-center" v-if="Object.keys(warranty).length === 0" />
-              <a class="warranty" :href="warranty[1]" target="_blank">
-                {{ warranty[id] }}
+              <Loading class="align-items-center" v-if="Object.keys(warranty).length === 0 && hasLoaded < storeX.assets.length" />
+              <a v-if="hasLoaded === storeX.assets.length" class="warranty" :href="warranty[id]['url']" target="_blank">
+                {{ warranty[id]['status'] }}
               </a>
             </template>
           </EasyDataTable>
@@ -52,7 +52,8 @@ export default defineComponent({
       ],
       searchFilter: null,
       itemsSelected: [],
-      warranty: {}
+      warranty: {},
+      hasLoaded: 0
     };
   },
   methods: {
@@ -80,7 +81,11 @@ export default defineComponent({
         const serial = asset.assetSerial;
 
         const warranty = await storeX.bLoadWarrantyData(serial);
-        this.warranty[id] = warranty[0]
+        this.warranty[id] = { 
+          status: warranty[0], 
+          url: warranty[1]
+        };
+        this.hasLoaded++;
       })
       console.log(this.warranty)
     }
