@@ -184,7 +184,6 @@ export default {
       this.getTicketFieldItems();
     },
     async createTicket(data) {
-      console.log(data)
       const ticket = await storeX.TicketService.createTicket(data);
       if (ticket.status !== 200) return;
       const ticketId = ticket.data.id;

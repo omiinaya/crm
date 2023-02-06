@@ -108,7 +108,9 @@ export default {
       this.warranty = warranty[0];
     },
     dropdownHandler(type, name) {
-      this.assetForm[name] = type
+      console.log(type)
+      console.log(name)
+      this.assetForm[name] = type;
     },
     async loadAssetFields() {
       const req = await storeX.AssetService.getAssetFields();
@@ -122,7 +124,9 @@ export default {
     },
     async createAsset() {
       const newAsset = await storeX.AssetService.createAsset(this.assetForm);
-      console.log(newAsset)
+      const assetId = newAsset.data.id;
+      console.log(assetId)
+      storeX.updateNavigation({ view: 'Asset', assetId: assetId });
     },
     testing(e) {
       console.log(e)
@@ -130,21 +134,25 @@ export default {
     },
     async customerHandler(e) {
       const customerId = e.customerId;
-      this.assetForm['customerId'] = customerId;
-      storeX.loadTicketsByCustomerId(customerId);
+      this.assetForm['assetCustomerId'] = customerId;
+      await storeX.loadTicketsByCustomerId(customerId);
       const tickets = this.openTicketsByCustomer;
-      console.log(tickets)
+      
+      //select first item by default
+      if (tickets.length) {
+        this.assetForm['assetTicketId'] = this.openTicketsByCustomer[0].id.toString();
+      }
     }
   },
   created() {
-    this.storeX.tickets = [];
+    storeX.tickets = [];
     this.loadAssetFields()
     storeX.loadCustomerData()
   },
   computed: {
     openTicketsByCustomer() {
       const filtered = storeX.tickets.filter(ticket => ticket.ticketStatus !== "Resolved");
-      const customer = this.assetForm['customerId']
+      const customer = this.assetForm['assetCustomerId']
       if (!filtered.length && !customer) {
         return [{ id: 'Select a customer' }]
       } else if (!filtered.length && customer) {
