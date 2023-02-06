@@ -18,10 +18,10 @@
               </button>
             </template>
             <template #item-assetWarranty="{ id }">
-              <Loading class="align-items-center" v-if="Object.keys(warranty).length === 0"/>
-              <button type="button" class="template-btn btn-lg" v-on:click="openCustomer(assetCustomerId)">
+              <Loading class="align-items-center" v-if="Object.keys(warranty).length === 0" />
+              <a class="warranty" :href="warranty[1]" target="_blank">
                 {{ warranty[id] }}
-              </button>
+              </a>
             </template>
           </EasyDataTable>
         </div>
@@ -43,8 +43,8 @@ export default defineComponent({
       storeX,
       headers: [
         { value: "id", text: "ID", sortable: true },
-        { value: "customerName", text: "CUSTOMER", sortable: true },
         { value: "assetName", text: "NAME", sortable: true },
+        { value: "customerName", text: "CUSTOMER", sortable: true },
         { value: "assetSerial", text: "SERIAL", sortable: true },
         { value: "assetType", text: "TYPE", sortable: true },
         { value: "assetBrand", text: "MANUFACTURER", sortable: true },
@@ -80,7 +80,7 @@ export default defineComponent({
         const serial = asset.assetSerial;
 
         const warranty = await storeX.bLoadWarrantyData(serial);
-        this.warranty[id] = warranty[0];
+        this.warranty[id] = warranty[0]
       })
       console.log(this.warranty)
     }
@@ -119,6 +119,11 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
+.warranty {
+  color: #c1cad4;
+  text-decoration: none;
+}
 .search {
   font-size: 16px;
   padding: 0;
