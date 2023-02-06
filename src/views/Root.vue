@@ -44,6 +44,7 @@
       <TicketDetails v-else-if="storeX.navigation.view === 'Ticket'" />
       <Projects v-else-if="storeX.navigation.view === 'Projects'" />
       <Time v-else-if="storeX.navigation.view === 'Time'" />
+      <AssetDetails v-else-if="storeX.navigation.view === 'Asset'" />
     </ion-content>
   </ion-page>
 </template>
@@ -69,18 +70,20 @@ export default defineComponent({
       this.storeX.updateNavigation({
         view: crumb.view,
         customerId: crumb.customerId,
-        ticketId: crumb.ticketId
+        ticketId: crumb.ticketId,
+        assetId: crumb.asstId
       })
     }
   },
   beforeCreate() {
     const route = useRoute()
-    if (!Object.keys(route.query).length) return
-    if (!route.query.view) return
+    if (!Object.keys(route.query).length) return;
+    if (!route.query.view) return;
 
-    storeX.navigation.view = route.query.view
-    storeX.navigation.customerId = route.query.customerId
-    storeX.navigation.ticketId = route.query.ticketId
+    storeX.navigation.view = route.query.view;
+    storeX.navigation.customerId = route.query.customerId;
+    storeX.navigation.ticketId = route.query.ticketId;
+    storeX.navigation.assetId = route.query.assetId;
     
     //action on backpage
     window.onpopstate = function () {
@@ -101,7 +104,6 @@ export default defineComponent({
     IonHeader,
     IonPage,
     IonToolbar,
-
     NavBar: Components.NavBar,
     Home: Views.Home,
     Customers: Views.Customers,
@@ -119,8 +121,9 @@ export default defineComponent({
     CustomerDetails: Views.CustomerDetails,
     TicketDetails: Views.TicketDetails,
     Projects: Views.Projects,
-    Time: Views.Time
-  },
+    Time: Views.Time,
+    AssetDetails: Views.AssetDetails
+},
 });
 </script>
 

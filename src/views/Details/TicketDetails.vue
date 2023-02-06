@@ -144,7 +144,7 @@
                 <template #item-warranty="{ warranty }">
                   <Loading v-if="!warranty" />
                   <a class="warranty" v-else :href="warranty[1]" target="_blank">
-                    {{ warranty[0] }}
+                    {{ warranty[0] }} <i class="bi bi-info-circle"></i>
                   </a>
                 </template>
                 <template #item-assetName="{ assetName }">
@@ -161,6 +161,7 @@
             </div>
           </div>
           <div class="section" v-if="editing.assets.editMode">
+
             <div class="header">
               <i class="bi bi-laptop"></i>
               Assets (Editing)
@@ -170,6 +171,7 @@
                 <i class="bi bi-pencil"></i>
               </button>
             </div>
+            <!--
             <EasyDataTable :headers="headers" :items="storeX.asset" theme-color="#1d90ff"
               table-class-name="customize-table-details" header-text-direction="left" body-text-direction="left"
               hide-footer>
@@ -179,20 +181,15 @@
                   {{ warranty[0] }}
                 </a>
               </template>
-
               <template #item-assetName="{ assetName }">
                 <input type="input" class="form-control" :id="'editAssetName'" :placeholder="assetName"
                   v-model="editing.assets.assetName" />
               </template>
-
               <template #item-assetBrand="{ /*assetBrand*/ }">
-
-
                 <Dropdown2 :items="assetBrands" cols="12" :handler="testing123" />
-
               </template>
-
             </EasyDataTable>
+            -->
           </div>
           <div class="section">
             <div class="col-12 header">

@@ -4,17 +4,7 @@ import { reactive } from "vue";
 import io from "socket.io-client";
 import moment from 'moment'
 
-//services
-import HomeService from "../services/home.service";
-import TicketService from "../services/ticket.service";
-import CustomerService from "../services/customer.service";
-import NumberService from "../services/number.service";
-import LocationService from "../services/location.service";
-import AssetService from "../services/asset.service";
-import UserService from "../services/user.service";
-import WarrantyService from "../services/warranty.service";
-import ComService from "../services/com.service";
-import CSCService from "../services/csc.service";
+import * as Services from "../services";
 
 const IS_PROD = process.env.NODE_ENV === "production";
 const sURL = IS_PROD ? "https://mmit-crm.herokuapp.com" : `http://localhost:8090`;
@@ -38,6 +28,7 @@ export const storeX = reactive({
     view: null,
     customerId: null,
     ticketId: null,
+    assetId: null,
   },
   io: socket,
   history: getHistory(),
@@ -81,21 +72,22 @@ export const storeX = reactive({
 
   warranty: [],
 
-  HomeService,
-  TicketService,
-  CustomerService,
-  NumberService,
-  LocationService,
-  AssetService,
-  UserService,
-  WarrantyService,
-  ComService,
-  CSCService,
+  HomeService: Services.homeService,
+  TicketService: Services.ticketService,
+  CustomerService: Services.customerService,
+  NumberService: Services.numberService,
+  LocationService: Services.locationService,
+  AssetService: Services.assetService,
+  UserService: Services.userService,
+  WarrantyService: Services.warrantyService,
+  ComService: Services.comService,
+  CSCService: Services.cscService,
 
   updateNavigation(obj) {
     this.navigation.view = obj.view;
     this.navigation.customerId = obj.customerId;
     this.navigation.ticketId = obj.ticketId;
+    this.navigation.assetId = obj.assetId;
 
     const last = JSON.stringify(this.history[this.history.length - 1]);
     const current = JSON.stringify(obj);
@@ -115,16 +107,19 @@ export const storeX = reactive({
     //if null, remove from query params
     if (!obj.customerId) url.searchParams.delete("customerId");
     if (!obj.ticketId) url.searchParams.delete("ticketId");
+    if (!obj.assetId) url.searchParams.delete("assetId");
 
     //set
     if (obj.view) url.searchParams.set("view", obj.view);
     if (obj.customerId) url.searchParams.set("customerId", obj.customerId);
     if (obj.ticketId) url.searchParams.set("ticketId", obj.ticketId);
+    if (obj.assetId) url.searchParams.set("assetId", obj.assetId);
 
     //delete
     if (obj.view === "Home") {
       url.searchParams.delete("customerId");
       url.searchParams.delete("ticketId");
+      url.searchParams.delete("assetId");
     }
 
     window.history.pushState(null, "", url.toString());
@@ -139,13 +134,13 @@ export const storeX = reactive({
 
   async getActionItems() {
     const highest = Math.max(...store.state.auth.user.roles);
-    const req = await HomeService.getRoleNav(highest);
+    const req = await this.HomeService.getRoleNav(highest);
     this.home.actions = await req.data;
   },
 
   async loadCustomerData() {
     try {
-      const customerRequest = await CustomerService.getCustomers();
+      const customerRequest = await this.CustomerService.getCustomers();
       const data = customerRequest.data;
       const responses = [];
 
@@ -192,8 +187,8 @@ export const storeX = reactive({
   },
 
   async loadTicketData() {
-    const tickets = await TicketService.getTickets();
-    const customers = await CustomerService.getCustomers();
+    const tickets = await this.TicketService.getTickets();
+    const customers = await this.CustomerService.getCustomers();
 
     this.tickets = await tickets.data;
     this.customers = await customers.data;
@@ -209,7 +204,7 @@ export const storeX = reactive({
       ticket.customerName = customerLookup[ticket.ticketCustomerId];
       ticket.ticketId = ticket.id;
       const data = await this.loadAssetByTicketId(ticket.id);
-      if (!data) return
+      if (!data) return;
       ticket.ticketAssetSerial = data[0].assetSerial;
     }
 
@@ -219,20 +214,20 @@ export const storeX = reactive({
   async loadWarrantyData(serial) {
     //using sync call to avoid
     try {
-      const input = serial.trim()
+      const input = serial.trim();
       storeX.WarrantyService.getLenovoWarranty(input).then(res => {
         const warranty = res.data;
         this.asset[0]['warranty'] = warranty;
       });
     }
     catch (e) {
-      console.log(e)
+      console.log(e);
     }
   },
 
   async bLoadWarrantyData(serial) {
     try {
-      const input = serial.trim()
+      const input = serial.trim();
       const request = await storeX.WarrantyService.getLenovoWarranty(input);
       const data = await request.data;
       return data;
@@ -243,7 +238,7 @@ export const storeX = reactive({
   },
 
   async loadAssetData() {
-    const req = await AssetService.getAssets()
+    const req = await this.AssetService.getAssets()
     const assets = await req.data;
     this.assets = await assets;
 
@@ -256,7 +251,7 @@ export const storeX = reactive({
   },
 
   async loadCustomerByCustomerId(id, handler) {
-    const request = await CustomerService.getCustomerById(id)
+    const request = await this.CustomerService.getCustomerById(id)
     const data = await request.data[0];
 
     data.name = `${data.firstName} ${data.lastName}`;
@@ -295,36 +290,36 @@ export const storeX = reactive({
   },
 
   async loadPhoneDataById(id) {
-    const request = await NumberService.getNumberById(id)
+    const request = await this.NumberService.getNumberById(id)
     return await request.data;
   },
 
   async loadLocationDataById(id) {
-    const request = await LocationService.getLocationById(id)
+    const request = await this.LocationService.getLocationById(id)
     return await request.data;
   },
 
   async loadTicketsByCustomerId(id) {
-    const request = await TicketService.getTicketsByCustomer(id)
+    const request = await this.TicketService.getTicketsByCustomer(id)
     this.tickets = await request.data
     this.formatDate(this.tickets);
     return this.tickets;
   },
 
   async loadAssetsByCustomerId(id) {
-    const request = await AssetService.getAssetsByCustomer(id)
+    const request = await this.AssetService.getAssetsByCustomer(id)
     const data = await request.data;
 
     if (!data.length) return;
-    data.forEach(asset=> {
+    data.forEach(asset => {
       asset.assetName = asset.assetName.split('(')[0];
     })
-    
+
     this.assets = await data;
   },
 
   async loadAssetByTicketId(id) {
-    const req = await AssetService.getAssetByTicketId(id);
+    const req = await this.AssetService.getAssetByTicketId(id);
     const data = await req.data;
     if (!data.length) return
 
@@ -335,7 +330,7 @@ export const storeX = reactive({
   },
 
   async loadTicketById(id) {
-    const request = await TicketService.getTicketById(id)
+    const request = await this.TicketService.getTicketById(id)
     const data = await request.data[0];
     this.ticket.id = data.id;
     this.ticket.title = data.ticketTitle;

@@ -20,8 +20,13 @@
             <template #item-assetWarranty="{ id }">
               <Loading class="align-items-center" v-if="Object.keys(warranty).length === 0 && hasLoaded < storeX.assets.length" />
               <a v-if="hasLoaded === storeX.assets.length" class="warranty" :href="warranty[id]['url']" target="_blank">
-                {{ warranty[id]['status'] }}
+                {{ warranty[id]['status'] }} <i class="bi bi-info-circle"></i>
               </a>
+            </template>
+            <template #item-assetName="{ id, assetName }">
+              <button type="button" class="template-btn btn-lg" v-on:click="openAsset(id)">
+                {{ assetName }}
+              </button>
             </template>
           </EasyDataTable>
         </div>
@@ -61,6 +66,13 @@ export default defineComponent({
       this.storeX.updateNavigation({
         view: 'Customer',
         customerId: id,
+      })
+    },
+
+    async openAsset(id) {
+      this.storeX.updateNavigation({
+        view: 'Asset',
+        assetId: id,
       })
     },
 
@@ -129,6 +141,11 @@ export default defineComponent({
   color: #c1cad4;
   text-decoration: none;
 }
+
+.warranty:hover {
+  text-decoration: underline;
+}
+
 .search {
   font-size: 16px;
   padding: 0;

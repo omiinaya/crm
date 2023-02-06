@@ -10,16 +10,6 @@ export default defineComponent({
     name: 'TimePage',
     data() {
         return { storeX };
-    },
-    computed: {
-
-    },
-    created() {
-
     }
 });
 </script>
-
-<style scoped>
-
-</style>

@@ -17,6 +17,7 @@ import Time from "./Time.vue";
 //details
 import CustomerDetails from "./Details/CustomerDetails.vue";
 import TicketDetails from "./Details/TicketDetails.vue";
+import AssetDetails from "./Details/AssetDetails.vue";
 
 //new
 import NewAsset from "./New/NewAsset.vue";
@@ -40,6 +41,7 @@ export {
     Tickets,
     CustomerDetails,
     TicketDetails,
+    AssetDetails,
     NewAsset,
     NewCustomer,
     NewTicket,
