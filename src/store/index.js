@@ -329,6 +329,34 @@ export const storeX = reactive({
     return data;
   },
 
+  async loadAssetById(id) {
+    const req = await this.AssetService.getAssetById(id);
+    const data = await req.data;
+    if (!data.length) return
+
+    this.asset = data;
+    data[0].assetName = data[0].assetName.split('(')[0];
+    this.loadWarrantyData(data[0].assetSerial);
+    return data;
+  },
+
+  async loadTicketsByAssetId(id) {
+    const req = await this.ticketService.getTicketsByAssetId(id);
+    const data = await req.data;
+    if (!data.length) return
+    this.tickets = data;
+    return data;
+  },
+
+  async loadCustomersByAssetId(id) {
+    const req = await this.customerService.getCustomerByAssetId(id);
+    const data = await req.data;
+    if (!data.length) return
+    this.customer = data;
+    return data;
+  },
+
+
   async loadTicketById(id) {
     const request = await this.TicketService.getTicketById(id)
     const data = await request.data[0];

@@ -23,6 +23,15 @@ const ticketFields = [
         show: false,
     },
     {
+        name: "ticketAssetId",
+        label: "Asset Id",
+        type: "text",
+        icon: "bi bi-calendar-event",
+        show: false,
+        allowNull: true,
+        data: 'STRING'
+    },
+    {
         name: "ticketTitle",
         label: "Ticket Title",
         type: "text",

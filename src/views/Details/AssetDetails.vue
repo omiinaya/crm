@@ -4,7 +4,7 @@
       <div clas="row">
         <div class="col-11 top">
           <div class="top-spacing">
-            <div>{{ storeX.customer.name }}</div>
+            <div v-if="storeX.asset.length">{{ storeX.asset[0].assetName }}</div>
             <div>
               <button type="button" class="btn btn-primary" v-on:click="newTicket()">
                 New Ticket
@@ -18,9 +18,15 @@
           <div class="section">
             <div class="header">
               <i class="bi bi-person-circle"></i>
-              Customer Information
+              Owner Information
             </div>
             <div class="content">
+              <div class="row align-items-center mb-2">
+                <label class="col-sm-6">
+                  <i class="bi bi-file-earmark-person"></i> Name:
+                </label>
+                <div class="col-sm-6">{{ storeX.customer.name }}</div>
+              </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-envelope"></i> Email:
@@ -55,27 +61,41 @@
               </div>
             </div>
           </div>
-          <div class="section">
+          <div class="section" v-if="storeX.asset.length">
             <div class="header">
-              <i class="bi bi-info-circle"></i>
-              Overview
+              <i class="bi bi-laptop"></i>
+              Asset Information
             </div>
             <div class="content">
-              <div class="row">
-                <div class="col-6">
-                  <div class="header">Tickets:</div>
-                  <ul>
-                    <li>Open: {{ storeX.openTickets() }}</li>
-                    <li>Closed: {{ storeX.closedTickets() }}</li>
-                  </ul>
-                </div>
-                <div class="col-6">
-                  <div class="header">Invoices:</div>
-                  <ul>
-                    <li>Unpaid: 0</li>
-                    <li>Total: 0</li>
-                  </ul>
-                </div>
+              <div class="row align-items-center mb-2">
+                <label class="col-sm-6">
+                  <i class="bi bi-bookmark"></i> Name:
+                </label>
+                <div class="col-sm-6">{{ storeX.asset[0].assetName }}</div>
+              </div>
+              <div class="row align-items-center mb-2">
+                <label class="col-sm-6">
+                  <i class="bi bi-upc-scan"></i> Serial:
+                </label>
+                <div class="col-sm-6">{{ storeX.asset[0].assetSerial }}</div>
+              </div>
+              <div class="row align-items-center mb-2">
+                <label class="col-sm-6">
+                  <i class="bi bi-option"></i> Type:
+                </label>
+                <div class="col-sm-6">{{ storeX.asset[0].assetType }}</div>
+              </div>
+              <div class="row align-items-center mb-2">
+                <label class="col-sm-6">
+                  <i class="bi bi-patch-check"></i> Manufacturer:
+                </label>
+                <div class="col-sm-6">{{ storeX.asset[0].assetBrand }}</div>
+              </div>
+              <div class="row align-items-center mb-2">
+                <label class="col-sm-6">
+                  <i class="bi bi-tag"></i> Tag:
+                </label>
+                <div class="col-sm-6">{{ storeX.asset[0].assetTag }}</div>
               </div>
             </div>
           </div>
@@ -84,7 +104,7 @@
           <div class="section">
             <div class="header">
               <i class="bi bi-tag"></i>
-              Tickets
+              Ticket Log
             </div>
             <div v-if="storeX.tickets.length" class="content">
               <EasyDataTable :headers="ticketHeaders" :items="storeX.tickets" theme-color="#1d90ff"
@@ -173,9 +193,10 @@ export default {
     }
   },
   created() {
-    storeX.loadCustomerByCustomerId(storeX.navigation.customerId)
-    storeX.loadTicketsByCustomerId(storeX.navigation.customerId)
-    storeX.loadAssetsByCustomerId(storeX.navigation.customerId)
+    storeX.loadAssetById(storeX.navigation.assetId)
+    //storeX.loadCustomerByAssetId(storeX.navigation.assetId)
+    //storeX.loadTicketsByAssetId(storeX.navigation.assetId)
+    console.log(storeX.asset)
   }
 }
 </script>
@@ -230,11 +251,11 @@ ul {
 }
 
 .top-spacing {
-  display: flex; 
+  display: flex;
   justify-content: space-between;
 }
 
-.top-spacing > * > * :not(:last-child) {
+.top-spacing>*>* :not(:last-child) {
   margin-right: 15px !important;
 }
 

@@ -12,16 +12,21 @@ class TicketService {
     return axios.get(API_URL);
   }
 
-  getTicketsByCustomer(customerId) {
-    return axios.get(API_URL + `customer/${customerId}`, { headers: authHeader() });
+  getTicketById(Id) {
+    return axios.get(API_URL + `id/${Id}`, { headers: authHeader() });
   }
 
-  getTicketById(ticketId) {
-    return axios.get(API_URL + `id/${ticketId}`, { headers: authHeader() });
+  getTicketsByCustomer(customerId) {
+    return axios.get(API_URL + `customer/id/${customerId}`, { headers: authHeader() });
   }
 
   getTicketByTechnician(ticketName) {
     return axios.get(API_URL + `technician/name/${ticketName}`, { headers: authHeader() });
+  }
+
+  //implement this route
+  getTicketsByAssetId(assetId) {
+    return axios.get(API_URL + `asset/id/${assetId}`, { headers: authHeader() });
   }
 
   getTicketFields() {

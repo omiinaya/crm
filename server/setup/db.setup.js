@@ -256,6 +256,7 @@ async function dummyData() {
   ticketsData.forEach((ticket) => {
     Ticket.create({
       ticketCustomerId: ticket.ticketCustomerId,
+      ticketAssetId: ticket.ticketAssetId,
       ticketTitle: ticket.ticketTitle,
       ticketStatus: ticket.ticketStatus,
       ticketType: ticket.ticketType,

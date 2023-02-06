@@ -4,9 +4,13 @@ module.exports = app => {
     const router = require("express").Router();
 
     router.post("/", ticket.create);
+
     router.get("/", ticket.findAll);
     router.get("/id/:id", ticket.findByTicketId);
-    router.get("/customer/:id", ticket.findByCustomerId);
+    router.get("/customer/id/:id", ticket.findByCustomerId);
+    //
+    router.get("/asset/id/:id", ticket.findByAssetId);
+    //
     router.get("/technician/:name", ticket.findByTechnician);
     router.get("/fields", ticketFields.findAll);
     router.put("/id/:id", ticket.update);

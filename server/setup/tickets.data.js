@@ -1,6 +1,7 @@
 const assets = [
     {
       ticketCustomerId: 1,
+      ticketAssetId: 1,
       ticketTitle: 'Broken screen',
       ticketStatus: "New",
       ticketType: 'Flat-Rate Labor',
@@ -9,6 +10,7 @@ const assets = [
     },
     {
       ticketCustomerId: 1,
+      ticketAssetId: 2,
       ticketTitle: 'Broken speakers',
       ticketStatus: "New",
       ticketType: 'Flat-Rate Labor',
@@ -17,6 +19,7 @@ const assets = [
     },
     {
       ticketCustomerId: 2,
+      ticketAssetId: 3,
       ticketTitle: 'Bad battery',
       ticketStatus: "New",
       ticketType: 'Flat-Rate Labor',
