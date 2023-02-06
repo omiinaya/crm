@@ -110,17 +110,19 @@ export default defineComponent({
       const filtered = storeX.assets.filter(asset => {
         const input = this.searchFilter.toLowerCase();
 
+        const name = asset.assetName || '';
         const customer = asset.customerName || '';
         const serial = asset.assetSerial || '';
         const brand = asset.assetBrand || '';
         const type = asset.assetType || '';
 
+        const ifName = name.toLowerCase().includes(input);
         const ifCustomer = customer.toLowerCase().includes(input);
         const ifSerial = serial.toLowerCase().includes(input);
         const ifBrand = brand.toLowerCase().includes(input);
         const ifType = type.toLowerCase().includes(input);
 
-        const byCondition = ifCustomer || ifSerial || ifBrand || ifType;
+        const byCondition = ifName || ifCustomer || ifSerial || ifBrand || ifType;
 
         return byCondition;
       })

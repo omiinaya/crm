@@ -134,7 +134,7 @@ exports.findByAssetId = async (req, res) => {
   console.log(id)
   
   const Assets = db.asset;
-  const asset = await db.asset.findAll({ where: { id: id } })
+  const asset = await Assets.findAll({ where: { id: id } })
   const customerId = await asset[0].assetCustomerId;
 
   Customer.findAll({

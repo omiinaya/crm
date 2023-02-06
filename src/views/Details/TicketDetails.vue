@@ -147,10 +147,10 @@
                     {{ warranty[0] }} <i class="bi bi-info-circle"></i>
                   </a>
                 </template>
-                <template #item-assetName="{ assetName }">
-                  <a class="warranty">
+                <template #item-assetName="{ id, assetName }">
+                  <button type="button" class="template-btn btn-lg" v-on:click="openAsset(id)">
                     {{ assetName }}
-                  </a>
+                  </button>
                 </template>
               </EasyDataTable>
             </div>
@@ -313,6 +313,14 @@ export default {
     dialog: false
   }),
   methods: {
+
+    async openAsset(id) {
+      this.storeX.updateNavigation({
+        view: 'Asset',
+        assetId: id,
+      })
+    },
+
     async createCom() {
       storeX.com.customerPhone = storeX.customer.phone;
       storeX.com.customerEmail = storeX.customer.email;
@@ -416,6 +424,13 @@ export default {
 </script>
   
 <style scoped>
+
+.template-btn {
+  font-size: 14px;
+  color: #c1cad4;
+  background: transparent;
+  padding: 0;
+}
 .stepper {
   font-size: 16px;
 }
