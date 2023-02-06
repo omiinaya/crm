@@ -343,7 +343,11 @@ export const storeX = reactive({
   async loadTicketsByAssetId(id) {
     const req = await this.TicketService.getTicketsByAssetId(id);
     const data = await req.data;
+
     if (!data.length) return
+
+    data[0].createdAt = moment(data[0].createdAt).format('MMMM-DD-YYYY');
+    
     this.tickets = data;
     return data;
   },
