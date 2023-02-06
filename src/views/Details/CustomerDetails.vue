@@ -173,7 +173,7 @@ export default {
     }
   },
   created() {
-    storeX.loadCustomerByCustomerId(storeX.navigation.customerId)
+    storeX.loadCustomerById(storeX.navigation.customerId)
     storeX.loadTicketsByCustomerId(storeX.navigation.customerId)
     storeX.loadAssetsByCustomerId(storeX.navigation.customerId)
   }

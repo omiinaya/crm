@@ -120,26 +120,6 @@
               There are no tickets to display
             </div>
           </div>
-          <div class="section">
-            <div class="header">
-              <i class="bi bi-laptop"></i>
-              Assets
-            </div>
-            <div v-if="storeX.assets.length" class="content">
-              <EasyDataTable :headers="assetHeaders" :items="storeX.assets" theme-color="#1d90ff"
-                table-class-name="customize-table" header-text-direction="left" body-text-direction="left" />
-            </div>
-            <div class="text-center" v-if="!storeX.assets.length">
-              There are no assets to display
-            </div>
-          </div>
-          <div class="section">
-            <div class="header">
-              <i class="bi bi-person-circle"></i>
-              Invoices
-            </div>
-            <div class="content">PLACEHOLDER</div>
-          </div>
         </div>
       </div>
     </div>
@@ -194,8 +174,8 @@ export default {
   },
   created() {
     storeX.loadAssetById(storeX.navigation.assetId)
-    //storeX.loadCustomerByAssetId(storeX.navigation.assetId)
-    //storeX.loadTicketsByAssetId(storeX.navigation.assetId)
+    storeX.loadCustomerByAssetId(storeX.navigation.assetId)
+    storeX.loadTicketsByAssetId(storeX.navigation.assetId)
     console.log(storeX.asset)
   }
 }

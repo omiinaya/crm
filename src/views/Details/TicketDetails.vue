@@ -377,7 +377,7 @@ export default {
       this.loadComData(this.storeX.navigation.ticketId);
       this.loadTechnicianData();
 
-      await storeX.loadCustomerByCustomerId(this.storeX.navigation.customerId);
+      await storeX.loadCustomerById(this.storeX.navigation.customerId);
       await storeX.loadTicketById(this.storeX.navigation.ticketId);
       await storeX.loadAssetByTicketId(this.storeX.navigation.ticketId);
 

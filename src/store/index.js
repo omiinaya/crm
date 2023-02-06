@@ -244,13 +244,13 @@ export const storeX = reactive({
 
     for (let i = this.assets.length - 1; i >= 0; i--) {
       const asset = this.assets[i];
-      const customer = await this.loadCustomerByCustomerId(asset.assetCustomerId);
+      const customer = await this.loadCustomerById(asset.assetCustomerId);
       asset.customerName = customer.name;
       asset.assetId = asset.id;
     }
   },
 
-  async loadCustomerByCustomerId(id, handler) {
+  async loadCustomerById(id, handler) {
     const request = await this.CustomerService.getCustomerById(id)
     const data = await request.data[0];
 
@@ -341,18 +341,46 @@ export const storeX = reactive({
   },
 
   async loadTicketsByAssetId(id) {
-    const req = await this.ticketService.getTicketsByAssetId(id);
+    const req = await this.TicketService.getTicketsByAssetId(id);
     const data = await req.data;
     if (!data.length) return
     this.tickets = data;
     return data;
   },
 
-  async loadCustomersByAssetId(id) {
-    const req = await this.customerService.getCustomerByAssetId(id);
+  async loadCustomerByAssetId(id) {
+    const req = await this.CustomerService.getCustomerByAssetId(id);
     const data = await req.data;
+
     if (!data.length) return
-    this.customer = data;
+  
+    data[0].name = `${data[0].firstName} ${data[0].lastName}`;
+    data[0].createdAt = moment(data[0].createdAt).format('MMMM-DD-YYYY');
+
+    const primaryPhone = await this.loadPhoneDataById(data[0].primaryPhone);
+    if (primaryPhone.length) {
+      const phoneNumber = primaryPhone[0].number;
+      data[0].primaryPhone = phoneNumber;
+    }
+
+    const primaryAddress = await this.loadLocationDataById(data[0].primaryAddress);
+    const address1 = primaryAddress[0]['address1'];
+  
+    if (address1) {
+      const customerAddress = Object.values(primaryAddress[0]).slice(1, 7).reverse().join(' '); //gets address
+      const words = customerAddress.split(" ");
+      //capitalizes the first letter of each word
+      for (let i = 0; i < words.length; i++) {
+        words[i] = words[i][0].toUpperCase() + words[i].substr(1);
+      }
+      const capitalized = words.join(' ');
+      data[0].primaryAddress = capitalized;
+    } else {
+      data[0].primaryAddress = '';
+    }
+
+    this.customer = data[0];
+    
     return data;
   },
 

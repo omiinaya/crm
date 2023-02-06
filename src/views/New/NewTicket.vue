@@ -215,7 +215,7 @@ export default {
     this.loadTechnicianData();
 
     if (storeX.navigation.customerId) {
-      storeX.loadCustomerByCustomerId(storeX.navigation.customerId, this.typeAheadHandler)
+      storeX.loadCustomerById(storeX.navigation.customerId, this.typeAheadHandler)
     }
   },
   mounted() {
