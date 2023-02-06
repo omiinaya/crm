@@ -1,5 +1,5 @@
 <template>
-  <div class="jumping-dots-loader">
+  <div class="jumping-dots-loader align-items-center">
     <span></span> <span></span> <span></span>
   </div>
 </template>

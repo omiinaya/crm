@@ -9,11 +9,18 @@
       </div>
       <div class="row">
         <div class="col-12 section">
-          <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="filteredCustomers" theme-color="#1d90ff"
-            table-class-name="customize-table" header-text-direction="left" body-text-direction="left">
+          <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="filteredCustomers"
+            theme-color="#1d90ff" table-class-name="customize-table" header-text-direction="left"
+            body-text-direction="left">
             <template #item-customerName="{ customerName, assetCustomerId }">
               <button type="button" class="template-btn btn-lg" v-on:click="openCustomer(assetCustomerId)">
                 {{ customerName }}
+              </button>
+            </template>
+            <template #item-assetWarranty="{ id }">
+              <Loading class="align-items-center" v-if="Object.keys(warranty).length === 0"/>
+              <button type="button" class="template-btn btn-lg" v-on:click="openCustomer(assetCustomerId)">
+                {{ warranty[id] }}
               </button>
             </template>
           </EasyDataTable>
@@ -26,9 +33,11 @@
 <script>
 import { defineComponent } from 'vue';
 import { storeX } from "../store/index";
+import Loading from "../components/Loading.vue";
 
 export default defineComponent({
   name: 'AssetPage',
+  components: { Loading },
   data() {
     return {
       storeX,
@@ -38,17 +47,19 @@ export default defineComponent({
         { value: "assetName", text: "NAME", sortable: true },
         { value: "assetSerial", text: "SERIAL", sortable: true },
         { value: "assetType", text: "TYPE", sortable: true },
-        { value: "assetBrand", text: "MANUFACTURER", sortable: true }
+        { value: "assetBrand", text: "MANUFACTURER", sortable: true },
+        { value: "assetWarranty", text: "WARRANTY", sortable: true }
       ],
       searchFilter: null,
-      itemsSelected: []
+      itemsSelected: [],
+      warranty: {}
     };
   },
   methods: {
     async openCustomer(id) {
       this.storeX.updateNavigation({
         view: 'Customer',
-        customerId: id
+        customerId: id,
       })
     },
 
@@ -60,42 +71,56 @@ export default defineComponent({
       const value = input.target.value;
       this.searchFilter = value;
     },
+
+    async test() {
+      console.log(storeX.assets)
+      storeX.assets.forEach(async asset => {
+        const id = asset.id;
+        const serial = asset.assetSerial;
+
+        const warranty = await storeX.bLoadWarrantyData(serial);
+        this.warranty[id] = warranty[0];
+      })
+      //const x = await storeX.bLoadWarrantyData(s)
+      //this.warranty[i] = x;
+      //return this.warranty[i][0]
+    }
   },
   computed: {
     filteredCustomers() {
-      
+
       if (!this.searchFilter) return storeX.assets;
-    
+
       const filtered = storeX.assets.filter(asset => {
         const input = this.searchFilter.toLowerCase();
-       
+
         const customer = asset.customerName || '';
         const serial = asset.assetSerial || '';
         const brand = asset.assetBrand || '';
         const type = asset.assetType || '';
-         
+
         const ifCustomer = customer.toLowerCase().includes(input);
         const ifSerial = serial.toLowerCase().includes(input);
         const ifBrand = brand.toLowerCase().includes(input);
         const ifType = type.toLowerCase().includes(input);
 
         const byCondition = ifCustomer || ifSerial || ifBrand || ifType;
-        
+
         return byCondition;
       })
-      
+
       return filtered;
-    }
+    },
   },
   async created() {
     storeX.loadAssetData()
+    this.test()
   }
 });
 
 </script>
 
 <style scoped>
-
 .search {
   font-size: 16px;
   padding: 0;
@@ -110,7 +135,7 @@ input:focus {
 }
 
 input[type=search]::-webkit-search-cancel-button {
-    -webkit-appearance: searchfield-cancel-button;
+  -webkit-appearance: searchfield-cancel-button;
 }
 
 .template-btn {
@@ -119,6 +144,7 @@ input[type=search]::-webkit-search-cancel-button {
   background: transparent;
   padding: 0;
 }
+
 .btn {
   width: 100%;
   font-size: 14px;
