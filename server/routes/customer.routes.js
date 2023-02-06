@@ -6,12 +6,18 @@ module.exports = (app) => {
   const router = require("express").Router();
 
   router.post("/", customer.create);
+
+
   router.get("/", customer.findAll);
   router.get("/id/:id", customer.findById);
   router.get("/role/:id", customer.findByRole);
   router.put("/id/:id", customer.update);
+  
+  //
+  router.get("/asset/id/:id", customer.findByAssetId);
+  //
+  
   router.delete("/id/:id", customer.delete);
-
   //fields get
   router.get("/fields", customerFields.findAll);
 
@@ -23,5 +29,5 @@ module.exports = (app) => {
   router.post("/settings", customerSettings.create);
   router.post("/settings/fields", customerSettingsFields.create);
 
-  app.use("/api/customers", router);
+  app.use("/api/customer/", router);
 };

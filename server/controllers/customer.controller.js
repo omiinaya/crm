@@ -129,6 +129,29 @@ exports.findById = (req, res) => {
     });
 };
 
+exports.findByAssetId = async (req, res) => {
+  const id = req.params.id;
+  console.log(id)
+  
+  const Assets = db.asset;
+  const asset = await db.asset.findAll({ where: { id: id } })
+  const customerId = await asset[0].assetCustomerId;
+
+  Customer.findAll({
+    where: { id: customerId },
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials.",
+      });
+    });
+    
+};
+
 exports.findByRole = (req, res) => {
   const id = req.params.id;
   Customer.findAll({
