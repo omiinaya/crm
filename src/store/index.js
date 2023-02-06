@@ -191,7 +191,6 @@ export const storeX = reactive({
     }
   },
 
-
   async loadTicketData() {
     const tickets = await TicketService.getTickets();
     const customers = await CustomerService.getCustomers();
@@ -210,14 +209,15 @@ export const storeX = reactive({
       ticket.customerName = customerLookup[ticket.ticketCustomerId];
       ticket.ticketId = ticket.id;
       const data = await this.loadAssetByTicketId(ticket.id);
-      console.log(data)
-      if (data) ticket.ticketAssetSerial = data[0].assetSerial;
+      if (!data) return
+      ticket.ticketAssetSerial = data[0].assetSerial;
     }
 
     this.formatDate(this.tickets);
   },
 
   async loadWarrantyData(serial) {
+    //using sync call to avoid
     try {
       const input = serial.trim()
       storeX.WarrantyService.getLenovoWarranty(input).then(res => {
@@ -249,6 +249,7 @@ export const storeX = reactive({
 
     for (let i = this.assets.length - 1; i >= 0; i--) {
       const asset = this.assets[i];
+      asset.assetName =asset.assetName.split('(')[0];
       const customer = await this.loadCustomerByCustomerId(asset.assetCustomerId);
       asset.customerName = customer.name;
       asset.assetId = asset.id;
@@ -269,7 +270,7 @@ export const storeX = reactive({
     }
 
     const primaryAddress = await this.loadLocationDataById(data.primaryAddress);
-    console.log(primaryAddress)
+
     const address1 = primaryAddress[0]['address1'];
 
     if (address1) {
@@ -316,6 +317,10 @@ export const storeX = reactive({
     const data = await request.data;
 
     if (!data.length) return;
+    data.forEach(asset=> {
+      asset.assetName = asset.assetName.split('(')[0];
+    })
+    
     this.assets = await data;
   },
 
@@ -327,9 +332,7 @@ export const storeX = reactive({
     this.asset = data;
     data[0].assetName = data[0].assetName.split('(')[0];
     this.loadWarrantyData(data[0].assetSerial);
-    //this.asset[0]['warranty'] = warranty;
     return data;
-
   },
 
   async loadTicketById(id) {
