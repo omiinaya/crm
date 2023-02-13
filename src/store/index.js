@@ -193,6 +193,8 @@ export const storeX = reactive({
     this.tickets = await tickets.data;
     this.customers = await customers.data;
 
+    console.log(tickets)
+
     const customerLookup = {};
     for (let i = this.customers.length - 1; i >= 0; i--) {
       const customer = this.customers[i];
@@ -404,18 +406,18 @@ export const storeX = reactive({
 
   openTickets() {
     if (this.tickets.length) {
-      return this.tickets.filter(ticket => ticket.ticketStatus !== "Resolved").length;
+      return this.tickets.filter(ticket => ticket.ticketStatus !== "Resolved").length - 1;
     }
   },
 
   closedTickets() {
     if (this.tickets.length) {
-      return this.tickets.filter(ticket => ticket.ticketStatus === "Resolved").length;
+      return this.tickets.filter(ticket => ticket.ticketStatus === "Resolved").length - 1;
     }
   },
 
   totalTickets() {
-    return this.tickets.length;
+    return this.tickets.length-1;
   },
 });
 

@@ -45,17 +45,15 @@ exports.create = async (req, res) => {
   }
 };
 
-exports.findAll = (req, res) => {
-  Ticket.findAll()
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving tutorials.",
-      });
+exports.findAll = async (req, res) => {
+  try {
+    const data = await Ticket.findAll();
+    res.send(data);
+  } catch (err) {
+    res.status(500).send({
+      message: err.message || "Some error occurred while retrieving tutorials.",
     });
+  }
 };
 
 exports.findByTicketId = (req, res) => {

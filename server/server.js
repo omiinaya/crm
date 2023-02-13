@@ -3,6 +3,7 @@ const setup = require("./setup/db.setup");
 const express = require("express");
 const serveStatic = require("serve-static");
 const cors = require("cors");
+const cookieParser = require("cookie-parser"); 
 const bodyParser = require("body-parser");
 const app = express();
 const port = parseInt(process.env.PORT) || 8080;
@@ -13,7 +14,10 @@ const origins = { origin: ["http://localhost:8091", "http://localhost:8092", "ht
 app.use(cors(origins));
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(cookieParser())
+
 app.use(serveStatic(path.join(__dirname, 'dist')));
 app.use('/', serveStatic(path.join(__dirname, '../dist')))
 

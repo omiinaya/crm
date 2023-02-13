@@ -9,7 +9,7 @@ const API_URL = `${URL}/api/ticket/`;
 class TicketService {
   //GET
   getTickets() {
-    return axios.get(API_URL);
+    return axios.get(API_URL, { headers: authHeader() });
   }
 
   getTicketById(Id) {

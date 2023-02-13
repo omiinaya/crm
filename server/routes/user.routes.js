@@ -11,24 +11,10 @@ module.exports = function (app) {
     next();
   });
 
-  //app.get("/api/users/all", user.allAccess);
-
   app.get(
     "/api/users/user",
     [authJwt.verifyToken],
     user.userBoard
-  );
-
-  app.get(
-    "/api/users/mod",
-    [authJwt.verifyToken, authJwt.isModerator],
-    user.moderatorBoard
-  );
-
-  app.get(
-    "/api/users/admin",
-    [authJwt.verifyToken, authJwt.isAdmin],
-    user.adminBoard
   );
 
   router.get("/all", user.findAll);
