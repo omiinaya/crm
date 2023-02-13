@@ -9,7 +9,7 @@ const API_URL = `${URL}/api/com/`;
 class ComService {
   //GET
   getComs() {
-    return axios.get(API_URL);
+    return axios.get(API_URL, { headers: authHeader() });
   }
 
   getComById(id) {
@@ -30,7 +30,7 @@ class ComService {
 
   //POST
   createCom(data) {
-    return axios.post(API_URL, data);
+    return axios.post(API_URL, data, { headers: authHeader() });
   }
 }
 

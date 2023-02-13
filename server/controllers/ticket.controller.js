@@ -9,6 +9,7 @@ const IS_PROD = process.env.NODE_ENV === "production";
 const URL = IS_PROD ? "https://mmit-crm.herokuapp.com" : `http://localhost:${PORT}`;
 
 exports.create = async (req, res) => {
+  console.log(req)
   const ticketFields = await axios.get(
     `${URL}/api/ticket/fields`
   );

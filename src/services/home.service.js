@@ -6,14 +6,14 @@ const URL = IS_PROD ? "https://mmit-crm.herokuapp.com" : `http://localhost:8090`
 
 const API_URL = `${URL}/api/home/`;
 
-class NavService {
+class HomeService {
   getPublicContent() {
-    return axios.get(API_URL);
+    return axios.get(API_URL, { headers: authHeader() });
   }
 
-  getRoleNav(role) {
+  getRoleHome(role) {
     return axios.get(API_URL + "role/" + role, { headers: authHeader() });
   }
 }
 
-export default new NavService();
+export default new HomeService();

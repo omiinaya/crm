@@ -8,7 +8,7 @@ const API_URL = `${URL}/api/nav/`;
 
 class NavService {
   getPublicContent() {
-    return axios.get(API_URL);
+    return axios.get(API_URL, { headers: authHeader() });
   }
 
   getRoleNav(role) {

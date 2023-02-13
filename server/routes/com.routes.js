@@ -4,7 +4,7 @@ module.exports = app => {
     const { verifyToken } = require("../middleware/authJWT");
     const router = require("express").Router();
 
-    router.post("/", com.create);
+    router.post("/", verifyToken, com.create);
     router.get("/", verifyToken, com.findAll);
     router.get("/id/:id", verifyToken, com.findByTicketId);
     router.get("/author/:id", verifyToken, com.findByAuthorId);

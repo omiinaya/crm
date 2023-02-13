@@ -13,7 +13,7 @@ module.exports = app => {
     router.get("/id/:id", verifyToken, asset.findById)
     router.get("/customer/:id", verifyToken, asset.findByCustomerId);
     router.get("/ticket/:id", verifyToken, asset.findByTicketId);
-    router.get("/fields", verifyToken, assetFields.findAll);
+    router.get("/fields", assetFields.findAll);
 
     //put
     router.put("/id/:id", verifyToken, asset.update);

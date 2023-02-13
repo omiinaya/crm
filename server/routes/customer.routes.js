@@ -3,14 +3,15 @@ module.exports = (app) => {
   const customerFields = require("../controllers/fields/customer.fields.controller.js");
   const customerSettings = require("../controllers/settings/customer.settings.controller");
   const customerSettingsFields = require("../controllers/fields/customer.settings.fields.controller");
+  const { verifyToken } = require("../middleware/authJWT");
   const router = require("express").Router();
 
   router.post("/", customer.create);
 
 
-  router.get("/", customer.findAll);
-  router.get("/id/:id", customer.findById);
-  router.get("/role/:id", customer.findByRole);
+  router.get("/", verifyToken, customer.findAll);
+  router.get("/id/:id", verifyToken, customer.findById);
+  router.get("/role/:id", verifyToken, customer.findByRole);
   router.put("/id/:id", customer.update);
   
   //

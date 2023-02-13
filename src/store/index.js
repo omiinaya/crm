@@ -134,7 +134,7 @@ export const storeX = reactive({
 
   async getActionItems() {
     const highest = Math.max(...store.state.auth.user.roles);
-    const req = await this.HomeService.getRoleNav(highest);
+    const req = await this.HomeService.getRoleHome(highest);
     this.home.actions = await req.data;
   },
 
@@ -406,18 +406,18 @@ export const storeX = reactive({
 
   openTickets() {
     if (this.tickets.length) {
-      return this.tickets.filter(ticket => ticket.ticketStatus !== "Resolved").length - 1;
+      return this.tickets.filter(ticket => ticket.ticketStatus !== "Resolved").length;
     }
   },
 
   closedTickets() {
     if (this.tickets.length) {
-      return this.tickets.filter(ticket => ticket.ticketStatus === "Resolved").length - 1;
+      return this.tickets.filter(ticket => ticket.ticketStatus === "Resolved").length;
     }
   },
 
   totalTickets() {
-    return this.tickets.length-1;
+    return this.tickets.length;
   },
 });
 

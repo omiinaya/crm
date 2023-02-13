@@ -18,18 +18,22 @@ class CSCService {
     return axios.get(CITY_URL);
   }
 
+  async getCountryById(countryId) {
+    const countries = await this.getCountries();
+    const results = await countries.data.filter(country => country.country_id === countryId);
+    return results;
+  }
+
   async getStatesByCountry(countryId) {
     const states = await this.getStates();
     const results = await states.data.filter(state => state.country_id === countryId);
-    return results
+    return results;
   }
 
   async getCitiesByState(stateId) {
     const cities = await this.getCities();
-    console.log(stateId)
-    console.log(cities)
     const results = await cities.data.filter(city => city.state_id === stateId);
-    return results
+    return results;
   }
 }
 

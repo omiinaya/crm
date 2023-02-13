@@ -7,10 +7,9 @@ const URL = IS_PROD ? "https://mmit-crm.herokuapp.com" : `http://localhost:8090`
 const API_URL = `${URL}/api/number/`;
 
 class NumberService {
-
   //get
   getNumber() {
-    return axios.get(API_URL);
+    return axios.get(API_URL, { headers: authHeader() });
   }
 
   getNumberById(numberId) {
@@ -20,7 +19,6 @@ class NumberService {
   getNumberFields() {
     return axios.get(API_URL + "fields/", { headers: authHeader() });
   }
-  
 }
 
 export default new NumberService();
