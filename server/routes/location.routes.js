@@ -15,5 +15,5 @@ module.exports = app => {
   //fields
   router.get("/fields", locationFields.findAll);
 
-  app.use('/api/locations', router);
+  app.use('/api/location', router);
 };

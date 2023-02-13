@@ -19,13 +19,13 @@ exports.create = async (req, res) => {
   }
 
   const customerFields = await axios.get(
-    `${URL}/api/customers/fields`
+    `${URL}/api/customer/fields`
   );
   const locationFields = await axios.get(
-    `${URL}/api/locations/fields`
+    `${URL}/api/location/fields`
   );
   const customerSettingsFields = await axios.get(
-    `${URL}/api/customers/settings/fields`
+    `${URL}/api/customer/settings/fields`
   );
 
   const customerResponse = await customerFields.data;
