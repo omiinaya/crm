@@ -1,14 +1,9 @@
-<!--
-<select @change="testing123($event)">
-  <option value="Option 1">Option 1</option>
-  <option value="Option 2">Option 2</option>
-  <option value="Option 3">Option 3</option>
-</select>
--->
-
 <template>
   <div :class="'col-sm-' + cols">
-    <select @change="handler($event.target.value, this.name, this.byProp)" >
+    <select 
+    :id="'sel-'+this.name" 
+    @change="handler($event.target.value, this.name, this.byProp)" 
+    >
      
         <option v-for="(item, index) in items" :key="item + index">
           <a v-if="byProp && byTicket">

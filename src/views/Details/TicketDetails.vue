@@ -41,22 +41,22 @@
                 <label class="col-sm-6">
                   <i class="bi bi-clipboard2-pulse"></i> Status:
                 </label>
-                <Dropdown2 :title="ticket.status" :items="ticketStatus" cols="6" :handler="ticketStatusHandler"
-                  :byTicket="true" />
+                <Dropdown2 name="status" :title="storeX.ticket.status" :items="ticketStatus" cols="6"
+                  :handler="ticketStatusHandler" :byTicket="true" />
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-person-circle"></i> Assignee:
                 </label>
-                <Dropdown2 :title="ticket.tech" :items="ticketTechs" cols="6" :handler="ticketTechHandler"
-                  :byTicket="true" byProp="fullName" />
+                <Dropdown2 name="assignee" :title="storeX.ticket.tech" :items="ticketTechs" cols="6"
+                  :handler="ticketTechHandler" :byTicket="true" byProp="fullName" />
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-list-check"></i> Labor Type:
                 </label>
-                <Dropdown2 :title="ticket.type" :items="ticketTypes" cols="6" :handler="ticketTypeHandler"
-                  :byTicket="true" />
+                <Dropdown2 name="labor" :title="storeX.ticket.type" :items="ticketTypes" cols="6"
+                  :handler="ticketTypeHandler" :byTicket="true" />
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
@@ -171,25 +171,6 @@
                 <i class="bi bi-pencil"></i>
               </button>
             </div>
-            <!--
-            <EasyDataTable :headers="headers" :items="storeX.asset" theme-color="#1d90ff"
-              table-class-name="customize-table-details" header-text-direction="left" body-text-direction="left"
-              hide-footer>
-              <template #item-warranty="{ warranty }">
-                <Loading v-if="!warranty" />
-                <a class="warranty" v-else :href="warranty[1]" target="_blank">
-                  {{ warranty[0] }}
-                </a>
-              </template>
-              <template #item-assetName="{ assetName }">
-                <input type="input" class="form-control" :id="'editAssetName'" :placeholder="assetName"
-                  v-model="editing.assets.assetName" />
-              </template>
-              <template #item-assetBrand="{ /*assetBrand*/ }">
-                <Dropdown2 :items="assetBrands" cols="12" :handler="testing123" />
-              </template>
-            </EasyDataTable>
-            -->
           </div>
           <div class="section">
             <div class="col-12 header">
@@ -278,7 +259,7 @@ export default {
     storeX,
     ticket: {
       number: null,
-      title: null,
+      title: 'test',
       created: null,
       updated: null,
       type: null,
@@ -364,10 +345,9 @@ export default {
       storeX.TicketService.updateTicket(id, obj);
     },
 
-    async ticketTechHandler(item, byProp) {
-      const data = item[byProp];
+    async ticketTechHandler(item) {
       const id = storeX.navigation.ticketId;
-      const obj = { ticketTech: data };
+      const obj = { ticketTech: item };
       storeX.TicketService.updateTicket(id, obj);
     },
 
@@ -389,15 +369,23 @@ export default {
       await storeX.loadTicketById(this.storeX.navigation.ticketId);
       await storeX.loadAssetByTicketId(this.storeX.navigation.ticketId);
 
-      console.log(storeX.asset)
-
-      this.ticket.number = this.storeX.navigation.ticketId.toString().padStart(5, '0');
+      this.ticket.number = this.storeX.navigation.ticketId;
       storeX.com.comAuthorId = JSON.parse(localStorage.getItem('user')).id;
       storeX.com.comAuthorName = JSON.parse(localStorage.getItem('user')).name;
       storeX.com.comTicketId = storeX.ticket.id;
       storeX.com.comPhoneNumber = storeX.customer.primaryPhone;
-    },
 
+      //await this.test123();
+    },
+    /*
+       async test123() {
+        
+         document.getElementById('sel-status').value = storeX.ticket.status;
+         document.getElementById('sel-assignee').value = storeX.ticket.tech;
+         document.getElementById('sel-labor').value = storeX.ticket.type;
+      
+       },
+      */
     async edit(x) {
       this.editing[x]['editMode'] = !this.editing[x]['editMode']
       console.log(this.editing.assets)
@@ -424,13 +412,13 @@ export default {
 </script>
   
 <style scoped>
-
 .template-btn {
   font-size: 14px;
   color: #c1cad4;
   background: transparent;
   padding: 0;
 }
+
 .stepper {
   font-size: 16px;
 }

@@ -401,7 +401,6 @@ export const storeX = reactive({
     this.ticket.status = data.ticketStatus;
     this.ticket.created = moment(data.createdAt).format('MMM DD YYYY HH:MM A');
     this.ticket.updated = moment(data.updateAt).format('MMM DD YYYY HH:MM A');
-    console.log(this.ticket)
   },
 
   openTickets() {

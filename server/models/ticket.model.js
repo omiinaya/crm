@@ -14,7 +14,7 @@ module.exports = (sequelize, Sequelize) => {
 
     const test = {
         id: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.INTEGER(5).ZEROFILL,
             autoIncrement: true,
             primaryKey: true
         },

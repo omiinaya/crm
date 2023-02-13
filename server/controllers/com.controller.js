@@ -76,7 +76,7 @@ exports.create = async (req, res) => {
     const twilio = `+1${7866613221}`
     const socket = io(URL);
     const email = com.customerEmail;
-    const subject = `Ticket #${ticketId.toString().padStart(5, '0')}`
+    const subject = `Ticket #${ticketId}`
 
     socket.emit("comCreatedRequest", ticketId);
 

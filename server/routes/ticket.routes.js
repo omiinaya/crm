@@ -12,13 +12,20 @@ module.exports = app => {
 
   router.get("/", verifyToken, ticket.findAll);
 
-  router.get("/id/:id", verifyToken, ticket.findByTicketId);
-  router.get("/customer/id/:id", verifyToken, ticket.findByCustomerId);
+  //////////////////////////////////////
+  //router.get("/dev", ticket.findAll);
+  //////////////////////////////////////
+  
+  router.get("/id/:id", ticket.findByTicketId);
+
+  router.get("/customer/id/:id", ticket.findByCustomerId);
   //
   router.get("/asset/id/:id", verifyToken, ticket.findByAssetId);
   //
-  router.get("/technician/:name", verifyToken, ticket.findByTechnician);
+  router.get("/technician/:name", ticket.findByTechnician);
+
   router.get("/fields", ticketFields.findAll);
+
   router.put("/id/:id", ticket.update);
 
   app.use('/api/ticket', router);
