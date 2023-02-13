@@ -9,8 +9,7 @@ const API_URL = `${URL}/api/asset/`;
 class AssetService {
   //GET
   getAssets() {
-    console.log(process.env)
-    return axios.get(API_URL);
+    return axios.get(API_URL, { headers: authHeader() });
   }
 
   getAssetById(Id) {

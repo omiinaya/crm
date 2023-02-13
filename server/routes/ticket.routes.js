@@ -4,8 +4,8 @@ module.exports = app => {
   const ticketFields = require("../controllers/fields/ticket.fields.controller");
   const { verifyToken } = require("../middleware/authJWT");
   const router = require("express").Router();
+  
   //const csurf = require('csurf');
-
   //const csrfProtection = csurf({ cookie: true })
 
   router.post("/", verifyToken, ticket.create);
