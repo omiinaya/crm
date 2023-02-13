@@ -4,7 +4,6 @@
     :id="'sel-'+this.name" 
     @change="handler($event.target.value, this.name, this.byProp)" 
     >
-     
         <option v-for="(item, index) in items" :key="item + index">
           <a v-if="byProp && byTicket">
             {{ item[byProp] }}
@@ -21,10 +20,7 @@
           <a v-else>
             {{ item }}
           </a>
-          
         </option>
-        
-     
     </select>
   </div>
 </template>

@@ -395,6 +395,7 @@ export const storeX = reactive({
     const request = await this.TicketService.getTicketById(id)
     const data = await request.data[0];
     this.ticket.id = data.id;
+    console.log(this.ticket)
     this.ticket.title = data.ticketTitle;
     this.ticket.type = data.ticketType;
     this.ticket.tech = data.ticketTech;
