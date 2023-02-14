@@ -412,7 +412,7 @@ export default {
   computed: {
     ticketId() {
       if (!storeX.ticket.id) return;
-      return storeX.ticket.id.toString().padStart(5, "0");
+      return storeX.padX(storeX.ticket.id);
     }
   }
 }

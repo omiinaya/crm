@@ -47,12 +47,13 @@ export default defineComponent({
     return {
       storeX,
       headers: [
-        { value: "id", text: "ID", sortable: true },
+        //{ value: "id", text: "ID", sortable: true },
         { value: "assetName", text: "NAME", sortable: true },
         { value: "customerName", text: "CUSTOMER", sortable: true },
         { value: "assetSerial", text: "SERIAL", sortable: true },
         { value: "assetType", text: "TYPE", sortable: true },
         { value: "assetBrand", text: "MANUFACTURER", sortable: true },
+        { value: "assetTag", text: "TAG", sortable: true },
         { value: "assetWarranty", text: "WARRANTY", sortable: true }
       ],
       searchFilter: null,

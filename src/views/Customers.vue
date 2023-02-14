@@ -9,12 +9,25 @@
       </div>
       <div class="row">
         <div class="col-12 section">
-          <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="filteredCustomers" theme-color="#1d90ff"
-            table-class-name="customize-table" header-text-direction="left" body-text-direction="left">
+          <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="filteredCustomers"
+            theme-color="#1d90ff" table-class-name="customize-table" header-text-direction="left"
+            body-text-direction="left">
+            <!--
+            <template #item-id="{ id }">
+              <button type="button" class="template-btn btn-lg" v-on:click="openCustomer(id)">
+                {{ id }}
+              </button>
+            </template>
+            -->
             <template #item-name="{ firstName, lastName, id }">
               <button type="button" class="template-btn btn-lg" v-on:click="openCustomer(id)">
                 {{ firstName }} {{ lastName }}
               </button>
+            </template>
+            <template #item-email="{ email }">
+              <a :href="`mailto:${email}`" target="_blank">
+                {{ email }}
+              </a>
             </template>
           </EasyDataTable>
         </div>
@@ -33,7 +46,7 @@ export default defineComponent({
     return {
       storeX,
       headers: [
-        { value: "id", text: "ID", sortable: true },
+        //{ value: "id", text: "ID", sortable: true },
         { value: "name", text: "NAME", sortable: true },
         { value: "email", text: "EMAIL", sortable: true },
         { value: "phone", text: "PHONE", sortable: true },
@@ -62,7 +75,7 @@ export default defineComponent({
   computed: {
     filteredCustomers() {
       if (!this.searchFilter) return storeX.customers;
-    
+
       const filtered = storeX.customers.filter(customer => {
         const input = this.searchFilter.toLowerCase();
 
@@ -75,7 +88,7 @@ export default defineComponent({
         const ifPhone = phone.includes(input);
 
         const byCondition = ifName || ifEmail || ifPhone;
-        
+
         return byCondition;
       })
       return filtered;
@@ -89,7 +102,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
 .search {
   font-size: 16px;
   padding: 0;
@@ -104,8 +116,9 @@ input:focus {
 }
 
 input[type=search]::-webkit-search-cancel-button {
-    -webkit-appearance: searchfield-cancel-button;
+  -webkit-appearance: searchfield-cancel-button;
 }
+
 .top {
   padding: 20px;
   padding-top: 0 !important;

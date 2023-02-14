@@ -127,6 +127,10 @@ export const storeX = reactive({
     window.history.pushState(null, "", url.toString());
   },
 
+  padX(x) {
+    return x.toString().padStart(5, "0"); 
+  },
+
   async formatDate(array) {
     for (let i = array.length - 1; i >= 0; i--) {
       const item = array[i];
@@ -149,6 +153,7 @@ export const storeX = reactive({
       //reversing fucks up number list
       for (let i = 0; i < data.length; i++) {
         const customer = data[i];
+        customer.id = this.padX(customer.id); 
         const phoneId = customer.primaryPhone;
         const addressId = customer.primaryAddress;
         const [phoneRes, addressRes] = await Promise.all([
@@ -160,6 +165,7 @@ export const storeX = reactive({
 
       for (let i = data.length - 1; i >= 0; i--) {
         const customer = data[i];
+        customer.id = this.padX(customer.id); 
         const phoneRes = responses[i][0];
         const addressRes = responses[i][1];
         customer.name = `${customer.firstName} ${customer.lastName}`;
@@ -204,7 +210,7 @@ export const storeX = reactive({
 
     for (let i = this.tickets.length - 1; i >= 0; i--) {
       const ticket = this.tickets[i];
-      ticket.id = ticket.id.toString().padStart(5, "0"); 
+      ticket.id = this.padX(ticket.id); 
 
       ticket.customerName = customerLookup[ticket.ticketCustomerId];
       ticket.ticketId =  ticket.id;
@@ -328,8 +334,7 @@ export const storeX = reactive({
   },
 
   async loadAssetByTicketId(id) {
-    const padded = id.toString().padStart(5, "0")
-    const req = await this.AssetService.getAssetByTicketId(padded);
+    const req = await this.AssetService.getAssetByTicketId(id);
     const data = await req.data;
     if (!data.length) return
 
@@ -400,7 +405,6 @@ export const storeX = reactive({
 
 
   async loadTicketById(id) {
-    //const padded = id.toString().padStart(5, "0")
     const request = await this.TicketService.getTicketById(id)
     const data = await request.data[0];
     this.ticket.id = data.id;
