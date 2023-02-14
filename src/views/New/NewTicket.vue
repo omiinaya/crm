@@ -159,6 +159,7 @@
                     <i :class="field.icon"></i>
                     {{ field.label }}:
                   </label>
+
                   <div class="col-sm-8">
                     <input :type="field.type" class="form-control" :id="field.label + index"
                       :placeholder="field.placeholder" v-model="assetForm[field.name]" />
@@ -179,7 +180,7 @@
                 <Dropdown2 :name="field.name" :title="ticketForm[field.name]" :items="JSON.parse(field.options)"
                   cols="8" :handler="adropdownHandler" />
               </div>
-              <div v-else>
+              <div v-else-if="field.name === 'assetTag'">
                 <div class="mb-3 row align-items-center">
                   <label :for="field.label + index" class="col-sm-2">
                     <i :class="field.icon"></i>
@@ -190,6 +191,27 @@
                       :placeholder="field.placeholder" v-model="assetForm[field.name]" />
                   </div>
                 </div>
+              </div>
+              <div v-else-if="field.name === 'assetSerial'">
+                <div class="mb-3 row align-items-center">
+                  <label :for="field.label + index" class="col-sm-2">
+                    <i :class="field.icon"></i>
+                    {{ field.label }}:
+                  </label>
+                  <div class="col-sm-8">
+                    <input :type="field.type" class="form-control" :id="field.label + index"
+                      :placeholder="field.placeholder" v-model="assetForm[field.name]" @input="warrantyHandler()" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mb-3 row align-items-center" style="margin-top: 30px">
+              <label for="warranty-label" class="col-sm-2">
+                <i class="bi bi-life-preserver"></i>
+                Warranty Status:
+              </label>
+              <div class="col-sm-4">
+                {{ warrantyCalc }}
               </div>
             </div>
           </div>
@@ -234,12 +256,22 @@ export default {
     },
     assetForm: {},
     finalForm: {},
+    warranty: '',
     format: (d) => `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`,
     storeX
   }),
   methods: {
     print(a) {
       console.log(a);
+    },
+    async warrantyHandler() {
+      this.warranty = '';
+      const serial = this.assetForm['assetSerial'];
+
+      if (serial.length < 8) return;
+      const warranty = await storeX.bLoadWarrantyData(serial);
+      if (!warranty) return this.warranty = 'This is not a valid serial.';
+      this.warranty = warranty[0];
     },
     async getTicketFieldItems() {
       const req = await storeX.TicketService.getTicketFields();
@@ -328,9 +360,6 @@ export default {
     if (storeX.navigation.customerId) {
       storeX.loadCustomerById(storeX.navigation.customerId, this.typeAheadHandler)
     }
-
-    console.log(this.leftHalf)
-    console.log(this.rightHalf)
   },
   computed: {
     leftHalfTicket() {
@@ -340,6 +369,7 @@ export default {
       const half_length = Math.ceil(x.length / 2);
       return x.slice(0, half_length + 1);
     },
+
     rightHalfTicket() {
       if (!this.ticketFields) return;
       const arr = this.ticketFields;
@@ -354,24 +384,33 @@ export default {
       const half_length = Math.ceil(arr.length / 2);
       return arr.slice(0, half_length);
     },
+
     rightHalfAsset() {
       if (!this.assetFields) return;
       const arr = this.assetFields;
       const half_length = Math.ceil(arr.length / 2);
       return arr.slice(half_length, arr.length);
+    },
+
+    warrantyCalc() {
+      if (!this.warranty) { 
+        return 'Enter a serial number above.'
+      } else {
+        return this.warranty;
+      }
     }
   },
-  mounted() { },
+  mounted() {},
   watch: {
     ticketForm: {
       handler(newData) {
-        console.log(newData)
+        console.log(newData);
       },
       deep: true
     },
     assetForm: {
       handler(newData) {
-        console.log(newData)
+        console.log(newData);
       },
       deep: true
     }
