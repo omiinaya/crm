@@ -11,6 +11,11 @@
         <div class="col-12 section">
           <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="filteredCustomers"
             theme-color="#1d90ff" table-class-name="customize-table" header-text-direction="left" body-text-direction="left">
+            <template #item-id="{ id, ticketCustomerId }">
+              <button type="button" class="template-btn btn-lg" v-on:click="openTicket(id, ticketCustomerId)">
+                {{ id }}
+              </button>
+            </template>
             <template #item-ticketTitle="{ ticketTitle, id, ticketCustomerId }">
               <button type="button" class="template-btn btn-lg" v-on:click="openTicket(id, ticketCustomerId)">
                 {{ ticketTitle }}
