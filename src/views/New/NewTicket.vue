@@ -89,7 +89,7 @@
         <div class="cols-12 header">ASSET INFO</div>
         <div class="col-6">
           <div class="form">
-            <div v-for="(field, index) in assetFields" :key="field + index">
+            <div v-for="(field, index) in leftHalf" :key="field + index">
               <div v-if="field.type === 'dropdown'" class="mb-3 row align-items-center">
                 <label :for="field.label + index" class="col-sm-4">
                   <i :class="field.icon"></i>
@@ -114,8 +114,29 @@
           </div>
         </div>
         <div class="col-6">
-          <div class="form">
-            test
+          <div class="form-2">
+            <div v-for="(field, index) in rightHalf" :key="field + index">
+              <div v-if="field.type === 'dropdown'" class="mb-3 row align-items-center">
+                <label :for="field.label + index" class="col-sm-4">
+                  <i :class="field.icon"></i>
+                  {{ field.label }}:
+                </label>
+                <Dropdown2 :name="field.name" :title="ticketForm[field.name]" :items="JSON.parse(field.options)"
+                  cols="8" :handler="dropdownHandler" />
+              </div>
+              <div v-else>
+                <div class="mb-3 row align-items-center">
+                  <label :for="field.label + index" class="col-sm-4">
+                    <i :class="field.icon"></i>
+                    {{ field.label }}:
+                  </label>
+                  <div class="col-sm-8">
+                    <input :type="field.type" class="form-control" :id="field.label + index"
+                      :placeholder="field.placeholder" v-model="ticketForm[field.name]" />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -220,10 +241,25 @@ export default {
     if (storeX.navigation.customerId) {
       storeX.loadCustomerById(storeX.navigation.customerId, this.typeAheadHandler)
     }
-  },
-  mounted() {
 
+    console.log(this.leftHalf)
+    console.log(this.rightHalf)
   },
+  computed: {
+    leftHalf() {
+      if (!this.assetFields) return;
+      const arr = this.assetFields;
+      const half_length = Math.ceil(arr.length / 2);
+      return arr.slice(0, half_length);
+    },
+    rightHalf() {
+      if (!this.assetFields) return;
+      const arr = this.assetFields;
+      const half_length = Math.ceil(arr.length / 2);
+      return arr.slice(half_length, arr.length);
+    }
+  },
+  mounted() { },
   watch: {
     ticketForm: {
       handler(newData) {
@@ -278,6 +314,14 @@ form {
   margin: 0px;
   margin-bottom: 15px;
 }
+
+.form-2 {
+  font-size: 14px;
+  margin: 0px;
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
+
 
 .title {
   margin-top: 25px;

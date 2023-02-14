@@ -388,7 +388,7 @@ export default {
       */
     async edit(x) {
       this.editing[x]['editMode'] = !this.editing[x]['editMode']
-      console.log(this.editing.assets)
+      console.log(this.editing.assets);
     },
 
     async testing123(a) {
@@ -411,8 +411,8 @@ export default {
 
   computed: {
     ticketId() {
-      if (!storeX.ticket.id) return
-      return storeX.ticket.id.toString().padStart(5, "0")
+      if (!storeX.ticket.id) return;
+      return storeX.ticket.id.toString().padStart(5, "0");
     }
   }
 }

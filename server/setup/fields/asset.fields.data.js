@@ -66,16 +66,6 @@ const assetFields = [
     show: true,
   },
   {
-    name: "assetSerial",
-    label: "Asset Serial",
-    type: "text",
-    placeholder: "Asset Serial",
-    icon: "bi bi-laptop",
-    data: 'STRING',
-    allowNull: false,
-    show: true,
-  },
-  {
     name: "assetTag",
     label: "Asset Tag",
     type: "text",
@@ -83,6 +73,16 @@ const assetFields = [
     icon: "bi bi-tag",
     data: 'STRING',
     allowNull: true,
+    show: true,
+  },
+  {
+    name: "assetSerial",
+    label: "Asset Serial",
+    type: "text",
+    placeholder: "Asset Serial",
+    icon: "bi bi-laptop",
+    data: 'STRING',
+    allowNull: false,
     show: true,
   },
 ];
