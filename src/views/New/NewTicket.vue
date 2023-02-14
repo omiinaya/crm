@@ -296,12 +296,9 @@ export default {
         customerId: customerId
       });
     },
-
     async createAsset() {
       this.finalForm['asset'] = this.assetForm;
-      console.log(this.finalForm);
     },
-
     getChecked(index, side) {
       const checked = JSON.parse(this.settingsFields[side][index].options).default;
       const name = this.settingsFields[side][index].name;

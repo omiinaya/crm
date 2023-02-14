@@ -1,5 +1,4 @@
 const db = require("../models");
-const axios = require("axios");
 const Com = db.com;
 const io = require('socket.io-client');
 const nodemailer = require('nodemailer');
@@ -54,22 +53,9 @@ function sendMail(email, subject, text) {
 }
 
 exports.create = async (req, res) => {
-  const comFields = await axios.get(
-    `${URL}/api/com/fields`
-  );
-
-  let comResponse = await comFields.data;
-  comResponse = [...comResponse, { id: 7, name: "comPhoneNumber" }, { id: 8, name: "customerEmail" }];
-
-  let com = {};
-
-  for (let i = comResponse.length - 1; i >= 0; i--) {
-    com[comResponse[i].name] = req.body[comResponse[i].name];
-  }
-
+  let com = req.body;
   try {
     const request = await Com.create(com);
-    console.log(com)
     const ticketId = await request.comTicketId;
     const visibility = com.comVis;
     const message = com.comMsg;

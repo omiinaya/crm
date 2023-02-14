@@ -53,6 +53,24 @@ const comFields = [
         show: false,
         data: 'STRING'
     },
+    {
+        name: "comPhoneNumber",
+        label: "Com Phone Number",
+        type: "text",
+        placeholder: "Com Phone Number",
+        icon: "bi bi-card-heading",
+        show: false,
+        data: 'STRING'
+    },
+    {
+        name: 'customerEmail',
+        label: "Com Phone Number",
+        type: "text",
+        placeholder: "Com Phone Number",
+        icon: "bi bi-card-heading",
+        show: false,
+        data: 'STRING'
+    }
 ];
 
 module.exports = comFields

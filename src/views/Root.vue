@@ -20,7 +20,7 @@
               : `#${storeX.navigation.ticketId}`
     : `${storeX.customer.name}` //customer
   : crumb.view !== "Ticket"
-    ? crumb.view !== "Customer" ? `⯇ ${crumb.view}` : `⯇ ${storeX.customer.name}`
+    ? crumb.view !== "Customer" ? `⯇ ${crumb.view}` : `⯇ ${ storeX.history[storeX.history.length - 1].customerName }` //fixed null
     : `⯇ #${storeX.history[storeX.history.length - 2].ticketId}`
               }}
             </li>

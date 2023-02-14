@@ -92,9 +92,11 @@ export const storeX = reactive({
     const last = JSON.stringify(this.history[this.history.length - 1]);
     const current = JSON.stringify(obj);
 
+    if (this.customer.name) obj.customerName = this.customer.name;
+
     //do nothing if user clicks to navigate to the page they're already on.
     if (last === current) return;
-
+    
     this.history.push(obj);
 
     if (this.history.length > 2) this.history.shift();
@@ -144,7 +146,8 @@ export const storeX = reactive({
       const data = customerRequest.data;
       const responses = [];
 
-      for (let i = data.length - 1; i >= 0; i--) {
+      //reversing fucks up number list
+      for (let i = 0; i < data.length; i++) {
         const customer = data[i];
         const phoneId = customer.primaryPhone;
         const addressId = customer.primaryAddress;

@@ -2,7 +2,6 @@ const db = require("../models");
 const Ticket = db.ticket;
 const Asset = db.asset;
 const Com = db.com;
-const axios = require("axios");
 const io = require('socket.io-client');
 
 const PORT = parseInt(process.env.PORT);
