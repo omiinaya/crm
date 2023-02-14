@@ -3,11 +3,9 @@
     <div class="col-10 offset-1 top">
       <div class="top-spacing">
         <div>New Ticket</div>
-        <div>
-          <button type="button" class="btn btn-primary" v-on:click="createTicket(ticketForm)">
-            Create Ticket
-          </button>
-        </div>
+        <button type="button" class="btn btn-primary" v-on:click="createTicket(ticketForm)">
+          Create Ticket
+        </button>
       </div>
     </div>
   </div>
@@ -16,10 +14,10 @@
       <div class="row align-items-top section">
         <div class="cols-12 header">BASIC INFO</div>
         <div class="col-6 half">
-          <div v-for="(field, index) in ticketFields" :key="field + index">
+          <div v-for="(field, index) in leftHalfTicket" :key="field + index">
             <div v-if="!field.show"></div>
             <Form v-else-if="field.name === 'ticketCustomerName'" class="row align-items-center">
-              <label :for="field.label + index" class="col-sm-4 col-form-label">
+              <label :for="field.label + index" class="col-sm-2 col-form-label">
                 <i :class="field.icon"></i>
                 {{ field.label }}:
               </label>
@@ -29,7 +27,7 @@
               </div>
             </Form>
             <Form v-else-if="field.type === 'textarea'" class="row align-items-center">
-              <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
+              <label :for="field.label + index" class="col-sm-2 col-form-label"><i :class="field.icon"></i> {{
                 field.label
               }}:
               </label>
@@ -39,7 +37,7 @@
               </div>
             </Form>
             <Form v-else-if="field.type === 'dropdown' && field.name === 'ticketTech'" class="row align-items-center">
-              <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
+              <label :for="field.label + index" class="col-sm-2 col-form-label"><i :class="field.icon"></i> {{
                 field.label
               }}:
               </label>
@@ -47,7 +45,7 @@
                 :handler="dropdownHandler" byProp="fullName" />
             </Form>
             <Form v-else-if="field.type === 'dropdown'" class="row align-items-center">
-              <label :for="field.label + index" class="col-sm-4 col-form-label"><i :class="field.icon"></i> {{
+              <label :for="field.label + index" class="col-sm-2 col-form-label"><i :class="field.icon"></i> {{
                 field.label
               }}:
               </label>
@@ -55,7 +53,7 @@
                 :handler="dropdownHandler" />
             </Form>
             <Form v-else-if="field.name === 'ticketDue'" class="row align-items-center">
-              <label :for="field.label + index" class="col-sm-4">
+              <label :for="field.label + index" class="col-sm-2">
                 <i :class="field.icon"></i>
                 {{ field.label }}:
               </label>
@@ -64,7 +62,7 @@
               </div>
             </Form>
             <Form v-else class="row align-items-center">
-              <label :for="field.label + index" class="col-sm-4">
+              <label :for="field.label + index" class="col-sm-2">
                 <i :class="field.icon"></i>
                 {{ field.label }}:
               </label>
@@ -77,7 +75,64 @@
         </div>
         <div class="col-6">
           <div class="form">
-            test
+            <div v-for="(field, index) in rightHalfTicket" :key="field + index">
+              <div v-if="!field.show"></div>
+              <Form v-else-if="field.name === 'ticketCustomerName'" class="row align-items-center">
+                <label :for="field.label + index" class="col-sm-2 col-form-label">
+                  <i :class="field.icon"></i>
+                  {{ field.label }}:
+                </label>
+                <div class="col-sm-8">
+                  <TypeAhead :placeholder="field.placeholder" :items="customerItems"
+                    class="form-control simple-typeahead" @selectItem="(e) => typeAheadHandler(e.id)" />
+                </div>
+              </Form>
+              <Form v-else-if="field.type === 'textarea'" class="row align-items-center">
+                <label :for="field.label + index" class="col-sm-2 col-form-label"><i :class="field.icon"></i> {{
+                  field.label
+                }}:
+                </label>
+                <div class="col-sm-8">
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                    v-model="ticketForm[field.name]"></textarea>
+                </div>
+              </Form>
+              <Form v-else-if="field.type === 'dropdown' && field.name === 'ticketTech'" class="row align-items-center">
+                <label :for="field.label + index" class="col-sm-2 col-form-label"><i :class="field.icon"></i> {{
+                  field.label
+                }}:
+                </label>
+                <Dropdown2 :name=field.name :title="ticketForm[field.name].fullName" :items="techItems" cols="8"
+                  :handler="dropdownHandler" byProp="fullName" />
+              </Form>
+              <Form v-else-if="field.type === 'dropdown'" class="row align-items-center">
+                <label :for="field.label + index" class="col-sm-2 col-form-label"><i :class="field.icon"></i> {{
+                  field.label
+                }}:
+                </label>
+                <Dropdown2 :name=field.name :title="ticketForm[field.name]" :items="JSON.parse(field.options)" cols="8"
+                  :handler="dropdownHandler" />
+              </Form>
+              <Form v-else-if="field.name === 'ticketDue'" class="row align-items-center">
+                <label :for="field.label + index" class="col-sm-2">
+                  <i :class="field.icon"></i>
+                  {{ field.label }}:
+                </label>
+                <div class="col-sm-8">
+                  <DatePicker v-model="ticketForm[field.name]" :format="format" />
+                </div>
+              </Form>
+              <Form v-else class="row align-items-center">
+                <label :for="field.label + index" class="col-sm-2">
+                  <i :class="field.icon"></i>
+                  {{ field.label }}:
+                </label>
+                <div class="col-sm-8">
+                  <input :type="field.type" class="form-control" :id="field.label + index"
+                    :placeholder="field.placeholder" v-model="ticketForm[field.name]" />
+                </div>
+              </Form>
+            </div>
           </div>
         </div>
       </div>
@@ -89,24 +144,24 @@
         <div class="cols-12 header">ASSET INFO</div>
         <div class="col-6">
           <div class="form">
-            <div v-for="(field, index) in leftHalf" :key="field + index">
+            <div v-for="(field, index) in leftHalfAsset" :key="field + index">
               <div v-if="field.type === 'dropdown'" class="mb-3 row align-items-center">
-                <label :for="field.label + index" class="col-sm-4">
+                <label :for="field.label + index" class="col-sm-2">
                   <i :class="field.icon"></i>
                   {{ field.label }}:
                 </label>
                 <Dropdown2 :name="field.name" :title="ticketForm[field.name]" :items="JSON.parse(field.options)"
-                  cols="8" :handler="dropdownHandler" />
+                  cols="8" :handler="adropdownHandler" />
               </div>
               <div v-else>
                 <div class="mb-3 row align-items-center">
-                  <label :for="field.label + index" class="col-sm-4">
+                  <label :for="field.label + index" class="col-sm-2">
                     <i :class="field.icon"></i>
                     {{ field.label }}:
                   </label>
                   <div class="col-sm-8">
                     <input :type="field.type" class="form-control" :id="field.label + index"
-                      :placeholder="field.placeholder" v-model="ticketForm[field.name]" />
+                      :placeholder="field.placeholder" v-model="assetForm[field.name]" />
                   </div>
                 </div>
               </div>
@@ -115,29 +170,44 @@
         </div>
         <div class="col-6">
           <div class="form-2">
-            <div v-for="(field, index) in rightHalf" :key="field + index">
+            <div v-for="(field, index) in rightHalfAsset" :key="field + index">
               <div v-if="field.type === 'dropdown'" class="mb-3 row align-items-center">
-                <label :for="field.label + index" class="col-sm-4">
+                <label :for="field.label + index" class="col-sm-2">
                   <i :class="field.icon"></i>
                   {{ field.label }}:
                 </label>
                 <Dropdown2 :name="field.name" :title="ticketForm[field.name]" :items="JSON.parse(field.options)"
-                  cols="8" :handler="dropdownHandler" />
+                  cols="8" :handler="adropdownHandler" />
               </div>
               <div v-else>
                 <div class="mb-3 row align-items-center">
-                  <label :for="field.label + index" class="col-sm-4">
+                  <label :for="field.label + index" class="col-sm-2">
                     <i :class="field.icon"></i>
                     {{ field.label }}:
                   </label>
                   <div class="col-sm-8">
                     <input :type="field.type" class="form-control" :id="field.label + index"
-                      :placeholder="field.placeholder" v-model="ticketForm[field.name]" />
+                      :placeholder="field.placeholder" v-model="assetForm[field.name]" />
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-10 offset-1 bottom">
+      <div class="top-spacing">
+        <div></div>
+        <div>
+          <button type="button" class="btn btn-primary" v-on:click="createAsset()">
+            Create Asset
+          </button>
+          <button type="button" class="btn btn-primary" v-on:click="createTicket(ticketForm)">
+            Create Ticket
+          </button>
         </div>
       </div>
     </div>
@@ -159,7 +229,11 @@ export default {
     techItems: null,
     ticketFields: null,
     assetFields: null,
-    ticketForm: {},
+    ticketForm: {
+      ticketStatus: 'New'
+    },
+    assetForm: {},
+    finalForm: {},
     format: (d) => `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`,
     storeX
   }),
@@ -179,15 +253,21 @@ export default {
     },
     async loadAssetFields() {
       const req = await storeX.AssetService.getAssetFields();
-      const arr = req.data;
-      await arr.splice(0, 3); //removes customer name, customer id and ticket number
-      this.assetFields = arr;
+      const fields = req.data;
+
+      const filtered = fields.filter(field =>
+        field.name !== 'assetCustomerName' &&
+        field.name !== 'assetCustomerId' &&
+        field.name !== 'assetTicketId'
+      )
+
+      this.assetFields = filtered;
       //get list of options
       const assetTypes = this.assetFields.filter(field => field.name === 'assetType')[0].options;
       const assetBrands = this.assetFields.filter(field => field.name === 'assetBrand')[0].options;
       //choose first option as default
-      this.ticketForm['assetType'] = JSON.parse(assetTypes)[0];
-      this.ticketForm['assetBrand'] = JSON.parse(assetBrands)[0];
+      this.assetForm['assetType'] = JSON.parse(assetTypes)[0];
+      this.assetForm['assetBrand'] = JSON.parse(assetBrands)[0];
     },
     async loadCustomerData() {
       const request = await storeX.CustomerService.getCustomers()
@@ -204,8 +284,9 @@ export default {
       this.techItems = technicianList;
       this.getTicketFieldItems();
     },
-    async createTicket(data) {
-      const ticket = await storeX.TicketService.createTicket(data);
+    async createTicket() {
+      this.finalForm['ticket'] = this.ticketForm;
+      const ticket = await storeX.TicketService.createTicket(this.finalForm);
       if (ticket.status !== 200) return;
       const ticketId = ticket.data.id;
       const customerId = ticket.data.ticketCustomerId;
@@ -215,6 +296,12 @@ export default {
         customerId: customerId
       });
     },
+
+    async createAsset() {
+      this.finalForm['asset'] = this.assetForm;
+      console.log(this.finalForm);
+    },
+
     getChecked(index, side) {
       const checked = JSON.parse(this.settingsFields[side][index].options).default;
       const name = this.settingsFields[side][index].name;
@@ -226,6 +313,9 @@ export default {
     },
     dropdownHandler(item, name) {
       this.ticketForm[name] = item;
+    },
+    adropdownHandler(item, name) {
+      this.assetForm[name] = item;
     },
     typeAheadHandler(id) {
       this.ticketForm['ticketCustomerId'] = parseInt(id)
@@ -246,13 +336,28 @@ export default {
     console.log(this.rightHalf)
   },
   computed: {
-    leftHalf() {
+    leftHalfTicket() {
+      if (!this.ticketFields) return;
+      const arr = this.ticketFields;
+      const x = arr.filter(el => el.show)
+      const half_length = Math.ceil(x.length / 2);
+      return x.slice(0, half_length + 1);
+    },
+    rightHalfTicket() {
+      if (!this.ticketFields) return;
+      const arr = this.ticketFields;
+      const x = arr.filter(el => el.show)
+      const half_length = Math.ceil(x.length / 2);
+      return x.slice(half_length + 1, x.length);
+    },
+
+    leftHalfAsset() {
       if (!this.assetFields) return;
       const arr = this.assetFields;
       const half_length = Math.ceil(arr.length / 2);
       return arr.slice(0, half_length);
     },
-    rightHalf() {
+    rightHalfAsset() {
       if (!this.assetFields) return;
       const arr = this.assetFields;
       const half_length = Math.ceil(arr.length / 2);
@@ -262,6 +367,12 @@ export default {
   mounted() { },
   watch: {
     ticketForm: {
+      handler(newData) {
+        console.log(newData)
+      },
+      deep: true
+    },
+    assetForm: {
       handler(newData) {
         console.log(newData)
       },
@@ -299,6 +410,14 @@ label {
   font-size: 24px;
 }
 
+.bottom {
+  padding: 20px;
+  padding-top: 20px;
+  padding-bottom: 0;
+  padding-left: 10px;
+  font-size: 24px;
+}
+
 .btn {
   margin-right: 10px !important;
 }
@@ -318,7 +437,7 @@ form {
 .form-2 {
   font-size: 14px;
   margin: 0px;
-  margin-left: 20px;
+  margin-left: 15px;
   margin-bottom: 15px;
 }
 

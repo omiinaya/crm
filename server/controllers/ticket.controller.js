@@ -1,6 +1,6 @@
 const db = require("../models");
 const Ticket = db.ticket;
-//const Asset = db.asset;
+const Asset = db.asset;
 const Com = db.com;
 const axios = require("axios");
 const io = require('socket.io-client');
@@ -10,30 +10,11 @@ const IS_PROD = process.env.NODE_ENV === "production";
 const URL = IS_PROD ? "https://mmit-crm.herokuapp.com" : `http://localhost:${PORT}`;
 
 exports.create = async (req, res) => {
-  const ticketFields = await axios.get(
-    `${URL}/api/ticket/fields`
-  );
-  const assetFields = await axios.get(`${URL}/api/asset/fields`);
-  const ticketResponse = await ticketFields.data;
-  const assetResponse = await assetFields.data;
-
-  let ticket = {};
-  let asset = {};
-
-  for (let i = ticketResponse.length - 1; i >= 0; i--) {
-    ticket[ticketResponse[i].name] = req.body[ticketResponse[i].name];
-  }
-
-  for (let i = assetResponse.length - 1; i >= 0; i--) {
-    if (assetResponse[i].name === "assetCustomerName") continue; //ignore customerName field.
-    asset[assetResponse[i].name] = req.body[assetResponse[i].name];
-  }
-  //default status is new
-  ticket["ticketStatus"] = "New";
-
   try {
+    const ticket = req.body.ticket;
+    const asset = req.body.asset;
     const request = await Ticket.create(ticket);
-    
+
     const com = {
       comAuthorName: request.ticketTech,
       comTicketId: request.id,
@@ -42,14 +23,17 @@ exports.create = async (req, res) => {
       comType: 'Issue'
     }
 
-    //both asset and ticket are assigned the same customer id.
-    asset["assetCustomerId"] = ticket["ticketCustomerId"];
-    //add ticket number to asset number, after ticket has been created.
-    asset["assetTicketId"] = await request.id;
+    if (req.body.asset) {
+      //both asset and ticket are assigned the same customer id.
+      asset["assetCustomerId"] = ticket["ticketCustomerId"];
+      //add ticket number to asset number, after ticket has been created.
+      asset["assetTicketId"] = await request.id;
+
+      Asset.create(asset);
+    }
 
     Com.create(com);
-    //Asset.create(asset);
-
+    
     res.send(await request);
   } catch (err) {
     console.log(err);
