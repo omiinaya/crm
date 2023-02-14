@@ -123,8 +123,6 @@ export const storeX = reactive({
     }
 
     window.history.pushState(null, "", url.toString());
-
-    console.log(obj)
   },
 
   async formatDate(array) {
@@ -203,8 +201,11 @@ export const storeX = reactive({
 
     for (let i = this.tickets.length - 1; i >= 0; i--) {
       const ticket = this.tickets[i];
+      ticket.id = ticket.id.toString().padStart(5, "0"); 
+
       ticket.customerName = customerLookup[ticket.ticketCustomerId];
-      ticket.ticketId = ticket.id;
+      ticket.ticketId =  ticket.id ;
+
       const data = await this.loadAssetByTicketId(ticket.id);
       if (!data) return;
       ticket.ticketAssetSerial = data[0].assetSerial;
@@ -321,7 +322,8 @@ export const storeX = reactive({
   },
 
   async loadAssetByTicketId(id) {
-    const req = await this.AssetService.getAssetByTicketId(id);
+    const padded = id.toString().padStart(5, "0")
+    const req = await this.AssetService.getAssetByTicketId(padded);
     const data = await req.data;
     if (!data.length) return
 
@@ -392,7 +394,8 @@ export const storeX = reactive({
 
 
   async loadTicketById(id) {
-    const request = await this.TicketService.getTicketById(id)
+    const padded = id.toString().padStart(5, "0")
+    const request = await this.TicketService.getTicketById(padded)
     const data = await request.data[0];
     this.ticket.id = data.id;
     this.ticket.title = data.ticketTitle;

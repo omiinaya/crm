@@ -188,7 +188,11 @@ export default {
       if (ticket.status !== 200) return;
       const ticketId = ticket.data.id;
       const customerId = ticket.data.ticketCustomerId;
-      storeX.updateNavigation({ view: 'Ticket', ticketId: ticketId, customerId: customerId });
+      storeX.updateNavigation({
+        view: 'Ticket',
+        ticketId: ticketId,
+        customerId: customerId
+      });
     },
     getChecked(index, side) {
       const checked = JSON.parse(this.settingsFields[side][index].options).default;

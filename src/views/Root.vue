@@ -45,6 +45,7 @@
       <Projects v-else-if="storeX.navigation.view === 'Projects'" />
       <Time v-else-if="storeX.navigation.view === 'Time'" />
       <AssetDetails v-else-if="storeX.navigation.view === 'Asset'" />
+      <Login v-else-if="storeX.navigation.view === 'Login'" />
     </ion-content>
   </ion-page>
 </template>
@@ -92,6 +93,7 @@ export default defineComponent({
       history.shift()
       localStorage.setItem('history', JSON.stringify(storeX.history));
     }; history.pushState({}, '');
+
   },
   watch: {
     $route(to) {
@@ -122,7 +124,8 @@ export default defineComponent({
     TicketDetails: Views.TicketDetails,
     Projects: Views.Projects,
     Time: Views.Time,
-    AssetDetails: Views.AssetDetails
+    AssetDetails: Views.AssetDetails,
+    Login: Views.Login
 },
 });
 </script>

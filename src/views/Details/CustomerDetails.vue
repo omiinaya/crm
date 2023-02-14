@@ -165,7 +165,6 @@ export default {
       })
     },
     async newTicket() {
-      console.log(storeX.customer.id)
       this.storeX.updateNavigation({
         view: 'NewTicket',
         customerId: storeX.customer.id
