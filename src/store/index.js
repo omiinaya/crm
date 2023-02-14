@@ -123,6 +123,8 @@ export const storeX = reactive({
     }
 
     window.history.pushState(null, "", url.toString());
+
+    console.log(obj)
   },
 
   async formatDate(array) {
@@ -192,8 +194,6 @@ export const storeX = reactive({
 
     this.tickets = await tickets.data;
     this.customers = await customers.data;
-
-    console.log(tickets)
 
     const customerLookup = {};
     for (let i = this.customers.length - 1; i >= 0; i--) {
@@ -395,7 +395,6 @@ export const storeX = reactive({
     const request = await this.TicketService.getTicketById(id)
     const data = await request.data[0];
     this.ticket.id = data.id;
-    console.log(this.ticket)
     this.ticket.title = data.ticketTitle;
     this.ticket.type = data.ticketType;
     this.ticket.tech = data.ticketTech;

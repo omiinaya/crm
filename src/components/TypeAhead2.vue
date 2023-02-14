@@ -142,7 +142,7 @@ export default /*#__PURE__*/ defineComponent({
 			}
 		},
 		selectItem(item) {
-			this.input = this.itemProjection(item);
+			this.input = ''; //erasing on input
 			this.currentSelectionIndex = 0;
 			this.$refs.inputRef.blur();
 			this.$emit('selectItem', item);

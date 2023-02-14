@@ -92,20 +92,28 @@ export default {
     },
     selectHandler(e) {
       if (e.customerId) {
-        this.selected = e.customerId;
-        console.log(this.selected);
+        this.storeX.updateNavigation({
+          view: 'Customer',
+          customerId: e.customerId
+        })   
       }
 
       if (e.assetId) {
-        this.selected = e.assetId;
-        console.log(this.selected);
+        storeX.updateNavigation({
+          view: 'Asset',
+          assetId: e.assetId
+        })
       }
 
       if (e.ticketId) {
-        this.selected = e.ticketId;
-        console.log(this.selected);
+        storeX.updateNavigation({
+          view: 'Ticket',
+          ticketId: e.ticketId,
+          customerId: e.ticketCustomerId
+        })
       }
-    }
+      this.$router.go(0);
+    },
   },
   watch: {
     assetForm: {

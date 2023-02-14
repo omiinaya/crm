@@ -77,7 +77,6 @@ immediate assistance or have any questions. Please call our center at 305-381-58
         async searchHandler(input) {
             const value = input.target.value;
             this.searchFilter = value;
-            console.log(this.searchFilter)
         },
         async insertHandler(id) {
             const response = this.items[id];
