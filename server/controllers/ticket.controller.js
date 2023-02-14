@@ -1,6 +1,7 @@
 const db = require("../models");
 const Ticket = db.ticket;
 //const Asset = db.asset;
+const Com = db.com;
 const axios = require("axios");
 const io = require('socket.io-client');
 
@@ -9,7 +10,6 @@ const IS_PROD = process.env.NODE_ENV === "production";
 const URL = IS_PROD ? "https://mmit-crm.herokuapp.com" : `http://localhost:${PORT}`;
 
 exports.create = async (req, res) => {
-  console.log(req)
   const ticketFields = await axios.get(
     `${URL}/api/ticket/fields`
   );
@@ -33,11 +33,21 @@ exports.create = async (req, res) => {
 
   try {
     const request = await Ticket.create(ticket);
+    
+    const com = {
+      comAuthorName: request.ticketTech,
+      comTicketId: request.id,
+      comMsg: request.ticketDesc,
+      comVis: 'Private Note',
+      comType: 'Issue'
+    }
+
     //both asset and ticket are assigned the same customer id.
     asset["assetCustomerId"] = ticket["ticketCustomerId"];
     //add ticket number to asset number, after ticket has been created.
     asset["assetTicketId"] = await request.id;
 
+    Com.create(com);
     //Asset.create(asset);
 
     res.send(await request);

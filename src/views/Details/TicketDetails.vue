@@ -4,7 +4,7 @@
       <div clas="row">
         <div class="col-11 top">
           <div style="display: flex; justify-content: space-between;">
-            <div class="col-10 top">#{{ ticket.number }}</div>
+            <div class="col-10 top">#{{ ticketId }}</div>
             <div>
               <Dropdown title="New" :items="newOptions" cols="12" :handler="newHandler" />
             </div>
@@ -408,6 +408,13 @@ export default {
       storeX.loadTicketById(this.storeX.navigation.ticketId);
     })
   },
+
+  computed: {
+    ticketId() {
+      if (!storeX.ticket.id) return
+      return storeX.ticket.id.toString().padStart(5, "0")
+    }
+  }
 }
 </script>
   

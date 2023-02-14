@@ -69,6 +69,7 @@ exports.create = async (req, res) => {
 
   try {
     const request = await Com.create(com);
+    console.log(com)
     const ticketId = await request.comTicketId;
     const visibility = com.comVis;
     const message = com.comMsg;

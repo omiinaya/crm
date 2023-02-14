@@ -207,7 +207,11 @@ export const storeX = reactive({
       ticket.ticketId =  ticket.id;
 
       const data = await this.loadAssetByTicketId(ticket.id);
-      if (data) ticket.ticketAssetSerial = data[0].assetSerial;
+      if (data) { 
+        ticket.ticketAssetSerial = data[0].assetSerial; 
+      } else {
+        ticket.ticketAssetSerial = 'N/A'
+      }
     }
 
     this.formatDate(this.tickets);
@@ -393,8 +397,8 @@ export const storeX = reactive({
 
 
   async loadTicketById(id) {
-    const padded = id.toString().padStart(5, "0")
-    const request = await this.TicketService.getTicketById(padded)
+    //const padded = id.toString().padStart(5, "0")
+    const request = await this.TicketService.getTicketById(id)
     const data = await request.data[0];
     this.ticket.id = data.id;
     this.ticket.title = data.ticketTitle;
