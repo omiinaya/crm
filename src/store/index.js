@@ -204,11 +204,10 @@ export const storeX = reactive({
       ticket.id = ticket.id.toString().padStart(5, "0"); 
 
       ticket.customerName = customerLookup[ticket.ticketCustomerId];
-      ticket.ticketId =  ticket.id ;
+      ticket.ticketId =  ticket.id;
 
       const data = await this.loadAssetByTicketId(ticket.id);
-      if (!data) return;
-      ticket.ticketAssetSerial = data[0].assetSerial;
+      if (data) ticket.ticketAssetSerial = data[0].assetSerial;
     }
 
     this.formatDate(this.tickets);
