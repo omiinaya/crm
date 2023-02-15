@@ -41,7 +41,7 @@
                 field.label
               }}:
               </label>
-              <Dropdown2 :name=field.name :title="ticketForm[field.name].fullName" :items="techItems" cols="8"
+              <Dropdown2 :name=field.name :title="ticketForm[field.name]" :items="techItems" cols="8"
                 :handler="dropdownHandler" byProp="fullName" />
             </Form>
             <Form v-else-if="field.type === 'dropdown'" class="row align-items-center">
@@ -88,14 +88,6 @@
                     v-model="ticketForm[field.name]"></textarea>
                 </div>
               </Form>
-              <Form v-else-if="field.type === 'dropdown' && field.name === 'ticketTech'" class="row align-items-center">
-                <label :for="field.label + index" class="col-sm-2 col-form-label"><i :class="field.icon"></i> {{
-                  field.label
-                }}:
-                </label>
-                <Dropdown2 :name=field.name :title="ticketForm[field.name].fullName" :items="techItems" cols="8"
-                  :handler="dropdownHandler" byProp="fullName" />
-              </Form>
               <Form v-else-if="field.type === 'dropdown'" class="row align-items-center">
                 <label :for="field.label + index" class="col-sm-2 col-form-label"><i :class="field.icon"></i> {{
                   field.label
@@ -132,7 +124,7 @@
                   <i :class="field.icon"></i>
                   {{ field.label }}:
                 </label>
-                <Dropdown2 :name="field.name" :title="ticketForm[field.name]" :items="JSON.parse(field.options)"
+                <Dropdown2 :name="field.name" :title="assetForm[field.name]" :items="JSON.parse(field.options)"
                   cols="8" :handler="adropdownHandler" />
               </div>
               <div v-else>
@@ -233,9 +225,13 @@ export default {
     ticketFields: null,
     assetFields: null,
     ticketForm: {
-      ticketStatus: 'New'
+      ticketStatus: 'New',
+      ticketTech: ''
     },
-    assetForm: {},
+    assetForm: {
+      assetType: '',
+      assetName: ''
+    },
     finalForm: {},
     warranty: '',
     format: (d) => `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`,
@@ -278,8 +274,8 @@ export default {
       const assetTypes = this.assetFields.filter(field => field.name === 'assetType')[0].options;
       const assetBrands = this.assetFields.filter(field => field.name === 'assetBrand')[0].options;
       //choose first option as default
-      this.assetForm['assetType'] = JSON.parse(assetTypes)[0];
-      this.assetForm['assetBrand'] = JSON.parse(assetBrands)[0];
+      this.assetForm.assetType = JSON.parse(assetTypes)[0];
+      this.assetForm.assetBrand = JSON.parse(assetBrands)[0];
     },
     async loadCustomerData() {
       const request = await storeX.CustomerService.getCustomers()
@@ -294,6 +290,8 @@ export default {
       const request = await storeX.UserService.getAllUsers();
       const technicianList = await request.data;
       this.techItems = technicianList;
+      console.log(this.techItems[0].fullName)
+      this.ticketForm['ticketTech'] = this.techItems[0].fullName;
       this.getTicketFieldItems();
     },
     async createTicket() {

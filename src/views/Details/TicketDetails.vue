@@ -286,7 +286,7 @@ export default {
     ticketAssets: [],
     ticketTechs: [],
     ticketStatus: ['New', 'Waiting for Parts', 'Waiting on Client', 'In Progress', 'Ready for Pickup', 'Customer Reply', 'Resolved'],
-    ticketTypes: ['Flat Rate', 'Warranty', 'In-House'],
+    ticketTypes: ['Flat-Rate', 'Warranty', 'In-House'],
     assetBrands: ['Lenovo', 'Dell', 'HP', '...'],
     comVis: ['Private Note', 'Publc Note', 'Email', 'SMS', 'Email + SMS'],
     comTypes: ['Update', 'Issue', 'Diagnosis', 'Parts Ordered', 'Parts Arrival', 'Complete'],
