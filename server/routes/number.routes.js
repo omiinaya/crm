@@ -3,13 +3,14 @@ module.exports = app => {
     const { verifyToken } = require("../middleware/authJWT");
     const router = require("express").Router();
 
+    //TO VERIFY
     router.post("/", number.create);
-    //
-    router.get("/", verifyToken, number.findAll);
-    router.get("/id/:id", verifyToken, number.findByNumberId);
-    //
     router.put("/id/:id", number.update);
     router.delete("/:id", number.delete);
+
+    //VERIFIED ROUTES
+    router.get("/", verifyToken, number.findAll);
+    router.get("/id/:id", verifyToken, number.findByNumberId);
   
     app.use('/api/number', router);
   };

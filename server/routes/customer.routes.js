@@ -7,19 +7,9 @@ module.exports = (app) => {
   const router = require("express").Router();
 
   router.post("/", customer.create);
-
-
-  router.get("/", verifyToken, customer.findAll);
-  router.get("/id/:id", verifyToken, customer.findById);
-  router.get("/role/:id", verifyToken, customer.findByRole);
   router.put("/id/:id", customer.update);
-  
-  //
   router.get("/asset/id/:id", customer.findByAssetId);
-  //
-  
   router.delete("/id/:id", customer.delete);
-  //fields get
   router.get("/fields", customerFields.findAll);
 
   //settings get
@@ -29,6 +19,11 @@ module.exports = (app) => {
   //settings post
   router.post("/settings", customerSettings.create);
   router.post("/settings/fields", customerSettingsFields.create);
+
+  //VERIFIED ROUTES
+  router.get("/", verifyToken, customer.findAll);
+  router.get("/id/:id", verifyToken, customer.findById);
+  router.get("/role/:id", verifyToken, customer.findByRole);
 
   app.use("/api/customer/", router);
 };

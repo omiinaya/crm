@@ -8,25 +8,20 @@ module.exports = app => {
   //const csurf = require('csurf');
   //const csrfProtection = csurf({ cookie: true })
 
+  //TO VERIFY
   router.post("/", ticket.create);
-
-  router.get("/", verifyToken, ticket.findAll);
-
-  //////////////////////////////////////
-  //router.get("/dev/", ticket.findAll);
-  //////////////////////////////////////
-  
   router.get("/id/:id", ticket.findByTicketId);
-
   router.get("/customer/id/:id", ticket.findByCustomerId);
-  //
-  router.get("/asset/id/:id", verifyToken, ticket.findByAssetId);
-  //
   router.get("/technician/:name", ticket.findByTechnician);
-
   router.get("/fields", ticketFields.findAll);
-
   router.put("/id/:id", ticket.update);
+
+  //VERIFIED ROUTES
+  router.get("/", verifyToken, ticket.findAll);
+  router.get("/asset/id/:id", verifyToken, ticket.findByAssetId);
+
+  //DEV ROUTES
+  //router.get("/dev/", ticket.findAll);
 
   app.use('/api/ticket', router);
 };
