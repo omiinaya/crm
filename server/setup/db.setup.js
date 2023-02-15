@@ -288,7 +288,7 @@ async function dummyData() {
       zip: location.zip,
     });
   });
-
+  
   User.create({
     firstName: "Omar",
     lastName: "Minaya",

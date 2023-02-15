@@ -4,7 +4,7 @@
       Technicians
       <div class="row mt-2">
         <div class="search">
-          <input type="search" placeholder="Search for a customer" @input="searchHandler($event)" />
+          <input type="search" placeholder="Search for a technician" @input="searchHandler($event)" />
         </div>
       </div>
       <div class="row">
@@ -12,10 +12,24 @@
           <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="filteredTechnicians"
             theme-color="#1d90ff" table-class-name="customize-table" header-text-direction="left"
             body-text-direction="left">
-            <template #item-name="{ firstName, lastName, id }">
+            <template #item-name="{ fullName, id }">
               <button type="button" class="template-btn btn-lg" v-on:click="openTechnician(id)">
-                {{ firstName }} {{ lastName }}
+                {{ fullName }}
               </button>
+            </template>
+            <template #item-roleId="{ roleId }">
+              <a v-if="roleId === 0">
+                User
+              </a>
+              <a v-else-if="roleId === 1">
+                Technician
+              </a>
+              <a v-else-if="roleId === 2">
+                Administrator
+              </a>
+              <a v-else-if="roleId === 3">
+                Owner
+              </a>
             </template>
             <template #item-email="{ email }">
               <a :href="`mailto:${email}`" target="_blank">
@@ -52,7 +66,7 @@ export default defineComponent({
   methods: {
     async openTechnician(id) {
       this.storeX.updateNavigation({
-        view: 'Customer',
+        view: 'Technician',
         customerId: id
       })
     },
@@ -68,12 +82,12 @@ export default defineComponent({
     filteredTechnicians() {
       if (!this.searchFilter) return storeX.technicians;
 
-      const filtered = storeX.customers.filter(customer => {
+      const filtered = storeX.technicians.filter(technician => {
         const input = this.searchFilter.toLowerCase();
 
-        const name = `${customer.firstName} ${customer.lastName}`;
-        const email = customer.email || '';
-        const phone = customer.phone || '';
+        const name = technician.fullName;
+        const email = technician.email || '';
+        const phone = technician.phone || '';
 
         const ifName = name.toLowerCase().includes(input);
         const ifEmail = email.toLowerCase().includes(input);

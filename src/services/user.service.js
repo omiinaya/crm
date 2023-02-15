@@ -15,7 +15,7 @@ class UserService {
   async getTechnicians() {
     const res = await axios.get(API_URL, { headers: authHeader() });
     const users = res.data;
-    const techs = users.filter(user => user.roleId < 3);
+    const techs = users.filter(user => user.roleId < 3 && user.roleId > 0);
     return techs;
   }
 

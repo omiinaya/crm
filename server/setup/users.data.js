@@ -31,6 +31,16 @@ const users = [
         password: "$2a$08$7O/xmmuyMmc4PuCF2dcPxue3bHuGmQvvn1M2AidQnYzNE.QC7bTyy",
         roleId: 1
     },
+    /*
+    {
+        firstName: "Omar",
+        lastName: "Minaya",
+        username: "test",
+        email: "omar@mobilemeit.com",
+        password: "$2a$08$7O/xmmuyMmc4PuCF2dcPxue3bHuGmQvvn1M2AidQnYzNE.QC7bTyy",
+        roleId: 2
+    },
+    */
 ]
 
 module.exports = users
