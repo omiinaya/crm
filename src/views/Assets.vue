@@ -100,7 +100,6 @@ export default defineComponent({
         };
         this.hasLoaded++;
       })
-      console.log(this.warranty)
     }
   },
   computed: {

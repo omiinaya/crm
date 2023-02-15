@@ -64,7 +64,6 @@ const server = app.listen(port, () => {
     });
 
     client.on("comCreatedRequest", (id) => {
-      console.log('test')
       io.emit("comCreatedResponse", id);
     });
 

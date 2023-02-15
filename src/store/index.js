@@ -198,7 +198,6 @@ export const storeX = reactive({
     const req = await this.UserService.getTechnicians();
     this.technicians = await req;
     this.formatDate(this.technicians);
-    console.log(this.technicians);
   },
 
   async loadTicketData() {
@@ -324,7 +323,6 @@ export const storeX = reactive({
     const request = await this.TicketService.getTicketsByCustomer(id)
     this.tickets = await request.data
     this.formatDate(this.tickets);
-    console.log(storeX.tickets)
     return this.tickets;
   },
 

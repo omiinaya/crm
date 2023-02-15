@@ -131,7 +131,6 @@ exports.findById = (req, res) => {
 
 exports.findByAssetId = async (req, res) => {
   const id = req.params.id;
-  console.log(id)
   
   const Assets = db.asset;
   const asset = await Assets.findAll({ where: { id: id } })

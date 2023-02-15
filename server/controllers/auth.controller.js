@@ -42,8 +42,6 @@ exports.signin = (req, res) => {
         expiresIn: 86400 // 24 hours
       });
 
-      console.log(user)
-
       res.status(200).send({
         id: user.id,
         name: `${user.firstName} ${user.lastName}`,

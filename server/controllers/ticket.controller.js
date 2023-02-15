@@ -69,7 +69,6 @@ exports.findByTicketId = (req, res) => {
 
 exports.findByCustomerId = (req, res) => {
   const id = req.params.id;
-  console.log(id)
 
   Ticket.findAll({
     where: { ticketCustomerId: id },
@@ -87,7 +86,6 @@ exports.findByCustomerId = (req, res) => {
 
 exports.findByAssetId = (req, res) => {
   const id = req.params.id;
-  console.log(id)
 
   Ticket.findAll({
     where: { ticketAssetId: id },
@@ -106,7 +104,6 @@ exports.findByAssetId = (req, res) => {
 exports.findByTechnician = (req, res) => {
   //todo: use ids instead of names
   const name = req.params.name;
-  console.log(name)
 
   Ticket.findAll({
     where: { ticketTech: name },
@@ -125,15 +122,10 @@ exports.findByTechnician = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  console.log(id)
-  console.log(req.params)
-  console.log(req.body)
-
   Ticket.update(req.body, {
     where: { id: id },
   })
     .then((num) => {
-      console.log(num)
       if (num == 1) {
         const socket = io(URL);
         socket.emit("ticketUpdateRequest", id);

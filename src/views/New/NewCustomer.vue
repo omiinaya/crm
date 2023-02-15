@@ -299,7 +299,6 @@ export default {
       const cities = await storeX.CSCService.getCitiesByState(stateId);
       this.cityItems = cities;
       this.customerForm.city = cities[178].name; //178 = Doral
-      console.log(cities)
     },
     async getCustomerFieldItems() {
       const req = await storeX.CustomerService.getCustomerFields();

@@ -165,7 +165,6 @@ export default {
       })
     },
     async newTicket() {
-      console.log(storeX.customer.id)
       this.storeX.updateNavigation({
         view: 'NewTicket',
         customerId: storeX.customer.id
@@ -176,7 +175,6 @@ export default {
     storeX.loadAssetById(storeX.navigation.assetId)
     storeX.loadCustomerByAssetId(storeX.navigation.assetId)
     storeX.loadTicketsByAssetId(storeX.navigation.assetId)
-    console.log(storeX.asset)
   }
 }
 </script>

@@ -119,7 +119,6 @@ export default {
     assetForm: {
       handler(newData) {
         console.log(newData)
-        console.log(this.customerItems)
       },
       deep: true
     }

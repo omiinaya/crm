@@ -290,7 +290,6 @@ export default {
       const request = await storeX.UserService.getAllUsers();
       const technicianList = await request.data;
       this.techItems = technicianList;
-      console.log(this.techItems[0].fullName)
       this.ticketForm['ticketTech'] = this.techItems[0].fullName;
       this.getTicketFieldItems();
     },
@@ -325,9 +324,8 @@ export default {
       this.assetForm[name] = item;
     },
     typeAheadHandler(id) {
-      this.ticketForm['ticketCustomerId'] = parseInt(id)
-      console.log(document.getElementsByClassName('simple-typeahead')[3].value)
-      document.getElementsByClassName('simple-typeahead')[3].value = storeX.customer.name
+      this.ticketForm['ticketCustomerId'] = parseInt(id);
+      document.getElementsByClassName('simple-typeahead')[3].value = storeX.customer.name;
     }
   },
   created() {
@@ -336,7 +334,7 @@ export default {
     this.loadTechnicianData();
 
     if (storeX.navigation.customerId) {
-      storeX.loadCustomerById(storeX.navigation.customerId, this.typeAheadHandler)
+      storeX.loadCustomerById(storeX.navigation.customerId, this.typeAheadHandler);
     }
   },
   computed: {

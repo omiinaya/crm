@@ -108,8 +108,6 @@ export default {
       this.warranty = warranty[0];
     },
     dropdownHandler(type, name) {
-      console.log(type)
-      console.log(name)
       this.assetForm[name] = type;
     },
     async loadAssetFields() {
@@ -125,7 +123,6 @@ export default {
     async createAsset() {
       const newAsset = await storeX.AssetService.createAsset(this.assetForm);
       const assetId = newAsset.data.id;
-      console.log(assetId)
       storeX.updateNavigation({ view: 'Asset', assetId: assetId });
     },
     testing(e) {
@@ -166,7 +163,6 @@ export default {
     assetForm: {
       handler(newData) {
         console.log(newData)
-        //console.log(this.customerItems)
       },
       deep: true
     }

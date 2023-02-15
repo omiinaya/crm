@@ -81,7 +81,6 @@ export default defineComponent({
   },
   computed: {
     filteredCustomers() {
-      console.log(storeX.tickets)
       if (!this.searchFilter) return storeX.tickets;
 
       const filtered = storeX.tickets.filter(ticket => {
