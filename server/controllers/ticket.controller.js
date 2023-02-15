@@ -125,10 +125,15 @@ exports.findByTechnician = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
+  console.log(id)
+  console.log(req.params)
+  console.log(req.body)
+
   Ticket.update(req.body, {
     where: { id: id },
   })
     .then((num) => {
+      console.log(num)
       if (num == 1) {
         const socket = io(URL);
         socket.emit("ticketUpdateRequest", id);

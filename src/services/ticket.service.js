@@ -40,6 +40,8 @@ class TicketService {
 
   //PUT
   updateTicket(ticketId, data) {
+    console.log(ticketId)
+    console.log(data)
     return axios.put(API_URL + `id/${ticketId}`, data);
   }
 }

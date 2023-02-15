@@ -41,21 +41,21 @@
                 <label class="col-sm-6">
                   <i class="bi bi-clipboard2-pulse"></i> Status:
                 </label>
-                <Dropdown2 name="status" :title="storeX.ticket.status" :items="ticketStatus" cols="6"
+                <Dropdown2 v-if="storeX.ticket.status" name="status" :title="storeX.ticket.status" :items="ticketStatus" cols="6"
                   :handler="ticketStatusHandler" :byTicket="true" />
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-person-circle"></i> Assignee:
                 </label>
-                <Dropdown2 name="assignee" :title="storeX.ticket.tech" :items="ticketTechs" cols="6"
+                <Dropdown2 v-if="storeX.ticket.tech" name="assignee" :title="storeX.ticket.tech" :items="ticketTechs" cols="6"
                   :handler="ticketTechHandler" :byTicket="true" byProp="fullName" />
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-list-check"></i> Labor Type:
                 </label>
-                <Dropdown2 name="labor" :title="storeX.ticket.type" :items="ticketTypes" cols="6"
+                <Dropdown2 v-if="storeX.ticket.type" name="labor" :title="storeX.ticket.type" :items="ticketTypes" cols="6"
                   :handler="ticketTypeHandler" :byTicket="true" />
               </div>
               <div class="row align-items-center mb-2">

@@ -1,15 +1,16 @@
 <template>
-  <div :class="'col-sm-' + cols">
-    <select :id="'sel-' + this.name" @change="handler($event.target.value, this.name, this.byProp)" v-model="this.title">
-      <option v-for="(item, index) in items" :key="item + index">
+  <div :class="'col-sm-' + cols"> <select :id="'sel-' + this.name" @change="handler($event.target.value, this.name,
+  this.byProp)" v-model="selectedTitle">
+      <option v-for="(item, index) in items" :key="item + index" :selected="selectedTitle">
         <a v-if="byProp && byTicket">
           {{ item[byProp] }}
         </a>
         <a v-else-if="byProp">
           {{ item[byProp] }}
         </a>
-        <a v-else-if="byTicket">
-          {{ item }}
+        <a v-else-if="byTicket"> {{
+          item
+        }}
         </a>
         <a v-else>
           {{ item }}
@@ -19,13 +20,13 @@
   </div>
 </template>
 
-<script>
-import { storeX } from "../store/index";
-
+<script>import { storeX } from "../store/index";
+// use a data property to store the selected
 export default {
   name: 'MyComponent',
   data: () => ({
     storeX,
+    selectedTitle: '',
   }),
   props: {
     cols: {
@@ -40,30 +41,24 @@ export default {
       type: Function,
       required: true,
     },
-    name: {
-      type: String,
-      required: false
-    },
-    title: {
-      type: String,
-      required: false,
-    },
-    byProp: {
-      type: String,
-    },
-    byTicket: {
-      type: Boolean,
-      default: false,
-    }
+    name: { type: String, required: false }, title: { type: String, required: false, }, byProp: { type: String, }, byTicket: { type: Boolean, default: false, }
   },
 
-  created() { 
-    //this.title = this.defaultValue;
+  created() {
+    // initialize the data property with the prop value 
     console.log(this.title)
-    console.log(this.defaultValue)
+    this.selectedTitle = this.title
   },
+  // watch for changes in the data property
+  watch: {
+    // emit a custom event to update the prop in the parent component
+    selectedTitle(newValue) {
+      this.$emit('update: title', newValue)
+    }
+  }  
 
-};
+}
+
 </script>
 
 <style scoped>
