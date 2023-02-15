@@ -2,6 +2,7 @@ import Admin from "./TODO/Admin.vue";
 import Assets from "./Assets.vue";
 import Customers from "./Customers.vue";
 import Estimates from "./TODO/Estimates.vue";
+import Technicians from "./Technicians.vue";
 import Home from "./Home.vue";
 import Inventory from "./TODO/Inventory.vue";
 import Invoices from "./Invoices.vue";
@@ -45,5 +46,6 @@ export {
     NewAsset,
     NewCustomer,
     NewTicket,
-    Time
+    Time,
+    Technicians
 };
