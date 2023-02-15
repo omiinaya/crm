@@ -5,15 +5,13 @@ module.exports = app => {
   const router = require("express").Router();
 
   router.post("/", location.create);
-  //
-  router.get("/", verifyToken, location.findAll);
-  router.get("/id/:id", verifyToken, location.findByLocationId)
-  //
   router.put("/id/:id", location.update);
   router.delete("/id/:id", location.delete);
-
-  //fields
   router.get("/fields", locationFields.findAll);
+
+  //VERIFIED ROUTES
+  router.get("/", verifyToken, location.findAll);
+  router.get("/id/:id", verifyToken, location.findByLocationId)
 
   app.use('/api/location', router);
 };

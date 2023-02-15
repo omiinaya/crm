@@ -4,13 +4,13 @@ module.exports = app => {
   const router = require("express").Router();
 
   router.post("/", home.create);
-  //
+  router.put("/:id", home.update);
+  router.delete("/:id", home.delete);
+
+  //VERIFIED ROUTES
   router.get("/", verifyToken, home.findAll);
   router.get("/:id", verifyToken, home.findByRoleId)
   router.get("/role/:id", verifyToken, home.findByRole)
-  //
-  router.put("/:id", home.update);
-  router.delete("/:id", home.delete);
 
   app.use('/api/home', router);
 };
