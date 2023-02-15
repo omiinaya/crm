@@ -1,4 +1,4 @@
-const moment = require('moment'); 
+const moment = require('moment');
 
 const issueTypes = ["Flat-Rate Labor", "Warranty Labor", "In-House Labor"];
 const technicians = ["Omar", "Manny", "Matias"];
@@ -74,15 +74,6 @@ const ticketFields = [
         placeholder: "Description",
         icon: "bi bi-card-text",
         show: true,
-        data: 'STRING'
-    },
-    {
-        name: "ticketDue",
-        label: "Due Date",
-        type: "date",
-        icon: "bi bi-calendar-event",
-        show: true,
-        allowNull: true,
         data: 'STRING'
     },
 ];

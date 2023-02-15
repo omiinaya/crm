@@ -52,15 +52,6 @@
               <Dropdown2 :name=field.name :title="ticketForm[field.name]" :items="JSON.parse(field.options)" cols="8"
                 :handler="dropdownHandler" />
             </Form>
-            <Form v-else-if="field.name === 'ticketDue'" class="row align-items-center">
-              <label :for="field.label + index" class="col-sm-2">
-                <i :class="field.icon"></i>
-                {{ field.label }}:
-              </label>
-              <div class="col-sm-8">
-                <DatePicker v-model="ticketForm[field.name]" :format="format" />
-              </div>
-            </Form>
             <Form v-else class="row align-items-center">
               <label :for="field.label + index" class="col-sm-2">
                 <i :class="field.icon"></i>
@@ -112,15 +103,6 @@
                 </label>
                 <Dropdown2 :name=field.name :title="ticketForm[field.name]" :items="JSON.parse(field.options)" cols="8"
                   :handler="dropdownHandler" />
-              </Form>
-              <Form v-else-if="field.name === 'ticketDue'" class="row align-items-center">
-                <label :for="field.label + index" class="col-sm-2">
-                  <i :class="field.icon"></i>
-                  {{ field.label }}:
-                </label>
-                <div class="col-sm-8">
-                  <DatePicker v-model="ticketForm[field.name]" :format="format" />
-                </div>
               </Form>
               <Form v-else class="row align-items-center">
                 <label :for="field.label + index" class="col-sm-2">
@@ -241,11 +223,10 @@ import { storeX } from "../../store/index";
 import { Form, /*Field, ErrorMessage*/ } from "vee-validate";
 import TypeAhead from "../../components/TypeAhead.vue"
 import Dropdown2 from "../../components/Dropdown2.vue"
-import DatePicker from '@vuepic/vue-datepicker';
 
 export default {
   name: 'NewCustomerPage',
-  components: { Dropdown2, TypeAhead, DatePicker, Form, /*Field, ErrorMessage*/ },
+  components: { Dropdown2, TypeAhead, Form, /*Field, ErrorMessage*/ },
   data: () => ({
     customerItems: [],
     techItems: null,
@@ -281,7 +262,6 @@ export default {
       //choose first option as default
       this.ticketForm['ticketType'] = JSON.parse(ticketTypes)[0];
       this.ticketForm['ticketTech'] = this.techItems[0].fullName;
-      this.ticketForm['ticketDue'] = new Date();
     },
     async loadAssetFields() {
       const req = await storeX.AssetService.getAssetFields();

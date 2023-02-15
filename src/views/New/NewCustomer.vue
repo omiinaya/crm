@@ -96,30 +96,30 @@
         </div>
         <div class="col-5 offset-1">
           <div v-for="(field, index) in customerFields.right" :key="field + index">
-            <Form v-if="field.name === 'country'" class="row align-items-center" :validation-schema="schema">
+            <Form v-if="field.name === 'country'" name="country" class="row align-items-center" :validation-schema="schema">
               <label :for="field.label + index" class="col-sm-4 col-form-label">
                 <i :class="field.icon"></i>
                 {{ field.label }}:
               </label>
-              <Dropdown2 :title="customerForm['country']" :items="countryItems" :handler="countryDropdownHandler"
+              <Dropdown2 v-if="this.customerForm.country" :title="customerForm['country']" :items="countryItems" :handler="countryDropdownHandler"
                 name='country' cols="8" byProp="name" />
             </Form>
 
-            <Form v-else-if="field.name === 'state'" class="row align-items-center" :validation-schema="schema">
+            <Form v-else-if="field.name === 'state'" name="state" class="row align-items-center" :validation-schema="schema">
               <label :for="field.label + index" class="col-sm-4 col-form-label">
                 <i :class="field.icon"></i>
                 {{ field.label }}:
               </label>
-              <Dropdown2 :title="customerForm['state']" :items="stateItems" :handler="stateDropdownHandler" name='state'
+              <Dropdown2 v-if="this.customerForm.state" :title="customerForm.state" :items="stateItems" :handler="stateDropdownHandler" name='state'
                 cols="8" byProp="name" />
             </Form>
 
-            <Form v-else-if="field.name === 'city'" class="row align-items-center" :validation-schema="schema">
+            <Form v-else-if="field.name === 'city'" name="city" class="row align-items-center" :validation-schema="schema">
               <label :for="field.label + index" class="col-sm-4 col-form-label">
                 <i :class="field.icon"></i>
                 {{ field.label }}:
               </label>
-              <Dropdown2 :title="customerForm['city']" :items="cityItems" :handler="dropdownHandler" name='city'
+              <Dropdown2 v-if="this.customerForm.city" :title="customerForm.city" :items="cityItems" :handler="dropdownHandler" name='city'
                 cols="8" byProp="name" />
             </Form>
 
@@ -241,7 +241,9 @@ export default {
       customerForm: {
         phoneType: 'Mobile',
         extension: null,
-        country: 'United States'
+        country: 'United States',
+        state: 'Florida',
+        city: 'Doral'
       },
 
       countryItems: [],
@@ -296,7 +298,7 @@ export default {
       const stateId = this.getStateId();
       const cities = await storeX.CSCService.getCitiesByState(stateId);
       this.cityItems = cities;
-      this.customerForm.city = cities[178].name
+      this.customerForm.city = cities[178].name;
       console.log(cities)
     },
     async getCustomerFieldItems() {
