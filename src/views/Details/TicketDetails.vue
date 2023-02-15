@@ -264,7 +264,14 @@ export default {
       updated: null,
       type: null,
       tech: null,
-      status: null
+      status: null,
+      /*
+      info: {
+        status: null,
+        assignee: null,
+        laborType: null
+      }
+      */
     },
     warranty: null,
     headers: [
@@ -334,6 +341,7 @@ export default {
     },
 
     async ticketStatusHandler(item) {
+      console.log(storeX.ticket.status)
       const id = storeX.navigation.ticketId;
       const obj = { ticketStatus: item };
       storeX.TicketService.updateTicket(id, obj);

@@ -1,26 +1,20 @@
 <template>
   <div :class="'col-sm-' + cols">
-    <select 
-    :id="'sel-'+this.name" 
-    @change="handler($event.target.value, this.name, this.byProp)" 
-    >
-        <option v-for="(item, index) in items" :key="item + index">
-          <a v-if="byProp && byTicket">
-            {{ item[byProp] }}
-          </a>
-
-          <a v-else-if="byProp">
-            {{ item[byProp] }}
-          </a>
-
-          <a v-else-if="byTicket">
+    <select :id="'sel-' + this.name" @change="handler($event.target.value, this.name, this.byProp)" v-model="this.title">
+      <option v-for="(item, index) in items" :key="item + index">
+        <a v-if="byProp && byTicket">
+          {{ item[byProp] }}
+        </a>
+        <a v-else-if="byProp">
+          {{ item[byProp] }}
+        </a>
+        <a v-else-if="byTicket">
           {{ item }}
-          </a>
-
-          <a v-else>
-            {{ item }}
-          </a>
-        </option>
+        </a>
+        <a v-else>
+          {{ item }}
+        </a>
+      </option>
     </select>
   </div>
 </template>
@@ -63,13 +57,16 @@ export default {
     }
   },
 
-  created() {},
+  created() { 
+    //this.title = this.defaultValue;
+    console.log(this.title)
+    console.log(this.defaultValue)
+  },
 
 };
 </script>
 
 <style scoped>
-
 select {
   background: #6C757D;
   color: white;
@@ -92,5 +89,4 @@ select {
   position: relative;
   width: 100%;
 }
-
 </style>
