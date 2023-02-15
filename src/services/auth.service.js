@@ -7,12 +7,14 @@ const API_URL = `${URL}/api/auth/`;
 
 class AuthService {
   login(user) {
+    console.log(user)
     return axios
       .post(API_URL + 'signin', {
         username: user.username,
         password: user.password
       })
       .then(response => {
+        console.log(response)
         if (response.data.accessToken) {
           localStorage.setItem('user', JSON.stringify(response.data));
         }

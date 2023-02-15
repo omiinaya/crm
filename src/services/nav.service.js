@@ -11,8 +11,8 @@ class NavService {
     return axios.get(API_URL, { headers: authHeader() });
   }
 
-  getRoleNav(role) {
-    return axios.get(API_URL + 'role/' + role, { headers: authHeader() });
+  getRoleNav(roleId) {
+    return axios.get(API_URL + 'role/' + roleId, { headers: authHeader() });
   }
 }
 

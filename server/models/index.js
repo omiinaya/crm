@@ -35,18 +35,4 @@ db.locationFields = require("./fields/location.fields.model")(sequelize, Sequeli
 db.customerSettings = require("./settings/customer.settings.model")(sequelize, Sequelize);
 db.customerSettingsFields = require("./fields/customer.settings.fields.model")(sequelize, Sequelize);
 
-db.user.belongsToMany(db.role, {
-  through: "user_roles",
-  foreignKey: "userId",
-  otherKey: "roleId",
-});
-
-db.role.belongsToMany(db.user, {
-  through: "user_roles",
-  foreignKey: "roleId",
-  otherKey: "userId",
-});
-
-db.ROLES = ["user", "admin", "moderator"];
-
 module.exports = db;

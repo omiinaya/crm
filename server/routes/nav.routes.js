@@ -6,8 +6,12 @@ module.exports = app => {
     router.post("/", nav.create);
     //
     router.get("/", verifyToken, nav.findAll);
-    router.get("/:id", verifyToken, nav.findByRoleId)
-    router.get("/role/:id", verifyToken, nav.findByRole)
+
+    router.get("/dev", nav.findAll);
+
+    router.get("/role/:id", verifyToken, nav.findByRoleId)
+    router.get("/role/dev/:id", nav.findByRoleId)
+
     //
     router.put("/:id", nav.update);
     router.delete("/:id", nav.delete);

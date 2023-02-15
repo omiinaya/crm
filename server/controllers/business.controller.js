@@ -62,7 +62,7 @@ exports.findByRole = (req, res) => {
     const id = req.params.id;
     Business.findAll({
         where: {
-            roleIdd: {
+            roleId: {
                 [Op.lte]: id
             }
         }

@@ -195,9 +195,7 @@ async function dummyData() {
       email: user.email,
       password: user.password,
       roleId: user.roleId
-    }).then((user) => {
-      user.setRoles([1]);
-    });
+    })
   });
 
   rolesData.forEach((role, index) => {
@@ -287,16 +285,6 @@ async function dummyData() {
       city: location.city,
       zip: location.zip,
     });
-  });
-  
-  User.create({
-    firstName: "Omar",
-    lastName: "Minaya",
-    username: "test",
-    email: "test@gmail.com",
-    password: "$2a$08$7O/xmmuyMmc4PuCF2dcPxue3bHuGmQvvn1M2AidQnYzNE.QC7bTyy",
-  }).then((user) => {
-    user.setRoles([3]);
   });
 }
 

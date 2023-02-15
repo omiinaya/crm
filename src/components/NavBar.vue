@@ -56,8 +56,8 @@ export default {
   },
   methods: {
     async getNavItems() {
-      const highest = Math.max(...this.$store.state.auth.user.roles);
-      const req = await NavService.getRoleNav(highest);
+      const roleId = this.$store.state.auth.user.roleId;
+      const req = await NavService.getRoleNav(roleId);
       this.links = await req.data;
     },
     async searchHandler(input) {

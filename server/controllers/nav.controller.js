@@ -43,28 +43,9 @@ exports.findAll = (req, res) => {
 
 exports.findByRoleId = (req, res) => {
     const id = req.params.id;
-
-    Nav.findAll({
-        where: { roleId: id }
-    })
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while retrieving tutorials."
-            });
-        });
-};
-
-exports.findByRole = (req, res) => {
-    const id = req.params.id;
     console.log(id)
     Nav.findAll({
-        where: { roleId: {
-            [Op.lte]: id
-        }}
+        where: { roleId: { [Op.lte]: id } } // lt means less than
     })
         .then(data => {
             res.send(data);

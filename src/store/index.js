@@ -140,8 +140,8 @@ export const storeX = reactive({
   },
 
   async getActionItems() {
-    const highest = Math.max(...store.state.auth.user.roles);
-    const req = await this.HomeService.getRoleHome(highest);
+    const roleId = store.state.auth.user.roleId;
+    const req = await this.HomeService.getRoleHome(roleId);
     this.home.actions = await req.data;
   },
 

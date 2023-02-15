@@ -67,7 +67,7 @@ export default defineComponent({
     async openTechnician(id) {
       this.storeX.updateNavigation({
         view: 'Technician',
-        customerId: id
+        techId: id
       })
     },
     async searchHandler(input) {
@@ -87,13 +87,13 @@ export default defineComponent({
 
         const name = technician.fullName;
         const email = technician.email || '';
-        const phone = technician.phone || '';
+        //add by role, needs sql relationships first
 
         const ifName = name.toLowerCase().includes(input);
         const ifEmail = email.toLowerCase().includes(input);
-        const ifPhone = phone.includes(input);
+ 
 
-        const byCondition = ifName || ifEmail || ifPhone;
+        const byCondition = ifName || ifEmail
 
         return byCondition;
       })
