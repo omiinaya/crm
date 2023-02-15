@@ -26,7 +26,7 @@ module.exports = (sequelize, Sequelize) => {
     roleId: {
       type: Sequelize.INTEGER,
       allowNull: false,
-      defaultValue: 0
+      defaultValue: 1
     }
   });
 

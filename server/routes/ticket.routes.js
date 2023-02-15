@@ -13,7 +13,7 @@ module.exports = app => {
   router.get("/", verifyToken, ticket.findAll);
 
   //////////////////////////////////////
-  //router.get("/dev", ticket.findAll);
+  //router.get("/dev/", ticket.findAll);
   //////////////////////////////////////
   
   router.get("/id/:id", ticket.findByTicketId);

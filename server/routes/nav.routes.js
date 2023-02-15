@@ -7,10 +7,10 @@ module.exports = app => {
     //
     router.get("/", verifyToken, nav.findAll);
 
-    router.get("/dev", nav.findAll);
+    //router.get("/dev/", nav.findAll);
 
     router.get("/role/:id", verifyToken, nav.findByRoleId)
-    router.get("/role/dev/:id", nav.findByRoleId)
+    //router.get("/role/dev/:id", nav.findByRoleId)
 
     //
     router.put("/:id", nav.update);
