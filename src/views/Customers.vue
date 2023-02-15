@@ -61,7 +61,7 @@ export default defineComponent({
     async openCustomer(id) {
       this.storeX.updateNavigation({
         view: 'Customer',
-        customerId: id
+        customerId: id,
       })
     },
     async searchHandler(input) {

@@ -153,7 +153,6 @@ export const storeX = reactive({
       //reversing fucks up number list
       for (let i = 0; i < data.length; i++) {
         const customer = data[i];
-        customer.id = this.padX(customer.id); 
         const phoneId = customer.primaryPhone;
         const addressId = customer.primaryAddress;
         const [phoneRes, addressRes] = await Promise.all([
@@ -165,7 +164,6 @@ export const storeX = reactive({
 
       for (let i = data.length - 1; i >= 0; i--) {
         const customer = data[i];
-        customer.id = this.padX(customer.id); 
         const phoneRes = responses[i][0];
         const addressRes = responses[i][1];
         customer.name = `${customer.firstName} ${customer.lastName}`;
@@ -318,6 +316,7 @@ export const storeX = reactive({
     const request = await this.TicketService.getTicketsByCustomer(id)
     this.tickets = await request.data
     this.formatDate(this.tickets);
+    console.log(storeX.tickets)
     return this.tickets;
   },
 
