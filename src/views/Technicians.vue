@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-10 offset-1 top">
-      Customers
+      Technicians
       <div class="row mt-2">
         <div class="search">
           <input type="search" placeholder="Search for a customer" @input="searchHandler($event)" />
@@ -9,18 +9,11 @@
       </div>
       <div class="row">
         <div class="col-12 section">
-          <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="filteredCustomers"
+          <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="filteredTechnicians"
             theme-color="#1d90ff" table-class-name="customize-table" header-text-direction="left"
             body-text-direction="left">
-            <!--
-            <template #item-id="{ id }">
-              <button type="button" class="template-btn btn-lg" v-on:click="openCustomer(id)">
-                {{ id }}
-              </button>
-            </template>
-            -->
             <template #item-name="{ firstName, lastName, id }">
-              <button type="button" class="template-btn btn-lg" v-on:click="openCustomer(id)">
+              <button type="button" class="template-btn btn-lg" v-on:click="openTechnician(id)">
                 {{ firstName }} {{ lastName }}
               </button>
             </template>
@@ -46,11 +39,10 @@ export default defineComponent({
     return {
       storeX,
       headers: [
-        //{ value: "id", text: "ID", sortable: true },
-        { value: "name", text: "NAME", sortable: true },
+        { value: "id", text: "ID", sortable: true },
+        { value: "fullName", text: "NAME", sortable: true },
+        { value: "roleId", text: "ROLE", sortable: true },
         { value: "email", text: "EMAIL", sortable: true },
-        { value: "phone", text: "PHONE", sortable: true },
-        { value: "customerType", text: "TYPE", sortable: true },
         { value: "createdAt", text: "CREATED", sortable: true }
       ],
       itemsSelected: [],
@@ -58,7 +50,7 @@ export default defineComponent({
     };
   },
   methods: {
-    async openCustomer(id) {
+    async openTechnician(id) {
       this.storeX.updateNavigation({
         view: 'Customer',
         customerId: id
@@ -73,8 +65,8 @@ export default defineComponent({
     }
   },
   computed: {
-    filteredCustomers() {
-      if (!this.searchFilter) return storeX.customers;
+    filteredTechnicians() {
+      if (!this.searchFilter) return storeX.technicians;
 
       const filtered = storeX.customers.filter(customer => {
         const input = this.searchFilter.toLowerCase();
@@ -95,7 +87,7 @@ export default defineComponent({
     }
   },
   async created() {
-    storeX.loadCustomerData();
+    storeX.loadTechnicianData();
   }
 });
 

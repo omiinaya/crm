@@ -36,6 +36,7 @@ export const storeX = reactive({
   tickets: [],
   assets: [],
   customers: [],
+  technicians: [],
   ticket: {
     title: null,
     type: null,
@@ -191,6 +192,13 @@ export const storeX = reactive({
       // handle error here
       console.error(error);
     }
+  },
+
+  async loadTechnicianData() {
+    const req = await this.UserService.getTechnicians();
+    this.technicians = await req;
+    this.formatDate(this.technicians);
+    console.log(this.technicians);
   },
 
   async loadTicketData() {

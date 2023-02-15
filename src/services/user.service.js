@@ -12,6 +12,13 @@ class UserService {
     return axios.get(API_URL, { headers: authHeader() });
   }
 
+  async getTechnicians() {
+    const res = await axios.get(API_URL, { headers: authHeader() });
+    const users = res.data;
+    const techs = users.filter(user => user.roleId < 3);
+    return techs;
+  }
+
 }
 
 export default new UserService();

@@ -5,6 +5,7 @@ const users = [
         username: "test1",
         email: "test1@gmail.com",
         password: "$2a$08$7O/xmmuyMmc4PuCF2dcPxue3bHuGmQvvn1M2AidQnYzNE.QC7bTyy",
+        roleId: 1
     },
     {
         firstName: "Jose",
@@ -12,6 +13,7 @@ const users = [
         username: "test2",
         email: "test2@gmail.com",
         password: "$2a$08$7O/xmmuyMmc4PuCF2dcPxue3bHuGmQvvn1M2AidQnYzNE.QC7bTyy",
+        roleId: 3
     },
     {
         firstName: "Manny",
@@ -19,6 +21,7 @@ const users = [
         username: "test3",
         email: "test3@gmail.com",
         password: "$2a$08$7O/xmmuyMmc4PuCF2dcPxue3bHuGmQvvn1M2AidQnYzNE.QC7bTyy",
+        roleId: 1
     },
     {
         firstName: "Abel",
@@ -26,6 +29,7 @@ const users = [
         username: "test4",
         email: "test4@gmail.com",
         password: "$2a$08$7O/xmmuyMmc4PuCF2dcPxue3bHuGmQvvn1M2AidQnYzNE.QC7bTyy",
+        roleId: 1
     },
 ]
 

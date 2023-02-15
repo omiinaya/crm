@@ -15,9 +15,7 @@ exports.findAll = async (req, res) => {
             attributes: {
                 exclude: [
                     'password', 
-                    'email',
                     'username',
-                    'createdAt',
                     'updatedAt',
                     'lastName',
                     'firstName'

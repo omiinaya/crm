@@ -194,6 +194,7 @@ async function dummyData() {
       username: user.username,
       email: user.email,
       password: user.password,
+      roleId: user.roleId
     }).then((user) => {
       user.setRoles([1]);
     });
