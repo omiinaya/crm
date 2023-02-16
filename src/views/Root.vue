@@ -1,5 +1,5 @@
 <template>
-  <ion-page>
+  <ion-page v-if="isLoggedIn">
     <ion-header :translucent="true">
       <ion-toolbar>
         <NavBar />
@@ -17,10 +17,11 @@
   ? crumb.view !== "Customer"
     ? crumb.view !== "Ticket"
       ? crumb.view
-              : `#${storeX.navigation.ticketId}`
+      : `#${storeX.navigation.ticketId}`
     : `${storeX.customer.name}` //customer
   : crumb.view !== "Ticket"
-    ? crumb.view !== "Customer" ? `⯇ ${crumb.view}` : `⯇ ${ storeX.history[storeX.history.length - 1].customerName }` //fixed null
+    ? crumb.view !== "Customer" ? `⯇ ${crumb.view}` : `⯇ ${storeX.history[storeX.history.length -
+      1].customerName}` //fixed null
     : `⯇ #${storeX.history[storeX.history.length - 2].ticketId}`
               }}
             </li>
@@ -47,6 +48,9 @@
       <AssetDetails v-else-if="storeX.navigation.view === 'Asset'" />
       <Technicians v-else-if="storeX.navigation.view === 'Technicians'" />
     </ion-content>
+  </ion-page>
+  <ion-page v-else>
+    <Login />
   </ion-page>
 </template>
 
@@ -76,6 +80,13 @@ export default defineComponent({
       })
     }
   },
+  computed: {
+    isLoggedIn() {
+      const user = this.$store.state.auth.user;
+      if (!user) return false;
+      return true;
+    },
+  },
   beforeCreate() {
     const route = useRoute()
     if (!Object.keys(route.query).length) return;
@@ -85,7 +96,7 @@ export default defineComponent({
     storeX.navigation.customerId = route.query.customerId;
     storeX.navigation.ticketId = route.query.ticketId;
     storeX.navigation.assetId = route.query.assetId;
-    
+
     //action on backpage
     window.onpopstate = function () {
       const history = storeX.history;
@@ -93,7 +104,6 @@ export default defineComponent({
       history.shift()
       localStorage.setItem('history', JSON.stringify(storeX.history));
     }; history.pushState({}, '');
-
   },
   watch: {
     $route(to) {
@@ -125,8 +135,9 @@ export default defineComponent({
     Projects: Views.Projects,
     Time: Views.Time,
     AssetDetails: Views.AssetDetails,
-    Technicians: Views.Technicians
-},
+    Technicians: Views.Technicians,
+    Login: Views.Login
+  },
 });
 </script>
 

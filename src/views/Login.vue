@@ -61,29 +61,10 @@
         return this.$store.state.auth.status.loggedIn;
       },
     },
-    created() {
-      if (this.loggedIn) {
-        this.$router.push("/");
-      }
-    },
     methods: {
       handleLogin(user) {
         this.loading = true;
-  
-        this.$store.dispatch("auth/login", user).then(
-          () => {
-            this.$router.push("/");
-          },
-          (error) => {
-            this.loading = false;
-            this.message =
-              (error.response &&
-                error.response.data &&
-                error.response.data.message) ||
-              error.message ||
-              error.toString();
-          }
-        );
+        this.$store.dispatch("auth/login", user)
       },
     },
   };

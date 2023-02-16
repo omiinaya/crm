@@ -7,8 +7,8 @@
 <script>
 import { IonApp /*, IonRouterOutlet*/ } from '@ionic/vue';
 import { defineComponent } from 'vue';
-
 import { storeX } from "./store/index";
+
 const socket = storeX.io
 
 socket.on('connect', () => {
@@ -19,26 +19,19 @@ socket.on('connect', () => {
 
 export default defineComponent({
   name: 'App',
+ 
   computed: {
-    showAdminBoard() {
-      if (this.currentUser && this.currentUser.roles) {
-        return this.currentUser.roles.includes('ROLE_ADMIN');
-      }
-
-      return false;
-    },
-    showModeratorBoard() {
-      if (this.currentUser && this.currentUser.roles) {
-        return this.currentUser.roles.includes('ROLE_MODERATOR');
-      }
-
-      return false;
+    
+    isLoggedIn() {
+      const user = this.$store.state.auth.user;
+      if (!user) return false;
+      return true;
     }
   },
   methods: {
     logOut() {
       this.$store.dispatch('auth/logout');
-      this.$router.push('/login');
+      //this.$router.push('/login');
     }
   },
   components: {
