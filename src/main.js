@@ -15,14 +15,13 @@ import * as directives from 'vuetify/directives';
 //import 'vuetify/styles';
 
 import "@ionic/vue/css/core.css";
-
 import "@ionic/vue/css/normalize.css";
 //import "@ionic/vue/css/structure.css";
 //import "@ionic/vue/css/typography.css";
 
 //import "@ionic/vue/css/padding.css";
-import "@ionic/vue/css/float-elements.css";
-import "@ionic/vue/css/text-alignment.css";
+//import "@ionic/vue/css/float-elements.css";
+//import "@ionic/vue/css/text-alignment.css";
 //import "@ionic/vue/css/text-transformation.css";
 //import "@ionic/vue/css/flex-utils.css";
 
@@ -32,7 +31,7 @@ import "@ionic/vue/css/text-alignment.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 import "vue3-easy-data-table/dist/style.css";
-import '@vuepic/vue-datepicker/dist/main.css'
+//import '@vuepic/vue-datepicker/dist/main.css'
 
 /* Theme variables */
 //not loading for some reason
