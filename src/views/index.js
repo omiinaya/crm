@@ -1,3 +1,5 @@
+import { defineAsyncComponent } from 'vue'
+
 import Admin from "./TODO/Admin.vue";
 import Assets from "./Assets.vue";
 import Customers from "./Customers.vue";
@@ -11,19 +13,20 @@ import Parts from "./TODO/Parts.vue";
 import POS from "./TODO/POS.vue";
 import Profile from "./TODO/Profile.vue";
 import Projects from "./TODO/Projects.vue";
-import Register from "./Register.vue";
-import Tickets from "./Tickets.vue";
-import Time from "./Time.vue";
+
+const Register= defineAsyncComponent(() => import('./Register.vue'));
+const Tickets = defineAsyncComponent(() => import('./Tickets.vue'));
+const Time = defineAsyncComponent(() => import('./Time.vue'));
 
 //details
-import CustomerDetails from "./Details/CustomerDetails.vue";
-import TicketDetails from "./Details/TicketDetails.vue";
-import AssetDetails from "./Details/AssetDetails.vue";
+const CustomerDetails = defineAsyncComponent(() => import('./Details/CustomerDetails.vue'));
+const TicketDetails = defineAsyncComponent(() => import('./Details/TicketDetails.vue'));
+const AssetDetails = defineAsyncComponent(() => import('./Details/AssetDetails.vue'));
 
 //new
-import NewAsset from "./New/NewAsset.vue";
-import NewCustomer from "./New/NewCustomer.vue";
-import NewTicket from "./New/NewTicket.vue";
+const NewAsset = defineAsyncComponent(() => import('./New/NewAsset.vue'));
+const NewCustomer = defineAsyncComponent(() => import('./New/NewCustomer.vue'));
+const NewTicket = defineAsyncComponent(() => import('./New/NewTicket.vue'));
 
 export {
     Admin,

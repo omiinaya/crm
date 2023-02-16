@@ -31,7 +31,6 @@ export default defineComponent({
   methods: {
     logOut() {
       this.$store.dispatch('auth/logout');
-      //this.$router.push('/login');
     }
   },
   components: {
