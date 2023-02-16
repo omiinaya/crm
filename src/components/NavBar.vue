@@ -11,9 +11,9 @@
     </div>
     <div class="col-2 offset-5 topBar">
       <li class="nav-item rightBar">
-        <router-link to="#" class="nav-link" @click="logOut()">
+        <button type="button" class="btn btn-lg" v-on:click="logOut()">
           <i class="bi bi-box-arrow-in-right"></i>
-        </router-link>
+          </button>
       </li>
       <li class="nav-item rightBar">
         <i class="bi bi-person-circle"></i>
