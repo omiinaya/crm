@@ -44,6 +44,8 @@
     "mysql2": "^2.3.3",
     "nodemailer": "^6.8.0",
     "resize-observer-polyfill": "^1.5.1",
+    "sass": "^1.58.1",
+    "sass-loader": "^13.2.0",
     "sequelize": "^6.25.3",
     "serve-static": "^1.15.0",
     "socket.io": "^4.5.4",

@@ -36,7 +36,7 @@ import '@vuepic/vue-datepicker/dist/main.css'
 
 /* Theme variables */
 //not loading for some reason
-import "./theme/variables.css";
+import "./theme/variables.scss";
 
 const vuetify = createVuetify({
   components,
