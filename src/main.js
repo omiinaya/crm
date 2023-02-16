@@ -5,7 +5,6 @@ import router from "./router";
 import store from "./store";
 
 import Vue3EasyDataTable from "vue3-easy-data-table";
-import DatePicker from '@vuepic/vue-datepicker';
 
 import { createVuetify } from 'vuetify';
 
@@ -23,7 +22,6 @@ import * as directives from 'vuetify/directives';
 //import "bootstrap/dist/css/bootstrap.min.css";
 //import "bootstrap/dist/js/bootstrap.bundle";
 //import "bootstrap";
-//import '@vuepic/vue-datepicker/dist/main.css'
 
 import "@ionic/vue/css/core.css";
 import "@ionic/vue/css/normalize.css";
@@ -45,7 +43,6 @@ const app = createApp(App)
   .use(vuetify)
 
 app.component("EasyDataTable", Vue3EasyDataTable);
-app.component('DatePicker', DatePicker);
 
 router.isReady().then(() => {
   app.mount("#app");
