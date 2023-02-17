@@ -47,6 +47,7 @@
       <Time v-else-if="storeX.navigation.view === 'Time'" />
       <AssetDetails v-else-if="storeX.navigation.view === 'Asset'" />
       <Technicians v-else-if="storeX.navigation.view === 'Technicians'" />
+      <TechDetails v-else-if="storeX.navigation.view === 'Technician'" />
     </ion-content>
   </ion-page>
   <ion-page v-else>
@@ -136,6 +137,7 @@ export default defineComponent({
     Time: Views.Time,
     AssetDetails: Views.AssetDetails,
     Technicians: Views.Technicians,
+    TechDetails: Views.TechDetails,
     Login: Views.Login
   },
 });

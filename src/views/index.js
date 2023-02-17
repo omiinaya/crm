@@ -22,6 +22,7 @@ const Time = defineAsyncComponent(() => import('./Time.vue'));
 const CustomerDetails = defineAsyncComponent(() => import('./Details/CustomerDetails.vue'));
 const TicketDetails = defineAsyncComponent(() => import('./Details/TicketDetails.vue'));
 const AssetDetails = defineAsyncComponent(() => import('./Details/AssetDetails.vue'));
+const TechDetails = defineAsyncComponent(() => import('./Details/TechDetails.vue'));
 
 //new
 const NewAsset = defineAsyncComponent(() => import('./New/NewAsset.vue'));
@@ -50,5 +51,6 @@ export {
     NewCustomer,
     NewTicket,
     Time,
-    Technicians
+    Technicians,
+    TechDetails
 };

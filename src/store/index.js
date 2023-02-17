@@ -89,6 +89,7 @@ export const storeX = reactive({
     this.navigation.customerId = obj.customerId;
     this.navigation.ticketId = obj.ticketId;
     this.navigation.assetId = obj.assetId;
+    this.navigation.techId = obj.techId;
 
     const last = JSON.stringify(this.history[this.history.length - 1]);
     const current = JSON.stringify(obj);
@@ -111,18 +112,21 @@ export const storeX = reactive({
     if (!obj.customerId) url.searchParams.delete("customerId");
     if (!obj.ticketId) url.searchParams.delete("ticketId");
     if (!obj.assetId) url.searchParams.delete("assetId");
+    if (!obj.techId) url.searchParams.delete("techId");
 
     //set
     if (obj.view) url.searchParams.set("view", obj.view);
     if (obj.customerId) url.searchParams.set("customerId", obj.customerId);
     if (obj.ticketId) url.searchParams.set("ticketId", obj.ticketId);
     if (obj.assetId) url.searchParams.set("assetId", obj.assetId);
+    if (obj.techId) url.searchParams.set("techId", obj.techId);
 
     //delete
     if (obj.view === "Home") {
       url.searchParams.delete("customerId");
       url.searchParams.delete("ticketId");
       url.searchParams.delete("assetId");
+      url.searchParams.delete("techId");
     }
 
     window.history.pushState(null, "", url.toString());

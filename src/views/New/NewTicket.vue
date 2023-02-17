@@ -58,8 +58,8 @@
                 {{ field.label }}:
               </label>
               <div class="col-sm-8">
-                <input :type="field.type" class="form-control" :id="field.label + index"
-                  :placeholder="field.placeholder" v-model="ticketForm[field.name]" />
+                <input :type="field.type" class="form-control" :id="field.label + index" :placeholder="field.placeholder"
+                  v-model="ticketForm[field.name]" />
               </div>
             </Form>
           </div>
@@ -74,8 +74,8 @@
                   {{ field.label }}:
                 </label>
                 <div class="col-sm-8">
-                  <TypeAhead :placeholder="field.placeholder" :items="customerItems"
-                    class="form-control simple-typeahead" @selectItem="(e) => typeAheadHandler(e.id)" />
+                  <TypeAhead :placeholder="field.placeholder" :items="customerItems" class="form-control simple-typeahead"
+                    @selectItem="(e) => typeAheadHandler(e.id)" />
                 </div>
               </Form>
               <Form v-else-if="field.type === 'textarea'" class="row align-items-center">
@@ -114,7 +114,7 @@
   </div>
   <div class="row">
     <div class="col-10 offset-1 top">
-      <div class="row align-items-top section">
+      <div v-if="editing" class="row align-items-top section">
         <div class="cols-12 header">ASSET INFO</div>
         <div class="col-6">
           <div class="form">
@@ -124,8 +124,8 @@
                   <i :class="field.icon"></i>
                   {{ field.label }}:
                 </label>
-                <Dropdown2 :name="field.name" :title="assetForm[field.name]" :items="JSON.parse(field.options)"
-                  cols="8" :handler="adropdownHandler" />
+                <Dropdown2 :name="field.name" :title="assetForm[field.name]" :items="JSON.parse(field.options)" cols="8"
+                  :handler="adropdownHandler" />
               </div>
               <div v-else>
                 <div class="mb-3 row align-items-center">
@@ -151,8 +151,8 @@
                   <i :class="field.icon"></i>
                   {{ field.label }}:
                 </label>
-                <Dropdown2 :name="field.name" :title="ticketForm[field.name]" :items="JSON.parse(field.options)"
-                  cols="8" :handler="adropdownHandler" />
+                <Dropdown2 :name="field.name" :title="ticketForm[field.name]" :items="JSON.parse(field.options)" cols="8"
+                  :handler="adropdownHandler" />
               </div>
               <div v-else-if="field.name === 'assetTag'">
                 <div class="mb-3 row align-items-center">
@@ -191,6 +191,86 @@
           </div>
         </div>
       </div>
+      <div v-else class="row align-items-top section">
+        <div class="cols-12 header">ASSET INFO</div>
+        <div class="col-6">
+          <div class="form">
+            <div v-for="(field, index) in leftHalfAsset" :key="field + index">
+              <div v-if="field.type === 'dropdown'" class="mb-3 row align-items-center">
+                <label :for="field.label + index" class="col-sm-2">
+                  <i :class="field.icon"></i>
+                  {{ field.label }}:
+                </label>
+                <div class="col-sm-8">
+                  {{ assetForm[field.name] }}
+                </div>
+              </div>
+              <div v-else>
+                <div class="mb-3 row align-items-center">
+                  <label :for="field.label + index" class="col-sm-2">
+                    <i :class="field.icon"></i>
+                    {{ field.label }}:
+                  </label>
+
+                  <div class="col-sm-8">
+                    {{ assetForm[field.name] }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-2">
+            <div v-for="(field, index) in rightHalfAsset" :key="field + index">
+              <div v-if="field.type === 'dropdown'" class="mb-3 row align-items-center">
+                <label :for="field.label + index" class="col-sm-2">
+                  <i :class="field.icon"></i>
+                  {{ field.label }}:
+                </label>
+                <div class="col-sm-8">
+                  {{ assetForm[field.name] }}
+                </div>
+              </div>
+              <div v-else-if="field.name === 'assetTag'">
+                <div class="mb-3 row align-items-center">
+                  <label :for="field.label + index" class="col-sm-2">
+                    <i :class="field.icon"></i>
+                    {{ field.label }}:
+                  </label>
+                  <div class="col-sm-8">
+                    <div class="col-sm-8">
+                      {{ assetForm[field.name] }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div v-else-if="field.name === 'assetSerial'">
+                <div class="mb-3 row align-items-center">
+                  <label :for="field.label + index" class="col-sm-2">
+                    <i :class="field.icon"></i>
+                    {{ field.label }}:
+                  </label>
+                  <div class="col-sm-8">
+                    <div class="col-sm-8">
+                      {{ assetForm[field.name] }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mb-3 row align-items-center">
+              <label for="warranty-label" class="col-sm-2">
+                <i class="bi bi-life-preserver"></i>
+                Warranty Status:
+              </label>
+              <div class="col-sm-4">
+                {{ warrantyCalc }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="row">
@@ -198,8 +278,11 @@
       <div class="top-spacing">
         <div></div>
         <div>
-          <button type="button" class="btn btn-primary" v-on:click="createAsset()">
+          <button v-if="editing" type="button" class="btn btn-primary" v-on:click="createAsset()">
             Create Asset
+          </button>
+          <button v-if="!editing" type="button" class="btn btn-primary" v-on:click="createAsset()">
+            Edit Asset
           </button>
           <button type="button" class="btn btn-primary" v-on:click="createTicket(ticketForm)">
             Create Ticket
@@ -207,7 +290,7 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
 </template>
 
 <script>
@@ -234,6 +317,7 @@ export default {
     },
     finalForm: {},
     warranty: '',
+    editing: true,
     format: (d) => `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`,
     storeX
   }),
@@ -307,6 +391,7 @@ export default {
     },
     async createAsset() {
       this.finalForm['asset'] = this.assetForm;
+      this.editing = !this.editing;
     },
     getChecked(index, side) {
       const checked = JSON.parse(this.settingsFields[side][index].options).default;
@@ -369,14 +454,14 @@ export default {
     },
 
     warrantyCalc() {
-      if (!this.warranty) { 
+      if (!this.warranty) {
         return 'Enter a serial number above.'
       } else {
         return this.warranty;
       }
     }
   },
-  mounted() {},
+  mounted() { },
   watch: {
     ticketForm: {
       handler(newData) {
