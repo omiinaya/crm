@@ -165,10 +165,14 @@ export default {
       })
     },
     async newTicket() {
+      console.log('test')
       this.storeX.updateNavigation({
         view: 'NewTicket',
-        customerId: storeX.customer.id
+        customerId: storeX.customer.id,
+        assetId: storeX.asset[0].id
       })
+
+      console.log(storeX.asset)
     }
   },
   created() {

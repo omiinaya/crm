@@ -421,6 +421,13 @@ export default {
     if (storeX.navigation.customerId) {
       storeX.loadCustomerById(storeX.navigation.customerId, this.typeAheadHandler);
     }
+
+    if (storeX.navigation.assetId) {
+      //loads asset data on store
+      storeX.loadAssetById(storeX.navigation.assetId);
+      //TODO: send and run handler to prefill data on new ticket page.
+      //use example above
+    }
   },
   computed: {
     leftHalfTicket() {
