@@ -1,7 +1,14 @@
 <template>
   <div class="row">
     <div class="col-10 offset-1 top">
-      Customers
+      <div class="top-spacing">
+        <div>Customers</div>
+        <div>
+          <button type="button" class="btn btn-success" v-on:click="newCustomer()">
+            New Customer
+          </button>
+        </div>
+      </div>
       <div class="row mt-2">
         <div class="search">
           <input type="search" placeholder="Search for a customer" @input="searchHandler($event)" />
@@ -13,12 +20,12 @@
             theme-color="#1d90ff" table-class-name="customize-table" header-text-direction="left"
             body-text-direction="left">
             <!--
-            <template #item-id="{ id }">
-              <button type="button" class="template-btn btn-lg" v-on:click="openCustomer(id)">
-                {{ id }}
-              </button>
-            </template>
-            -->
+                <template #item-id="{ id }">
+                  <button type="button" class="template-btn btn-lg" v-on:click="openCustomer(id)">
+                    {{ id }}
+                  </button>
+                </template>
+                -->
             <template #item-name="{ firstName, lastName, id }">
               <button type="button" class="template-btn btn-lg" v-on:click="openCustomer(id)">
                 {{ firstName }} {{ lastName }}
@@ -33,7 +40,7 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
 </template>
 
 <script>
@@ -70,6 +77,9 @@ export default defineComponent({
     },
     async testing123(a) {
       console.log(a)
+    },
+    async newCustomer() {
+      storeX.updateNavigation({ view: 'NewCustomer' })
     }
   },
   computed: {
@@ -102,6 +112,11 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.top-spacing {
+  display: flex;
+  justify-content: space-between;
+}
+
 .search {
   font-size: 16px;
   padding: 0;
@@ -120,9 +135,6 @@ input[type=search]::-webkit-search-cancel-button {
 }
 
 .top {
-  padding: 20px;
-  padding-top: 0 !important;
-  padding-bottom: 0;
   font-size: 24px;
 }
 
@@ -142,8 +154,6 @@ input[type=search]::-webkit-search-cancel-button {
 .btn {
   width: 100%;
   font-size: 14px;
-  color: #c1cad4;
-  padding: 0;
 }
 
 .btn:focus {

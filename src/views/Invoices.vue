@@ -28,17 +28,20 @@ import { defineComponent } from 'vue';
 import { storeX } from "../store/index";
 
 export default defineComponent({
-  name: 'CustomerPage',
+  name: 'InvoicesPage',
   data() {
     return {
       storeX,
       headers: [
         { value: "id", text: "ID", sortable: true },
-        { value: "name", text: "CUSTOMER", sortable: true },
-        { value: "email", text: "ITEMS", sortable: true },
-        { value: "phone", text: "STATUS", sortable: true },
-        { value: "createdAt", text: "CREATED", sortable: true },
-        { value: "customerType", text: "TOTAL", sortable: true }
+        { value: "customer", text: "CUSTOMER", sortable: true },
+        { value: "status", text: "STATUS", sortable: true },
+        { value: "paid", text: "PAID", sortable: true },
+        { value: "qb", text: "SYNCED", sortable: true },
+        { value: "createdAt", text: "DATE", sortable: true },
+        { value: "dueAt", text: "DUE DATE", sortable: true },
+        { value: "refNumber", text: "REF #", sortable: true },
+        { value: "total", text: "TOTAL", sortable: true }
       ],
       itemsSelected: [],
       searchFilter: null

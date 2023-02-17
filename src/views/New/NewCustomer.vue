@@ -354,7 +354,6 @@ export default {
 </script>
 
 <style scoped>
-.title {}
 
 .test {
   margin-bottom: 10px;
@@ -375,10 +374,6 @@ label {
 }
 
 .top {
-  padding: 20px;
-  padding-top: 0 !important;
-  padding-bottom: 0;
-  padding-left: 10px;
   font-size: 24px;
 }
 
@@ -400,6 +395,8 @@ label {
 
 .btn {
   margin-right: 10px !important;
+  width: 100%;
+  font-size: 14px;
 }
 
 form {

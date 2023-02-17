@@ -1,7 +1,14 @@
 <template>
   <div class="row">
     <div class="col-10 offset-1 top">
-      Tickets
+      <div class="top-spacing">
+        <div>Tickets</div>
+        <div>
+          <button type="button" class="btn btn-success" v-on:click="newTicket()">
+            New Ticket
+          </button>
+        </div>
+      </div>
       <div class="row mt-2">
         <div class="search">
           <input type="search" placeholder="Search for a ticket" @input="searchHandler($event)" />
@@ -10,7 +17,8 @@
       <div class="row">
         <div class="col-12 section">
           <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="filteredCustomers"
-            theme-color="#1d90ff" table-class-name="customize-table" header-text-direction="left" body-text-direction="left">
+            theme-color="#1d90ff" table-class-name="customize-table" header-text-direction="left"
+            body-text-direction="left">
             <template #item-id="{ id, ticketCustomerId }">
               <button type="button" class="template-btn btn-lg" v-on:click="openTicket(id, ticketCustomerId)">
                 {{ id }}
@@ -30,7 +38,7 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
 </template>
 
 <script>
@@ -78,6 +86,10 @@ export default defineComponent({
       const value = input.target.value;
       this.searchFilter = value;
     },
+
+    async newTicket() {
+      storeX.updateNavigation({ view: 'NewTicket' })
+    }
   },
   computed: {
     filteredCustomers() {
@@ -113,6 +125,11 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.top-spacing {
+  display: flex;
+  justify-content: space-between;
+}
+
 .search {
   font-size: 16px;
   padding: 0;
@@ -127,7 +144,7 @@ input:focus {
 }
 
 input[type=search]::-webkit-search-cancel-button {
-    -webkit-appearance: searchfield-cancel-button;
+  -webkit-appearance: searchfield-cancel-button;
 }
 
 .template-btn {
@@ -140,8 +157,7 @@ input[type=search]::-webkit-search-cancel-button {
 .btn {
   width: 100%;
   font-size: 14px;
-  color: #c1cad4;
-  padding: 0;
+  
 }
 
 .btn:focus {
@@ -160,9 +176,6 @@ input[type=search]::-webkit-search-cancel-button {
 }
 
 .top {
-  padding: 20px;
-  padding-top: 0 !important;
-  padding-bottom: 0;
   font-size: 24px;
 }
 

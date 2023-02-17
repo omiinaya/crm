@@ -1,7 +1,14 @@
 <template>
   <div class="row">
     <div class="col-10 offset-1 top">
-      Assets
+      <div class="top-spacing">
+        <div>Assets</div>
+        <div>
+          <button type="button" class="btn btn-success" v-on:click="newAsset()">
+            New Asset
+          </button>
+        </div>
+      </div>
       <div class="row mt-2">
         <div class="search">
           <input type="search" placeholder="Search for an asset" @input="searchHandler($event)" />
@@ -100,6 +107,10 @@ export default defineComponent({
         };
         this.hasLoaded++;
       })
+    },
+
+    async newAsset() {
+      storeX.updateNavigation({ view: 'NewAsset' })
     }
   },
   computed: {
@@ -139,6 +150,11 @@ export default defineComponent({
 
 <style scoped>
 
+.top-spacing {
+  display: flex;
+  justify-content: space-between;
+}
+
 .warranty {
   color: #c1cad4;
   text-decoration: none;
@@ -175,8 +191,6 @@ input[type=search]::-webkit-search-cancel-button {
 .btn {
   width: 100%;
   font-size: 14px;
-  color: #c1cad4;
-  padding: 0;
 }
 
 .btn:focus {
@@ -189,9 +203,6 @@ input[type=search]::-webkit-search-cancel-button {
 }
 
 .top {
-  padding: 20px;
-  padding-top: 0 !important;
-  padding-bottom: 0;
   font-size: 24px;
 }
 
