@@ -7,5 +7,7 @@ module.exports = function (app) {
   //VERIFIED ROUTES
   router.get("/", verifyToken, user.findAll);
 
+  router.get("/tech/id/:id", user.findTechById);
+
   app.use('/api/users', router);
 };

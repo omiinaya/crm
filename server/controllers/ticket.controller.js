@@ -101,12 +101,33 @@ exports.findByAssetId = (req, res) => {
     });
 };
 
-exports.findByTechnician = (req, res) => {
+exports.findByTechName = (req, res) => {
   //todo: use ids instead of names
   const name = req.params.name;
 
+  console.log(name)
+
   Ticket.findAll({
     where: { ticketTech: name },
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials.",
+      });
+    });
+};
+
+exports.findByTechId = (req, res) => {
+  const id = req.params.id;
+
+  console.log(id)
+
+  Ticket.findAll({
+    where: { technicianId: id },
   })
     .then((data) => {
       res.send(data);

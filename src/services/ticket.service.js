@@ -20,8 +20,13 @@ class TicketService {
     return axios.get(API_URL + `customer/id/${customerId}`, { headers: authHeader() });
   }
 
-  getTicketByTechnician(ticketName) {
-    return axios.get(API_URL + `technician/name/${ticketName}`, { headers: authHeader() });
+  getTicketByTechId(techId) {
+    return axios.get(API_URL + `tech/id/${techId}`, { headers: authHeader() });
+  }
+
+  //should be using IDs instead of name
+  getTicketByTechName(ticketName) {
+    return axios.get(API_URL + `tech/name/${ticketName}`, { headers: authHeader() });
   }
 
   //implement this route

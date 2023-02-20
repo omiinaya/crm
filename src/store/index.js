@@ -54,6 +54,7 @@ export const storeX = reactive({
     type: null
   },
   asset: {},
+  technician: [],
 
   newTicketTest: '',
   dialogs: {
@@ -98,7 +99,7 @@ export const storeX = reactive({
 
     //do nothing if user clicks to navigate to the page they're already on.
     if (last === current) return;
-    
+
     this.history.push(obj);
 
     if (this.history.length > 2) this.history.shift();
@@ -133,7 +134,7 @@ export const storeX = reactive({
   },
 
   padX(x) {
-    return x.toString().padStart(5, "0"); 
+    return x.toString().padStart(5, "0");
   },
 
   async formatDate(array) {
@@ -219,14 +220,14 @@ export const storeX = reactive({
 
     for (let i = this.tickets.length - 1; i >= 0; i--) {
       const ticket = this.tickets[i];
-      ticket.id = this.padX(ticket.id); 
+      ticket.id = this.padX(ticket.id);
 
       ticket.customerName = customerLookup[ticket.ticketCustomerId];
-      ticket.ticketId =  ticket.id;
+      ticket.ticketId = ticket.id;
 
       const data = await this.loadAssetByTicketId(ticket.id);
-      if (data) { 
-        ticket.ticketAssetSerial = data[0].assetSerial; 
+      if (data) {
+        ticket.ticketAssetSerial = data[0].assetSerial;
       } else {
         ticket.ticketAssetSerial = 'N/A'
       }
@@ -371,7 +372,7 @@ export const storeX = reactive({
     if (!data.length) return
 
     data[0].createdAt = moment(data[0].createdAt).format('MMMM-DD-YYYY');
-    
+
     this.tickets = data;
     return data;
   },
@@ -381,7 +382,7 @@ export const storeX = reactive({
     const data = await req.data;
 
     if (!data.length) return
-  
+
     data[0].name = `${data[0].firstName} ${data[0].lastName}`;
     data[0].createdAt = moment(data[0].createdAt).format('MMMM-DD-YYYY');
 
@@ -393,7 +394,7 @@ export const storeX = reactive({
 
     const primaryAddress = await this.loadLocationDataById(data[0].primaryAddress);
     const address1 = primaryAddress[0]['address1'];
-  
+
     if (address1) {
       const customerAddress = Object.values(primaryAddress[0]).slice(1, 7).reverse().join(' '); //gets address
       const words = customerAddress.split(" ");
@@ -408,7 +409,7 @@ export const storeX = reactive({
     }
 
     this.customer = data[0];
-    
+
     return data;
   },
 
@@ -423,6 +424,26 @@ export const storeX = reactive({
     this.ticket.status = data.ticketStatus;
     this.ticket.created = moment(data.createdAt).format('MMM DD YYYY HH:MM A');
     this.ticket.updated = moment(data.updateAt).format('MMM DD YYYY HH:MM A');
+  },
+
+  async loadTicketsByTechName(name) {
+    const request = await this.TicketService.getTicketById(name)
+    console.log(request)
+  },
+
+  async loadTechDataById() {
+    const lastIndex = this.history.length - 1;
+    const lastItem = this.history[lastIndex];
+    const techId = lastItem.techId;
+    const request = await this.UserService.getTechById(techId);
+
+    this.technician = request;
+    console.log(this.technician);
+  },
+
+  async loadTicketsByTechId(id) {
+    const request = await this.TicketService.getTicketById(id)
+    console.log(request)
   },
 
   openTickets() {
