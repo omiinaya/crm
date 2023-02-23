@@ -38,13 +38,7 @@
             <div class="content">
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
-                  <i class="bi bi-person-circle"></i> Tickets Open:
-                </label>
-                <div class="col-sm-6">{{ storeX.customer.name }}</div>
-              </div>
-              <div class="row align-items-center mb-2">
-                <label class="col-sm-6">
-                  <i class="bi bi-envelope"></i> Tickets Closed:
+                  <i class="bi bi-envelope"></i> 1
                 </label>
                 <div class="col-sm-6">
                   <a :href="`mailto:${email}`" target="_blank">
@@ -54,7 +48,17 @@
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
-                  <i class="bi bi-envelope"></i> Total Tickets:
+                  <i class="bi bi-envelope"></i> 2:
+                </label>
+                <div class="col-sm-6">
+                  <a :href="`mailto:${email}`" target="_blank">
+                    {{ email }}
+                  </a>
+                </div>
+              </div>
+              <div class="row align-items-center mb-2">
+                <label class="col-sm-6">
+                  <i class="bi bi-envelope"></i> 3:
                 </label>
                 <div class="col-sm-6">
                   <a :href="`mailto:${email}`" target="_blank">
@@ -72,11 +76,11 @@
               Tickets
             </div>
             <div class="section">
-              <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="storeX.technician"
+              <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="storeX.tickets"
                 theme-color="#1d90ff" table-class-name="customize-table" header-text-direction="left"
                 body-text-direction="left">
-                <template #item-id="{ id }">
-                  <button type="button" class="template-btn btn-lg" v-on:click="openTicket(id)">
+                <template #item-id="{ id, ticketCustomerId }">
+                  <button type="button" class="template-btn btn-lg" v-on:click="openTicket(id, ticketCustomerId)">
                     {{ id }}
                   </button>
                 </template>
@@ -98,20 +102,21 @@ export default {
   data: () => ({
     storeX,
     headers: [
-      { value: "assetName", text: "NAME", sortable: true },
-      { value: "assetBrand", text: "BRAND", sortable: true },
-      { value: "assetType", text: "TYPE", sortable: true },
-      { value: "assetSerial", text: "SERIAL", sortable: true },
-      { value: "assetTag", text: "TAG", sortable: true },
-      { value: "warranty", text: "WARRANTY", sortable: true },
+      { value: "id", text: "ID", sortable: true },
+      { value: "ticketTitle", text: "TITLE", sortable: true },
+      { value: "ticketDesc", text: "DESCRIPTION", sortable: true },
+      { value: "ticketType", text: "Type", sortable: true },
+      { value: "ticketStatus", text: "STATUS", sortable: true },
+      { value: "createdAt", text: "DATE", sortable: true },
     ],
     itemsSelected: [],
   }),
   methods: {
-    async openAsset(id) {
+    async openTicket(id, ticketCustomerId) {
       this.storeX.updateNavigation({
-        view: 'Asset',
-        assetId: id,
+        view: 'Ticket',
+        ticketId: id,
+        customerId: ticketCustomerId
       })
     },
     async newHandler(opt) {

@@ -80,6 +80,7 @@ export default defineComponent({
       if (roleId === 2) return 'Technician';
       if (roleId === 3) return 'Moderator';
       if (roleId === 4) return 'Administrator';
+      if (roleId === 5) return 'Super Admin';
       else return 'User'
     }
   },

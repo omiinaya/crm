@@ -436,14 +436,15 @@ export const storeX = reactive({
     const lastItem = this.history[lastIndex];
     const techId = lastItem.techId;
     const request = await this.UserService.getTechById(techId);
-
     this.technician = request;
-    console.log(this.technician);
   },
 
   async loadTicketsByTechId(id) {
-    const request = await this.TicketService.getTicketById(id)
-    console.log(request)
+    const request = await this.TicketService.getTicketByTechId(id)
+    const data = request.data;
+    this.tickets = data;
+    this.formatDate(this.tickets);
+    console.log(this.tickets)
   },
 
   openTickets() {

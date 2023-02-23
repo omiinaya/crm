@@ -261,6 +261,7 @@ async function dummyData() {
       ticketType: ticket.ticketType,
       ticketDesc: ticket.ticketDesc,
       ticketTech: ticket.ticketTech,
+      ticketTechId: ticket.ticketTechId
     });
   });
 

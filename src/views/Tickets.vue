@@ -52,8 +52,8 @@ export default defineComponent({
       storeX,
       headers: [
         { value: "id", text: "ID", sortable: true },
-        { value: "ticketTitle", text: "TITLE", sortable: true },
         { value: "customerName", text: "CUSTOMER", sortable: true },
+        { value: "ticketTitle", text: "TITLE", sortable: true },
         { value: "ticketDesc", text: "DESCRIPTION", sortable: true },
         { value: "ticketTech", text: "TECHNICIAN", sortable: true },
         { value: "createdAt", text: "CREATED", sortable: true },

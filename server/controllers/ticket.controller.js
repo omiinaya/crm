@@ -124,10 +124,10 @@ exports.findByTechName = (req, res) => {
 exports.findByTechId = (req, res) => {
   const id = req.params.id;
 
-  console.log(id)
+  console.log(`test: ${id}`)
 
   Ticket.findAll({
-    where: { technicianId: id },
+    where: { ticketTechId: id },
   })
     .then((data) => {
       res.send(data);

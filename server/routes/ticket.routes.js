@@ -14,6 +14,7 @@ module.exports = app => {
   router.get("/customer/id/:id", ticket.findByCustomerId);
 
   router.get("/tech/:name", ticket.findByTechName);
+  router.get("/tech/id/:id", ticket.findByTechId);
 
   router.get("/fields", ticketFields.findAll);
   router.put("/id/:id", ticket.update);

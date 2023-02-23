@@ -68,6 +68,14 @@ const ticketFields = [
         options: JSON.stringify(technicians)
     },
     {
+        name: "ticketTechId",
+        label: "Technician",
+        type: "dropdown",
+        icon: "bi bi-person",
+        show: false,
+        data: 'STRING',
+    },
+    {
         name: "ticketDesc",
         label: "Description",
         type: "textarea",

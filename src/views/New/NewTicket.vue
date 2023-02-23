@@ -42,7 +42,7 @@
               }}:
               </label>
               <Dropdown2 :name=field.name :title="ticketForm[field.name]" :items="techItems" cols="8"
-                :handler="dropdownHandler" byProp="fullName" />
+                :handler="tDropdownHandler" byProp="fullName" />
             </Form>
             <Form v-else-if="field.type === 'dropdown'" class="row align-items-center">
               <label :for="field.label + index" class="col-sm-2 col-form-label"><i :class="field.icon"></i> {{
@@ -122,7 +122,7 @@
               <div v-if="field.type === 'dropdown'" class="mb-3 row align-items-center">
                 <label :for="field.label + index" class="col-sm-2">
                   <i :class="field.icon"></i>
-                  {{ field.label }}:
+                  {{ field.label }}: 
                 </label>
                 <Dropdown2 :name="field.name" :title="assetForm[field.name]" :items="JSON.parse(field.options)" cols="8"
                   :handler="adropdownHandler" />
@@ -375,6 +375,8 @@ export default {
       const technicianList = await request.data;
       this.techItems = technicianList;
       this.ticketForm['ticketTech'] = this.techItems[0].fullName;
+      this.ticketForm['ticketTechId'] = this.techItems[0].id;
+      console.log(this.ticketForm.ticketTechId)
       this.getTicketFieldItems();
     },
     async createTicket() {
@@ -407,6 +409,12 @@ export default {
     },
     adropdownHandler(item, name) {
       this.assetForm[name] = item;
+    },
+    tDropdownHandler(item, name) {
+      const tech = this.techItems.filter(techItem => techItem.fullName === item);
+      const techId = tech[0].id;
+      this.ticketForm[name] = item;
+      this.ticketForm['ticketTechId'] = techId;
     },
     typeAheadHandler(id) {
       this.ticketForm['ticketCustomerId'] = parseInt(id);

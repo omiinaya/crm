@@ -7,6 +7,7 @@ const assets = [
       ticketType: 'Flat-Rate',
       ticketDesc: 'Screen is broken and separating from vessel.',
       ticketTech: 'Omar Minaya',
+      ticketTechId: '5'
     },
     {
       ticketCustomerId: 1,
@@ -16,6 +17,7 @@ const assets = [
       ticketType: 'Flat-Rate',
       ticketDesc: 'Speakers go brrrrr when playing audio.',
       ticketTech: 'Omar Minaya',
+      ticketTechId: '5'
     },
     {
       ticketCustomerId: 2,
@@ -25,6 +27,7 @@ const assets = [
       ticketType: 'Flat-Rate',
       ticketDesc: 'System will not hold charge.',
       ticketTech: 'Omar Minaya',
+      ticketTechId: '5'
     },
   ];
 
