@@ -1,3 +1,3 @@
-const roles = ["user", "technician", "moderator", "administrator"];
+const roles = ["User", "Technician", "Moderator", "Administrator", "Super Admin"];
 
 module.exports = roles

@@ -5,7 +5,7 @@ const users = [
         username: "test1",
         email: "test1@gmail.com",
         password: "$2a$08$7O/xmmuyMmc4PuCF2dcPxue3bHuGmQvvn1M2AidQnYzNE.QC7bTyy",
-        roleId: 1
+        roleId: 2
     },
     {
         firstName: "Jose",
@@ -13,7 +13,7 @@ const users = [
         username: "test2",
         email: "test2@gmail.com",
         password: "$2a$08$7O/xmmuyMmc4PuCF2dcPxue3bHuGmQvvn1M2AidQnYzNE.QC7bTyy",
-        roleId: 3
+        roleId: 5
     },
     {
         firstName: "Manny",
@@ -21,7 +21,7 @@ const users = [
         username: "test3",
         email: "test3@gmail.com",
         password: "$2a$08$7O/xmmuyMmc4PuCF2dcPxue3bHuGmQvvn1M2AidQnYzNE.QC7bTyy",
-        roleId: 1
+        roleId: 2
     },
     {
         firstName: "Abel",
@@ -29,7 +29,7 @@ const users = [
         username: "test4",
         email: "test4@gmail.com",
         password: "$2a$08$7O/xmmuyMmc4PuCF2dcPxue3bHuGmQvvn1M2AidQnYzNE.QC7bTyy",
-        roleId: 1
+        roleId: 3
     },
     {
         firstName: "Omar",
@@ -37,7 +37,7 @@ const users = [
         username: "test",
         email: "omar@mobilemeit.com",
         password: "$2a$08$7O/xmmuyMmc4PuCF2dcPxue3bHuGmQvvn1M2AidQnYzNE.QC7bTyy",
-        roleId: 3
+        roleId: 4
     },
 ]
 

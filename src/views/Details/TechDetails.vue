@@ -4,7 +4,7 @@
       <div clas="row">
         <div class="col-11 top">
           <div style="display: flex; justify-content: space-between;">
-            <div class="col-10 top">{{ storeX.technician[0].fullName }}</div>
+            <div class="col-10 top">{{ fullName }}</div>
           </div>
         </div>
       </div>
@@ -20,13 +20,13 @@
                 <label class="col-sm-6">
                   <i class="bi bi-clipboard2-pulse"></i> Role:
                 </label>
-                {{ storeX.technician[0].roleId }}
+                {{ roleTitle }}
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
                   <i class="bi bi-person-circle"></i> Email:
                 </label>
-                {{ storeX.technician[0].email }}
+                {{ email }}
               </div>
             </div>
           </div>
@@ -47,8 +47,8 @@
                   <i class="bi bi-envelope"></i> Tickets Closed:
                 </label>
                 <div class="col-sm-6">
-                  <a :href="`mailto:${storeX.customer.email}`" target="_blank">
-                    {{ storeX.customer.email }}
+                  <a :href="`mailto:${email}`" target="_blank">
+                    {{ email }}
                   </a>
                 </div>
               </div>
@@ -57,8 +57,8 @@
                   <i class="bi bi-envelope"></i> Total Tickets:
                 </label>
                 <div class="col-sm-6">
-                  <a :href="`mailto:${storeX.customer.email}`" target="_blank">
-                    {{ storeX.customer.email }}
+                  <a :href="`mailto:${email}`" target="_blank">
+                    {{ email }}
                   </a>
                 </div>
               </div>
@@ -120,20 +120,37 @@ export default {
     },
     async testing123(a) {
       console.log(a);
+    },
+    async init() {
+      await storeX.loadTechDataById()
+      storeX.loadTicketsByTechId(storeX.technician[0].id)
     }
   },
   created() {
-    storeX.loadTechDataById()
-    storeX.loadTicketsByTechId()
+    this.init()
   },
 
   computed: {
-    /*
-    ticketId() {
-      if (!storeX.ticket.id) return;
-      return storeX.padX(storeX.ticket.id);
+    fullName() {
+      if (!storeX.technician.length) return;
+      return storeX.technician[0].fullName;
+    },
+    roleId() {
+      if (!storeX.technician.length) return;
+      return storeX.technician[0].roleId;
+    },
+    email() {
+      if (!storeX.technician.length) return;
+      return storeX.technician[0].email;
+    },
+    roleTitle() {
+      const roleId = storeX.technician[0].roleId;
+      if (roleId === 2) return 'Technician';
+      if (roleId === 3) return 'Moderator';
+      if (roleId === 4) return 'Administrator';
+      if (roleId === 5) return 'Super Admin';
+      else return 'User'
     }
-    */
   }
 }
 </script>

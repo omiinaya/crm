@@ -25,17 +25,8 @@
               </button>
             </template>
             <template #item-roleId="{ roleId }">
-              <a v-if="roleId === 0">
-                User
-              </a>
-              <a v-else-if="roleId === 1">
-                Technician
-              </a>
-              <a v-else-if="roleId === 2">
-                Administrator
-              </a>
-              <a v-else-if="roleId === 3">
-                Owner
+              <a>
+                {{ roleTitle(roleId) }}
               </a>
             </template>
             <template #item-email="{ email }">
@@ -84,6 +75,12 @@ export default defineComponent({
     },
     async testing123(a) {
       console.log(a)
+    },
+    roleTitle(roleId) {
+      if (roleId === 2) return 'Technician';
+      if (roleId === 3) return 'Moderator';
+      if (roleId === 4) return 'Administrator';
+      else return 'User'
     }
   },
   computed: {
@@ -106,7 +103,7 @@ export default defineComponent({
         return byCondition;
       })
       return filtered;
-    }
+    },
   },
   async created() {
     storeX.loadTechnicianData();
