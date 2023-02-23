@@ -13,7 +13,7 @@ module.exports = app => {
   router.get("/id/:id", ticket.findByTicketId);
   router.get("/customer/id/:id", ticket.findByCustomerId);
 
-  router.get("/tech/:name", ticket.findByTechnician);
+  router.get("/tech/:name", ticket.findByTechName);
 
   router.get("/fields", ticketFields.findAll);
   router.put("/id/:id", ticket.update);
