@@ -94,7 +94,7 @@ import { storeX } from "../../store/index";
 
 export default {
   name: 'CustomerDetailsPage',
-  components: { },
+  components: {},
   data: () => ({
     storeX,
     headers: [
@@ -144,12 +144,12 @@ export default {
       return storeX.technician[0].email;
     },
     roleTitle() {
-      const roleId = storeX.technician[0].roleId;
-      if (roleId === 2) return 'Technician';
-      if (roleId === 3) return 'Moderator';
-      if (roleId === 4) return 'Administrator';
-      if (roleId === 5) return 'Super Admin';
-      else return 'User'
+      if (!storeX.technician.length) return;
+      if (storeX.technician[0].roleId === 2) return 'Technician';
+      if (storeX.technician[0].roleId === 3) return 'Moderator';
+      if (storeX.technician[0].roleId === 4) return 'Administrator';
+      if (storeX.technician[0].roleId === 5) return 'Super Admin';
+      return 'User';
     }
   }
 }
@@ -281,6 +281,4 @@ ul {
   font-size: 14px;
   color: #c0c7d2;
 }
-
-
 </style>
