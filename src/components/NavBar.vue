@@ -62,6 +62,7 @@ export default {
         this.links = await req.data;
       } catch (e) {
         console.log(e)
+        localStorage.removeItem('user');
       }
     },
     async searchHandler(input) {
