@@ -38,26 +38,26 @@
             <div class="content">
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
-                  <i class="bi bi-envelope"></i> New Tickets
+                  <i class="bi bi-ticket"></i> New Tickets
                 </label>
                 <div class="col-sm-6">
-                    {{ email }}
+                  {{ storeX.newTickets() }}
                 </div>
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
-                  <i class="bi bi-envelope"></i> Open Tickets:
+                  <i class="bi bi-ticket-detailed"></i> Open Tickets:
                 </label>
                 <div class="col-sm-6">
-                    {{ email }}
+                  {{ storeX.openTickets() }}
                 </div>
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
-                  <i class="bi bi-envelope"></i> Resolved Tickets:
+                  <i class="bi bi-ticket-perforated"></i> Resolved Tickets:
                 </label>
                 <div class="col-sm-6">
-                    {{ email }}
+                  {{ storeX.closedTickets() }}
                 </div>
               </div>
             </div>
@@ -76,6 +76,16 @@
                 <template #item-id="{ id, ticketCustomerId }">
                   <button type="button" class="template-btn btn-lg" v-on:click="openTicket(id, ticketCustomerId)">
                     {{ id }}
+                  </button>
+                </template>
+                <template #item-ticketTitle="{ ticketTitle, id, ticketCustomerId }">
+                  <button type="button" class="template-btn btn-lg" v-on:click="openTicket(id, ticketCustomerId)">
+                    {{ ticketTitle }}
+                  </button>
+                </template>
+                <template #item-ticketDesc="{ ticketDesc, id, ticketCustomerId }">
+                  <button type="button" class="template-btn btn-lg" v-on:click="openTicket(id, ticketCustomerId)">
+                    {{ ticketDesc }}
                   </button>
                 </template>
               </EasyDataTable>
@@ -172,7 +182,7 @@ export default {
       if (storeX.technician[0].roleId === 4) return 'Administrator';
       if (storeX.technician[0].roleId === 5) return 'Super Admin';
       return 'User';
-    }
+    },
   }
 }
 </script>

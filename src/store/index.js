@@ -426,11 +426,6 @@ export const storeX = reactive({
     this.ticket.updated = moment(data.updateAt).format('MMM DD YYYY HH:MM A');
   },
 
-  async loadTicketsByTechName(name) {
-    const request = await this.TicketService.getTicketById(name)
-    console.log(request)
-  },
-
   async loadTechDataById() {
     const lastIndex = this.history.length - 1;
     const lastItem = this.history[lastIndex];
@@ -442,22 +437,24 @@ export const storeX = reactive({
   async loadTicketsByTechId(id) {
     const request = await this.TicketService.getTicketByTechId(id)
     const data = request.data;
+    for (let i = 0; i < data.length; i++) {
+      const ticket = data[i];
+      ticket.id = this.padX(ticket.id);
+    }
     this.tickets = data;
     this.formatDate(this.tickets);
-    console.log(this.tickets)
-    console.log(this.tickets.length)
   },
 
   openTickets() {
-    if (this.tickets.length) {
-      return this.tickets.filter(ticket => ticket.ticketStatus !== "Resolved").length;
-    }
+      return this.tickets.filter(ticket => ticket.ticketStatus !== "Resolved" && ticket.ticketStatus !== "New").length;
   },
 
   closedTickets() {
-    if (this.tickets.length) {
       return this.tickets.filter(ticket => ticket.ticketStatus === "Resolved").length;
-    }
+  },
+
+  newTickets() {
+    return this.tickets.filter(ticket => ticket.ticketStatus === 'New').length;
   },
 
   totalTickets() {
