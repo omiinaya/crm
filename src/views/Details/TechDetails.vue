@@ -38,32 +38,26 @@
             <div class="content">
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
-                  <i class="bi bi-envelope"></i> 1
+                  <i class="bi bi-envelope"></i> New Tickets
                 </label>
                 <div class="col-sm-6">
-                  <a :href="`mailto:${email}`" target="_blank">
                     {{ email }}
-                  </a>
                 </div>
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
-                  <i class="bi bi-envelope"></i> 2:
+                  <i class="bi bi-envelope"></i> Open Tickets:
                 </label>
                 <div class="col-sm-6">
-                  <a :href="`mailto:${email}`" target="_blank">
                     {{ email }}
-                  </a>
                 </div>
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">
-                  <i class="bi bi-envelope"></i> 3:
+                  <i class="bi bi-envelope"></i> Resolved Tickets:
                 </label>
                 <div class="col-sm-6">
-                  <a :href="`mailto:${email}`" target="_blank">
                     {{ email }}
-                  </a>
                 </div>
               </div>
             </div>
@@ -86,8 +80,28 @@
                 </template>
               </EasyDataTable>
             </div>
-            <div class="section text-center">
+            <div class="section text-center" v-if="!storeX.tickets.length">
               There are no tickets to display
+            </div>
+          </div>
+          <div class="section">
+            <div class="header">
+              <i class="bi bi-hourglass"></i>
+              History
+            </div>
+            <div class="section text-center">
+              <!--
+              <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="storeX.tickets"
+                theme-color="#1d90ff" table-class-name="customize-table" header-text-direction="left"
+                body-text-direction="left">
+                <template #item-id="{ id, ticketCustomerId }">
+                  <button type="button" class="template-btn btn-lg" v-on:click="openTicket(id, ticketCustomerId)">
+                    {{ id }}
+                  </button>
+                </template>
+              </EasyDataTable>
+              -->
+              TODO: Show history of latest updates or changes by this user
             </div>
           </div>
         </div>
