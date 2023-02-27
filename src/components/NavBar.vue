@@ -13,7 +13,7 @@
       <li class="nav-item rightBar">
         <button type="button" class="btn btn-lg" v-on:click="logOut()">
           <i class="bi bi-box-arrow-in-right"></i>
-          </button>
+        </button>
       </li>
       <li class="nav-item rightBar">
         <i class="bi bi-person-circle"></i>
@@ -57,8 +57,12 @@ export default {
   methods: {
     async getNavItems() {
       const roleId = this.$store.state.auth.user.roleId;
-      const req = await NavService.getRoleNav(roleId);
-      this.links = await req.data;
+      try {
+        const req = await NavService.getRoleNav(roleId);
+        this.links = await req.data;
+      } catch (e) {
+        console.log(e)
+      }
     },
     async searchHandler(input) {
       const value = input.target.value;
@@ -94,7 +98,7 @@ export default {
         this.storeX.updateNavigation({
           view: 'Customer',
           customerId: e.customerId
-        })   
+        })
       }
 
       if (e.assetId) {
