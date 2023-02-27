@@ -57,10 +57,12 @@ export default {
   methods: {
     async getNavItems() {
       const roleId = this.$store.state.auth.user.roleId;
+      //attempt to get role, if fail, remove user token
       try {
         const req = await NavService.getRoleNav(roleId);
         this.links = await req.data;
       } catch (e) {
+        //logging q for some reason??
         console.log(e)
         localStorage.removeItem('user');
       }
