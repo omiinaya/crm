@@ -65,6 +65,7 @@ export default {
         //logging q for some reason??
         console.log(e)
         localStorage.removeItem('user');
+        localStorage.removeItem('history');
       }
     },
     async searchHandler(input) {
