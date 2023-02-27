@@ -445,6 +445,7 @@ export const storeX = reactive({
     this.tickets = data;
     this.formatDate(this.tickets);
     console.log(this.tickets)
+    console.log(this.tickets.length)
   },
 
   openTickets() {

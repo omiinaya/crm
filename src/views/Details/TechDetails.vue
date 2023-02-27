@@ -75,7 +75,7 @@
               <i class="bi bi-laptop"></i>
               Tickets
             </div>
-            <div class="section">
+            <div class="section" v-if="storeX.tickets.length">
               <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="storeX.tickets"
                 theme-color="#1d90ff" table-class-name="customize-table" header-text-direction="left"
                 body-text-direction="left">
@@ -85,6 +85,9 @@
                   </button>
                 </template>
               </EasyDataTable>
+            </div>
+            <div class="section text-center">
+              There are no tickets to display
             </div>
           </div>
         </div>
