@@ -1,7 +1,14 @@
 <template>
   <div class="row">
     <div class="col-10 offset-1 top">
-      Invoices
+      <div class="top-spacing">
+        <div>Invoices</div>
+        <div>
+          <button type="button" class="btn btn-success" v-on:click="newInvoice()">
+            New Invoice
+          </button>
+        </div>
+      </div>
       <div class="row mt-2">
         <div class="search">
           <input type="search" placeholder="Search for an invoice" @input="searchHandler($event)" />
@@ -9,8 +16,9 @@
       </div>
       <div class="row">
         <div class="col-12 section">
-          <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="filteredCustomers" theme-color="#1d90ff"
-            table-class-name="customize-table" header-text-direction="left" body-text-direction="left">
+          <EasyDataTable v-model:items-selected="itemsSelected" :headers="headers" :items="filteredCustomers"
+            theme-color="#1d90ff" table-class-name="customize-table" header-text-direction="left"
+            body-text-direction="left">
             <template #item-name="{ firstName, lastName, id }">
               <button type="button" class="template-btn btn-lg" v-on:click="openCustomer(id)">
                 {{ firstName }} {{ lastName }}
@@ -59,13 +67,16 @@ export default defineComponent({
       this.searchFilter = value;
     },
     async testing123(a) {
-      console.log(a)
+      console.log(a);
+    },
+    async newInvoice() {
+      storeX.updateNavigation({ view: 'NewInoice' });
     }
   },
   computed: {
     filteredCustomers() {
       if (!this.searchFilter) return storeX.customers;
-    
+
       const filtered = storeX.customers.filter(customer => {
         const input = this.searchFilter.toLowerCase();
 
@@ -78,7 +89,7 @@ export default defineComponent({
         const ifPhone = phone.includes(input);
 
         const byCondition = ifName || ifEmail || ifPhone;
-        
+
         return byCondition;
       })
       return filtered;
@@ -93,6 +104,10 @@ export default defineComponent({
 
 <style scoped>
 
+.top-spacing {
+  display: flex;
+  justify-content: space-between;
+}
 .search {
   font-size: 16px;
   padding: 0;
@@ -107,12 +122,10 @@ input:focus {
 }
 
 input[type=search]::-webkit-search-cancel-button {
-    -webkit-appearance: searchfield-cancel-button;
+  -webkit-appearance: searchfield-cancel-button;
 }
+
 .top {
-  padding: 20px;
-  padding-top: 0 !important;
-  padding-bottom: 0;
   font-size: 24px;
 }
 
@@ -133,7 +146,6 @@ input[type=search]::-webkit-search-cancel-button {
   width: 100%;
   font-size: 14px;
   color: #c1cad4;
-  padding: 0;
 }
 
 .btn:focus {

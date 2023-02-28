@@ -1,22 +1,22 @@
-import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent } from 'vue';
 
 import Admin from "./TODO/Admin.vue";
-import Assets from "./Assets.vue";
-import Customers from "./Customers.vue";
 import Estimates from "./TODO/Estimates.vue";
-import Technicians from "./Technicians.vue";
-import Home from "./Home.vue";
 import Inventory from "./TODO/Inventory.vue";
-import Invoices from "./Invoices.vue";
-import Login from "./Login.vue";
-import Parts from "./TODO/Parts.vue";
 import POS from "./TODO/POS.vue";
+import Parts from "./TODO/Parts.vue";
 import Profile from "./TODO/Profile.vue";
 import Projects from "./TODO/Projects.vue";
 
 const Register= defineAsyncComponent(() => import('./Register.vue'));
 const Tickets = defineAsyncComponent(() => import('./Tickets.vue'));
 const Time = defineAsyncComponent(() => import('./Time.vue'));
+const Login = defineAsyncComponent(()=> import('./Login.vue'));
+const Invoices = defineAsyncComponent(()=> import('./Invoices.vue'));
+const Home = defineAsyncComponent(()=> import('./Home.vue'));
+const Technicians = defineAsyncComponent(()=> import('./Technicians.vue'));
+const Customers = defineAsyncComponent(()=> import('./Customers.vue'));
+const Assets = defineAsyncComponent(()=> import('./Assets.vue'));
 
 //details
 const CustomerDetails = defineAsyncComponent(() => import('./Details/CustomerDetails.vue'));
@@ -28,20 +28,21 @@ const TechDetails = defineAsyncComponent(() => import('./Details/TechDetails.vue
 const NewAsset = defineAsyncComponent(() => import('./New/NewAsset.vue'));
 const NewCustomer = defineAsyncComponent(() => import('./New/NewCustomer.vue'));
 const NewTicket = defineAsyncComponent(() => import('./New/NewTicket.vue'));
+const NewInvoice = defineAsyncComponent(() => import('./New/NewInvoice.vue'));
 
 export {
     Admin,
-    Assets,
-    Customers,
     Estimates,
-    Home,
     Inventory,
-    Invoices,
-    Login,
     Parts,
     POS,
     Profile,
     Projects,
+    Assets,
+    Customers,
+    Home,
+    Invoices,
+    Login,
     Register,
     Tickets,
     CustomerDetails,
@@ -52,5 +53,6 @@ export {
     NewTicket,
     Time,
     Technicians,
-    TechDetails
+    TechDetails,
+    NewInvoice
 };

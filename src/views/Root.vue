@@ -41,6 +41,7 @@
       <NewCustomer v-else-if="storeX.navigation.view === 'NewCustomer'" />
       <NewTicket v-else-if="storeX.navigation.view === 'NewTicket'" />
       <NewAsset v-else-if="storeX.navigation.view === 'NewAsset'" />
+      <NewInvoice v-else-if="storeX.navigation.view === 'NewInvoice'" />
       <CustomerDetails v-else-if="storeX.navigation.view === 'Customer'" />
       <TicketDetails v-else-if="storeX.navigation.view === 'Ticket'" />
       <Projects v-else-if="storeX.navigation.view === 'Projects'" />
@@ -138,7 +139,8 @@ export default defineComponent({
     AssetDetails: Views.AssetDetails,
     Technicians: Views.Technicians,
     TechDetails: Views.TechDetails,
-    Login: Views.Login
+    Login: Views.Login,
+    NewInvoice: Views.NewInvoice
   },
 });
 </script>
