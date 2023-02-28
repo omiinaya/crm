@@ -1,5 +1,3 @@
-const moment = require('moment');
-
 const issueTypes = ["Flat-Rate", "Warranty", "In-House"];
 const technicians = ["Omar", "Manny", "Matias"];
 
