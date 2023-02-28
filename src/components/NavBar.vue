@@ -10,15 +10,17 @@
         :itemProjection="myProjectionFunction" @selectItem="selectHandler($event)" @input="searchHandler($event)" />
     </div>
     <div class="col-2 offset-5 topBar">
-      <li class="nav-item rightBar">
-        <button type="button" class="btn btn-lg" v-on:click="logOut()">
-          <i class="bi bi-box-arrow-in-right"></i>
-        </button>
-      </li>
-      <li class="nav-item rightBar">
-        <i class="bi bi-person-circle"></i>
-        {{ this.$store.state.auth.user.name }}
-      </li>
+      <ul>
+        <li class="nav-item rightBar">
+          <button type="button" class="btn btn-lg" v-on:click="logOut()">
+            <i class="bi bi-box-arrow-in-right"></i>
+          </button>
+        </li>
+        <li class="nav-item rightBar">
+          <i class="bi bi-person-circle"></i>
+          {{ this.$store.state.auth.user.name }}
+        </li>
+      </ul>
     </div>
   </div>
   <div class="row">
