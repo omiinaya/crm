@@ -72,6 +72,8 @@ export const storeX = reactive({
     comPhoneNumber: null
   },
 
+  currentNav: 'Home',
+
   warranty: [],
 
   HomeService: Services.homeService,
@@ -86,6 +88,7 @@ export const storeX = reactive({
   CSCService: Services.cscService,
 
   updateNavigation(obj) {
+    this.currentNav = obj.view;
     this.navigation.view = obj.view;
     this.navigation.customerId = obj.customerId;
     this.navigation.ticketId = obj.ticketId;

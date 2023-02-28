@@ -27,7 +27,11 @@
     <div class="col-12 offset-1 navBar">
       <div class="row">
         <div class="col-0-5 text-center" v-for="(link, index) in links" :key="link + index">
-          <button type="button" class="btn btn-lg" v-on:click="storeX.updateNavigation({ view: link.url })">
+          <button type="button" v-bind:class="{
+            'btn': true,
+            'btn-lg': true,
+            'selected': storeX.currentNav === link.title
+          }" @click="$event => navUpdate(/*$event,*/ link)">
             <div>
               <i :class="link.icon"></i>
             </div>
@@ -57,6 +61,9 @@ export default {
     this.getNavItems()
   },
   methods: {
+    testing123() {
+      console.log('test')
+    },
     async getNavItems() {
       const roleId = this.$store.state.auth.user.roleId;
       //attempt to get role, if fail, remove user token
@@ -99,6 +106,15 @@ export default {
         return `Customer: ${item.firstName} ${item.lastName} - ${item.email} - ${item.phone}`;
       }
     },
+    async navUpdate(/*$event,*/ link) {
+      /*
+      storeX.currentNav === link.title
+      console.log(storeX.currentNav)
+      console.log(link.title)
+      $event.target.blur()
+      */
+      storeX.updateNavigation({ view: link.url })
+    },
     selectHandler(e) {
       if (e.customerId) {
         this.storeX.updateNavigation({
@@ -130,12 +146,21 @@ export default {
         console.log(newData)
       },
       deep: true
+    },
+    /*
+    'selected' (newValue) {
+      console.log(newValue)
     }
+    */
   },
 }
 </script>
 
 <style scoped>
+.selected {
+  border: 1px solid black;
+}
+
 .navBar {
   padding: 10px;
 }
