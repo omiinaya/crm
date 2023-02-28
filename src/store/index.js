@@ -131,12 +131,6 @@ export const storeX = reactive({
     }
 
     window.history.pushState(null, "", url.toString());
-    /*
-    const user = store.state.auth.user; 
-    if (user) {
-      console.log(user)
-    }
-    */
   },
 
   padX(x) {
