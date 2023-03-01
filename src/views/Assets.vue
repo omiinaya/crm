@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-10 offset-1 top">
       <div class="top-spacing">
-        <div>Assets</div>
+        <div>{{ storeX.navigation.view }}</div>
         <div>
           <button type="button" class="btn btn-success" v-on:click="newAsset()">
             New Asset

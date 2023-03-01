@@ -1,5 +1,5 @@
 <template>
-    <div>test</div>
+    <div>{{ storeX.navigation.view }}</div>
 </template>
 
 <script>

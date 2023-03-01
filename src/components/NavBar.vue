@@ -24,13 +24,13 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-12 offset-1 navBar">
+    <div class="col-12 offset-1">
       <div class="row">
         <div class="col-0-5 text-center" v-for="(link, index) in links" :key="link + index">
           <button type="button" v-bind:class="{
             'btn': true,
             'btn-lg': true,
-            'selected': storeX.currentNav === link.title
+            'selected':  navHighlight(link)
           }" @click="$event => navUpdate(/*$event,*/ link)">
             <div>
               <i :class="link.icon"></i>
@@ -139,6 +139,17 @@ export default {
       }
       this.$router.go(0);
     },
+    navHighlight(link) {
+      const isNav = storeX.navigation.view === link.title;
+      //const isNavSub = storeX.navigation.view.includes(link.title);
+
+      //const view = storeX.navigation.view;
+      //console.log(view)
+      console.log(link.title)
+      //console.log("1: "+ isNav)
+      //onsole.log("2: "+ isNavSub) 
+      return isNav//&& isNavSub;
+    }
   },
   watch: {
     assetForm: {
@@ -147,18 +158,14 @@ export default {
       },
       deep: true
     },
-    /*
-    'selected' (newValue) {
-      console.log(newValue)
-    }
-    */
   },
 }
 </script>
 
 <style scoped>
 .selected {
-  background-color: black;
+  background-color: #121212;
+  border-radius: 0;
 }
 
 .navBar {
