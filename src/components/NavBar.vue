@@ -158,7 +158,7 @@ export default {
 
 <style scoped>
 .selected {
-  border: 1px solid black;
+  background-color: black;
 }
 
 .navBar {
