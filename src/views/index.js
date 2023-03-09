@@ -14,6 +14,7 @@ const Time = defineAsyncComponent(() => import('./Time.vue'));
 const Login = defineAsyncComponent(()=> import('./Login.vue'));
 const Invoices = defineAsyncComponent(()=> import('./Invoices.vue'));
 const Home = defineAsyncComponent(()=> import('./Home.vue'));
+const Home2 = defineAsyncComponent(()=> import('./Home2.vue'));
 const Technicians = defineAsyncComponent(()=> import('./Technicians.vue'));
 const Customers = defineAsyncComponent(()=> import('./Customers.vue'));
 const Assets = defineAsyncComponent(()=> import('./Assets.vue'));
@@ -41,6 +42,7 @@ export {
     Assets,
     Customers,
     Home,
+    Home2,
     Invoices,
     Login,
     Register,
