@@ -2,7 +2,7 @@ const db = require("../models");
 const Ticket = db.ticket;
 const Asset = db.asset;
 const Com = db.com;
-const io = require('socket.io-client');
+//const io = require('socket.io-client');
 
 const PORT = parseInt(process.env.PORT);
 const IS_PROD = process.env.NODE_ENV === "production";
@@ -148,8 +148,8 @@ exports.update = (req, res) => {
   })
     .then((num) => {
       if (num == 1) {
-        const socket = io(URL);
-        socket.emit("ticketUpdateRequest", id);
+        //const socket = io(URL);
+        //socket.emit("ticketUpdateRequest", id);
         res.send({
           message: "Tutorial was updated successfully.",
         });

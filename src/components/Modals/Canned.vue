@@ -46,22 +46,26 @@ export default {
                 title: 'REPAIR DECLINED',
                 body: `This message is to inform you the system dropped off for service is ready for pickup. Our system notes indicate the diagnostic was complete and you have chosen to decline repair.  Should you have any questions or concerns please call us at 305-381-5898.`
             },
+            /*
             {   
                 id: 1,
                 title: 'REPAIR COMPLETE (FUJITSU)',
                 body: `${storeX.customer.name}, we have great news! Ticket# ${storeX.ticket.id}, Serial# ${storeX.asset[0].assetSerial} has been repaired and is ready to ship back to your facility. Should you have any questions, please call us at 305-381-5898 Thank you again for choosing MobileMe IT for your repair needs.`
             },
+            */
             {
                 id: 2,
                 title: 'PARTS ORDERED',
                 body: `This message is to update and inform you that our technicians have completed the diagnostics of your system and determined parts are required in order to complete the repair. The required parts have been placed on order. As soon as those parts are received and installed, we will notify you that your repair has been completed.  Thank you again for entrusting MobileMe IT with your repair needs, should you require any 
 immediate assistance or have any questions. Please call our center at 305-381-5898.`
             },
+            /*
             {
                 id: 3,
                 title: 'REPAIR COMPLETE',
                 body: `${storeX.customer.name}, we have great news! Ticket#: ${storeX.ticket.id}, Serial# ${storeX.asset[0].assetSerial} has been repaired and is ready for pickup. You can come by anytime Mon-Fri from 10am-6pm. Should you have any questions, please call us at 305-381-5898 Thank you again for choosing MobileMe IT for your repair needs.`
             }
+                */
         ],
         headers: [
             { value: "title", text: "TITLE", sortable: true },

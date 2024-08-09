@@ -1,7 +1,7 @@
 const db = require("../models");
 const Com = db.com;
-const io = require('socket.io-client');
-const nodemailer = require('nodemailer');
+//const io = require('socket.io-client');
+//const nodemailer = require('nodemailer');
 
 const PORT = parseInt(process.env.PORT);
 const IS_PROD = process.env.NODE_ENV === "production";
@@ -10,6 +10,7 @@ const URL = IS_PROD ? "https://mmit-crm.herokuapp.com" : `http://localhost:${POR
 const accountSid = process.env.TWILIO_SID;
 const authToken = process.env.TWILIO_AUTH;
 
+/*
 const transport = nodemailer.createTransport({
   service: process.env.MAIL_SERVICE,
   host: process.env.MAIL_HOST,
@@ -24,9 +25,11 @@ const transport = nodemailer.createTransport({
     rejectUnauthorized: false,
   }
 });
+*/
 
-const client = require('twilio')(accountSid, authToken);
+//const client = require('twilio')(accountSid, authToken);
 
+/*
 function sendText(message, sender, receiver) {
   client.messages
     .create({
@@ -36,6 +39,9 @@ function sendText(message, sender, receiver) {
     })
     .then(message => console.log(message.sid));
 }
+    */
+
+/*
 
 function sendMail(email, subject, text) {
   transport.sendMail({
@@ -51,6 +57,7 @@ function sendMail(email, subject, text) {
     }
   });
 }
+*/
 
 exports.create = async (req, res) => {
   let com = req.body;
@@ -61,23 +68,23 @@ exports.create = async (req, res) => {
     const message = com.comMsg;
     const number = `+1${com.comPhoneNumber.replaceAll('-', '')}`
     const twilio = `+1${7866613221}`
-    const socket = io(URL);
+    //const socket = io(URL);
     const email = com.customerEmail;
     const subject = `Ticket #${ticketId}`
 
-    socket.emit("comCreatedRequest", ticketId);
+    //socket.emit("comCreatedRequest", ticketId);
 
     // Use switch statement instead of if/else
     switch (visibility) {
       case "Email + SMS":
-        sendText(message, twilio, number);
-        sendMail(email, subject, message);
+        //sendText(message, twilio, number);
+        //sendMail(email, subject, message);
         break;
       case "SMS":
-        sendText(message, twilio, number);
+        //sendText(message, twilio, number);
         break;
       case "Email":
-        sendMail(email, subject, message);
+        //sendMail(email, subject, message);
         break;
     }
 

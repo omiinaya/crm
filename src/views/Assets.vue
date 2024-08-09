@@ -57,7 +57,7 @@ export default defineComponent({
         //{ value: "id", text: "ID", sortable: true },
         { value: "assetName", text: "NAME", sortable: true },
         { value: "customerName", text: "CUSTOMER", sortable: true },
-        { value: "assetSerial", text: "SERIAL", sortable: true },
+        //{ value: "assetSerial", text: "SERIAL", sortable: true },
         { value: "assetType", text: "TYPE", sortable: true },
         { value: "assetBrand", text: "MANUFACTURER", sortable: true },
         { value: "assetTag", text: "TAG", sortable: true },
@@ -93,9 +93,11 @@ export default defineComponent({
       this.searchFilter = value;
     },
 
+    
     async init() {
       await storeX.loadAssetData()
       //do stuff with assets after they have loaded.
+      /*
       storeX.assets.forEach(async asset => {
         const id = asset.id;
         const serial = asset.assetSerial;
@@ -106,8 +108,9 @@ export default defineComponent({
           url: warranty[1]
         };
         this.hasLoaded++;
-      })
+      })*/
     },
+    
 
     async newAsset() {
       storeX.updateNavigation({ view: 'NewAsset' })
@@ -123,17 +126,17 @@ export default defineComponent({
 
         const name = asset.assetName || '';
         const customer = asset.customerName || '';
-        const serial = asset.assetSerial || '';
+        //const serial = asset.assetSerial || '';
         const brand = asset.assetBrand || '';
         const type = asset.assetType || '';
 
         const ifName = name.toLowerCase().includes(input);
         const ifCustomer = customer.toLowerCase().includes(input);
-        const ifSerial = serial.toLowerCase().includes(input);
+        //const ifSerial = serial.toLowerCase().includes(input);
         const ifBrand = brand.toLowerCase().includes(input);
         const ifType = type.toLowerCase().includes(input);
 
-        const byCondition = ifName || ifCustomer || ifSerial || ifBrand || ifType;
+        const byCondition = ifName || ifCustomer /*|| ifSerial*/ || ifBrand || ifType;
 
         return byCondition;
       })

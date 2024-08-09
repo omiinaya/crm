@@ -1,15 +1,15 @@
 import { createStore } from "vuex";
 import { auth } from "./auth.module";
 import { reactive } from "vue";
-import io from "socket.io-client";
+//import io from "socket.io-client";
 import moment from 'moment'
 
 import * as Services from "../services";
 
-const IS_PROD = process.env.NODE_ENV === "production";
-const sURL = IS_PROD ? "https://mmit-crm.herokuapp.com" : `http://localhost:8090`;
+//const IS_PROD = process.env.NODE_ENV === "production";
+//const sURL = IS_PROD ? "https://mmit-crm.herokuapp.com" : `http://localhost:9001`;
 
-const socket = io(sURL);
+//const socket = io(sURL);
 
 const store = createStore({
   modules: {
@@ -30,7 +30,7 @@ export const storeX = reactive({
     ticketId: null,
     assetId: null,
   },
-  io: socket,
+  //io: socket,
   history: getHistory(),
   home: { actions: null },
   tickets: [],
@@ -239,6 +239,7 @@ export const storeX = reactive({
     this.formatDate(this.tickets);
   },
 
+  /*
   async loadWarrantyData(serial) {
     //using sync call to avoid
     try {
@@ -252,7 +253,8 @@ export const storeX = reactive({
       console.log(e);
     }
   },
-
+  */
+  /*
   async bLoadWarrantyData(serial) {
     try {
       const input = serial.trim();
@@ -264,6 +266,7 @@ export const storeX = reactive({
       return false;
     }
   },
+  ()*/
 
   async loadAssetData() {
     const req = await this.AssetService.getAssets()
@@ -353,7 +356,7 @@ export const storeX = reactive({
 
     this.asset = data;
     data[0].assetName = data[0].assetName.split('(')[0];
-    this.loadWarrantyData(data[0].assetSerial);
+    //this.loadWarrantyData(data[0].assetSerial);
     return data;
   },
 
@@ -364,7 +367,7 @@ export const storeX = reactive({
 
     this.asset = data;
     data[0].assetName = data[0].assetName.split('(')[0];
-    this.loadWarrantyData(data[0].assetSerial);
+    //this.loadWarrantyData(data[0].assetSerial);
     return data;
   },
 

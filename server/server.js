@@ -9,7 +9,7 @@ const app = express();
 const port = parseInt(process.env.PORT) || 8080;
 const path = require('path');
 
-const origins = { origin: ["http://localhost:8091", "http://localhost:8092", "https://mmit-crm.herokuapp.com/"] };
+const origins = { origin: ["http://localhost:9000", "http://localhost:9001"] };
 
 app.use(cors(origins));
 
@@ -28,8 +28,8 @@ app.get('/', function (req, res) {
 require("./routes/nav.routes")(app);
 require("./routes/auth.routes")(app);
 require("./routes/user.routes")(app);
-require("./routes/com.routes")(app);
 require("./routes/home.routes")(app);
+require("./routes/com.routes")(app);
 require("./routes/asset.routes")(app);
 require("./routes/number.routes")(app);
 require("./routes/ticket.routes")(app);
@@ -49,6 +49,7 @@ const server = app.listen(port, () => {
     cors: origins,
   };
 
+  /*
   const io = require("socket.io")(server, options);
 
   io.on('connection', client => {
@@ -71,4 +72,5 @@ const server = app.listen(port, () => {
       io.emit("ticketUpdateResponse", id);
     });
   });
+  */
 })();

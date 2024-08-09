@@ -44,8 +44,10 @@
             }}:
             </label>
             <div class="col-sm-4">
+              <!--
               <input :type="field.type" class="form-control" :id="field.label + index" :placeholder="field.placeholder"
                 v-model="assetForm[field.name]" @input="warrantyHandler()" />
+                -->
             </div>
             <div class="col-sm-5">
               <div v-show="assetForm[field.name].length < 8 || assetForm[field.name].length > 8">
@@ -99,6 +101,7 @@ export default {
     storeX
   }),
   methods: {
+    /*
     async warrantyHandler() {
       this.warranty = '';                                                             
       const serial = this.assetForm['assetSerial'];                 
@@ -107,6 +110,7 @@ export default {
       if (!warranty) return this.warranty = 'This is not a valid serial.';
       this.warranty = warranty[0];
     },
+    */
     dropdownHandler(type, name) {
       this.assetForm[name] = type;
     },

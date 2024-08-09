@@ -100,15 +100,15 @@ export default defineComponent({
 
         const id = ticket.id;
         const customer = ticket.customerName || '';
-        const serial = ticket.assetSerial || '';
+        //const serial = ticket.assetSerial || '';
         const status = ticket.ticketStatus || '';
 
         const ifId = id.toString().includes(input);
         const ifCustomer = customer.toLowerCase().includes(input);
-        const ifSerial = serial.toLowerCase().includes(input);
+        //const ifSerial = serial.toLowerCase().includes(input);
         const ifStatus = status.toLowerCase().includes(input);
 
-        const byCondition = ifId || ifCustomer || ifSerial || ifStatus;
+        const byCondition = ifId || ifCustomer /*|| ifSerial*/ || ifStatus;
 
         return byCondition;
 

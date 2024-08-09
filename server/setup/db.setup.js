@@ -21,17 +21,17 @@ const LocationFields = db.locationFields;
 const CustomerSettingsFields = db.customerSettingsFields;
 
 const config = {
-  host: process.env.HOST,
+  host: process.env.DB_HOST,
   port: process.env.DB_PORT,
-  user: process.env.USER,
-  password: process.env.PASSWORD,
+  user: process.env.DB_USER,
+  password: process.env.DB_PWD,
 };
 
 const connection = mysql.createConnection(config);
 const query = util.promisify(connection.query).bind(connection);
 
 async function setup() {
-  await query(`CREATE DATABASE IF NOT EXISTS \`${process.env.DB}\`;`);
+  await query(`CREATE DATABASE IF NOT EXISTS \`${process.env.DB_NAME}\`;`);
   console.log(config)
   //comment force:true to stop resetting the database on server restart
   db.sequelize.sync({ force: true }).then(() => dummyData());

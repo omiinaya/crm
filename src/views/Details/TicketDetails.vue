@@ -394,6 +394,7 @@ export default {
   created() {
     this.init();
 
+    /*
     this.storeX.io.on('comCreatedResponse', (id) => {
       if (this.storeX.navigation.ticketId != id) return;
       this.loadComData(this.storeX.navigation.ticketId);
@@ -403,6 +404,7 @@ export default {
       if (this.storeX.navigation.ticketId != id) return;
       storeX.loadTicketById(this.storeX.navigation.ticketId);
     })
+      */
   },
 
   computed: {

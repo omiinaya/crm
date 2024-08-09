@@ -77,7 +77,7 @@
                 <label class="col-sm-6">
                   <i class="bi bi-upc-scan"></i> Serial:
                 </label>
-                <div class="col-sm-6">{{ storeX.asset[0].assetSerial }}</div>
+                <!--<div class="col-sm-6">{{ storeX.asset[0].assetSerial }}</div>-->
               </div>
               <div class="row align-items-center mb-2">
                 <label class="col-sm-6">

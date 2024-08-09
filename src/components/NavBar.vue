@@ -98,10 +98,11 @@ export default {
         return `Ticket: #${item.ticketId} - ${item.customerName} - ${item.ticketDesc}`;
 
       }
+      /*
       else if ("assetId" in item) {
         return `Asset: ${item.assetSerial}`;
 
-      }
+      }*/
       else if ("customerId" in item) {
         return `Customer: ${item.firstName} ${item.lastName} - ${item.email} - ${item.phone}`;
       }
