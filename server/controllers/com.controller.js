@@ -1,14 +1,17 @@
 const db = require("../models");
 const Com = db.com;
-//const io = require('socket.io-client');
+const io = require('socket.io-client');
+
 //const nodemailer = require('nodemailer');
 
-const PORT = parseInt(process.env.PORT);
+const PORT = parseInt(process.env.APP_PORT);
 const IS_PROD = process.env.NODE_ENV === "production";
 const URL = IS_PROD ? "https://mmit-crm.herokuapp.com" : `http://localhost:${PORT}`;
 
-const accountSid = process.env.TWILIO_SID;
-const authToken = process.env.TWILIO_AUTH;
+const socket = io(URL);
+
+//const accountSid = process.env.TWILIO_SID;
+//const authToken = process.env.TWILIO_AUTH;
 
 /*
 const transport = nodemailer.createTransport({
@@ -65,14 +68,14 @@ exports.create = async (req, res) => {
     const request = await Com.create(com);
     const ticketId = await request.comTicketId;
     const visibility = com.comVis;
-    const message = com.comMsg;
-    const number = `+1${com.comPhoneNumber.replaceAll('-', '')}`
-    const twilio = `+1${7866613221}`
-    //const socket = io(URL);
-    const email = com.customerEmail;
-    const subject = `Ticket #${ticketId}`
+    //const message = com.comMsg;
+    //const number = `+1${com.comPhoneNumber.replaceAll('-', '')}`
+    //const twilio = `+1${7866613221}`
+   
+    //const email = com.customerEmail;
+    //const subject = `Ticket #${ticketId}`
 
-    //socket.emit("comCreatedRequest", ticketId);
+    socket.emit("comCreatedRequest", ticketId);
 
     // Use switch statement instead of if/else
     switch (visibility) {

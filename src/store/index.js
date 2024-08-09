@@ -1,15 +1,13 @@
 import { createStore } from "vuex";
 import { auth } from "./auth.module";
 import { reactive } from "vue";
-//import io from "socket.io-client";
+import io from "socket.io-client";
 import moment from 'moment'
 
 import * as Services from "../services";
 
-//const IS_PROD = process.env.NODE_ENV === "production";
-//const sURL = IS_PROD ? "https://mmit-crm.herokuapp.com" : `http://localhost:9001`;
-
-//const socket = io(sURL);
+const IS_PROD = process.env.NODE_ENV === "production";
+const sURL = IS_PROD ? "https://mmit-crm.herokuapp.com" : `http://localhost:9000`;
 
 const store = createStore({
   modules: {
@@ -30,7 +28,7 @@ export const storeX = reactive({
     ticketId: null,
     assetId: null,
   },
-  //io: socket,
+  io: io(sURL),
   history: getHistory(),
   home: { actions: null },
   tickets: [],

@@ -6,7 +6,7 @@ const Location = db.location;
 const CustomerSettings = db.customerSettings;
 const Op = db.Sequelize.Op;
 
-const PORT = process.env.PORT
+const PORT = parseInt(process.env.APP_PORT);
 const IS_PROD = process.env.NODE_ENV === "production";
 const URL = IS_PROD ? "https://mmit-crm.herokuapp.com" : `http://localhost:${PORT}`;
 

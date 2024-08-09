@@ -3,7 +3,7 @@ const TicketFields = db.ticketFields
 const Op = db.Sequelize.Op;
 const axios = require("axios")
 
-const PORT = process.env.PORT
+const PORT = parseInt(process.env.APP_PORT);
 const IS_PROD = process.env.NODE_ENV === "production";
 const URL = IS_PROD ? "https://mmit-crm.herokuapp.com" : `http://localhost:${PORT}`;
 

@@ -2,11 +2,13 @@ const db = require("../models");
 const Ticket = db.ticket;
 const Asset = db.asset;
 const Com = db.com;
-//const io = require('socket.io-client');
+const io = require('socket.io-client');
 
-const PORT = parseInt(process.env.PORT);
+const PORT = parseInt(process.env.APP_PORT);
 const IS_PROD = process.env.NODE_ENV === "production";
 const URL = IS_PROD ? "https://mmit-crm.herokuapp.com" : `http://localhost:${PORT}`;
+
+const socket = io(URL);
 
 exports.create = async (req, res) => {
   try {
@@ -147,9 +149,9 @@ exports.update = (req, res) => {
     where: { id: id },
   })
     .then((num) => {
+      console.log(num)
       if (num == 1) {
-        //const socket = io(URL);
-        //socket.emit("ticketUpdateRequest", id);
+        socket.emit("ticketUpdateRequest", id);
         res.send({
           message: "Tutorial was updated successfully.",
         });
