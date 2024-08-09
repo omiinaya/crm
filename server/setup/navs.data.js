@@ -19,6 +19,7 @@ const navs = [
     icon: "bi bi-laptop",
     url: "Assets",
   },
+  /*
   {
     title: "Invoices",
     icon: "bi bi-cart",
@@ -52,6 +53,7 @@ const navs = [
     url: "Admin",
     roleId: 3,
   },
+  */
 
 ];
 
