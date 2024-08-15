@@ -10,7 +10,7 @@ const port = parseInt(process.env.APP_PORT) || 8080;
 const path = require('path');
 const http = require('http')
 
-const origins = { origin: ["http://localhost:9000", "http://localhost:9001", "http://localhost:8080"] };
+const origins = { origin: ["http://localhost:9000", "http://localhost:9001", "http://localhost:8080", "http://192.168.1.77:9000", "https://192.168.1.77:9000"] };
 
 app.use(cors(origins));
 
